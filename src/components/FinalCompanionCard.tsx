@@ -23,12 +23,12 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
       <div className="pointer-events-none absolute inset-x-10 bottom-8 h-px bg-[linear-gradient(to_right,transparent,rgba(247,243,238,0.08),transparent)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(108deg,transparent_0%,rgba(247,243,238,0.045)_36%,transparent_37%,transparent_60%,rgba(216,162,94,0.05)_72%,transparent_73%)]" />
       <div className="relative grid min-h-[440px] grid-cols-[0.88fr_1.12fr] gap-5 sm:min-h-[520px] sm:grid-cols-[0.94fr_1.06fr] sm:gap-10 lg:gap-14">
-        <div className="relative overflow-hidden rounded-[1.35rem] border border-[rgba(247,243,238,0.08)] bg-[rgba(247,243,238,0.045)] sm:rounded-[1.7rem]">
+        <div className="relative flex items-center justify-center overflow-hidden rounded-[1.35rem] border border-[rgba(247,243,238,0.08)] bg-[rgba(247,243,238,0.045)] sm:rounded-[1.7rem]">
           {card.photoUrl ? (
             <img
               src={card.photoUrl}
               alt={`${displayName} companion portrait`}
-              className="block h-full w-full object-cover object-center brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
+              className="block max-h-[92%] max-w-[92%] object-contain object-center brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(145deg,#d9c4a2,#8d927b_58%,#5c4b35)] px-5 text-center text-[0.62rem] uppercase tracking-[0.24em] text-[rgba(255,248,235,0.8)] sm:text-xs sm:tracking-[0.3em]">

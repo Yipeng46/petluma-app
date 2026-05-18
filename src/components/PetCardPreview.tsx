@@ -31,13 +31,13 @@ export function PetCardPreview({
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(108deg,transparent_0%,rgba(247,243,238,0.045)_36%,transparent_37%,transparent_60%,rgba(216,162,94,0.05)_72%,transparent_73%)]" />
 
         <div className="relative grid min-h-[360px] grid-cols-[0.86fr_1.14fr] gap-3 sm:min-h-[390px] sm:grid-cols-[0.92fr_1.08fr] sm:gap-7">
-          <div className="relative overflow-hidden rounded-[1.25rem] border border-[rgba(247,243,238,0.08)] bg-[rgba(247,243,238,0.045)]">
+          <div className="relative flex items-center justify-center overflow-hidden rounded-[1.25rem] border border-[rgba(247,243,238,0.08)] bg-[rgba(247,243,238,0.045)]">
             {photoUrl ? (
               // Plain img keeps local object URLs simple and dependency-free.
               <img
                 src={photoUrl}
                 alt={`${displayName} companion portrait`}
-                className="block h-full w-full object-cover object-center brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
+                className="block max-h-[92%] max-w-[92%] object-contain object-center brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(145deg,#d9c4a2,#8d927b_58%,#5c4b35)] px-5 text-center text-[0.62rem] uppercase tracking-[0.24em] text-[rgba(255,248,235,0.8)] sm:px-8 sm:text-xs sm:tracking-[0.3em]">
