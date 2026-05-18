@@ -28,7 +28,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             <img
               src={card.photoUrl}
               alt={`${displayName} companion portrait`}
-              className="h-full w-full object-cover brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
+              className="block h-full w-full object-cover object-center brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(145deg,#d9c4a2,#8d927b_58%,#5c4b35)] px-5 text-center text-[0.62rem] uppercase tracking-[0.24em] text-[rgba(255,248,235,0.8)] sm:text-xs sm:tracking-[0.3em]">
