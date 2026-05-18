@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f6efe3;
+  --cream-deep: #eadcc8;
+  --espresso: #2f2119;
+  --espresso-soft: #6f5b4b;
+  --gold: #c7a15f;
+  --sage: #8d927b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(199, 161, 95, 0.22), transparent 30rem),
+    linear-gradient(135deg, #f8f0e4 0%, #efe0cb 52%, #f7efe3 100%);
+  color: var(--espresso);
+  font-family:
+    "Inter", "Avenir Next", "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(199, 161, 95, 0.35);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.pet-serif {
+  font-family:
+    Georgia, "Times New Roman", Times, serif;
+}
+
+.pet-card-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.075;
+  mix-blend-mode: soft-light;
+  background-image:
+    radial-gradient(circle at 18% 28%, rgba(247, 243, 238, 0.5) 0 0.5px, transparent 0.7px),
+    radial-gradient(circle at 72% 16%, rgba(247, 243, 238, 0.32) 0 0.5px, transparent 0.7px),
+    radial-gradient(circle at 44% 76%, rgba(0, 0, 0, 0.42) 0 0.5px, transparent 0.7px);
+  background-size: 21px 21px, 27px 27px, 35px 35px;
+}
