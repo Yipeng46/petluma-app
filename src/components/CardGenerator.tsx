@@ -36,7 +36,7 @@ export function CardGenerator() {
     reader.readAsDataURL(file);
   }
 
-  function handlePreviewFinalCard() {
+  async function handlePreviewFinalCard() {
     const card: StoredCompanionCard = {
       name,
       breed,
@@ -46,10 +46,47 @@ export function CardGenerator() {
     };
 
     try {
+      console.log("[PetLuma] Preview Final Card clicked", {
+        pet_name: name,
+        breed,
+        hasPhotoUrl: Boolean(photoUrl),
+      });
+
+      const response = await fetch("/api/pets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pet_name: name,
+          breed,
+          photo_url: photoUrl,
+        }),
+      });
+      const data = await response.json();
+
+      console.log("[PetLuma] /api/pets response", {
+        status: response.status,
+        ok: response.ok,
+        data,
+      });
+
+      if (!response.ok) {
+        console.error("[PetLuma] /api/pets full error", data);
+        throw new Error(data?.error || "Could not save pet.");
+      }
+
+      console.log("[PetLuma] saved pet", data.pet);
+
       localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
       router.push("/result");
-    } catch {
-      alert("The selected photo is too large to preview on the result page.");
+    } catch (error) {
+      console.error("[PetLuma] Preview Final Card save error", error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "The selected photo is too large to preview on the result page.",
+      );
     }
   }
 
