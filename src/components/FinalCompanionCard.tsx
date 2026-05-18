@@ -9,92 +9,182 @@ type FinalCompanionCardProps = {
 export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
   const displayName = card.name.trim() || "Luma";
   const displayBreed = card.breed.trim() || "Golden Retriever";
-  const displayPersonality =
-    card.personality.trim() || "Gentle, sun-warmed, and quietly adventurous.";
   const displayFavoritePlace =
-    card.favoritePlace.trim() || "The pine trail at dusk";
+    card.favoritePlace.trim() || "The Pine Trail at Dusk";
+  const displayGender = "Companion";
+  const displayDateOfBirth = "Not declared";
+  const displayKingdomId = "PLM-2026-0001";
+  const mrzName = displayName
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g, "<")
+    .replace(/^<|<$/g, "");
 
   return (
     <article
       ref={cardRef}
-      className="pet-card-grain relative w-full overflow-hidden rounded-[2rem] border border-[rgba(216,162,94,0.26)] bg-[radial-gradient(circle_at_14%_18%,rgba(247,243,238,0.08),transparent_18rem),radial-gradient(circle_at_78%_22%,rgba(216,162,94,0.1),transparent_22rem),linear-gradient(120deg,#241812_0%,#2b1c14_42%,#1d130f_100%)] p-5 text-[#f7f3ee] shadow-[inset_0_0_0_1px_rgba(247,243,238,0.04),0_34px_100px_rgba(47,33,25,0.24)] sm:rounded-[2.35rem] sm:p-8 lg:p-10"
+      className="relative w-full overflow-hidden rounded-[2rem] border border-[#c7a15f]/30 bg-[#081526] p-4 text-[#172030] shadow-[0_36px_110px_rgba(8,21,38,0.34)] sm:rounded-[2.5rem] sm:p-6 lg:p-8"
     >
-      <div className="pointer-events-none absolute inset-x-8 top-8 h-px bg-[linear-gradient(to_right,transparent,rgba(216,162,94,0.42),transparent)]" />
-      <div className="pointer-events-none absolute inset-x-10 bottom-8 h-px bg-[linear-gradient(to_right,transparent,rgba(247,243,238,0.08),transparent)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(108deg,transparent_0%,rgba(247,243,238,0.045)_36%,transparent_37%,transparent_60%,rgba(216,162,94,0.05)_72%,transparent_73%)]" />
-      <div className="relative grid min-h-[440px] grid-cols-[0.88fr_1.12fr] gap-5 sm:min-h-[520px] sm:grid-cols-[0.94fr_1.06fr] sm:gap-10 lg:gap-14">
-        <div className="relative flex items-center justify-center overflow-hidden rounded-[1.35rem] border border-[rgba(247,243,238,0.08)] bg-[rgba(247,243,238,0.045)] sm:rounded-[1.7rem]">
-          {card.photoUrl ? (
-            <img
-              src={card.photoUrl}
-              alt={`${displayName} companion portrait`}
-              className="block max-h-[92%] max-w-[92%] object-contain object-center brightness-[0.96] contrast-[0.9] saturate-[0.82] sepia-[0.16]"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(145deg,#d9c4a2,#8d927b_58%,#5c4b35)] px-5 text-center text-[0.62rem] uppercase tracking-[0.24em] text-[rgba(255,248,235,0.8)] sm:text-xs sm:tracking-[0.3em]">
-              Companion Portrait
-            </div>
-          )}
-          <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(216,162,94,0.16),transparent_34%),linear-gradient(180deg,transparent_48%,rgba(36,24,18,0.42))]" />
-          <span className="absolute bottom-4 left-4 border-l border-[rgba(216,162,94,0.55)] pl-3 text-[0.52rem] uppercase tracking-[0.24em] text-[rgba(247,243,238,0.72)] sm:bottom-6 sm:left-6 sm:text-[0.58rem]">
-            Outdoor Luxury
-          </span>
-        </div>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.22),transparent_18rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.16),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_42%,rgba(0,0,0,0.22))]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.11] [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.8)_1px,transparent_0)] [background-size:5px_5px]" />
 
-        <div className="flex min-w-0 flex-col justify-between py-1 sm:py-3">
-          <div>
-            <div className="flex items-center justify-between gap-4 border-b border-[rgba(216,162,94,0.18)] pb-5 sm:pb-7">
-              <p className="text-[0.5rem] uppercase tracking-[0.28em] text-[#d8a25e] sm:text-[0.6rem] sm:tracking-[0.42em]">
-                PetLuma Companion Card
+      <div className="relative grid min-h-[520px] gap-4 lg:grid-cols-[0.74fr_1.26fr] lg:gap-0">
+        <section className="relative overflow-hidden rounded-[1.7rem] border border-[#d9b36c]/24 bg-[linear-gradient(145deg,#06101f_0%,#0b1c32_48%,#06101f_100%)] p-8 text-[#f6ecd8] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)] lg:rounded-r-none lg:border-r-0">
+          <div className="pointer-events-none absolute inset-0 opacity-[0.16] [background-image:linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.2)_44%,transparent_45%),radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.45)_1px,transparent_0)] [background-size:220px_220px,6px_6px]" />
+          <div className="relative flex h-full min-h-[440px] flex-col items-center justify-between text-center">
+            <div>
+              <p className="text-[0.58rem] uppercase tracking-[0.48em] text-[#d9b36c]/78">
+                Official Companion Document
               </p>
-              <p className="hidden text-[0.54rem] uppercase tracking-[0.32em] text-[rgba(247,243,238,0.36)] sm:block">
-                PL-2026
+              <h2 className="pet-serif mt-8 text-5xl font-normal leading-[0.9] tracking-[-0.055em] text-[#fff7e8] sm:text-6xl">
+                PetLuma
+                <span className="mt-2 block text-4xl tracking-[-0.04em] sm:text-5xl">
+                  Passport
+                </span>
+              </h2>
+            </div>
+
+            <div className="relative flex h-28 w-28 items-center justify-center rounded-full border border-[#d9b36c]/55 bg-[#d9b36c]/8">
+              <div className="absolute inset-3 rounded-full border border-[#d9b36c]/32" />
+              <span className="pet-serif text-4xl text-[#d9b36c]">PL</span>
+            </div>
+
+            <div className="w-full border-t border-[#d9b36c]/22 pt-6">
+              <p className="text-[0.62rem] uppercase leading-5 tracking-[0.32em] text-[#f6ecd8]/52">
+                Kingdom of beloved companions
               </p>
-            </div>
-
-            <h2 className="pet-serif mt-12 break-words text-5xl font-normal leading-[0.86] tracking-[-0.075em] text-[#f7f3ee] sm:mt-16 sm:text-7xl lg:text-8xl">
-              {displayName}
-            </h2>
-            <div className="mt-7 h-px w-16 bg-[rgba(216,162,94,0.58)] sm:mt-9 sm:w-24" />
-          </div>
-
-          <div className="mt-12 space-y-8 sm:mt-16 sm:space-y-10">
-            <p className="pet-serif max-w-xl text-base leading-7 text-[rgba(247,243,238,0.76)] sm:text-2xl sm:leading-9">
-              {displayPersonality}
-            </p>
-
-            <div className="grid gap-5 border-y border-[rgba(216,162,94,0.16)] py-5 sm:grid-cols-2 sm:gap-10 sm:py-7">
-              <div>
-                <p className="text-[0.5rem] uppercase tracking-[0.28em] text-[#d8a25e] sm:text-[0.56rem] sm:tracking-[0.36em]">
-                  Breed
-                </p>
-                <p className="mt-3 text-xs leading-5 text-[rgba(247,243,238,0.64)] sm:text-sm sm:leading-6">
-                  {displayBreed}
-                </p>
-              </div>
-              <div>
-                <p className="text-[0.5rem] uppercase tracking-[0.28em] text-[#d8a25e] sm:text-[0.56rem] sm:tracking-[0.36em]">
-                  Favorite Place
-                </p>
-                <p className="mt-3 text-xs leading-5 text-[rgba(247,243,238,0.64)] sm:text-sm sm:leading-6">
-                  {displayFavoritePlace}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <p className="text-[0.5rem] uppercase tracking-[0.24em] text-[rgba(247,243,238,0.36)] sm:text-[0.56rem] sm:tracking-[0.34em]">
-                  PetLuma
-                </p>
-                <p className="mt-1 hidden text-[0.52rem] uppercase tracking-[0.28em] text-[rgba(247,243,238,0.34)] sm:block">
-                  Making pet life brighter
-                </p>
-              </div>
+              <p className="mt-4 text-[0.58rem] uppercase tracking-[0.28em] text-[#d9b36c]/72">
+                {displayKingdomId}
+              </p>
             </div>
           </div>
-        </div>
+        </section>
+
+        <section className="relative overflow-hidden rounded-[1.7rem] border border-[#d9b36c]/28 bg-[linear-gradient(135deg,#fff8e9_0%,#f2e4c9_52%,#fffaf0_100%)] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.68)] lg:rounded-l-none sm:p-8">
+          <div className="pointer-events-none absolute inset-y-8 left-0 w-px bg-[#b9914c]/35" />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:linear-gradient(90deg,rgba(8,21,38,0.08)_1px,transparent_1px),linear-gradient(0deg,rgba(8,21,38,0.05)_1px,transparent_1px)] [background-size:28px_28px]" />
+
+          <div className="relative flex min-h-[456px] flex-col">
+            <header className="flex items-start justify-between gap-6 border-b border-[#b9914c]/35 pb-5">
+              <div>
+                <p className="text-[0.62rem] uppercase tracking-[0.42em] text-[#8c6a2e]">
+                  PetLuma Passport
+                </p>
+                <h1 className="pet-serif mt-3 text-4xl font-normal leading-none tracking-[-0.055em] text-[#0b1c32] sm:text-5xl">
+                  Identity Page
+                </h1>
+              </div>
+              <div className="rounded-full border border-[#b9914c]/45 px-4 py-2 text-[0.56rem] uppercase tracking-[0.24em] text-[#8c6a2e]">
+                Official
+              </div>
+            </header>
+
+            <div className="mt-7 grid flex-1 gap-7 lg:grid-cols-[0.86fr_1.14fr]">
+              <div>
+                <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[1.1rem] border border-[#b9914c]/35 bg-[#0b1c32]/8 p-3">
+                  {card.photoUrl ? (
+                    <img
+                      src={card.photoUrl}
+                      alt={`${displayName} passport portrait`}
+                      className="block max-h-full max-w-full object-contain object-center saturate-[0.86] sepia-[0.08]"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center rounded-[0.85rem] bg-[#0b1c32]/12 px-5 text-center text-[0.58rem] uppercase tracking-[0.28em] text-[#0b1c32]/42">
+                      Portrait
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-5 rounded-[1rem] border border-[#b9914c]/35 p-4 text-center">
+                  <p className="text-[0.54rem] uppercase tracking-[0.28em] text-[#8c6a2e]">
+                    Kingdom ID
+                  </p>
+                  <p className="mt-2 font-mono text-sm uppercase tracking-[0.18em] text-[#0b1c32]">
+                    {displayKingdomId}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex min-w-0 flex-col justify-between">
+                <div className="grid gap-4">
+                  <PassportField label="Pet Name" value={displayName} large />
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <PassportField label="Breed" value={displayBreed} />
+                    <PassportField label="Gender" value={displayGender} />
+                    <PassportField
+                      label="Date of Birth"
+                      value={displayDateOfBirth}
+                    />
+                    <PassportField
+                      label="Place of Origin"
+                      value={displayFavoritePlace}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-8 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
+                  <div className="rounded-[1rem] border border-[#b9914c]/25 bg-[#0b1c32]/5 p-4">
+                    <p className="text-[0.54rem] uppercase tracking-[0.28em] text-[#8c6a2e]">
+                      Notes
+                    </p>
+                    <p className="pet-serif mt-2 text-lg leading-6 text-[#26344a]">
+                      {card.personality.trim() ||
+                        "A cherished companion under PetLuma care."}
+                    </p>
+                  </div>
+
+                  <div className="relative h-28 w-28 rounded-full border-2 border-[#b9914c]/55 text-center text-[#8c6a2e]">
+                    <div className="absolute inset-2 rounded-full border border-[#b9914c]/35" />
+                    <div className="flex h-full flex-col items-center justify-center">
+                      <span className="text-[0.48rem] uppercase tracking-[0.2em]">
+                        PetLuma
+                      </span>
+                      <span className="pet-serif text-2xl">Seal</span>
+                      <span className="text-[0.44rem] uppercase tracking-[0.18em]">
+                        Verified
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-7 border-t border-[#b9914c]/35 pt-4 font-mono text-[0.62rem] uppercase leading-5 tracking-[0.18em] text-[#0b1c32]/70 sm:text-xs">
+              <p>{`P<PTL${mrzName}<<PETLUMA<PASSPORT<<<<<<<<<<<`}</p>
+              <p>{`PLM20260001PETLUMA${displayBreed
+                .toUpperCase()
+                .replace(/[^A-Z0-9]+/g, "<")
+                .slice(0, 18)}<<<<<<`}</p>
+            </div>
+          </div>
+        </section>
       </div>
     </article>
+  );
+}
+
+function PassportField({
+  label,
+  value,
+  large = false,
+}: {
+  label: string;
+  value: string;
+  large?: boolean;
+}) {
+  return (
+    <div className="border-b border-[#b9914c]/28 pb-3">
+      <p className="text-[0.52rem] uppercase tracking-[0.24em] text-[#8c6a2e]">
+        {label}
+      </p>
+      <p
+        className={
+          large
+            ? "pet-serif mt-2 break-words text-4xl font-normal leading-none tracking-[-0.045em] text-[#0b1c32] sm:text-5xl"
+            : "mt-2 break-words text-sm font-semibold uppercase tracking-[0.12em] text-[#0b1c32] sm:text-base"
+        }
+      >
+        {value}
+      </p>
+    </div>
   );
 }
