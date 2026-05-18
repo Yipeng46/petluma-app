@@ -84,13 +84,13 @@ export function ResultExperience() {
       <section className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl flex-col items-center justify-center gap-8">
         <div className="max-w-3xl text-center">
           <p className="text-[0.68rem] uppercase tracking-[0.34em] text-[#9b7b45]">
-            PetLuma Companion Card
+            PetLuma Passport
           </p>
           <h1 className="pet-serif mt-5 text-5xl font-normal tracking-[-0.07em] text-[#2f2119] sm:text-7xl">
-            Your companion card is ready.
+            Your companion passport is ready.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#6f5b4b] sm:text-lg sm:leading-8">
-            A quiet keepsake for the pet who brightens your everyday life.
+            An official PetLuma identity document for your beloved companion.
           </p>
         </div>
 
@@ -105,13 +105,13 @@ export function ResultExperience() {
             disabled={isDownloading}
             className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70"
           >
-            {isDownloading ? "Preparing..." : "Download Card"}
+            {isDownloading ? "Preparing..." : "Download Passport"}
           </button>
           <Link
             href="/create"
             className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
           >
-            Create Another
+            Create Another Passport
           </Link>
         </div>
       </section>
