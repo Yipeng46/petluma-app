@@ -16,9 +16,9 @@ export function SiteHeader() {
 
       <Link
         href="/create"
-        className="hidden rounded-full border border-[#2f2119]/15 bg-[#2f2119] px-5 py-2.5 text-sm font-medium text-[#fff8eb] shadow-[0_14px_40px_rgba(47,33,25,0.16)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] sm:inline-flex"
+        className="hidden rounded-full border border-[#b8944d]/35 bg-[#081526] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#fff8eb] shadow-[0_14px_40px_rgba(8,21,38,0.16)] transition hover:-translate-y-0.5 hover:bg-[#0b1c32] sm:inline-flex"
       >
-        Create card
+        Create Passport
       </Link>
     </header>
   );

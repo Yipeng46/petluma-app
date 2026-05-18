@@ -109,9 +109,9 @@ export function CardGenerator() {
         <button
           type="button"
           onClick={handlePreviewFinalCard}
-          className="mt-5 w-full rounded-full bg-[#2f2119] px-7 py-4 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f]"
+          className="mt-5 w-full rounded-full border border-[#b8944d]/35 bg-[#081526] px-7 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#fff8eb] shadow-[0_18px_50px_rgba(8,21,38,0.2)] transition hover:-translate-y-0.5 hover:bg-[#0b1c32]"
         >
-          Preview Final Card
+          Generate Passport
         </button>
       </div>
 

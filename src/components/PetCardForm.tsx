@@ -24,62 +24,68 @@ export function PetCardForm({
   onPhotoChange,
 }: PetCardFormProps) {
   return (
-    <section className="rounded-[2rem] border border-[#c7a15f]/20 bg-[#fffaf1]/75 p-5 shadow-[0_24px_60px_rgba(71,49,33,0.1)] backdrop-blur sm:p-7">
+    <section className="relative overflow-hidden rounded-[1.4rem] border border-[#b8944d]/30 bg-[#fff8e8]/78 p-5 shadow-[0_28px_80px_rgba(8,21,38,0.12)] backdrop-blur sm:p-7">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:radial-gradient(ellipse_at_center,transparent_0%,transparent_52%,rgba(8,21,38,0.14)_53%,transparent_54%),linear-gradient(90deg,rgba(8,21,38,0.05)_1px,transparent_1px)] [background-size:96px_44px,28px_28px]" />
+      <div className="pointer-events-none absolute right-6 top-6 text-8xl font-semibold leading-none tracking-[-0.08em] text-[#081526]/[0.035]">
+        PL
+      </div>
+
       <div className="mb-8">
-        <p className="text-xs uppercase tracking-[0.28em] text-[#9b7b45]">
-          Create Card
+        <p className="relative text-xs font-semibold uppercase tracking-[0.32em] text-[#7d632e]">
+          Create Passport
         </p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-[#2f2119] sm:text-5xl">
-          Compose a quieter companion portrait.
+        <h1 className="relative mt-4 text-4xl font-semibold tracking-[-0.055em] text-[#081526] sm:text-5xl">
+          Create your pet&apos;s official PetLuma Passport.
         </h1>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-[#6f5b4b] sm:text-base">
-          Add a photograph and a few personal details. The editorial card on
-          the right updates immediately.
+        <p className="relative mt-4 max-w-xl text-sm leading-7 text-[#3d4858]/78 sm:text-base">
+          Upload a portrait and add a few details. Your PetLuma Passport preview
+          updates instantly.
         </p>
       </div>
 
-      <div className="space-y-5">
+      <div className="relative space-y-5">
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-[#2f2119]">
-            Pet photo
+          <span className="mb-2 block text-sm font-semibold text-[#081526]">
+            Pet passport photo
           </span>
           <input
             type="file"
             accept="image/*"
             onChange={(event) => onPhotoChange(event.target.files?.[0] ?? null)}
-            className="w-full cursor-pointer rounded-2xl border border-dashed border-[#c7a15f]/70 bg-[#fffdf7] px-4 py-4 text-sm text-[#6f5b4b] file:mr-4 file:rounded-full file:border-0 file:bg-[#2f2119] file:px-4 file:py-2 file:text-sm file:font-medium file:text-[#fff8eb] hover:border-[#c7a15f]"
+            className="w-full cursor-pointer rounded-xl border border-dashed border-[#b8944d]/70 bg-[#fffaf0]/82 px-4 py-4 text-sm text-[#3d4858] file:mr-4 file:rounded-full file:border-0 file:bg-[#081526] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#fff8eb] hover:border-[#7d632e]"
           />
           <span className="mt-2 block text-xs text-[#7a6656]">
-            {fileName || "Choose a warm outdoor portrait if you have one."}
+            {fileName ||
+              "Choose a clear front-facing portrait for the best passport result."}
           </span>
         </label>
 
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-[#2f2119]">
-            Name
+          <span className="mb-2 block text-sm font-semibold text-[#081526]">
+            Pet name
           </span>
           <input
             value={name}
             onChange={(event) => onNameChange(event.target.value)}
             placeholder="Luma"
-            className="w-full rounded-2xl border border-[#d8c3a3] bg-[#fffdf7] px-4 py-3 text-[#2f2119] outline-none transition placeholder:text-[#9b8978] focus:border-[#c7a15f] focus:ring-4 focus:ring-[#c7a15f]/15"
+            className="w-full rounded-xl border border-[#b8944d]/35 bg-[#fffaf0]/88 px-4 py-3 text-[#081526] outline-none transition placeholder:text-[#8d7d69] focus:border-[#b8944d] focus:ring-4 focus:ring-[#b8944d]/15"
           />
         </label>
 
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-[#2f2119]">
+          <span className="mb-2 block text-sm font-semibold text-[#081526]">
             Breed
           </span>
           <input
             value={breed}
             onChange={(event) => onBreedChange(event.target.value)}
             placeholder="Golden Retriever"
-            className="w-full rounded-2xl border border-[#d8c3a3] bg-[#fffdf7] px-4 py-3 text-[#2f2119] outline-none transition placeholder:text-[#9b8978] focus:border-[#c7a15f] focus:ring-4 focus:ring-[#c7a15f]/15"
+            className="w-full rounded-xl border border-[#b8944d]/35 bg-[#fffaf0]/88 px-4 py-3 text-[#081526] outline-none transition placeholder:text-[#8d7d69] focus:border-[#b8944d] focus:ring-4 focus:ring-[#b8944d]/15"
           />
         </label>
 
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-[#2f2119]">
+          <span className="mb-2 block text-sm font-semibold text-[#081526]">
             Personality
           </span>
           <textarea
@@ -87,19 +93,19 @@ export function PetCardForm({
             onChange={(event) => onPersonalityChange(event.target.value)}
             placeholder="Gentle, curious, and happiest beside a trail."
             rows={3}
-            className="w-full resize-none rounded-2xl border border-[#d8c3a3] bg-[#fffdf7] px-4 py-3 text-[#2f2119] outline-none transition placeholder:text-[#9b8978] focus:border-[#c7a15f] focus:ring-4 focus:ring-[#c7a15f]/15"
+            className="w-full resize-none rounded-xl border border-[#b8944d]/35 bg-[#fffaf0]/88 px-4 py-3 text-[#081526] outline-none transition placeholder:text-[#8d7d69] focus:border-[#b8944d] focus:ring-4 focus:ring-[#b8944d]/15"
           />
         </label>
 
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-[#2f2119]">
-            Favorite place
+          <span className="mb-2 block text-sm font-semibold text-[#081526]">
+            Place of origin / favorite place
           </span>
           <input
             value={favoritePlace}
             onChange={(event) => onFavoritePlaceChange(event.target.value)}
             placeholder="The pine trail after rain"
-            className="w-full rounded-2xl border border-[#d8c3a3] bg-[#fffdf7] px-4 py-3 text-[#2f2119] outline-none transition placeholder:text-[#9b8978] focus:border-[#c7a15f] focus:ring-4 focus:ring-[#c7a15f]/15"
+            className="w-full rounded-xl border border-[#b8944d]/35 bg-[#fffaf0]/88 px-4 py-3 text-[#081526] outline-none transition placeholder:text-[#8d7d69] focus:border-[#b8944d] focus:ring-4 focus:ring-[#b8944d]/15"
           />
         </label>
       </div>
