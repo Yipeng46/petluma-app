@@ -18,98 +18,111 @@ export function PetCardPreview({
   const displayPersonality =
     personality.trim() || "Gentle, sun-warmed, and quietly adventurous.";
   const displayFavoritePlace = favoritePlace.trim() || "The Pine Trail at Dusk";
+  const displaySpecies = "Dog";
+  const displayBirthdate = "Not declared";
+  const displayGender = "Companion";
+  const displayPassportNo = "PLM-2026-0001";
+  const displayIssuedIn = "PetLuma Kingdom";
 
   return (
-    <section className="rounded-[1.4rem] border border-[#b8944d]/28 bg-[#fff8e8]/62 p-3 shadow-[0_28px_90px_rgba(8,21,38,0.15)] backdrop-blur sm:p-5">
-      <div className="mb-4 flex items-center justify-between gap-4 px-2 text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-[#7d632e]">
-        <span>Live Passport Preview</span>
-        <span>PetLuma</span>
+    <section className="rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/74 p-3 shadow-[0_22px_70px_rgba(17,24,39,0.1)] backdrop-blur sm:p-5">
+      <div className="mb-4 flex items-center justify-between gap-4 px-2 text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-[#C8A97E]">
+        <span>Passport Preview</span>
+        <span>PetLuma Passport</span>
       </div>
 
-      <article className="relative overflow-hidden rounded-[1.25rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04),0_30px_80px_rgba(8,21,38,0.22)] sm:p-4">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.22),transparent_14rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.25))]" />
+      <article className="relative overflow-hidden rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8] p-4 text-[#111827] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] sm:p-6">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.15] [background-image:radial-gradient(ellipse_at_center,transparent_0%,transparent_52%,rgba(17,24,39,0.12)_53%,transparent_54%),linear-gradient(90deg,rgba(17,24,39,0.055)_1px,transparent_1px)] [background-size:92px_42px,28px_28px]" />
+        <div className="pointer-events-none absolute right-8 top-24 text-8xl font-semibold leading-none tracking-[-0.08em] text-[#111827]/[0.035]">
+          PL
+        </div>
 
-        <div className="relative grid min-h-[390px] gap-3 md:grid-cols-[0.62fr_1.38fr]">
-          <div className="relative overflow-hidden rounded-[1rem] border border-[#d9b36c]/28 bg-[linear-gradient(145deg,#04101f_0%,#0a1a31_48%,#06111f_100%)] p-5 text-center text-[#f6ecd8]">
-            <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.45)_1px,transparent_0),linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.18)_44%,transparent_45%)] [background-size:5px_5px,180px_180px]" />
-            <div className="relative flex h-full min-h-[340px] flex-col items-center justify-between">
-              <div>
-                <p className="text-[0.5rem] font-semibold uppercase tracking-[0.34em] text-[#d9b36c]/80">
-                  Official Companion Document
-                </p>
-                <p className="mt-5 text-2xl font-semibold uppercase leading-tight tracking-[0.12em] text-[#f1c873]">
-                  PetLuma
-                  <span className="mt-1 block text-lg tracking-[0.18em]">
-                    Passport
-                  </span>
-                </p>
-              </div>
-              <div className="relative flex h-24 w-20 items-center justify-center rounded-b-[1.8rem] rounded-t-xl border border-[#d9b36c]/60 bg-[#d9b36c]/8">
-                <span className="pet-serif text-3xl text-[#d9b36c]">PL</span>
-              </div>
-              <p className="border-t border-[#d9b36c]/24 pt-4 text-[0.5rem] uppercase leading-4 tracking-[0.26em] text-[#f6ecd8]/55">
-                PetLuma Kingdom
+        <div className="relative min-h-[430px]">
+          <div className="flex items-start justify-between gap-4 border-b border-[#E6DED2] pb-5">
+            <div>
+              <p className="text-[0.52rem] font-semibold uppercase tracking-[0.34em] text-[#C8A97E]">
+                PETLUMA PASSPORT
               </p>
+              <p className="mt-2 text-2xl font-semibold uppercase tracking-[0.14em] text-[#111827]">
+                Pet Passport
+              </p>
+            </div>
+            <p className="border border-[#E6DED2] px-3 py-1.5 text-[0.48rem] uppercase tracking-[0.18em] text-[#6E6A64]">
+              Official
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-[0.76fr_1.24fr]">
+            <div>
+              <div className="flex aspect-[35/45] items-center justify-center rounded-lg border border-[#E6DED2] bg-[#F8F3E8] p-2">
+                {photoUrl ? (
+                  <img
+                    src={photoUrl}
+                    alt={`${displayName} passport portrait`}
+                    className="block max-h-full max-w-full object-contain object-center saturate-[0.88] sepia-[0.04]"
+                  />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center bg-[#111827]/[0.045] px-3 text-center">
+                    <span className="text-[0.58rem] font-semibold uppercase tracking-[0.24em] text-[#111827]/50">
+                      Passport Photo
+                    </span>
+                    <span className="mt-2 text-[0.46rem] uppercase tracking-[0.2em] text-[#6E6A64]">
+                      Will appear here
+                    </span>
+                  </div>
+                )}
+              </div>
+              <p className="mt-3 border border-[#E6DED2] bg-[#F8F3E8]/70 p-2 text-center font-mono text-[0.56rem] uppercase tracking-[0.14em] text-[#111827]">
+                Passport No.
+                <span className="mt-1 block">{displayPassportNo}</span>
+              </p>
+            </div>
+
+            <div className="min-w-0 space-y-3">
+              <PassportPreviewField label="Name" value={displayName} large />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <PassportPreviewField label="Species" value={displaySpecies} />
+                <PassportPreviewField label="Breed" value={displayBreed} />
+                <PassportPreviewField
+                  label="Birthdate"
+                  value={displayBirthdate}
+                />
+                <PassportPreviewField label="Gender" value={displayGender} />
+                <PassportPreviewField
+                  label="Issued In"
+                  value={displayIssuedIn}
+                />
+                <PassportPreviewField
+                  label="Place of Origin"
+                  value={displayFavoritePlace}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-[1rem] border border-[#d9b36c]/32 bg-[linear-gradient(135deg,#fff8e8_0%,#f3e6ca_52%,#fffaf0_100%)] p-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.68)]">
-            <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:radial-gradient(ellipse_at_center,transparent_0%,transparent_52%,rgba(8,21,38,0.15)_53%,transparent_54%),linear-gradient(90deg,rgba(8,21,38,0.06)_1px,transparent_1px)] [background-size:88px_40px,28px_28px]" />
-            <div className="pointer-events-none absolute right-6 top-16 text-7xl font-semibold leading-none tracking-[-0.08em] text-[#081526]/[0.035]">
-              PL
-            </div>
-
-            <div className="relative flex h-full min-h-[340px] flex-col">
-              <div className="flex items-start justify-between gap-4 border-b border-[#9f7835]/28 pb-4">
-                <div>
-                  <p className="text-[0.5rem] font-semibold uppercase tracking-[0.32em] text-[#7d632e]">
-                    PETLUMA PASSPORT
-                  </p>
-                  <p className="mt-2 text-xl font-semibold uppercase tracking-[0.14em] text-[#081526]">
-                    Identity Page
-                  </p>
-                </div>
-                <p className="border border-[#9f7835]/35 px-3 py-1.5 text-[0.48rem] uppercase tracking-[0.18em] text-[#7d632e]">
+          <div className="relative mt-6 border border-[#E6DED2] bg-[#F8F3E8]/70 p-3 pr-20">
+            <p className="text-[0.48rem] font-semibold uppercase tracking-[0.22em] text-[#C8A97E]">
+              Notes
+            </p>
+            <p className="pet-serif mt-2 text-sm leading-5 text-[#1E293B]">
+              {displayPersonality}
+            </p>
+            <div className="absolute -bottom-4 right-3 h-20 w-20 rotate-[-10deg] rounded-full border-2 border-[#C8A97E]/35 text-center text-[#C8A97E]/60 opacity-70">
+              <div className="flex h-full flex-col items-center justify-center">
+                <span className="text-[0.38rem] uppercase tracking-[0.16em]">
                   Official
-                </p>
+                </span>
+                <span className="pet-serif text-xl">PL</span>
+                <span className="text-[0.36rem] uppercase tracking-[0.14em]">
+                  Seal
+                </span>
               </div>
-
-              <div className="mt-5 grid gap-5 sm:grid-cols-[0.72fr_1.28fr]">
-                <div>
-                  <div className="flex aspect-[35/45] items-center justify-center rounded-md border border-[#9f7835]/40 bg-[#fdf4df] p-2">
-                    {photoUrl ? (
-                      <img
-                        src={photoUrl}
-                        alt={`${displayName} passport portrait`}
-                        className="block max-h-full max-w-full object-contain object-center saturate-[0.88] sepia-[0.06]"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-[#081526]/10 px-3 text-center text-[0.5rem] uppercase tracking-[0.22em] text-[#081526]/42">
-                        Passport Photo
-                      </div>
-                    )}
-                  </div>
-                  <p className="mt-3 border border-[#9f7835]/28 bg-white/20 p-2 text-center font-mono text-[0.56rem] uppercase tracking-[0.14em] text-[#081526]">
-                    KINGDOM ID
-                    <span className="mt-1 block">PLM-2026-0001</span>
-                  </p>
-                </div>
-
-                <div className="min-w-0 space-y-3">
-                  <PassportPreviewField label="Pet Name" value={displayName} large />
-                  <PassportPreviewField label="Breed" value={displayBreed} />
-                  <PassportPreviewField label="Gender" value="COMPANION" />
-                  <PassportPreviewField
-                    label="Place of Origin"
-                    value={displayFavoritePlace}
-                  />
-                </div>
-              </div>
-
-              <p className="pet-serif mt-5 border border-[#9f7835]/20 bg-[#081526]/[0.035] p-3 text-sm leading-5 text-[#26344a]">
-                {displayPersonality}
-              </p>
             </div>
+          </div>
+
+          <div className="mt-6 border-t border-[#E6DED2] pt-4 font-mono text-[0.56rem] uppercase leading-5 tracking-[0.22em] text-[#111827]/65">
+            <p>P&lt;PLM&lt;&lt;{displayName.toUpperCase().replace(/[^A-Z0-9]+/g, "&lt;")}&lt;&lt;&lt;&lt;&lt;&lt;</p>
+            <p>PLM20260001PETLUMA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
           </div>
         </div>
       </article>
@@ -127,15 +140,15 @@ function PassportPreviewField({
   large?: boolean;
 }) {
   return (
-    <div className="border-b border-[#9f7835]/24 pb-2">
-      <p className="text-[0.48rem] uppercase tracking-[0.2em] text-[#7d632e]">
+    <div className="border-b border-[#E6DED2] pb-2">
+      <p className="text-[0.48rem] uppercase tracking-[0.2em] text-[#C8A97E]">
         {label}
       </p>
       <p
         className={
           large
-            ? "pet-serif mt-1 break-words text-3xl leading-none tracking-[-0.045em] text-[#081526]"
-            : "mt-1 break-words text-xs font-semibold uppercase tracking-[0.1em] text-[#081526]"
+            ? "pet-serif mt-1 break-words text-3xl leading-none tracking-[-0.045em] text-[#111827]"
+            : "mt-1 break-words text-xs font-semibold uppercase tracking-[0.1em] text-[#111827]"
         }
       >
         {value}

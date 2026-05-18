@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PetLuma Companion Card Generator",
-  description: "Create refined companion cards for pets and their people.",
+  title: "PetLuma Passport System",
+  description: "Create refined PetLuma passports for beloved companions.",
 };
 
 export default function RootLayout({
