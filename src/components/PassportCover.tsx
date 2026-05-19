@@ -16,30 +16,35 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,rgba(255,255,255,0.04)_0%,transparent_38%,rgba(0,0,0,0.22)_100%)]" />
       <div className="pointer-events-none absolute inset-y-8 right-0 w-px bg-white/[0.06]" />
 
-      <header className="relative z-10 w-full">
+      <header className="relative z-10 w-full pt-1">
         <p className="passport-cover-gold passport-cover-label">
           PetLuma Kingdom
         </p>
       </header>
 
-      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center py-4">
-        <div className="flex w-full max-w-[12.5rem] items-center justify-center px-3 py-2">
+      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-start pt-3">
+        <div
+          className="passport-cover-emblem"
+          role="img"
+          aria-label="PetLuma Kingdom Gate emblem"
+        >
           <img
             src={KINGDOM_GATE_EMBLEM_SRC}
-            alt="PetLuma Kingdom Gate emblem"
-            width={200}
-            height={300}
-            className="h-auto max-h-[13.5rem] w-full object-contain object-center mix-blend-multiply"
+            alt=""
+            width={220}
+            height={330}
+            className="passport-cover-emblem__art"
             draggable={false}
           />
         </div>
-        <h2 className="passport-cover-gold passport-cover-title mt-7">
+
+        <h2 className="passport-cover-gold passport-cover-title mt-8">
           <span className="block">PetLuma</span>
           <span className="passport-cover-subtitle mt-2 block">Passport</span>
         </h2>
       </div>
 
-      <footer className="relative z-10 flex w-full flex-col items-center gap-5">
+      <footer className="relative z-10 flex w-full flex-col items-center gap-5 pb-1">
         <p className="passport-cover-gold passport-cover-label">
           Official Companion Document
         </p>
@@ -58,7 +63,7 @@ function PassportChipIcon() {
   return (
     <svg
       viewBox="0 0 48 36"
-      className="h-7 w-9 text-[#b89558]/75"
+      className="h-7 w-9 text-[#d4af37]/70"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden

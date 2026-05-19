@@ -59,10 +59,32 @@ textarea {
 }
 
 .passport-cover-gold {
-  color: #b89558;
+  color: #d4af37;
   text-shadow:
     0 1px 0 rgba(0, 0, 0, 0.42),
     0 -0.5px 0 rgba(255, 236, 200, 0.1);
+}
+
+.passport-cover-emblem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(12.5rem, 82%);
+  max-height: 15rem;
+  margin-inline: auto;
+  background: transparent;
+}
+
+.passport-cover-emblem__art {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 15rem;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0.94;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+    drop-shadow(0 -0.5px 0 rgba(255, 228, 170, 0.16));
 }
 
 .passport-cover-label {
