@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-
-const KINGDOM_GATE_EMBLEM_SRC = "/petluma-kingdom-gate-emblem.png";
+import { KingdomGateEmblem } from "@/components/KingdomGateEmblem";
 
 type PassportCoverProps = {
   passportNo: string;
@@ -10,51 +8,43 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
   return (
     <section
       aria-label="PetLuma Passport cover"
-      className="passport-cover relative flex min-h-[496px] flex-col items-center justify-between overflow-hidden rounded-[1.15rem] border border-[#1e2d45]/80 px-6 py-9 text-center sm:px-7 sm:py-10 lg:rounded-r-none lg:border-r-0"
+      className="passport-cover relative mx-auto aspect-[10/14] h-full min-h-[300px] w-full max-w-[340px] overflow-hidden rounded-[0.65rem] border border-[#0c1829]/90 [container-type:size] lg:mx-0 lg:max-w-none lg:rounded-r-none lg:border-r-0"
     >
+      <div className="passport-cover-leather pointer-events-none absolute inset-0" />
       <div className="passport-cover-grain pointer-events-none absolute inset-0" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,rgba(255,255,255,0.04)_0%,transparent_38%,rgba(0,0,0,0.22)_100%)]" />
-      <div className="pointer-events-none absolute inset-y-8 right-0 w-px bg-white/[0.06]" />
+      <div className="passport-cover-vignette pointer-events-none absolute inset-0" />
+      <div className="passport-cover-edge pointer-events-none absolute inset-0" />
+      <div className="passport-cover-spine pointer-events-none absolute inset-y-0 left-0 w-[3px]" />
 
-      <header className="relative z-10 w-full pt-1">
-        <p className="passport-cover-gold passport-cover-label">
-          PetLuma Kingdom
-        </p>
-      </header>
+      <div className="passport-cover-inner relative z-10 flex h-full flex-col items-center text-center">
+        <header className="passport-cover-top shrink-0">
+          <p className="passport-cover-gold passport-cover-kingdom">PetLuma Kingdom</p>
+          <div className="passport-cover-heading">
+            <h2 className="passport-cover-gold passport-cover-brand">PetLuma</h2>
+            <p className="passport-cover-gold passport-cover-passport">Passport</p>
+          </div>
+        </header>
 
-      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-start pt-3">
         <div
-          className="passport-cover-emblem"
+          className="passport-cover-emblem-stage"
           role="img"
           aria-label="PetLuma Kingdom Gate emblem"
         >
-          <img
-            src={KINGDOM_GATE_EMBLEM_SRC}
-            alt=""
-            width={220}
-            height={330}
-            className="passport-cover-emblem__art"
-            draggable={false}
-          />
+          <div className="passport-emblem-foil">
+            <KingdomGateEmblem className="passport-cover-emblem__art" />
+          </div>
         </div>
 
-        <h2 className="passport-cover-gold passport-cover-title mt-8">
-          <span className="block">PetLuma</span>
-          <span className="passport-cover-subtitle mt-2 block">Passport</span>
-        </h2>
-      </div>
-
-      <footer className="relative z-10 flex w-full flex-col items-center gap-5 pb-1">
-        <p className="passport-cover-gold passport-cover-label">
-          Official Companion Document
-        </p>
-        {passportNo ? (
-          <p className="font-mono text-[0.52rem] uppercase tracking-[0.26em] text-[#8f9bb0]/90">
-            {passportNo}
+        <footer className="passport-cover-bottom shrink-0">
+          <p className="passport-cover-gold passport-cover-footer">
+            Official Companion Document
           </p>
-        ) : null}
-        <PassportChipIcon />
-      </footer>
+          {passportNo ? <p className="passport-cover-number">{passportNo}</p> : null}
+          <div className="passport-cover-chip-wrap">
+            <PassportChipIcon />
+          </div>
+        </footer>
+      </div>
     </section>
   );
 }
@@ -63,20 +53,12 @@ function PassportChipIcon() {
   return (
     <svg
       viewBox="0 0 48 36"
-      className="h-7 w-9 text-[#d4af37]/70"
+      className="passport-cover-chip"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
-      <rect
-        x="4"
-        y="6"
-        width="40"
-        height="24"
-        rx="3"
-        stroke="currentColor"
-        strokeWidth="1"
-      />
+      <rect x="4" y="6" width="40" height="24" rx="3" stroke="currentColor" strokeWidth="1" />
       <rect
         x="14"
         y="12"

@@ -18,7 +18,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.24),transparent_19rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.13),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.28))]" />
 
-      <div className="relative grid min-h-[560px] gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
+      <div className="relative grid min-h-[560px] gap-3 lg:grid-cols-[minmax(220px,0.36fr)_1.64fr] lg:items-stretch lg:gap-0">
         <PassportCover passportNo={display.passportNo} />
 
         <section className="relative overflow-hidden rounded-[1.2rem] border border-[#d9b36c]/30 bg-[linear-gradient(135deg,#fff8e8_0%,#f3e6ca_50%,#fffaf0_100%)] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.75),inset_18px_0_34px_rgba(112,82,38,0.08)] lg:rounded-l-none sm:p-8">

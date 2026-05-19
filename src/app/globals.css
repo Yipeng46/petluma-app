@@ -7,6 +7,9 @@
   --espresso-soft: #6f5b4b;
   --gold: #c7a15f;
   --sage: #8d927b;
+  --passport-navy: #071426;
+  --passport-navy-mid: #08182b;
+  --passport-gold: #c9a45c;
 }
 
 * {
@@ -43,70 +46,212 @@ textarea {
 }
 
 .passport-cover {
-  background: linear-gradient(168deg, #0b1424 0%, #101c2e 48%, #0a121f 100%);
+  background: var(--passport-navy);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.045),
-    inset -2px 0 10px rgba(0, 0, 0, 0.24);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    inset -4px 0 18px rgba(0, 0, 0, 0.32),
+    4px 10px 32px rgba(0, 0, 0, 0.42),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.passport-cover-leather {
+  background:
+    radial-gradient(ellipse 100% 55% at 50% 6%, rgba(255, 255, 255, 0.028), transparent 58%),
+    radial-gradient(ellipse 88% 48% at 50% 98%, rgba(0, 0, 0, 0.42), transparent 54%),
+    linear-gradient(172deg, #0a1830 0%, var(--passport-navy-mid) 42%, var(--passport-navy) 100%);
 }
 
 .passport-cover-grain {
-  opacity: 0.16;
+  opacity: 0.24;
+  mix-blend-mode: soft-light;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.12) 0.45px, transparent 0),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-  background-size: 3px 3px, 12px 12px, 12px 12px;
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.08) 0.35px, transparent 0),
+    radial-gradient(circle at 3px 2px, rgba(0, 0, 0, 0.18) 0.35px, transparent 0),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    linear-gradient(rgba(0, 0, 0, 0.055) 1px, transparent 1px);
+  background-size: 5px 5px, 7px 7px, 15px 15px, 15px 15px;
+}
+
+.passport-cover-vignette {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.16) 0%,
+    transparent 14%,
+    transparent 78%,
+    rgba(0, 0, 0, 0.26) 100%
+  );
+}
+
+.passport-cover-edge {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.03),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.passport-cover-spine {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.035) 38%, transparent);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.passport-cover-inner {
+  padding: 9% 10% 8%;
+}
+
+.passport-cover-top {
+  width: 100%;
+}
+
+.passport-cover-heading {
+  margin-top: 0.5rem;
 }
 
 .passport-cover-gold {
-  color: #d4af37;
-  text-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.42),
-    0 -0.5px 0 rgba(255, 236, 200, 0.1);
+  color: var(--passport-gold);
 }
 
-.passport-cover-emblem {
+.passport-cover-kingdom {
+  font-family: var(--font-inter, "Inter"), "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: clamp(0.44rem, 2.05cqw, 0.52rem);
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.62),
+    0 -0.5px 0 rgba(255, 235, 200, 0.09);
+}
+
+.passport-cover-brand {
+  font-family: var(--font-cormorant, Georgia), "Times New Roman", Times, serif;
+  font-size: clamp(1.78rem, 7.6cqw, 2.2rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.64),
+    0 -0.5px 0 rgba(255, 235, 200, 0.1);
+}
+
+.passport-cover-passport {
+  margin-top: 0.4rem;
+  font-family: var(--font-inter, "Inter"), "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: clamp(0.95rem, 4cqw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.36em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.58),
+    0 -0.5px 0 rgba(255, 235, 200, 0.08);
+}
+
+.passport-cover-emblem-stage {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  margin-top: 0.25rem;
+  padding: 2% 0 3%;
+}
+
+.passport-emblem-foil {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(12.5rem, 82%);
-  max-height: 15rem;
-  margin-inline: auto;
-  background: transparent;
+  width: min(94%, 15.5rem);
+  height: clamp(9.5rem, 38cqh, 13.5rem);
+}
+
+.passport-emblem-foil::before {
+  content: "";
+  position: absolute;
+  inset: 2% 4% 4%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    148deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    transparent 34%,
+    rgba(0, 0, 0, 0.16) 100%
+  );
+  mix-blend-mode: soft-light;
+}
+
+.passport-emblem-foil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 200, 0.07),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.24);
 }
 
 .passport-cover-emblem__art {
-  display: block;
+  position: relative;
+  z-index: 1;
   width: 100%;
-  height: auto;
-  max-height: 15rem;
-  object-fit: contain;
-  object-position: center;
-  opacity: 0.94;
-  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
-    drop-shadow(0 -0.5px 0 rgba(255, 228, 170, 0.16));
+  height: 100%;
+  opacity: 0.97;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.7))
+    drop-shadow(0 -0.5px 0 rgba(255, 230, 190, 0.1));
 }
 
-.passport-cover-label {
-  font-size: 0.52rem;
+.passport-emblem-gold {
+  color: var(--passport-gold);
+}
+
+.passport-emblem-cutout {
+  fill: var(--passport-navy);
+  opacity: 0.4;
+}
+
+.passport-cover-footer {
+  font-family: var(--font-inter, "Inter"), "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: clamp(0.42rem, 1.95cqw, 0.5rem);
   font-weight: 600;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.38em;
+  line-height: 1.45;
   text-transform: uppercase;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.6),
+    0 -0.5px 0 rgba(255, 235, 200, 0.07);
 }
 
-.passport-cover-title {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(1.65rem, 2.4vw, 2rem);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  line-height: 1.02;
+.passport-cover-bottom {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 0.25rem;
 }
 
-.passport-cover-subtitle {
-  font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+.passport-cover-number {
+  margin-top: 0.5rem;
+  font-family: "Courier New", Courier, ui-monospace, monospace;
+  font-size: 0.44rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  color: rgba(143, 155, 176, 0.75);
+}
+
+.passport-cover-chip-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.85rem;
+}
+
+.passport-cover-chip {
+  width: 1.85rem;
+  height: 1.35rem;
+  color: rgba(201, 164, 92, 0.58);
 }
 
 .pet-card-grain::after {
