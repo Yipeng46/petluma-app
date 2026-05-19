@@ -1,5 +1,11 @@
 import type { PassportData } from "@/lib/passport-data";
 
+export type PassportMrz = {
+  line1: string;
+  line2: string;
+  line3: string;
+};
+
 export type PassportDisplay = {
   photo: string | null;
   name: string;
@@ -11,8 +17,7 @@ export type PassportDisplay = {
   placeOfOrigin: string;
   passportNo: string;
   companionId: string;
-  mrzName: string;
-  mrzBreed: string;
+  mrz: PassportMrz;
 };
 
 function displayValue(value: string, fallback = "—") {
@@ -22,11 +27,29 @@ function displayValue(value: string, fallback = "—") {
 
 function toMrzToken(value: string, fallback: string) {
   const token = value
+    .trim()
     .toUpperCase()
     .replace(/[^A-Z0-9]+/g, "<")
     .replace(/^<|<$/g, "");
 
   return token || fallback;
+}
+
+function passportNoToMrz(passportNo: string) {
+  const token = passportNo.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+  return token || "PLM00000000";
+}
+
+export function generateMRZ(data: PassportData): PassportMrz {
+  const nameToken = toMrzToken(data.name, "PETNAME");
+  const breedToken = toMrzToken(data.breed, "COMPANION");
+  const passportNoToken = passportNoToMrz(data.passportNo);
+
+  return {
+    line1: `P<PLM<<${nameToken}<<<<<<<<<<<<<<<<<<<<`,
+    line2: `${passportNoToken}PETLUMA<<<<<<<<<<`,
+    line3: `${breedToken}<<<<<<<<<<<<<<<<<<<<`,
+  };
 }
 
 export function getPassportDisplay(data: PassportData): PassportDisplay {
@@ -52,7 +75,6 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     placeOfOrigin,
     passportNo: data.passportNo,
     companionId: data.companionId,
-    mrzName: toMrzToken(data.name, "PETNAME"),
-    mrzBreed: toMrzToken(data.breed, "COMPANION"),
+    mrz: generateMRZ(data),
   };
 }

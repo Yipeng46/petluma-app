@@ -189,9 +189,9 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             </div>
 
             <div className="mt-8 border-t border-[#9f7835]/32 pt-4 font-mono text-[0.58rem] uppercase leading-5 tracking-[0.24em] text-[#0b1c32]/72 sm:text-[0.68rem]">
-              <p>{`P<PLM<<${display.mrzName}<<<<<<<<<<<<<<<<`}</p>
-              <p>{`PLM20260001PETLUMA<<<<<<<<<<<<`}</p>
-              <p>{`${display.mrzBreed}<<<<<<<<<<<<<<<<<<<<<`}</p>
+              <p>{display.mrz.line1}</p>
+              <p>{display.mrz.line2}</p>
+              <p>{display.mrz.line3}</p>
             </div>
           </div>
         </section>

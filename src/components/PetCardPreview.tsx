@@ -115,9 +115,9 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           </div>
 
           <div className="mt-6 border-t border-[#E6DED2] pt-4 font-mono text-[0.56rem] uppercase leading-5 tracking-[0.22em] text-[#111827]/65">
-            <p>{`P<PLM<<${display.mrzName}<<<<<<<<<<<<<<<<`}</p>
-            <p>{`PLM20260001PETLUMA<<<<<<<<<<<<`}</p>
-            <p>{`${display.mrzBreed}<<<<<<<<<<<<<<<<<<<<<`}</p>
+            <p>{display.mrz.line1}</p>
+            <p>{display.mrz.line2}</p>
+            <p>{display.mrz.line3}</p>
           </div>
         </div>
       </article>
