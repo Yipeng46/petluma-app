@@ -1,9 +1,5 @@
-export type StoredCompanionCard = {
-  name: string;
-  breed: string;
-  personality: string;
-  favoritePlace: string;
-  photoUrl: string | null;
-};
+import type { PassportData } from "@/lib/passport-data";
+
+export type StoredCompanionCard = PassportData;
 
 export const companionCardStorageKey = "petluma-companion-card";

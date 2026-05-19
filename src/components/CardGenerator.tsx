@@ -6,50 +6,51 @@ import {
   companionCardStorageKey,
   type StoredCompanionCard,
 } from "@/lib/cardStorage";
+import {
+  createInitialPassportData,
+  updatePassportField,
+  type PassportData,
+} from "@/lib/passport-data";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 
 export function CardGenerator() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [breed, setBreed] = useState("");
-  const [personality, setPersonality] = useState("");
-  const [favoritePlace, setFavoritePlace] = useState("");
-  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-  const [fileName, setFileName] = useState("");
+  const [passportData, setPassportData] = useState<PassportData>(() =>
+    createInitialPassportData(),
+  );
+
+  function updateField<K extends keyof PassportData>(
+    field: K,
+    value: PassportData[K],
+  ) {
+    setPassportData((current) => updatePassportField(current, field, value));
+  }
 
   function handlePhotoChange(file: File | null) {
     if (!file) {
-      setPhotoUrl(null);
-      setFileName("");
+      updateField("photo", null);
       return;
     }
-
-    setFileName(file.name);
 
     const reader = new FileReader();
     reader.onload = () => {
       if (typeof reader.result === "string") {
-        setPhotoUrl(reader.result);
+        updateField("photo", reader.result);
       }
     };
     reader.readAsDataURL(file);
   }
 
   async function handlePreviewFinalCard() {
-    const card: StoredCompanionCard = {
-      name,
-      breed,
-      personality,
-      favoritePlace,
-      photoUrl,
-    };
+    const card: StoredCompanionCard = passportData;
 
     try {
       console.log("[PetLuma] Preview Final Card clicked", {
-        pet_name: name,
-        breed,
-        hasPhotoUrl: Boolean(photoUrl),
+        name: passportData.name,
+        breed: passportData.breed,
+        gender: passportData.gender,
+        hasPhoto: Boolean(passportData.photo),
       });
 
       const response = await fetch("/api/pets", {
@@ -58,9 +59,9 @@ export function CardGenerator() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pet_name: name,
-          breed,
-          photo_url: photoUrl,
+          pet_name: passportData.name,
+          breed: passportData.breed,
+          photo_url: passportData.photo,
         }),
       });
       const data = await response.json();
@@ -94,15 +95,8 @@ export function CardGenerator() {
     <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
       <div>
         <PetCardForm
-          name={name}
-          breed={breed}
-          personality={personality}
-          favoritePlace={favoritePlace}
-          fileName={fileName}
-          onNameChange={setName}
-          onBreedChange={setBreed}
-          onPersonalityChange={setPersonality}
-          onFavoritePlaceChange={setFavoritePlace}
+          passportData={passportData}
+          onFieldChange={updateField}
           onPhotoChange={handlePhotoChange}
         />
 
@@ -116,13 +110,7 @@ export function CardGenerator() {
       </div>
 
       <div className="lg:sticky lg:top-8">
-        <PetCardPreview
-          name={name}
-          breed={breed}
-          personality={personality}
-          favoritePlace={favoritePlace}
-          photoUrl={photoUrl}
-        />
+        <PetCardPreview passportData={passportData} />
       </div>
     </div>
   );

@@ -7,17 +7,15 @@ import {
   companionCardStorageKey,
   type StoredCompanionCard,
 } from "@/lib/cardStorage";
-
-const fallbackCard: StoredCompanionCard = {
-  name: "",
-  breed: "",
-  personality: "",
-  favoritePlace: "",
-  photoUrl: null,
-};
+import {
+  createInitialPassportData,
+  normalizePassportData,
+} from "@/lib/passport-data";
 
 export function ResultExperience() {
-  const [card, setCard] = useState<StoredCompanionCard>(fallbackCard);
+  const [card, setCard] = useState<StoredCompanionCard>(() =>
+    createInitialPassportData(),
+  );
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLElement>(null);
 
@@ -29,9 +27,9 @@ export function ResultExperience() {
     }
 
     try {
-      setCard(JSON.parse(savedCard) as StoredCompanionCard);
+      setCard(normalizePassportData(JSON.parse(savedCard)));
     } catch {
-      setCard(fallbackCard);
+      setCard(createInitialPassportData());
     }
   }, []);
 

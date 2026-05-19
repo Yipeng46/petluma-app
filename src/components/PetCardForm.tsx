@@ -1,26 +1,17 @@
+import type { PassportData } from "@/lib/passport-data";
+
 type PetCardFormProps = {
-  name: string;
-  breed: string;
-  personality: string;
-  favoritePlace: string;
-  fileName: string;
-  onNameChange: (value: string) => void;
-  onBreedChange: (value: string) => void;
-  onPersonalityChange: (value: string) => void;
-  onFavoritePlaceChange: (value: string) => void;
+  passportData: PassportData;
+  onFieldChange: <K extends keyof PassportData>(
+    field: K,
+    value: PassportData[K],
+  ) => void;
   onPhotoChange: (file: File | null) => void;
 };
 
 export function PetCardForm({
-  name,
-  breed,
-  personality,
-  favoritePlace,
-  fileName,
-  onNameChange,
-  onBreedChange,
-  onPersonalityChange,
-  onFavoritePlaceChange,
+  passportData,
+  onFieldChange,
   onPhotoChange,
 }: PetCardFormProps) {
   return (
@@ -55,32 +46,40 @@ export function PetCardForm({
             className="w-full cursor-pointer rounded-2xl border border-dashed border-[#C8A97E]/60 bg-[#F8F3E8]/70 px-4 py-4 text-sm text-[#6E6A64] transition file:mr-4 file:rounded-full file:border-0 file:bg-[#111827] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#FFFDF8] hover:border-[#C8A97E] focus:outline-none focus:ring-4 focus:ring-[#C8A97E]/15"
           />
           <span className="mt-2 block text-xs text-[#7a6656]">
-            {fileName ||
-              "Choose a clear photo of your pet for the passport page."}
+            Choose a clear photo of your pet for the passport page.
           </span>
         </label>
 
-        <label className="block">
-          <span className="mb-2 block text-sm font-semibold text-[#111827]">
-            Pet name
-          </span>
-          <input
-            value={name}
-            onChange={(event) => onNameChange(event.target.value)}
-            placeholder="e.g. Luma"
-            className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
-          />
-        </label>
+        <TextInput
+          label="Pet name"
+          value={passportData.name}
+          placeholder="e.g. Luma"
+          onChange={(value) => onFieldChange("name", value)}
+        />
+
+        <TextInput
+          label="Breed"
+          value={passportData.breed}
+          placeholder="e.g. Golden Retriever"
+          onChange={(value) => onFieldChange("breed", value)}
+        />
+
+        <TextInput
+          label="Gender"
+          value={passportData.gender}
+          placeholder="e.g. Female"
+          onChange={(value) => onFieldChange("gender", value)}
+        />
 
         <label className="block">
           <span className="mb-2 block text-sm font-semibold text-[#111827]">
-            Breed
+            Date of birth
           </span>
           <input
-            value={breed}
-            onChange={(event) => onBreedChange(event.target.value)}
-            placeholder="e.g. Golden Retriever"
-            className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
+            type="date"
+            value={passportData.birthdate}
+            onChange={(event) => onFieldChange("birthdate", event.target.value)}
+            className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
           />
         </label>
 
@@ -89,26 +88,47 @@ export function PetCardForm({
             Personality
           </span>
           <textarea
-            value={personality}
-            onChange={(event) => onPersonalityChange(event.target.value)}
+            value={passportData.personality}
+            onChange={(event) => onFieldChange("personality", event.target.value)}
             placeholder="e.g. Gentle, playful, loyal"
             rows={3}
             className="w-full resize-none rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
           />
         </label>
 
-        <label className="block">
-          <span className="mb-2 block text-sm font-semibold text-[#111827]">
-            Place of origin / favorite place
-          </span>
-          <input
-            value={favoritePlace}
-            onChange={(event) => onFavoritePlaceChange(event.target.value)}
-            placeholder="The pine trail after rain"
-            className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
-          />
-        </label>
+        <TextInput
+          label="Place of origin"
+          value={passportData.placeOfOrigin}
+          placeholder="The pine trail after rain"
+          onChange={(value) => onFieldChange("placeOfOrigin", value)}
+        />
       </div>
     </section>
+  );
+}
+
+function TextInput({
+  label,
+  value,
+  placeholder,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-semibold text-[#111827]">
+        {label}
+      </span>
+      <input
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
+      />
+    </label>
   );
 }

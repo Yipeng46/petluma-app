@@ -1,4 +1,5 @@
 import type { Ref } from "react";
+import { getPassportDisplay } from "@/lib/passport-display";
 import type { StoredCompanionCard } from "@/lib/cardStorage";
 
 type FinalCompanionCardProps = {
@@ -7,23 +8,7 @@ type FinalCompanionCardProps = {
 };
 
 export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
-  const displayName = card.name.trim() || "Luma";
-  const displayBreed = card.breed.trim() || "Golden Retriever";
-  const displayFavoritePlace =
-    card.favoritePlace.trim() || "The Pine Trail at Dusk";
-  const displayGender = "COMPANION";
-  const displayDateOfBirth = "NOT DECLARED";
-  const displayKingdom = "PetLuma Kingdom";
-  const displayKingdomId = "PLM-2026-0001";
-  const mrzName = displayName
-    .toUpperCase()
-    .replace(/[^A-Z0-9]+/g, "<")
-    .replace(/^<|<$/g, "") || "PETNAME";
-  const mrzBreed =
-    displayBreed
-      .toUpperCase()
-      .replace(/[^A-Z0-9]+/g, "<")
-      .slice(0, 18) || "COMPANION";
+  const display = getPassportDisplay(card);
 
   return (
     <article
@@ -69,10 +54,10 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
 
             <div className="w-full border-t border-[#d9b36c]/24 pt-6">
               <p className="text-[0.6rem] uppercase leading-5 tracking-[0.32em] text-[#f6ecd8]/50">
-                {displayKingdom}
+                PetLuma Kingdom
               </p>
               <p className="mt-4 text-[0.56rem] uppercase tracking-[0.28em] text-[#d9b36c]/74">
-                {displayKingdomId}
+                {display.passportNo}
               </p>
               <div className="mx-auto mt-6 grid h-10 w-12 grid-cols-3 gap-1 rounded-md border border-[#d9b36c]/55 p-1.5">
                 {Array.from({ length: 6 }).map((_, index) => (
@@ -112,10 +97,10 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             <div className="mt-7 grid flex-1 gap-7 lg:grid-cols-[0.82fr_1.18fr]">
               <div>
                 <div className="relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-md border border-[#9f7835]/42 bg-[#fdf4df] p-2 shadow-[0_10px_24px_rgba(8,21,38,0.08)]">
-                  {card.photoUrl ? (
+                  {display.photo ? (
                     <img
-                      src={card.photoUrl}
-                      alt={`${displayName} passport portrait`}
+                      src={display.photo}
+                      alt={`${display.name} passport portrait`}
                       className="block max-h-full max-w-full object-contain object-center saturate-[0.88] sepia-[0.06]"
                     />
                   ) : (
@@ -130,7 +115,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                     KINGDOM ID / 王国编号
                   </p>
                   <p className="mt-2 font-mono text-sm uppercase tracking-[0.18em] text-[#0b1c32]">
-                    {displayKingdomId}
+                    {display.companionId}
                   </p>
                 </div>
               </div>
@@ -140,29 +125,39 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                   <PassportField
                     label="PET NAME"
                     labelZh="名字"
-                    value={displayName}
+                    value={display.name}
                     large
                   />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <PassportField
+                      label="SPECIES"
+                      labelZh="物种"
+                      value={display.species}
+                    />
+                    <PassportField
                       label="BREED"
                       labelZh="品种"
-                      value={displayBreed}
+                      value={display.breed}
                     />
                     <PassportField
                       label="GENDER"
                       labelZh="性别"
-                      value={displayGender}
+                      value={display.gender}
                     />
                     <PassportField
                       label="DATE OF BIRTH"
                       labelZh="出生日期"
-                      value={displayDateOfBirth}
+                      value={display.birthdate}
                     />
                     <PassportField
                       label="PLACE OF ORIGIN"
                       labelZh="出生地"
-                      value={displayFavoritePlace}
+                      value={display.placeOfOrigin}
+                    />
+                    <PassportField
+                      label="PASSPORT NO."
+                      labelZh="护照编号"
+                      value={display.passportNo}
                     />
                   </div>
                 </div>
@@ -173,8 +168,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                       NOTES / 备注
                     </p>
                     <p className="pet-serif mt-2 text-lg leading-6 text-[#26344a]">
-                      {card.personality.trim() ||
-                        "A cherished companion under PetLuma care."}
+                      {display.personality}
                     </p>
                   </div>
 
@@ -195,9 +189,9 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             </div>
 
             <div className="mt-8 border-t border-[#9f7835]/32 pt-4 font-mono text-[0.58rem] uppercase leading-5 tracking-[0.24em] text-[#0b1c32]/72 sm:text-[0.68rem]">
-              <p>{`P<PLM<<${mrzName}<<<<<<<<<<<<<<<<`}</p>
+              <p>{`P<PLM<<${display.mrzName}<<<<<<<<<<<<<<<<`}</p>
               <p>{`PLM20260001PETLUMA<<<<<<<<<<<<`}</p>
-              <p>{`${mrzBreed}<<<<<<<<<<<<<<<<<<<<<`}</p>
+              <p>{`${display.mrzBreed}<<<<<<<<<<<<<<<<<<<<<`}</p>
             </div>
           </div>
         </section>

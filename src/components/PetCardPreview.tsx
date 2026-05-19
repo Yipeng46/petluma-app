@@ -1,28 +1,12 @@
+import { getPassportDisplay } from "@/lib/passport-display";
+import type { PassportData } from "@/lib/passport-data";
+
 type PetCardPreviewProps = {
-  name: string;
-  breed: string;
-  personality: string;
-  favoritePlace: string;
-  photoUrl: string | null;
+  passportData: PassportData;
 };
 
-export function PetCardPreview({
-  name,
-  breed,
-  personality,
-  favoritePlace,
-  photoUrl,
-}: PetCardPreviewProps) {
-  const displayName = name.trim() || "Luma";
-  const displayBreed = breed.trim() || "Golden Retriever";
-  const displayPersonality =
-    personality.trim() || "Gentle, sun-warmed, and quietly adventurous.";
-  const displayFavoritePlace = favoritePlace.trim() || "The Pine Trail at Dusk";
-  const displaySpecies = "Dog";
-  const displayBirthdate = "Not declared";
-  const displayGender = "Companion";
-  const displayPassportNo = "PLM-2026-0001";
-  const displayIssuedIn = "PetLuma Kingdom";
+export function PetCardPreview({ passportData }: PetCardPreviewProps) {
+  const display = getPassportDisplay(passportData);
 
   return (
     <section className="rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/74 p-3 shadow-[0_22px_70px_rgba(17,24,39,0.1)] backdrop-blur sm:p-5">
@@ -44,7 +28,7 @@ export function PetCardPreview({
                 PETLUMA PASSPORT
               </p>
               <p className="mt-2 text-2xl font-semibold uppercase tracking-[0.14em] text-[#111827]">
-                Pet Passport
+                Identity Page
               </p>
             </div>
             <p className="border border-[#E6DED2] px-3 py-1.5 text-[0.48rem] uppercase tracking-[0.18em] text-[#6E6A64]">
@@ -55,10 +39,10 @@ export function PetCardPreview({
           <div className="mt-6 grid gap-6 sm:grid-cols-[0.76fr_1.24fr]">
             <div>
               <div className="flex aspect-[35/45] items-center justify-center rounded-lg border border-[#E6DED2] bg-[#F8F3E8] p-2">
-                {photoUrl ? (
+                {display.photo ? (
                   <img
-                    src={photoUrl}
-                    alt={`${displayName} passport portrait`}
+                    src={display.photo}
+                    alt={`${display.name} passport portrait`}
                     className="block max-h-full max-w-full object-contain object-center saturate-[0.88] sepia-[0.04]"
                   />
                 ) : (
@@ -74,27 +58,37 @@ export function PetCardPreview({
               </div>
               <p className="mt-3 border border-[#E6DED2] bg-[#F8F3E8]/70 p-2 text-center font-mono text-[0.56rem] uppercase tracking-[0.14em] text-[#111827]">
                 Passport No.
-                <span className="mt-1 block">{displayPassportNo}</span>
+                <span className="mt-1 block">{display.passportNo}</span>
               </p>
             </div>
 
             <div className="min-w-0 space-y-3">
-              <PassportPreviewField label="Name" value={displayName} large />
+              <PassportPreviewField
+                label="PET NAME / 名字"
+                value={display.name}
+                large
+              />
               <div className="grid gap-3 sm:grid-cols-2">
-                <PassportPreviewField label="Species" value={displaySpecies} />
-                <PassportPreviewField label="Breed" value={displayBreed} />
                 <PassportPreviewField
-                  label="Birthdate"
-                  value={displayBirthdate}
+                  label="SPECIES / 物种"
+                  value={display.species}
                 />
-                <PassportPreviewField label="Gender" value={displayGender} />
+                <PassportPreviewField label="BREED / 品种" value={display.breed} />
                 <PassportPreviewField
-                  label="Issued In"
-                  value={displayIssuedIn}
+                  label="GENDER / 性别"
+                  value={display.gender}
                 />
                 <PassportPreviewField
-                  label="Place of Origin"
-                  value={displayFavoritePlace}
+                  label="DATE OF BIRTH / 出生日期"
+                  value={display.birthdate}
+                />
+                <PassportPreviewField
+                  label="PLACE OF ORIGIN / 出生地"
+                  value={display.placeOfOrigin}
+                />
+                <PassportPreviewField
+                  label="KINGDOM ID / 王国编号"
+                  value={display.companionId}
                 />
               </div>
             </div>
@@ -102,10 +96,10 @@ export function PetCardPreview({
 
           <div className="relative mt-6 border border-[#E6DED2] bg-[#F8F3E8]/70 p-3 pr-20">
             <p className="text-[0.48rem] font-semibold uppercase tracking-[0.22em] text-[#C8A97E]">
-              Notes
+              NOTES / 备注
             </p>
             <p className="pet-serif mt-2 text-sm leading-5 text-[#1E293B]">
-              {displayPersonality}
+              {display.personality}
             </p>
             <div className="absolute -bottom-4 right-3 h-20 w-20 rotate-[-10deg] rounded-full border-2 border-[#C8A97E]/35 text-center text-[#C8A97E]/60 opacity-70">
               <div className="flex h-full flex-col items-center justify-center">
@@ -121,8 +115,9 @@ export function PetCardPreview({
           </div>
 
           <div className="mt-6 border-t border-[#E6DED2] pt-4 font-mono text-[0.56rem] uppercase leading-5 tracking-[0.22em] text-[#111827]/65">
-            <p>P&lt;PLM&lt;&lt;{displayName.toUpperCase().replace(/[^A-Z0-9]+/g, "&lt;")}&lt;&lt;&lt;&lt;&lt;&lt;</p>
-            <p>PLM20260001PETLUMA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+            <p>{`P<PLM<<${display.mrzName}<<<<<<<<<<<<<<<<`}</p>
+            <p>{`PLM20260001PETLUMA<<<<<<<<<<<<`}</p>
+            <p>{`${display.mrzBreed}<<<<<<<<<<<<<<<<<<<<<`}</p>
           </div>
         </div>
       </article>
