@@ -87,7 +87,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                   value={display.placeOfOrigin}
                 />
                 <PassportPreviewField
-                  label="KINGDOM ID / 王国编号"
+                  label="COMPANION ID / 伴侣编号"
                   value={display.companionId}
                 />
               </div>

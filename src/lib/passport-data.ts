@@ -78,7 +78,8 @@ export function normalizePassportData(raw: unknown): PassportData {
     personality: readString(record.personality),
     placeOfOrigin: readString(record.placeOfOrigin ?? record.favoritePlace),
     passportNo: readString(record.passportNo) || initial.passportNo,
-    companionId: readString(record.companionId) || initial.companionId,
+    companionId:
+      readString(record.companionId ?? record.kingdomId) || initial.companionId,
   };
 }
 

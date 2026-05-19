@@ -91,8 +91,8 @@ export default function Home() {
                           </div>
                         </div>
                         <p className="mt-3 border border-[#9f7835]/28 bg-white/20 p-2 text-center font-mono text-[0.56rem] uppercase tracking-[0.14em]">
-                          KINGDOM ID
-                          <span className="mt-1 block">PLM-2026-0001</span>
+                          COMPANION ID
+                          <span className="mt-1 block">PLK-AU-8K3QX</span>
                         </p>
                       </div>
 

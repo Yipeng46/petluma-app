@@ -112,7 +112,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
 
                 <div className="mt-5 border border-[#9f7835]/30 bg-white/20 p-4 text-center">
                   <p className="text-[0.5rem] uppercase tracking-[0.24em] text-[#7d632e]">
-                    KINGDOM ID / 王国编号
+                    COMPANION ID / 伴侣编号
                   </p>
                   <p className="mt-2 font-mono text-sm uppercase tracking-[0.18em] text-[#0b1c32]">
                     {display.companionId}
