@@ -11,6 +11,7 @@ import {
   updatePassportField,
   type PassportData,
 } from "@/lib/passport-data";
+import { isValidEmail } from "@/lib/pet-identity";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 
@@ -44,10 +45,18 @@ export function CardGenerator() {
 
   async function handlePreviewFinalCard() {
     try {
+      if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
+        alert("Please enter a valid owner email before generating a passport.");
+        return;
+      }
+
       console.log("[PetLuma] Preview Final Card clicked", {
+        ownerEmail: passportData.ownerEmail,
         name: passportData.name,
         breed: passportData.breed,
         gender: passportData.gender,
+        species: passportData.species,
+        birthdate: passportData.birthdate,
         hasPhoto: Boolean(passportData.photo),
       });
 
@@ -57,7 +66,10 @@ export function CardGenerator() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          owner_email: passportData.ownerEmail,
           pet_name: passportData.name,
+          species: passportData.species,
+          date_of_birth: passportData.birthdate,
           breed: passportData.breed,
           photo_url: passportData.photo,
         }),
@@ -82,6 +94,16 @@ export function CardGenerator() {
         companionId: data.pet.companion_id,
         passportNo: data.pet.passport_number,
       };
+
+      if (data.duplicate) {
+        sessionStorage.setItem(
+          "petluma-passport-duplicate-notice",
+          data.message ||
+            "This companion already has a PetLuma Passport. Returning the original passport.",
+        );
+      } else {
+        sessionStorage.removeItem("petluma-passport-duplicate-notice");
+      }
 
       localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
       router.push("/result");

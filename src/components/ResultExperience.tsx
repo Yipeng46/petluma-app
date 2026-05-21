@@ -16,11 +16,18 @@ export function ResultExperience() {
   const [card, setCard] = useState<StoredCompanionCard>(() =>
     createInitialPassportData(),
   );
+  const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const savedCard = localStorage.getItem(companionCardStorageKey);
+    const notice = sessionStorage.getItem("petluma-passport-duplicate-notice");
+
+    if (notice) {
+      setDuplicateNotice(notice);
+      sessionStorage.removeItem("petluma-passport-duplicate-notice");
+    }
 
     if (!savedCard) {
       return;
@@ -93,6 +100,14 @@ export function ResultExperience() {
         </div>
 
         <div className="w-full max-w-6xl">
+          {duplicateNotice ? (
+            <div className="mb-4 rounded-2xl border border-[#c7a15f]/35 bg-[#fff8eb] px-5 py-4 text-center text-sm leading-6 text-[#6f5b4b]">
+              {duplicateNotice}
+              <span className="mt-1 block text-xs text-[#9b7b45]">
+                同一宠物已存在护照，已返回原护照。
+              </span>
+            </div>
+          ) : null}
           <FinalCompanionCard card={card} cardRef={cardRef} />
         </div>
 

@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
+import { isValidEmail } from "@/lib/pet-identity";
 import { savePet, type SupabaseInsertError } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 
 type CreatePetPayload = {
+  owner_email?: unknown;
   pet_name?: unknown;
+  species?: unknown;
+  date_of_birth?: unknown;
   breed?: unknown;
   photo_url?: unknown;
 };
@@ -55,24 +59,18 @@ export async function POST(request: Request) {
 
   try {
     const body = (await request.json()) as CreatePetPayload;
+    const ownerEmail = readText(body.owner_email, 320);
     const petName = readText(body.pet_name, 100);
+    const species = readText(body.species, 100) || "Companion";
+    const dateOfBirth = readText(body.date_of_birth, 10);
     const breed = readText(body.breed, 100);
     const photoUrl = readText(body.photo_url, 8_000_000);
 
-    console.log("[PetLuma] POST /api/pets request body", {
-      pet_name: body.pet_name,
-      breed: body.breed,
-      photo_url:
-        typeof body.photo_url === "string"
-          ? {
-              length: body.photo_url.length,
-              prefix: body.photo_url.slice(0, 80),
-            }
-          : body.photo_url,
-    });
-
     console.log("[PetLuma] POST /api/pets normalized payload", {
+      owner_email: ownerEmail,
       pet_name: petName,
+      species,
+      date_of_birth: dateOfBirth,
       breed,
       photo_url: photoUrl
         ? {
@@ -82,6 +80,13 @@ export async function POST(request: Request) {
         : null,
     });
 
+    if (!ownerEmail || !isValidEmail(ownerEmail)) {
+      return NextResponse.json(
+        { error: "A valid owner email is required." },
+        { status: 400 },
+      );
+    }
+
     if (!petName) {
       return NextResponse.json(
         { error: "Pet name is required." },
@@ -89,15 +94,28 @@ export async function POST(request: Request) {
       );
     }
 
-    const pet = await savePet({
+    const result = await savePet({
+      owner_email: ownerEmail,
       pet_name: petName,
+      species,
+      date_of_birth: dateOfBirth,
       breed,
       photo_url: photoUrl || null,
     });
 
-    console.log("[PetLuma] POST /api/pets saved pet", pet);
+    console.log("[PetLuma] POST /api/pets result", {
+      duplicate: result.duplicate,
+      companion_id: result.pet.companion_id,
+    });
 
-    return NextResponse.json({ pet }, { status: 201 });
+    return NextResponse.json(
+      {
+        pet: result.pet,
+        duplicate: result.duplicate,
+        message: result.message,
+      },
+      { status: result.duplicate ? 200 : 201 },
+    );
   } catch (error) {
     console.error("[PetLuma] POST /api/pets full error", error);
 

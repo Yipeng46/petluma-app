@@ -51,6 +51,14 @@ export function PetCardForm({
         </label>
 
         <TextInput
+          label="Owner email"
+          value={passportData.ownerEmail}
+          placeholder="you@example.com"
+          type="email"
+          onChange={(value) => onFieldChange("ownerEmail", value)}
+        />
+
+        <TextInput
           label="Pet name"
           value={passportData.name}
           placeholder="e.g. Luma"
@@ -111,11 +119,13 @@ function TextInput({
   label,
   value,
   placeholder,
+  type = "text",
   onChange,
 }: {
   label: string;
   value: string;
   placeholder: string;
+  type?: string;
   onChange: (value: string) => void;
 }) {
   return (
@@ -124,6 +134,7 @@ function TextInput({
         {label}
       </span>
       <input
+        type={type}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}

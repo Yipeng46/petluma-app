@@ -1,4 +1,5 @@
 export type PassportData = {
+  ownerEmail: string;
   photo: string | null;
   name: string;
   breed: string;
@@ -16,6 +17,7 @@ export const PENDING_PASSPORT_NO = "Assigned on registration";
 
 export function createInitialPassportData(): PassportData {
   return {
+    ownerEmail: "",
     photo: null,
     name: "",
     breed: "",
@@ -50,6 +52,7 @@ export function normalizePassportData(raw: unknown): PassportData {
   const record = raw as Record<string, unknown>;
 
   return {
+    ownerEmail: readString(record.ownerEmail ?? record.owner_email),
     photo:
       typeof record.photo === "string"
         ? record.photo
