@@ -595,14 +595,17 @@ textarea {
   position: absolute;
   z-index: 3;
   left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
+  right: -1px;
+  bottom: -1px;
+  width: auto;
   margin: 0;
-  padding: 0.55rem var(--identity-page-pad-x) calc(0.65rem + 1px);
+  padding: 0.55rem var(--identity-page-pad-x) calc(0.65rem + 2px);
   border: none;
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
   background: #0b1c32;
   box-shadow: none;
+  overflow: hidden;
 }
 
 .passport-identity-mrz::before {
@@ -612,13 +615,15 @@ textarea {
   left: 0;
   right: -3px;
   bottom: -3px;
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
   background: #0b1c32;
   z-index: -1;
 }
 
 @media (min-width: 640px) {
   .passport-identity-mrz {
-    padding-bottom: calc(0.72rem + 1px);
+    padding-bottom: calc(0.72rem + 2px);
   }
 }
 
