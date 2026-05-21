@@ -19,15 +19,17 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <div className="passport-identity-paper pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
         <div className="passport-identity-security pointer-events-none absolute inset-0" />
+        <div className="passport-identity-guilloche pointer-events-none absolute inset-0" />
         <div className="passport-identity-fine-lines pointer-events-none absolute inset-0" />
         <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
+        <div className="passport-identity-edge pointer-events-none absolute inset-0" />
         <div className="passport-identity-watermark-ring pointer-events-none absolute -right-8 top-12 h-56 w-56 rounded-full" />
         <div className="passport-identity-watermark-text pointer-events-none absolute right-6 top-20 text-7xl leading-none">
           PL
         </div>
 
         <div className="passport-identity-body relative min-h-[430px]">
-          <div className="border-b border-[#9f7835]/10 pb-5">
+          <header className="passport-identity-header">
             <div>
               <p className="passport-identity-header-kicker uppercase">
                 PETLUMA PASSPORT
@@ -36,29 +38,34 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                 Identity Page
               </p>
             </div>
-          </div>
+          </header>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-[0.76fr_1.24fr]">
+          <div className="mt-7 grid gap-7 sm:grid-cols-[0.76fr_1.24fr]">
             <div>
               <div className="passport-identity-photo-mount">
                 <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.2rem] p-1">
+                  <span className="passport-identity-photo-corner passport-identity-photo-corner--tl" aria-hidden="true" />
+                  <span className="passport-identity-photo-corner passport-identity-photo-corner--tr" aria-hidden="true" />
+                  <span className="passport-identity-photo-corner passport-identity-photo-corner--bl" aria-hidden="true" />
+                  <span className="passport-identity-photo-corner passport-identity-photo-corner--br" aria-hidden="true" />
                   <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden bg-[#faf7f0]">
                     {display.photo ? (
                       <img
                         src={display.photo}
                         alt={`${display.name} passport portrait`}
-                        className="block max-h-full max-w-full object-contain object-center saturate-[0.84] sepia-[0.1] contrast-[1.02]"
+                        className="block max-h-full max-w-full object-contain object-center saturate-[0.82] sepia-[0.12] contrast-[1.03]"
                       />
                     ) : (
                       <div className="flex h-full w-full flex-col items-center justify-center px-3 text-center">
-                        <span className="text-[0.52rem] font-medium uppercase tracking-[0.32em] text-[#0b1c32]/28">
+                        <span className="text-[0.5rem] font-normal uppercase tracking-[0.34em] text-[#0b1c32]/24">
                           Passport Photo
                         </span>
-                        <span className="mt-2 text-[0.42rem] uppercase tracking-[0.24em] text-[#7a6030]/45">
+                        <span className="mt-2 text-[0.4rem] font-normal uppercase tracking-[0.26em] text-[#7a6030]/38">
                           Will appear here
                         </span>
                       </div>
                     )}
+                    <div className="passport-identity-photo-laminate pointer-events-none absolute inset-0" />
                   </div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -285,12 +285,21 @@ textarea {
   overflow: hidden;
   --identity-page-pad-x: 1.5rem;
   --identity-page-pad-b: 1.5rem;
+  --identity-ink: #0b1c32;
+  --identity-ink-soft: rgba(11, 28, 50, 0.68);
+  --identity-gold: #9f7835;
+  --identity-gold-soft: rgba(159, 120, 53, 0.42);
+  --identity-gold-faint: rgba(159, 120, 53, 0.08);
   border: none;
   background:
-    radial-gradient(ellipse 110% 75% at 14% 4%, rgba(255, 253, 248, 0.65), transparent 55%),
-    radial-gradient(ellipse 85% 65% at 90% 96%, rgba(210, 195, 165, 0.12), transparent 50%),
-    linear-gradient(168deg, #f8f4eb 0%, #f6f1e7 52%, #f9f5ed 100%);
-  box-shadow: inset 0 1px 0 rgba(20, 25, 35, 0.1);
+    radial-gradient(ellipse 120% 80% at 12% 2%, rgba(255, 253, 248, 0.72), transparent 58%),
+    radial-gradient(ellipse 90% 70% at 92% 98%, rgba(210, 195, 165, 0.14), transparent 52%),
+    radial-gradient(ellipse 60% 40% at 78% 18%, rgba(185, 145, 76, 0.025), transparent 70%),
+    linear-gradient(168deg, #faf6ee 0%, #f7f2e8 48%, #faf7f0 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(159, 120, 53, 0.04),
+    inset 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 @media (min-width: 640px) {
@@ -298,6 +307,13 @@ textarea {
     --identity-page-pad-x: 2rem;
     --identity-page-pad-b: 2rem;
   }
+}
+
+.passport-identity-edge {
+  box-shadow:
+    inset 0 0 0 0.5px rgba(159, 120, 53, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  border-radius: inherit;
 }
 
 .passport-identity-body {
@@ -312,133 +328,229 @@ textarea {
 
 .passport-identity-paper {
   background-image:
-    radial-gradient(ellipse at center, transparent 0%, transparent 54%, rgba(8, 21, 38, 0.05) 55%, transparent 56%),
-    linear-gradient(90deg, rgba(8, 21, 38, 0.022) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(8, 21, 38, 0.014) 1px, transparent 1px);
-  background-size: 92px 42px, 30px 30px, 30px 30px;
-  opacity: 0.14;
+    radial-gradient(ellipse at center, transparent 0%, transparent 54%, rgba(8, 21, 38, 0.045) 55%, transparent 56%),
+    linear-gradient(90deg, rgba(8, 21, 38, 0.018) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(8, 21, 38, 0.012) 1px, transparent 1px);
+  background-size: 92px 42px, 28px 28px, 28px 28px;
+  opacity: 0.16;
 }
 
 .passport-identity-grain {
-  opacity: 0.18;
+  opacity: 0.2;
   mix-blend-mode: multiply;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.45) 0.35px, transparent 0),
-    radial-gradient(circle at 4px 3px, rgba(8, 21, 38, 0.04) 0.35px, transparent 0),
-    radial-gradient(circle at 7px 9px, rgba(255, 255, 255, 0.22) 0.3px, transparent 0),
-    linear-gradient(90deg, rgba(8, 21, 38, 0.01) 1px, transparent 1px),
-    linear-gradient(rgba(8, 21, 38, 0.008) 1px, transparent 1px);
-  background-size: 4px 4px, 6px 6px, 10px 10px, 14px 14px, 14px 14px;
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.5) 0.35px, transparent 0),
+    radial-gradient(circle at 4px 3px, rgba(8, 21, 38, 0.035) 0.35px, transparent 0),
+    radial-gradient(circle at 7px 9px, rgba(255, 255, 255, 0.24) 0.3px, transparent 0),
+    linear-gradient(90deg, rgba(8, 21, 38, 0.012) 1px, transparent 1px),
+    linear-gradient(rgba(8, 21, 38, 0.009) 1px, transparent 1px);
+  background-size: 4px 4px, 6px 6px, 10px 10px, 13px 13px, 13px 13px;
 }
 
 .passport-identity-security {
-  opacity: 0.055;
+  opacity: 0.065;
   background-image:
     repeating-linear-gradient(
       45deg,
-      rgba(11, 28, 50, 0.04) 0,
-      rgba(11, 28, 50, 0.04) 0.5px,
+      rgba(11, 28, 50, 0.035) 0,
+      rgba(11, 28, 50, 0.035) 0.5px,
       transparent 0.5px,
-      transparent 7px
+      transparent 6px
     ),
     repeating-linear-gradient(
       -45deg,
-      rgba(159, 120, 53, 0.03) 0,
-      rgba(159, 120, 53, 0.03) 0.5px,
+      rgba(159, 120, 53, 0.028) 0,
+      rgba(159, 120, 53, 0.028) 0.5px,
       transparent 0.5px,
-      transparent 11px
+      transparent 10px
     );
 }
 
+.passport-identity-guilloche {
+  opacity: 0.028;
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 38%, rgba(159, 120, 53, 0.12) 39%, transparent 40%),
+    radial-gradient(circle at 50% 50%, transparent 58%, rgba(11, 28, 50, 0.08) 59%, transparent 60%),
+    radial-gradient(circle at 50% 50%, transparent 78%, rgba(159, 120, 53, 0.06) 79%, transparent 80%);
+  background-size: 48px 48px, 72px 72px, 96px 96px;
+  background-position: 0 0, 24px 24px, 12px 36px;
+  mask-image: radial-gradient(ellipse 85% 75% at 62% 42%, black 20%, transparent 72%);
+}
+
 .passport-identity-fine-lines {
-  opacity: 0.35;
-  background-image: linear-gradient(rgba(159, 120, 53, 0.025) 1px, transparent 1px);
-  background-size: 100% 3.4rem;
-  mask-image: linear-gradient(180deg, transparent 8%, black 18%, black 78%, transparent 92%);
+  opacity: 0.28;
+  background-image: linear-gradient(rgba(159, 120, 53, 0.022) 1px, transparent 1px);
+  background-size: 100% 3.6rem;
+  mask-image: linear-gradient(180deg, transparent 6%, black 16%, black 80%, transparent 94%);
 }
 
 .passport-identity-vignette {
   background:
-    radial-gradient(ellipse 96% 92% at 50% 48%, transparent 62%, rgba(8, 21, 38, 0.04) 100%),
+    radial-gradient(ellipse 96% 92% at 50% 48%, transparent 58%, rgba(8, 21, 38, 0.045) 100%),
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.08) 0%,
-      transparent 8%,
-      transparent 92%,
-      rgba(159, 120, 53, 0.03) 100%
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 6%,
+      transparent 94%,
+      rgba(159, 120, 53, 0.035) 100%
     );
 }
 
 .passport-identity-watermark-ring {
-  border: 20px solid rgba(185, 145, 76, 0.014);
-  box-shadow: inset 0 0 0 0.5px rgba(185, 145, 76, 0.01);
+  border: 18px solid rgba(185, 145, 76, 0.018);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(185, 145, 76, 0.012),
+    0 0 0 1px rgba(185, 145, 76, 0.006);
 }
 
 .passport-identity-watermark-text {
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
   font-weight: 600;
   letter-spacing: -0.06em;
-  color: rgba(11, 28, 50, 0.008);
+  color: rgba(11, 28, 50, 0.01);
   text-shadow: none;
+}
+
+/* ── Header ── */
+
+.passport-identity-header {
+  position: relative;
+  padding-bottom: 1.35rem;
+  border-bottom: 0.5px solid rgba(159, 120, 53, 0.08);
+}
+
+.passport-identity-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5px;
+  width: 2.75rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(185, 145, 76, 0.42), rgba(185, 145, 76, 0.08));
 }
 
 .passport-identity-header-kicker {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.5rem;
-  font-weight: 500;
-  letter-spacing: 0.48em;
-  color: rgba(122, 96, 48, 0.52);
+  font-size: 0.46rem;
+  font-weight: 400;
+  letter-spacing: 0.52em;
+  color: rgba(122, 96, 48, 0.46);
 }
 
 .passport-identity-header-title {
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(1.95rem, 4vw, 2.45rem);
+  font-size: clamp(2rem, 4.2vw, 2.55rem);
   font-weight: 500;
-  letter-spacing: 0.22em;
-  line-height: 0.95;
-  color: #0b1c32;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.26em;
+  line-height: 0.92;
+  color: var(--identity-ink);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
 }
 
+/* ── Photo mount ── */
+
 .passport-identity-photo-mount {
-  transform: rotate(-1deg);
+  transform: rotate(-0.75deg);
   transform-origin: center center;
 }
 
 .passport-identity-photo-frame {
-  border: 0.5px solid rgba(159, 120, 53, 0.18);
-  background: #faf8f3;
+  position: relative;
+  border: 0.5px solid rgba(159, 120, 53, 0.22);
+  background: linear-gradient(145deg, #fdfbf6 0%, #f5f0e6 100%);
   box-shadow:
-    0 3px 10px rgba(8, 21, 38, 0.07),
-    0 1px 2px rgba(8, 21, 38, 0.05),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.6);
+    0 4px 14px rgba(8, 21, 38, 0.08),
+    0 1px 3px rgba(8, 21, 38, 0.05),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(159, 120, 53, 0.06);
 }
 
 .passport-identity-photo-inner {
-  box-shadow: inset 0 1px 3px rgba(8, 21, 38, 0.04);
+  box-shadow:
+    inset 0 1px 4px rgba(8, 21, 38, 0.05),
+    inset 0 0 0 0.5px rgba(8, 21, 38, 0.03);
+}
+
+.passport-identity-photo-laminate {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      transparent 38%,
+      transparent 62%,
+      rgba(255, 255, 255, 0.06) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 18%,
+      transparent 82%,
+      rgba(8, 21, 38, 0.02) 100%
+    );
+  mix-blend-mode: soft-light;
+}
+
+.passport-identity-photo-corner {
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-color: rgba(159, 120, 53, 0.22);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0.55;
+}
+
+.passport-identity-photo-corner--tl {
+  top: 0.35rem;
+  left: 0.35rem;
+  border-top-width: 0.5px;
+  border-left-width: 0.5px;
+}
+
+.passport-identity-photo-corner--tr {
+  top: 0.35rem;
+  right: 0.35rem;
+  border-top-width: 0.5px;
+  border-right-width: 0.5px;
+}
+
+.passport-identity-photo-corner--bl {
+  bottom: 0.35rem;
+  left: 0.35rem;
+  border-bottom-width: 0.5px;
+  border-left-width: 0.5px;
+}
+
+.passport-identity-photo-corner--br {
+  bottom: 0.35rem;
+  right: 0.35rem;
+  border-bottom-width: 0.5px;
+  border-right-width: 0.5px;
 }
 
 .passport-identity-id-block {
-  border: 0.5px solid rgba(159, 120, 53, 0.12);
-  background: rgba(255, 252, 246, 0.28);
-  box-shadow: none;
+  border: 0.5px solid rgba(159, 120, 53, 0.1);
+  background: rgba(255, 252, 246, 0.32);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .passport-identity-id-label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.5rem;
-  font-weight: 500;
-  letter-spacing: 0.34em;
-  color: rgba(122, 96, 48, 0.5);
+  font-size: 0.46rem;
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  color: rgba(122, 96, 48, 0.44);
 }
 
 .passport-identity-id-value {
   font-family: "Courier New", Courier, ui-monospace, monospace;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 400;
-  letter-spacing: 0.16em;
-  color: rgba(11, 28, 50, 0.82);
+  letter-spacing: 0.18em;
+  color: rgba(11, 28, 50, 0.78);
 }
+
+/* ── Fields ── */
 
 .passport-identity-fields__primary,
 .passport-identity-fields__registry {
@@ -455,30 +567,30 @@ textarea {
 }
 
 .passport-identity-fields__primary {
-  margin-top: 0.15rem;
+  margin-top: 0.25rem;
 }
 
 .passport-identity-fields__registry {
-  margin-top: 1.15rem;
-  padding-top: 0.95rem;
-  border-top: 0.5px solid rgba(159, 120, 53, 0.06);
-  gap: 0.72rem 1rem;
+  margin-top: 1.35rem;
+  padding-top: 1.05rem;
+  border-top: 0.5px solid rgba(159, 120, 53, 0.05);
+  gap: 0.68rem 1rem;
 }
 
 .passport-identity-field {
-  border-bottom: 0.5px solid rgba(159, 120, 53, 0.07);
-  padding-bottom: 0.62rem;
+  border-bottom: 0.5px solid rgba(159, 120, 53, 0.06);
+  padding-bottom: 0.58rem;
 }
 
 .passport-identity-field--hero {
-  margin-bottom: 0.35rem;
-  padding-bottom: 0.95rem;
-  border-bottom: 0.5px solid rgba(159, 120, 53, 0.09);
+  margin-bottom: 0.5rem;
+  padding-bottom: 1.05rem;
+  border-bottom: 0.5px solid rgba(159, 120, 53, 0.1);
 }
 
 .passport-identity-field--official {
-  padding-bottom: 0.52rem;
-  border-bottom-color: rgba(159, 120, 53, 0.045);
+  padding-bottom: 0.48rem;
+  border-bottom-color: rgba(159, 120, 53, 0.035);
 }
 
 .passport-identity-field--wide {
@@ -487,86 +599,90 @@ textarea {
 
 .passport-identity-field__label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.425rem;
-  font-weight: 500;
-  letter-spacing: 0.38em;
-  color: rgba(122, 96, 48, 0.42);
+  font-size: 0.4rem;
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  color: rgba(122, 96, 48, 0.38);
 }
 
 .passport-identity-field--official .passport-identity-field__label {
-  font-size: 0.4rem;
-  letter-spacing: 0.4em;
-  color: rgba(122, 96, 48, 0.36);
+  font-size: 0.38rem;
+  letter-spacing: 0.44em;
+  color: rgba(122, 96, 48, 0.3);
 }
 
 .passport-identity-field__value {
-  margin-top: 0.32rem;
+  margin-top: 0.36rem;
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.11em;
-  line-height: 1.35;
-  color: rgba(11, 28, 50, 0.76);
+  letter-spacing: 0.12em;
+  line-height: 1.38;
+  color: var(--identity-ink-soft);
 }
 
 .passport-identity-field--official .passport-identity-field__value {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 400;
-  letter-spacing: 0.09em;
-  color: rgba(11, 28, 50, 0.62);
+  letter-spacing: 0.1em;
+  color: rgba(11, 28, 50, 0.54);
 }
 
 .passport-identity-field__value--large {
-  margin-top: 0.5rem;
+  margin-top: 0.55rem;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(2.45rem, 5.2vw, 3.15rem);
+  font-size: clamp(2.55rem, 5.4vw, 3.25rem);
   font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 0.9;
-  color: #0b1c32;
+  letter-spacing: -0.01em;
+  line-height: 0.88;
+  color: var(--identity-ink);
   text-transform: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
+/* ── Notes & seal ── */
+
 .passport-identity-notes {
-  border: 0.5px solid rgba(159, 120, 53, 0.07);
-  background: rgba(255, 252, 246, 0.16);
-  box-shadow: none;
+  border: 0.5px solid rgba(159, 120, 53, 0.06);
+  background: rgba(255, 252, 246, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .passport-identity-notes__label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.425rem;
-  font-weight: 500;
-  letter-spacing: 0.38em;
-  color: rgba(122, 96, 48, 0.4);
+  font-size: 0.4rem;
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  color: rgba(122, 96, 48, 0.36);
 }
 
 .passport-identity-notes__body {
-  margin-top: 0.38rem;
+  margin-top: 0.42rem;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 400;
-  line-height: 1.52;
-  color: rgba(36, 50, 72, 0.72);
+  font-style: italic;
+  line-height: 1.58;
+  color: rgba(36, 50, 72, 0.66);
 }
 
 .passport-identity-seal {
   width: 7rem;
   height: 7rem;
-  border: 0.5px solid rgba(159, 120, 53, 0.14);
-  background: transparent;
+  border: 0.5px solid rgba(159, 120, 53, 0.16);
+  background: radial-gradient(circle at 50% 42%, rgba(255, 252, 246, 0.08), transparent 68%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 2px rgba(159, 120, 53, 0.06),
-    0 1px 0 rgba(255, 255, 255, 0.08);
-  color: rgba(140, 106, 46, 0.34);
-  opacity: 0.42;
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 2px rgba(159, 120, 53, 0.07),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+  color: rgba(140, 106, 46, 0.36);
+  opacity: 0.46;
   mix-blend-mode: multiply;
 }
 
 .passport-identity-seal__ring {
-  border: 0.5px solid rgba(159, 120, 53, 0.1);
-  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  border: 0.5px solid rgba(159, 120, 53, 0.12);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.14);
 }
 
 .passport-identity-seal__ring-dots {
@@ -575,21 +691,23 @@ textarea {
 
 .passport-identity-seal__kicker {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.36rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-size: 0.34rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
 }
 
 .passport-identity-seal__mark {
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.04em;
   text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.22),
-    0 -0.5px 0 rgba(159, 120, 53, 0.12);
+    0 1px 0 rgba(255, 255, 255, 0.24),
+    0 -0.5px 0 rgba(159, 120, 53, 0.14);
 }
+
+/* ── MRZ ── */
 
 .passport-identity-mrz {
   position: absolute;
