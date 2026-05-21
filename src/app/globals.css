@@ -189,7 +189,7 @@ textarea {
   object-fit: contain;
   object-position: center;
   opacity: 0.92;
-  transform: scale(1.5);
+  transform: scale(1.15);
   transform-origin: center center;
   filter: brightness(0.95) contrast(1.04) saturate(0.92)
     drop-shadow(0 1px 0 rgba(0, 0, 0, 0.68))
