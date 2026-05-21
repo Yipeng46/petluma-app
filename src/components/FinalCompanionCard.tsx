@@ -26,6 +26,8 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
           <div className="pointer-events-none absolute inset-y-8 left-5 w-px bg-white/30" />
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
           <div className="passport-identity-grain pointer-events-none absolute inset-0" />
+          <div className="passport-identity-security pointer-events-none absolute inset-0" />
+          <div className="passport-identity-fine-lines pointer-events-none absolute inset-0" />
           <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
           <div className="passport-identity-watermark-ring pointer-events-none absolute -right-10 top-16 h-72 w-72 rounded-full" />
           <div className="passport-identity-watermark-text pointer-events-none absolute right-10 top-24 text-[9rem] leading-none">
@@ -75,9 +77,10 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
               </div>
 
               <div className="flex min-w-0 flex-col justify-between">
-                <div className="grid gap-5">
+                <div className="passport-identity-fields">
                   <PassportField label="Pet Name" value={display.name} large />
-                  <div className="grid gap-5 sm:grid-cols-2">
+
+                  <div className="passport-identity-fields__primary">
                     <PassportField label="Species" value={display.species} />
                     <PassportField label="Breed" value={display.breed} />
                     <PassportField label="Gender" value={display.gender} />
@@ -94,10 +97,39 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                       value={display.passportNo}
                     />
                   </div>
+
+                  <div className="passport-identity-fields__registry">
+                    <PassportField
+                      label="Registry"
+                      value={display.registry}
+                      official
+                    />
+                    <PassportField
+                      label="Classification"
+                      value={display.classification}
+                      official
+                    />
+                    <PassportField
+                      label="Issued By"
+                      value={display.issuedBy}
+                      official
+                    />
+                    <PassportField
+                      label="Registered"
+                      value={display.registered}
+                      official
+                    />
+                    <PassportField
+                      label="Kingdom ID"
+                      value={display.kingdomId}
+                      official
+                      wide
+                    />
+                  </div>
                 </div>
 
-                <div className="relative mt-9">
-                  <div className="passport-identity-notes p-4 pr-28">
+                <div className="relative mt-10">
+                  <div className="passport-identity-notes p-4 pr-24 pb-5">
                     <p className="passport-identity-notes__label uppercase">
                       Notes
                     </p>
@@ -107,14 +139,13 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                   </div>
 
                   <div
-                    className="passport-identity-seal absolute -bottom-5 right-0 flex rotate-[-11deg] items-center justify-center rounded-full text-center"
+                    className="passport-identity-seal absolute -bottom-7 -right-2 flex rotate-[-13deg] items-center justify-center rounded-full text-center"
                     aria-hidden="true"
                   >
-                    <div className="passport-identity-seal__ring-dots pointer-events-none absolute inset-1 rounded-full" />
-                    <div className="passport-identity-seal__ring absolute inset-2.5 rounded-full" />
+                    <div className="passport-identity-seal__ring pointer-events-none absolute inset-3 rounded-full" />
                     <div className="relative flex h-full flex-col items-center justify-center">
                       <span className="passport-identity-seal__kicker uppercase">
-                        Official
+                        Registry
                       </span>
                       <span className="passport-identity-seal__mark">PL</span>
                       <span className="passport-identity-seal__kicker uppercase">
@@ -142,13 +173,26 @@ function PassportField({
   label,
   value,
   large = false,
+  official = false,
+  wide = false,
 }: {
   label: string;
   value: string;
   large?: boolean;
+  official?: boolean;
+  wide?: boolean;
 }) {
+  const fieldClass = [
+    "passport-identity-field",
+    large ? "passport-identity-field--hero" : "",
+    official ? "passport-identity-field--official" : "",
+    wide ? "passport-identity-field--wide" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className="passport-identity-field">
+    <div className={fieldClass}>
       <p className="passport-identity-field__label uppercase">{label}</p>
       <p
         className={

@@ -18,6 +18,8 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
       <article className="passport-identity-page relative overflow-hidden rounded-[24px] border border-[#d9b36c]/14 p-4 sm:p-6">
         <div className="passport-identity-paper pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
+        <div className="passport-identity-security pointer-events-none absolute inset-0" />
+        <div className="passport-identity-fine-lines pointer-events-none absolute inset-0" />
         <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
         <div className="passport-identity-watermark-ring pointer-events-none absolute -right-8 top-12 h-56 w-56 rounded-full" />
         <div className="passport-identity-watermark-text pointer-events-none absolute right-6 top-20 text-7xl leading-none">
@@ -70,24 +72,56 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
               </div>
             </div>
 
-            <div className="min-w-0 space-y-4">
-              <PassportPreviewField label="Pet Name" value={display.name} large />
-              <div className="grid gap-4 sm:grid-cols-2">
-                <PassportPreviewField label="Species" value={display.species} />
-                <PassportPreviewField label="Breed" value={display.breed} />
-                <PassportPreviewField label="Gender" value={display.gender} />
-                <PassportPreviewField
-                  label="Date of Birth"
-                  value={display.birthdate}
-                />
-                <PassportPreviewField
-                  label="Place of Origin"
-                  value={display.placeOfOrigin}
-                />
-                <PassportPreviewField
-                  label="Companion ID"
-                  value={display.companionId}
-                />
+            <div className="min-w-0">
+              <div className="passport-identity-fields">
+                <PassportPreviewField label="Pet Name" value={display.name} large />
+
+                <div className="passport-identity-fields__primary">
+                  <PassportPreviewField label="Species" value={display.species} />
+                  <PassportPreviewField label="Breed" value={display.breed} />
+                  <PassportPreviewField label="Gender" value={display.gender} />
+                  <PassportPreviewField
+                    label="Date of Birth"
+                    value={display.birthdate}
+                  />
+                  <PassportPreviewField
+                    label="Place of Origin"
+                    value={display.placeOfOrigin}
+                  />
+                  <PassportPreviewField
+                    label="Companion ID"
+                    value={display.companionId}
+                  />
+                </div>
+
+                <div className="passport-identity-fields__registry">
+                  <PassportPreviewField
+                    label="Registry"
+                    value={display.registry}
+                    official
+                  />
+                  <PassportPreviewField
+                    label="Classification"
+                    value={display.classification}
+                    official
+                  />
+                  <PassportPreviewField
+                    label="Issued By"
+                    value={display.issuedBy}
+                    official
+                  />
+                  <PassportPreviewField
+                    label="Registered"
+                    value={display.registered}
+                    official
+                  />
+                  <PassportPreviewField
+                    label="Kingdom ID"
+                    value={display.kingdomId}
+                    official
+                    wide
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -102,18 +136,17 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
               </p>
             </div>
             <div
-              className="passport-identity-seal absolute -bottom-4 right-2 flex h-20 w-20 rotate-[-11deg] items-center justify-center rounded-full text-center"
+              className="passport-identity-seal absolute -bottom-5 -right-1 flex h-20 w-20 rotate-[-13deg] items-center justify-center rounded-full text-center"
               aria-hidden="true"
             >
-              <div className="passport-identity-seal__ring-dots pointer-events-none absolute inset-1 rounded-full" />
-              <div className="passport-identity-seal__ring absolute inset-2 rounded-full" />
+              <div className="passport-identity-seal__ring pointer-events-none absolute inset-2.5 rounded-full" />
               <div className="relative flex h-full flex-col items-center justify-center">
-                <span className="passport-identity-seal__kicker text-[0.34rem] uppercase">
-                  Official
+                <span className="passport-identity-seal__kicker text-[0.32rem] uppercase">
+                  Registry
                 </span>
                 <span className="passport-identity-seal__mark text-xl">PL</span>
-                <span className="passport-identity-seal__kicker text-[0.32rem] uppercase">
-                  Seal
+                <span className="passport-identity-seal__kicker text-[0.3rem] uppercase">
+                  PetLuma
                 </span>
               </div>
             </div>
@@ -134,19 +167,32 @@ function PassportPreviewField({
   label,
   value,
   large = false,
+  official = false,
+  wide = false,
 }: {
   label: string;
   value: string;
   large?: boolean;
+  official?: boolean;
+  wide?: boolean;
 }) {
+  const fieldClass = [
+    "passport-identity-field",
+    large ? "passport-identity-field--hero" : "",
+    official ? "passport-identity-field--official" : "",
+    wide ? "passport-identity-field--wide" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className="passport-identity-field">
+    <div className={fieldClass}>
       <p className="passport-identity-field__label uppercase">{label}</p>
       <p
         className={
           large
             ? "passport-identity-field__value passport-identity-field__value--large break-words"
-            : "passport-identity-field__value break-words text-xs sm:text-[0.84rem]"
+            : "passport-identity-field__value break-words uppercase"
         }
       >
         {value}

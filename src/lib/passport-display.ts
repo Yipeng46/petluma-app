@@ -21,6 +21,11 @@ export type PassportDisplay = {
   placeOfOrigin: string;
   passportNo: string;
   companionId: string;
+  registry: string;
+  classification: string;
+  issuedBy: string;
+  registered: string;
+  kingdomId: string;
   mrz: PassportMrz;
 };
 
@@ -56,6 +61,29 @@ export function generateMRZ(data: PassportData): PassportMrz {
   };
 }
 
+function kingdomIdFromCompanion(companionId: string) {
+  const token = companionId.replace(/[^A-Z0-9]/gi, "").toUpperCase();
+  if (!token || token === "ASSIGNEDONREGISTRATION") {
+    return "PK-PENDING";
+  }
+
+  return `PK-${token.slice(-6).padStart(6, "0")}`;
+}
+
+function classificationFromSpecies(species: string) {
+  const normalized = species.trim().toLowerCase();
+
+  if (normalized.includes("cat")) {
+    return "Feline Registry Class";
+  }
+
+  if (normalized.includes("dog")) {
+    return "Canine Registry Class";
+  }
+
+  return "Companion Registry Class";
+}
+
 export function getPassportDisplay(data: PassportData): PassportDisplay {
   const name = displayValue(data.name);
   const breed = displayValue(data.breed);
@@ -67,6 +95,10 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     "A cherished companion under PetLuma care.",
   );
   const placeOfOrigin = displayValue(data.placeOfOrigin);
+  const companionId = displayValue(data.companionId, PENDING_COMPANION_ID);
+  const passportNo = displayValue(data.passportNo, PENDING_PASSPORT_NO);
+  const isPending =
+    companionId === PENDING_COMPANION_ID || passportNo === PENDING_PASSPORT_NO;
 
   return {
     photo: data.photo,
@@ -77,8 +109,13 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     species,
     personality,
     placeOfOrigin,
-    passportNo: displayValue(data.passportNo, PENDING_PASSPORT_NO),
-    companionId: displayValue(data.companionId, PENDING_COMPANION_ID),
+    passportNo,
+    companionId,
+    registry: "PetLuma Companion Registry",
+    classification: classificationFromSpecies(species),
+    issuedBy: "Kingdom Registry Office",
+    registered: isPending ? "Pending" : "Active",
+    kingdomId: kingdomIdFromCompanion(companionId),
     mrz: generateMRZ(data),
   };
 }
