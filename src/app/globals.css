@@ -123,11 +123,11 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex: 1 1 auto;
   width: 100%;
   min-height: 0;
-  padding-top: 13rem;
+  padding-top: 12.75rem;
 }
 
 .passport-cover-heading {
@@ -174,9 +174,10 @@ textarea {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: clamp(14.5rem, 38cqh, 24rem);
-  height: clamp(15.5rem, 42cqh, 27rem);
-  max-height: clamp(16.5rem, 45cqh, 28.5rem);
+  min-height: clamp(20rem, 52cqh, 33rem);
+  height: clamp(21.5rem, 58cqh, 37.5rem);
+  max-height: clamp(22.8rem, 62cqh, 39.5rem);
+  margin-top: 0.65rem;
   padding: 0;
 }
 
@@ -184,7 +185,7 @@ textarea {
   display: block;
   width: auto;
   height: 100%;
-  max-width: 62%;
+  max-width: 72%;
   object-fit: contain;
   object-position: center;
   opacity: 0.92;
