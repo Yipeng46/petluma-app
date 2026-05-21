@@ -15,7 +15,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <span>PetLuma Passport</span>
       </div>
 
-      <article className="passport-identity-page relative overflow-hidden rounded-[24px] border border-[#d9b36c]/14 p-4 sm:p-6">
+      <article className="passport-identity-page relative overflow-hidden rounded-[24px] p-4 sm:p-6">
         <div className="passport-identity-paper pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
         <div className="passport-identity-security pointer-events-none absolute inset-0" />

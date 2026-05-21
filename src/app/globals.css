@@ -249,14 +249,17 @@ textarea {
 /* ── Passport Identity Page (内页) ── */
 
 .passport-identity-page {
+  overflow: hidden;
+  border: 0.5px solid rgba(217, 179, 108, 0.14);
+  border-bottom-color: #0b1c32;
   background:
     radial-gradient(ellipse 110% 75% at 14% 4%, rgba(255, 253, 248, 0.65), transparent 55%),
     radial-gradient(ellipse 85% 65% at 90% 96%, rgba(210, 195, 165, 0.12), transparent 50%),
     linear-gradient(168deg, #f8f4eb 0%, #f6f1e7 52%, #f9f5ed 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
-    inset 20px 0 32px rgba(112, 82, 38, 0.04),
-    inset 0 -1px 0 rgba(159, 120, 53, 0.05);
+    inset 0 1px 0 rgba(20, 25, 35, 0.12),
+    inset 1px 0 0 rgba(20, 25, 35, 0.08),
+    inset 20px 0 32px rgba(112, 82, 38, 0.04);
 }
 
 .passport-identity-paper {
@@ -544,13 +547,13 @@ textarea {
 
 .passport-identity-mrz {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   top: -1px;
   margin-top: auto;
   margin-left: -1.5rem;
   margin-right: -1.5rem;
-  margin-bottom: -1.5rem;
-  padding: 0.55rem 1.5rem 0.65rem;
+  margin-bottom: calc(-1.5rem - 2px);
+  padding: 0.55rem 1.5rem calc(0.65rem + 2px);
   border-top: none;
   background: #0b1c32;
   box-shadow: none;
@@ -560,10 +563,10 @@ textarea {
   .passport-identity-mrz {
     margin-left: -2rem;
     margin-right: -2rem;
-    margin-bottom: -2rem;
+    margin-bottom: calc(-2rem - 2px);
     padding-left: 2rem;
     padding-right: 2rem;
-    padding-bottom: 0.72rem;
+    padding-bottom: calc(0.72rem + 2px);
   }
 }
 
