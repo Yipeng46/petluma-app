@@ -22,8 +22,6 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
         <PassportCover passportNo={display.passportNo} />
 
         <section className="passport-identity-page relative overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
-          <div className="passport-identity-binding-line passport-identity-binding-line--outer pointer-events-none absolute inset-y-8 left-0 w-px" />
-          <div className="passport-identity-binding-line passport-identity-binding-line--inner pointer-events-none absolute inset-y-8 left-5 w-px" />
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
           <div className="passport-identity-grain pointer-events-none absolute inset-0" />
           <div className="passport-identity-security pointer-events-none absolute inset-0" />
