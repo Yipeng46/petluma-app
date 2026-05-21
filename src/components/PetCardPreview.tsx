@@ -26,7 +26,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           PL
         </div>
 
-        <div className="relative min-h-[430px]">
+        <div className="passport-identity-body relative min-h-[430px]">
           <div className="border-b border-[#9f7835]/10 pb-5">
             <div>
               <p className="passport-identity-header-kicker uppercase">
@@ -145,12 +145,12 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="passport-identity-mrz">
-            <p className="passport-identity-mrz__line uppercase">{display.mrz.line1}</p>
-            <p className="passport-identity-mrz__line uppercase">{display.mrz.line2}</p>
-            <p className="passport-identity-mrz__line uppercase">{display.mrz.line3}</p>
-          </div>
+        <div className="passport-identity-mrz">
+          <p className="passport-identity-mrz__line uppercase">{display.mrz.line1}</p>
+          <p className="passport-identity-mrz__line uppercase">{display.mrz.line2}</p>
+          <p className="passport-identity-mrz__line uppercase">{display.mrz.line3}</p>
         </div>
       </article>
     </section>

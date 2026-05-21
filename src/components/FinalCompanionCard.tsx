@@ -34,7 +34,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             PL
           </div>
 
-          <div className="relative flex min-h-[496px] flex-col">
+          <div className="passport-identity-body relative flex min-h-[496px] flex-col">
             <header className="border-b border-[#9f7835]/10 pb-5">
               <div>
                 <p className="passport-identity-header-kicker uppercase">
@@ -150,12 +150,12 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="passport-identity-mrz">
-              <p className="passport-identity-mrz__line uppercase">{display.mrz.line1}</p>
-              <p className="passport-identity-mrz__line uppercase">{display.mrz.line2}</p>
-              <p className="passport-identity-mrz__line uppercase">{display.mrz.line3}</p>
-            </div>
+          <div className="passport-identity-mrz">
+            <p className="passport-identity-mrz__line uppercase">{display.mrz.line1}</p>
+            <p className="passport-identity-mrz__line uppercase">{display.mrz.line2}</p>
+            <p className="passport-identity-mrz__line uppercase">{display.mrz.line3}</p>
           </div>
         </section>
       </div>
