@@ -1,16 +1,24 @@
 export const DUPLICATE_PASSPORT_MESSAGE =
   "This companion already has a PetLuma Passport.";
 
+function collapseWhitespace(value: string) {
+  return value.trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+export function trimCollapseSpaces(value: string) {
+  return value.trim().replace(/\s+/g, " ");
+}
+
 export function normalizeEmail(email: string) {
-  return email.trim().toLowerCase();
+  return collapseWhitespace(email);
 }
 
 export function normalizePetName(name: string) {
-  return name.trim().toLowerCase();
+  return collapseWhitespace(name);
 }
 
 export function normalizeSpecies(species: string) {
-  const normalized = species.trim().toLowerCase();
+  const normalized = collapseWhitespace(species);
   return normalized || "companion";
 }
 

@@ -4,7 +4,7 @@ import {
   DUPLICATE_PASSPORT_MESSAGE,
   normalizeDateOfBirth,
   normalizeEmail,
-  normalizeSpecies,
+  trimCollapseSpaces,
 } from "@/lib/pet-identity";
 
 type SavePetInput = {
@@ -121,25 +121,46 @@ async function allocateCompanionIdentity(
 
 async function findExistingPet(
   supabase: ReturnType<typeof createSupabaseServerClient>,
-  petIdentityKey: string,
+  input: SavePetInput,
 ) {
-  const { data, error } = await supabase
-    .from("pets")
-    .select(savedPetSelect)
-    .eq("pet_identity_key", petIdentityKey)
-    .maybeSingle<SavedPet>();
+  const dateOfBirth = normalizeDateOfBirth(input.date_of_birth) || null;
+  const { data, error } = await supabase.rpc("find_pet_by_identity", {
+    p_owner_email: normalizeEmail(input.owner_email),
+    p_pet_name: trimCollapseSpaces(input.pet_name),
+    p_species: trimCollapseSpaces(input.species) || "Companion",
+    p_date_of_birth: dateOfBirth,
+  });
 
   if (error) {
-    console.error("[PetLuma] findExistingPet error", error);
-    throw {
-      code: error.code,
-      message: error.message || "Could not check for an existing passport.",
-      details: error.details,
-      hint: error.hint,
-    } satisfies SupabaseInsertError;
+    console.error("[PetLuma] find_pet_by_identity error", error);
+
+    const petIdentityKey = buildPetIdentityKey({
+      ownerEmail: input.owner_email,
+      petName: input.pet_name,
+      species: input.species,
+      dateOfBirth: input.date_of_birth,
+    });
+
+    const { data: fallbackPet, error: fallbackError } = await supabase
+      .from("pets")
+      .select(savedPetSelect)
+      .eq("pet_identity_key", petIdentityKey)
+      .maybeSingle<SavedPet>();
+
+    if (fallbackError) {
+      throw {
+        code: fallbackError.code,
+        message: fallbackError.message || "Could not check for an existing passport.",
+        details: fallbackError.details,
+        hint: fallbackError.hint,
+      } satisfies SupabaseInsertError;
+    }
+
+    return fallbackPet;
   }
 
-  return data;
+  const pet = Array.isArray(data) ? data[0] : data;
+  return (pet as SavedPet | null | undefined) ?? null;
 }
 
 function duplicateResult(pet: SavedPet): SavePetResult {
@@ -161,10 +182,10 @@ export async function savePet(input: SavePetInput): Promise<SavePetResult> {
     dateOfBirth,
   });
 
-  const existingPet = await findExistingPet(supabase, petIdentityKey);
+  const existingPet = await findExistingPet(supabase, input);
   if (existingPet) {
     console.log("[PetLuma] existing passport returned", {
-      pet_identity_key: petIdentityKey,
+      pet_identity_key: existingPet.pet_identity_key,
       companion_id: existingPet.companion_id,
     });
     return duplicateResult(existingPet);
@@ -180,8 +201,8 @@ export async function savePet(input: SavePetInput): Promise<SavePetResult> {
     companion_id: identity.companion_id,
     passport_number: identity.passport_number,
     owner_email: ownerEmail,
-    pet_name: input.pet_name.trim(),
-    species: input.species.trim() || "Companion",
+    pet_name: trimCollapseSpaces(input.pet_name),
+    species: trimCollapseSpaces(input.species) || "Companion",
     date_of_birth: dateOfBirth || null,
     pet_identity_key: petIdentityKey,
     breed: input.breed || null,
@@ -208,10 +229,10 @@ export async function savePet(input: SavePetInput): Promise<SavePetResult> {
 
   if (error) {
     if (error.code === "23505") {
-      const conflictPet = await findExistingPet(supabase, petIdentityKey);
+      const conflictPet = await findExistingPet(supabase, input);
       if (conflictPet) {
         console.log("[PetLuma] duplicate caught by unique constraint", {
-          pet_identity_key: petIdentityKey,
+          pet_identity_key: conflictPet.pet_identity_key,
           companion_id: conflictPet.companion_id,
         });
         return duplicateResult(conflictPet);
