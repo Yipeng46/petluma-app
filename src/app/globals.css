@@ -102,17 +102,18 @@ textarea {
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  padding: 8% 8.5% 6.5%;
+  padding: 10.5% 8.5% 4.75%;
 }
 
 .passport-cover-top {
   width: 100%;
   flex: 0 0 auto;
+  margin-top: 2.5cqh;
 }
 
 .passport-cover-heading {
   width: 100%;
-  margin-top: 0.95rem;
+  margin-top: 0.72rem;
 }
 
 .passport-cover-gold {
@@ -140,7 +141,7 @@ textarea {
 }
 
 .passport-cover-passport {
-  margin-top: 0.32rem;
+  margin-top: 0.26rem;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
   font-size: clamp(1rem, 4.2cqw, 1.22rem);
   font-weight: 500;
@@ -154,8 +155,8 @@ textarea {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: clamp(12rem, 40cqh, 21.5rem);
-  margin-top: 1.05rem;
+  height: clamp(14rem, 47cqh, 25.5rem);
+  margin-top: 0.78rem;
   padding: 0;
 }
 
@@ -163,7 +164,7 @@ textarea {
   display: block;
   width: auto;
   height: 100%;
-  max-width: 55%;
+  max-width: 58%;
   object-fit: contain;
   object-position: center;
   opacity: 0.92;
@@ -175,7 +176,8 @@ textarea {
 .passport-cover-bottom {
   width: 100%;
   flex: 0 0 auto;
-  margin-top: 0.9rem;
+  margin-top: 0.55rem;
+  margin-bottom: 1.25cqh;
   padding-top: 0;
 }
 
@@ -191,7 +193,7 @@ textarea {
 .passport-cover-chip-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 0.45rem;
+  margin-top: 0.38rem;
 }
 
 .passport-cover-chip {
