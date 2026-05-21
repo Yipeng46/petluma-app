@@ -11,22 +11,8 @@ export type PassportData = {
   companionId: string;
 };
 
-const companionAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-export function generateCompanionId() {
-  const suffix = Array.from({ length: 5 }, () => {
-    const index = Math.floor(Math.random() * companionAlphabet.length);
-    return companionAlphabet[index];
-  }).join("");
-
-  return `PLK-AU-${suffix}`;
-}
-
-export function generatePassportNo() {
-  const year = new Date().getFullYear();
-  const number = String(Math.floor(Math.random() * 9000) + 1000).padStart(4, "0");
-  return `PLM-${year}-${number}`;
-}
+export const PENDING_COMPANION_ID = "Assigned on registration";
+export const PENDING_PASSPORT_NO = "Assigned on registration";
 
 export function createInitialPassportData(): PassportData {
   return {
@@ -38,8 +24,8 @@ export function createInitialPassportData(): PassportData {
     species: "Companion",
     personality: "",
     placeOfOrigin: "",
-    passportNo: generatePassportNo(),
-    companionId: generateCompanionId(),
+    passportNo: "",
+    companionId: "",
   };
 }
 

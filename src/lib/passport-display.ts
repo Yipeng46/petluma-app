@@ -1,4 +1,8 @@
 import type { PassportData } from "@/lib/passport-data";
+import {
+  PENDING_COMPANION_ID,
+  PENDING_PASSPORT_NO,
+} from "@/lib/passport-data";
 
 export type PassportMrz = {
   line1: string;
@@ -73,8 +77,8 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     species,
     personality,
     placeOfOrigin,
-    passportNo: data.passportNo,
-    companionId: data.companionId,
+    passportNo: displayValue(data.passportNo, PENDING_PASSPORT_NO),
+    companionId: displayValue(data.companionId, PENDING_COMPANION_ID),
     mrz: generateMRZ(data),
   };
 }

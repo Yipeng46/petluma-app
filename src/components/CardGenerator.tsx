@@ -43,8 +43,6 @@ export function CardGenerator() {
   }
 
   async function handlePreviewFinalCard() {
-    const card: StoredCompanionCard = passportData;
-
     try {
       console.log("[PetLuma] Preview Final Card clicked", {
         name: passportData.name,
@@ -78,6 +76,12 @@ export function CardGenerator() {
       }
 
       console.log("[PetLuma] saved pet", data.pet);
+
+      const card: StoredCompanionCard = {
+        ...passportData,
+        companionId: data.pet.companion_id,
+        passportNo: data.pet.passport_number,
+      };
 
       localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
       router.push("/result");
