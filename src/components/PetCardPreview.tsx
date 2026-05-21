@@ -20,6 +20,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
         <div className="passport-identity-security pointer-events-none absolute inset-0" />
+        <div className="passport-identity-scrollwork pointer-events-none absolute inset-0" />
         <div className="passport-identity-guilloche pointer-events-none absolute inset-0" />
         <div className="passport-identity-fine-lines pointer-events-none absolute inset-0" />
         <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
@@ -49,7 +50,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--tr" aria-hidden="true" />
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--bl" aria-hidden="true" />
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--br" aria-hidden="true" />
-                  <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden bg-[#faf7f0]">
+                  <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden bg-[#f0e9dc]">
                     {display.photo ? (
                       <img
                         src={display.photo}
