@@ -18,31 +18,32 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
       <div className="passport-cover-edge pointer-events-none absolute inset-0" />
       <div className="passport-cover-spine pointer-events-none absolute inset-y-0 left-0 w-[3px]" />
 
-      <div className="passport-cover-inner relative z-10 flex h-full flex-col items-center">
-        <header className="passport-cover-top shrink-0">
-          <p className="passport-cover-gold passport-cover-kingdom">PETLUMA KINGDOM</p>
+      <div className="passport-cover-inner relative z-10">
+        <p className="passport-cover-gold passport-cover-kingdom">PETLUMA KINGDOM</p>
+
+        <div className="passport-cover-hero">
           <div className="passport-cover-heading">
             <h2 className="passport-cover-gold passport-cover-brand">PETLUMA</h2>
             <p className="passport-cover-gold passport-cover-passport">PASSPORT</p>
           </div>
-        </header>
 
-        <div
-          className="passport-cover-emblem-stage"
-          role="img"
-          aria-label="PetLuma Kingdom Gate emblem"
-        >
-          <img
-            src={KINGDOM_GATE_EMBLEM_SRC}
-            alt=""
-            width={220}
-            height={330}
-            className="passport-cover-emblem__art"
-            draggable={false}
-          />
+          <div
+            className="passport-cover-emblem-stage"
+            role="img"
+            aria-label="PetLuma Kingdom Gate emblem"
+          >
+            <img
+              src={KINGDOM_GATE_EMBLEM_SRC}
+              alt=""
+              width={220}
+              height={330}
+              className="passport-cover-emblem__art"
+              draggable={false}
+            />
+          </div>
         </div>
 
-        <footer className="passport-cover-bottom shrink-0">
+        <footer className="passport-cover-bottom">
           <p className="passport-cover-gold passport-cover-footer">
             OFFICIAL COMPANION DOCUMENT
           </p>
