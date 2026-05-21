@@ -17,6 +17,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
 
       <article className="passport-identity-page relative overflow-hidden rounded-[24px] p-4 sm:p-6">
         <div className="passport-identity-paper pointer-events-none absolute inset-0" />
+        <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
         <div className="passport-identity-security pointer-events-none absolute inset-0" />
         <div className="passport-identity-guilloche pointer-events-none absolute inset-0" />
@@ -43,7 +44,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           <div className="mt-7 grid gap-7 sm:grid-cols-[0.76fr_1.24fr]">
             <div>
               <div className="passport-identity-photo-mount">
-                <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.2rem] p-1">
+                <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.15rem] p-[2px]">
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--tl" aria-hidden="true" />
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--tr" aria-hidden="true" />
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--bl" aria-hidden="true" />
@@ -66,6 +67,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                       </div>
                     )}
                     <div className="passport-identity-photo-laminate pointer-events-none absolute inset-0" />
+                    <div className="passport-identity-photo-print pointer-events-none absolute inset-0" />
                   </div>
                 </div>
               </div>
@@ -132,8 +134,8 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
               <p className="passport-identity-notes__label uppercase">
                 Notes
               </p>
-              <p className="passport-identity-notes__body text-base leading-5">
-                {display.personality}
+              <p className="passport-identity-notes__body">
+                Officially registered under PetLuma Kingdom.
               </p>
             </div>
             <div

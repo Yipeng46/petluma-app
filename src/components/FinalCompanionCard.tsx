@@ -23,6 +23,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
 
         <section className="passport-identity-page relative overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
+          <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
           <div className="passport-identity-grain pointer-events-none absolute inset-0" />
           <div className="passport-identity-security pointer-events-none absolute inset-0" />
           <div className="passport-identity-guilloche pointer-events-none absolute inset-0" />
@@ -49,7 +50,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             <div className="mt-9 grid flex-1 gap-9 lg:grid-cols-[0.82fr_1.18fr]">
               <div>
                 <div className="passport-identity-photo-mount">
-                  <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.2rem] p-1">
+                  <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.15rem] p-[2px]">
                     <span className="passport-identity-photo-corner passport-identity-photo-corner--tl" aria-hidden="true" />
                     <span className="passport-identity-photo-corner passport-identity-photo-corner--tr" aria-hidden="true" />
                     <span className="passport-identity-photo-corner passport-identity-photo-corner--bl" aria-hidden="true" />
@@ -67,6 +68,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                         </div>
                       )}
                       <div className="passport-identity-photo-laminate pointer-events-none absolute inset-0" />
+                      <div className="passport-identity-photo-print pointer-events-none absolute inset-0" />
                     </div>
                   </div>
                 </div>
@@ -133,7 +135,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                       Notes
                     </p>
                     <p className="passport-identity-notes__body">
-                      {display.personality}
+                      Officially registered under PetLuma Kingdom.
                     </p>
                   </div>
 
