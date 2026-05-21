@@ -32,16 +32,14 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
           role="img"
           aria-label="PetLuma Kingdom Gate emblem"
         >
-          <div className="passport-emblem-foil">
-            <img
-              src={KINGDOM_GATE_EMBLEM_SRC}
-              alt=""
-              width={220}
-              height={330}
-              className="passport-cover-emblem__art"
-              draggable={false}
-            />
-          </div>
+          <img
+            src={KINGDOM_GATE_EMBLEM_SRC}
+            alt=""
+            width={220}
+            height={330}
+            className="passport-cover-emblem__art"
+            draggable={false}
+          />
         </div>
 
         <footer className="passport-cover-bottom shrink-0">
