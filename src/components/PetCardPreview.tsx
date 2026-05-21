@@ -15,7 +15,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <span>PetLuma Passport</span>
       </div>
 
-      <article className="passport-identity-page relative overflow-hidden rounded-[24px] border border-[#d9b36c]/30 p-4 sm:p-6">
+      <article className="passport-identity-page relative overflow-hidden rounded-[24px] border border-[#d9b36c]/14 p-4 sm:p-6">
         <div className="passport-identity-paper pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
         <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
@@ -25,7 +25,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         </div>
 
         <div className="relative min-h-[430px]">
-          <div className="flex items-start justify-between gap-4 border-b border-[#9f7835]/28 pb-5">
+          <div className="border-b border-[#9f7835]/10 pb-5">
             <div>
               <p className="passport-identity-header-kicker uppercase">
                 PETLUMA PASSPORT
@@ -34,31 +34,30 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                 Identity Page
               </p>
             </div>
-            <p className="passport-identity-official-badge px-3 py-1.5 uppercase">
-              Official
-            </p>
           </div>
 
           <div className="mt-6 grid gap-6 sm:grid-cols-[0.76fr_1.24fr]">
             <div>
-              <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.35rem] p-2">
-                <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden rounded-[0.15rem] bg-[#f8edd8]">
-                  {display.photo ? (
-                    <img
-                      src={display.photo}
-                      alt={`${display.name} passport portrait`}
-                      className="block max-h-full max-w-full object-contain object-center saturate-[0.86] sepia-[0.08] contrast-[1.02]"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full flex-col items-center justify-center px-3 text-center">
-                      <span className="text-[0.54rem] font-semibold uppercase tracking-[0.24em] text-[#0b1c32]/42">
-                        Passport Photo
-                      </span>
-                      <span className="mt-2 text-[0.44rem] uppercase tracking-[0.2em] text-[#7a6030]/72">
-                        Will appear here
-                      </span>
-                    </div>
-                  )}
+              <div className="passport-identity-photo-mount">
+                <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.2rem] p-1">
+                  <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden bg-[#faf7f0]">
+                    {display.photo ? (
+                      <img
+                        src={display.photo}
+                        alt={`${display.name} passport portrait`}
+                        className="block max-h-full max-w-full object-contain object-center saturate-[0.84] sepia-[0.1] contrast-[1.02]"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full flex-col items-center justify-center px-3 text-center">
+                        <span className="text-[0.52rem] font-medium uppercase tracking-[0.32em] text-[#0b1c32]/28">
+                          Passport Photo
+                        </span>
+                        <span className="mt-2 text-[0.42rem] uppercase tracking-[0.24em] text-[#7a6030]/45">
+                          Will appear here
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="passport-identity-id-block mt-3 p-2.5 text-center">
@@ -72,31 +71,21 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
             </div>
 
             <div className="min-w-0 space-y-4">
-              <PassportPreviewField
-                label="PET NAME / 名字"
-                value={display.name}
-                large
-              />
+              <PassportPreviewField label="Pet Name" value={display.name} large />
               <div className="grid gap-4 sm:grid-cols-2">
+                <PassportPreviewField label="Species" value={display.species} />
+                <PassportPreviewField label="Breed" value={display.breed} />
+                <PassportPreviewField label="Gender" value={display.gender} />
                 <PassportPreviewField
-                  label="SPECIES / 物种"
-                  value={display.species}
-                />
-                <PassportPreviewField label="BREED / 品种" value={display.breed} />
-                <PassportPreviewField
-                  label="GENDER / 性别"
-                  value={display.gender}
-                />
-                <PassportPreviewField
-                  label="DATE OF BIRTH / 出生日期"
+                  label="Date of Birth"
                   value={display.birthdate}
                 />
                 <PassportPreviewField
-                  label="PLACE OF ORIGIN / 出生地"
+                  label="Place of Origin"
                   value={display.placeOfOrigin}
                 />
                 <PassportPreviewField
-                  label="COMPANION ID / 伴侣编号"
+                  label="Companion ID"
                   value={display.companionId}
                 />
               </div>
@@ -106,7 +95,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           <div className="relative mt-6">
             <div className="passport-identity-notes p-3 pr-20">
               <p className="passport-identity-notes__label uppercase">
-                NOTES / 备注
+                Notes
               </p>
               <p className="passport-identity-notes__body text-base leading-5">
                 {display.personality}

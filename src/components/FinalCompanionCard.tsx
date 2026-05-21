@@ -21,9 +21,9 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
       <div className="relative grid min-h-[560px] gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
         <PassportCover passportNo={display.passportNo} />
 
-        <section className="passport-identity-page relative overflow-hidden rounded-[1.2rem] border border-[#d9b36c]/30 p-6 lg:rounded-l-none sm:p-8">
-          <div className="pointer-events-none absolute inset-y-8 left-0 w-px bg-[#9f7835]/35" />
-          <div className="pointer-events-none absolute inset-y-8 left-5 w-px bg-white/55" />
+        <section className="passport-identity-page relative overflow-hidden rounded-[1.2rem] border border-[#d9b36c]/14 p-6 lg:rounded-l-none sm:p-8">
+          <div className="pointer-events-none absolute inset-y-8 left-0 w-px bg-[#9f7835]/12" />
+          <div className="pointer-events-none absolute inset-y-8 left-5 w-px bg-white/30" />
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
           <div className="passport-identity-grain pointer-events-none absolute inset-0" />
           <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
@@ -33,7 +33,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
           </div>
 
           <div className="relative flex min-h-[496px] flex-col">
-            <header className="flex items-start justify-between gap-6 border-b border-[#9f7835]/28 pb-5">
+            <header className="border-b border-[#9f7835]/10 pb-5">
               <div>
                 <p className="passport-identity-header-kicker uppercase">
                   PETLUMA PASSPORT
@@ -42,34 +42,31 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                   Identity Page
                 </h1>
               </div>
-              <div className="passport-identity-official-badge px-4 py-2 uppercase">
-                Official
-                <br />
-                Document
-              </div>
             </header>
 
             <div className="mt-8 grid flex-1 gap-8 lg:grid-cols-[0.82fr_1.18fr]">
               <div>
-                <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.35rem] p-2.5">
-                  <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden rounded-[0.15rem] bg-[#f8edd8]">
-                    {display.photo ? (
-                      <img
-                        src={display.photo}
-                        alt={`${display.name} passport portrait`}
-                        className="block max-h-full max-w-full object-contain object-center saturate-[0.86] sepia-[0.08] contrast-[1.02]"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center px-5 text-center text-[0.54rem] uppercase tracking-[0.28em] text-[#0b1c32]/38">
-                        Portrait
-                      </div>
-                    )}
+                <div className="passport-identity-photo-mount">
+                  <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.2rem] p-1">
+                    <div className="passport-identity-photo-inner relative flex h-full w-full items-center justify-center overflow-hidden bg-[#faf7f0]">
+                      {display.photo ? (
+                        <img
+                          src={display.photo}
+                          alt={`${display.name} passport portrait`}
+                          className="block max-h-full max-w-full object-contain object-center saturate-[0.84] sepia-[0.1] contrast-[1.02]"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center px-5 text-center text-[0.52rem] uppercase tracking-[0.32em] text-[#0b1c32]/28">
+                          Portrait
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 <div className="passport-identity-id-block mt-5 p-4 text-center">
                   <p className="passport-identity-id-label uppercase">
-                    COMPANION ID / 伴侣编号
+                    Companion ID
                   </p>
                   <p className="passport-identity-id-value mt-2 uppercase">
                     {display.companionId}
@@ -79,41 +76,21 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
 
               <div className="flex min-w-0 flex-col justify-between">
                 <div className="grid gap-5">
-                  <PassportField
-                    label="PET NAME"
-                    labelZh="名字"
-                    value={display.name}
-                    large
-                  />
+                  <PassportField label="Pet Name" value={display.name} large />
                   <div className="grid gap-5 sm:grid-cols-2">
+                    <PassportField label="Species" value={display.species} />
+                    <PassportField label="Breed" value={display.breed} />
+                    <PassportField label="Gender" value={display.gender} />
                     <PassportField
-                      label="SPECIES"
-                      labelZh="物种"
-                      value={display.species}
-                    />
-                    <PassportField
-                      label="BREED"
-                      labelZh="品种"
-                      value={display.breed}
-                    />
-                    <PassportField
-                      label="GENDER"
-                      labelZh="性别"
-                      value={display.gender}
-                    />
-                    <PassportField
-                      label="DATE OF BIRTH"
-                      labelZh="出生日期"
+                      label="Date of Birth"
                       value={display.birthdate}
                     />
                     <PassportField
-                      label="PLACE OF ORIGIN"
-                      labelZh="出生地"
+                      label="Place of Origin"
                       value={display.placeOfOrigin}
                     />
                     <PassportField
-                      label="PASSPORT NO."
-                      labelZh="护照编号"
+                      label="Passport No."
                       value={display.passportNo}
                     />
                   </div>
@@ -122,7 +99,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                 <div className="relative mt-9">
                   <div className="passport-identity-notes p-4 pr-28">
                     <p className="passport-identity-notes__label uppercase">
-                      NOTES / 备注
+                      Notes
                     </p>
                     <p className="passport-identity-notes__body">
                       {display.personality}
@@ -163,20 +140,16 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
 
 function PassportField({
   label,
-  labelZh,
   value,
   large = false,
 }: {
   label: string;
-  labelZh: string;
   value: string;
   large?: boolean;
 }) {
   return (
     <div className="passport-identity-field">
-      <p className="passport-identity-field__label uppercase">
-        {label} / <span className="passport-identity-field__label-zh">{labelZh}</span>
-      </p>
+      <p className="passport-identity-field__label uppercase">{label}</p>
       <p
         className={
           large
