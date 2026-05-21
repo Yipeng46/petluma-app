@@ -51,37 +51,8 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
           {passportNo ? (
             <p className="passport-cover-number">{passportNo}</p>
           ) : null}
-          <div className="passport-cover-chip-wrap">
-            <PassportChipIcon />
-          </div>
         </footer>
       </div>
     </section>
-  );
-}
-
-function PassportChipIcon() {
-  return (
-    <svg
-      viewBox="0 0 48 36"
-      className="passport-cover-chip"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      <rect x="4" y="6" width="40" height="24" rx="3" stroke="currentColor" strokeWidth="0.9" />
-      <rect
-        x="14"
-        y="12"
-        width="20"
-        height="12"
-        rx="1.5"
-        stroke="currentColor"
-        strokeWidth="0.75"
-      />
-      <circle cx="24" cy="18" r="3.5" stroke="currentColor" strokeWidth="0.75" />
-      <path d="M8 14 H12 M8 18 H12 M8 22 H12" stroke="currentColor" strokeWidth="0.65" />
-      <path d="M36 14 H40 M36 18 H40 M36 22 H40" stroke="currentColor" strokeWidth="0.65" />
-    </svg>
   );
 }
