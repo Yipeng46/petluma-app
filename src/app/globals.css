@@ -543,16 +543,17 @@ textarea {
 }
 
 .passport-identity-mrz {
+  position: relative;
+  z-index: 1;
+  top: -1px;
   margin-top: auto;
   margin-left: -1.5rem;
   margin-right: -1.5rem;
   margin-bottom: -1.5rem;
   padding: 0.55rem 1.5rem 0.65rem;
-  border-top: 0.5px solid rgba(159, 120, 53, 0.08);
-  background:
-    linear-gradient(180deg, rgba(246, 241, 231, 0.06), transparent),
-    rgba(11, 28, 50, 0.92);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  border-top: none;
+  background: #0b1c32;
+  box-shadow: none;
 }
 
 @media (min-width: 640px) {
