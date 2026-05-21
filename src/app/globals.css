@@ -99,18 +99,20 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
-  padding: 6.5% 8.5% 5.5%;
+  padding: 8% 8.5% 6.5%;
 }
 
 .passport-cover-top {
   width: 100%;
+  flex: 0 0 auto;
 }
 
 .passport-cover-heading {
   width: 100%;
-  margin-top: 0.55rem;
+  margin-top: 0.95rem;
 }
 
 .passport-cover-gold {
@@ -148,13 +150,12 @@ textarea {
 
 .passport-cover-emblem-stage {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: clamp(10.5rem, 36cqh, 18.5rem);
-  max-height: clamp(11.5rem, 38cqh, 19.5rem);
-  margin-top: 0.85rem;
+  height: clamp(12rem, 40cqh, 21.5rem);
+  margin-top: 1.05rem;
   padding: 0;
 }
 
@@ -162,7 +163,7 @@ textarea {
   display: block;
   width: auto;
   height: 100%;
-  max-width: 100%;
+  max-width: 55%;
   object-fit: contain;
   object-position: center;
   opacity: 0.92;
@@ -173,8 +174,9 @@ textarea {
 
 .passport-cover-bottom {
   width: 100%;
-  margin-top: auto;
-  padding-top: 0.75rem;
+  flex: 0 0 auto;
+  margin-top: 0.9rem;
+  padding-top: 0;
 }
 
 .passport-cover-number {
@@ -189,7 +191,7 @@ textarea {
 .passport-cover-chip-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 0.55rem;
+  margin-top: 0.45rem;
 }
 
 .passport-cover-chip {
