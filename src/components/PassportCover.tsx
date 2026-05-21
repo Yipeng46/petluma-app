@@ -21,10 +21,6 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
       <div className="passport-cover-inner relative z-10 flex h-full flex-col items-center">
         <header className="passport-cover-top shrink-0">
           <p className="passport-cover-gold passport-cover-kingdom">PetLuma Kingdom</p>
-          <div className="passport-cover-heading">
-            <h2 className="passport-cover-gold passport-cover-brand">PetLuma</h2>
-            <p className="passport-cover-gold passport-cover-passport">Passport</p>
-          </div>
         </header>
 
         <div
@@ -40,6 +36,11 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
             className="passport-cover-emblem__art"
             draggable={false}
           />
+        </div>
+
+        <div className="passport-cover-heading shrink-0">
+          <h2 className="passport-cover-gold passport-cover-brand">PetLuma</h2>
+          <p className="passport-cover-gold passport-cover-passport">Passport</p>
         </div>
 
         <footer className="passport-cover-bottom shrink-0">

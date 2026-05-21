@@ -109,7 +109,9 @@ textarea {
 }
 
 .passport-cover-heading {
-  margin-top: 0.35rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .passport-cover-gold {
@@ -150,13 +152,13 @@ textarea {
 
 .passport-cover-emblem-stage {
   display: flex;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: clamp(12.5rem, 40cqh, 21rem);
-  margin-top: 0.05rem;
-  padding: 0;
+  min-height: clamp(12.5rem, 40cqh, 21rem);
+  margin-top: 0.1rem;
+  padding: 0 0 0.15rem;
 }
 
 .passport-cover-emblem__art {
