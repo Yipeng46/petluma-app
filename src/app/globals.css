@@ -285,21 +285,24 @@ textarea {
   overflow: hidden;
   --identity-page-pad-x: 1.5rem;
   --identity-page-pad-b: 1.5rem;
-  --identity-ink: #0b1c32;
-  --identity-ink-soft: rgba(11, 28, 50, 0.68);
-  --identity-gold: #9f7835;
-  --identity-gold-soft: rgba(159, 120, 53, 0.42);
-  --identity-gold-faint: rgba(159, 120, 53, 0.08);
+  --identity-cover-blue: #071426;
+  --identity-ink-primary: #081526;
+  --identity-ink-secondary: rgba(11, 28, 50, 0.58);
+  --identity-ink-muted: rgba(11, 28, 50, 0.46);
+  --identity-label: rgba(88, 68, 32, 0.62);
+  --identity-label-muted: rgba(88, 68, 32, 0.48);
+  --identity-line: rgba(159, 120, 53, 0.032);
+  --identity-line-strong: rgba(159, 120, 53, 0.048);
   border: none;
   background:
-    radial-gradient(ellipse 120% 80% at 12% 2%, rgba(255, 253, 248, 0.72), transparent 58%),
-    radial-gradient(ellipse 90% 70% at 92% 98%, rgba(210, 195, 165, 0.14), transparent 52%),
-    radial-gradient(ellipse 60% 40% at 78% 18%, rgba(185, 145, 76, 0.025), transparent 70%),
-    linear-gradient(168deg, #faf6ee 0%, #f7f2e8 48%, #faf7f0 100%);
+    radial-gradient(ellipse 115% 82% at 10% 3%, rgba(255, 251, 242, 0.55), transparent 58%),
+    radial-gradient(ellipse 88% 72% at 94% 97%, rgba(205, 188, 158, 0.1), transparent 54%),
+    radial-gradient(ellipse 55% 38% at 72% 22%, rgba(185, 145, 76, 0.018), transparent 72%),
+    linear-gradient(168deg, #f3ece0 0%, #f0e8da 46%, #f4ede3 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -1px 0 rgba(159, 120, 53, 0.04),
-    inset 1px 0 0 rgba(255, 255, 255, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    inset 0 -1px 0 rgba(159, 120, 53, 0.03),
+    inset 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 640px) {
@@ -328,48 +331,46 @@ textarea {
 
 .passport-identity-paper {
   background-image:
-    radial-gradient(ellipse at center, transparent 0%, transparent 54%, rgba(8, 21, 38, 0.045) 55%, transparent 56%),
-    linear-gradient(90deg, rgba(8, 21, 38, 0.018) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(8, 21, 38, 0.012) 1px, transparent 1px);
-  background-size: 92px 42px, 28px 28px, 28px 28px;
-  opacity: 0.17;
+    radial-gradient(ellipse at center, transparent 0%, transparent 54%, rgba(8, 21, 38, 0.038) 55%, transparent 56%),
+    linear-gradient(90deg, rgba(8, 21, 38, 0.014) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(8, 21, 38, 0.009) 1px, transparent 1px);
+  background-size: 88px 40px, 26px 26px, 26px 26px;
+  opacity: 0.15;
 }
 
 .passport-identity-fiber {
-  opacity: 0.07;
+  opacity: 0.055;
   mix-blend-mode: multiply;
   background-image:
     repeating-linear-gradient(
-      92deg,
+      88deg,
       transparent 0,
-      transparent 3px,
-      rgba(159, 120, 53, 0.018) 3px,
-      rgba(159, 120, 53, 0.018) 3.5px,
-      transparent 3.5px,
-      transparent 11px
+      transparent 4px,
+      rgba(159, 120, 53, 0.014) 4px,
+      rgba(159, 120, 53, 0.014) 4.5px,
+      transparent 4.5px,
+      transparent 13px
     ),
     repeating-linear-gradient(
-      -4deg,
+      -2deg,
       transparent 0,
-      transparent 5px,
-      rgba(8, 21, 38, 0.012) 5px,
-      rgba(8, 21, 38, 0.012) 5.5px,
-      transparent 5.5px,
-      transparent 17px
+      transparent 6px,
+      rgba(8, 21, 38, 0.009) 6px,
+      rgba(8, 21, 38, 0.009) 6.5px,
+      transparent 6.5px,
+      transparent 19px
     );
 }
 
 .passport-identity-grain {
-  opacity: 0.14;
+  opacity: 0.11;
   mix-blend-mode: multiply;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.42) 0.35px, transparent 0),
-    radial-gradient(circle at 4px 3px, rgba(8, 21, 38, 0.028) 0.35px, transparent 0),
-    radial-gradient(circle at 7px 9px, rgba(255, 255, 255, 0.2) 0.3px, transparent 0),
-    radial-gradient(circle at 11px 5px, rgba(8, 21, 38, 0.015) 0.25px, transparent 0),
-    linear-gradient(90deg, rgba(8, 21, 38, 0.01) 1px, transparent 1px),
-    linear-gradient(rgba(8, 21, 38, 0.007) 1px, transparent 1px);
-  background-size: 3px 3px, 5px 5px, 8px 8px, 13px 13px, 15px 15px, 15px 15px;
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.38) 0.3px, transparent 0),
+    radial-gradient(circle at 5px 4px, rgba(8, 21, 38, 0.022) 0.3px, transparent 0),
+    radial-gradient(circle at 9px 11px, rgba(255, 255, 255, 0.16) 0.25px, transparent 0),
+    radial-gradient(circle at 13px 6px, rgba(8, 21, 38, 0.012) 0.2px, transparent 0);
+  background-size: 4px 4px, 7px 7px, 11px 11px, 17px 17px;
 }
 
 .passport-identity-security {
@@ -421,19 +422,41 @@ textarea {
     );
 }
 
+.passport-identity-watermark {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
 .passport-identity-watermark-ring {
-  border: 18px solid rgba(185, 145, 76, 0.018);
+  position: absolute;
+  top: 46%;
+  left: 54%;
+  width: clamp(18rem, 46vw, 26rem);
+  height: clamp(18rem, 46vw, 26rem);
+  transform: translate(-50%, -50%);
+  border: 16px solid rgba(185, 145, 76, 0.009);
+  border-radius: 50%;
   box-shadow:
-    inset 0 0 0 0.5px rgba(185, 145, 76, 0.012),
-    0 0 0 1px rgba(185, 145, 76, 0.006);
+    inset 0 0 0 0.5px rgba(185, 145, 76, 0.006),
+    0 0 0 0.5px rgba(185, 145, 76, 0.004);
 }
 
 .passport-identity-watermark-text {
+  position: absolute;
+  top: 44%;
+  left: 54%;
+  transform: translate(-50%, -50%);
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(11rem, 30vw, 17rem);
   font-weight: 600;
+  line-height: 0.82;
   letter-spacing: -0.06em;
-  color: rgba(11, 28, 50, 0.01);
+  color: rgba(11, 28, 50, 0.0055);
   text-shadow: none;
+  user-select: none;
 }
 
 /* ── Header ── */
@@ -441,7 +464,7 @@ textarea {
 .passport-identity-header {
   position: relative;
   padding-bottom: 1.35rem;
-  border-bottom: 0.5px solid rgba(159, 120, 53, 0.08);
+  border-bottom: 0.5px solid var(--identity-line-strong);
 }
 
 .passport-identity-header::after {
@@ -450,8 +473,8 @@ textarea {
   left: 0;
   bottom: -0.5px;
   width: 2.75rem;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(185, 145, 76, 0.42), rgba(185, 145, 76, 0.08));
+  height: 0.5px;
+  background: linear-gradient(90deg, rgba(185, 145, 76, 0.34), rgba(185, 145, 76, 0.06));
 }
 
 .passport-identity-header-kicker {
@@ -468,33 +491,32 @@ textarea {
   font-weight: 500;
   letter-spacing: 0.26em;
   line-height: 0.92;
-  color: var(--identity-ink);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+  color: var(--identity-ink-primary);
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.38);
 }
 
 /* ── Photo mount ── */
 
 .passport-identity-photo-mount {
-  transform: rotate(-0.75deg);
+  transform: rotate(-0.65deg);
   transform-origin: center center;
-  filter: drop-shadow(0 2px 5px rgba(8, 21, 38, 0.05)) drop-shadow(0 1px 2px rgba(8, 21, 38, 0.03));
+  filter: drop-shadow(0 1px 2px rgba(8, 21, 38, 0.035));
 }
 
 .passport-identity-photo-frame {
   position: relative;
-  border: 0.5px solid rgba(159, 120, 53, 0.13);
-  background: linear-gradient(145deg, #fdfbf6 0%, #f5f0e6 100%);
+  border: 0.5px solid rgba(159, 120, 53, 0.1);
+  background: linear-gradient(145deg, #faf6ee 0%, #f2ebe0 100%);
   box-shadow:
-    0 2px 8px rgba(8, 21, 38, 0.05),
-    0 1px 2px rgba(8, 21, 38, 0.035),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.65),
-    inset 0 -0.5px 0 rgba(159, 120, 53, 0.04);
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.58),
+    inset 0 -0.5px 0 rgba(159, 120, 53, 0.025),
+    0 1px 2px rgba(8, 21, 38, 0.028);
 }
 
 .passport-identity-photo-inner {
   box-shadow:
-    inset 0 1px 3px rgba(8, 21, 38, 0.04),
-    inset 0 0 0 0.5px rgba(8, 21, 38, 0.025);
+    inset 0 0.5px 2px rgba(8, 21, 38, 0.032),
+    inset 0 0 0 0.5px rgba(8, 21, 38, 0.018);
 }
 
 .passport-identity-photo-laminate {
@@ -562,25 +584,26 @@ textarea {
 }
 
 .passport-identity-id-block {
-  border: 0.5px solid rgba(159, 120, 53, 0.1);
-  background: rgba(255, 252, 246, 0.32);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  border: 0.5px solid rgba(159, 120, 53, 0.06);
+  background: rgba(255, 252, 246, 0.2);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.32);
 }
 
 .passport-identity-id-label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.46rem;
+  font-size: 0.44rem;
   font-weight: 400;
-  letter-spacing: 0.38em;
-  color: rgba(100, 76, 36, 0.52);
+  letter-spacing: 0.44em;
+  color: var(--identity-label);
 }
 
 .passport-identity-id-value {
   font-family: "Courier New", Courier, ui-monospace, monospace;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 400;
-  letter-spacing: 0.18em;
-  color: rgba(11, 28, 50, 0.78);
+  letter-spacing: 0.16em;
+  color: var(--identity-ink-primary);
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* ── Fields ── */
@@ -606,24 +629,24 @@ textarea {
 .passport-identity-fields__registry {
   margin-top: 1.35rem;
   padding-top: 1.05rem;
-  border-top: 0.5px solid rgba(159, 120, 53, 0.05);
+  border-top: 0.5px solid var(--identity-line);
   gap: 0.68rem 1rem;
 }
 
 .passport-identity-field {
-  border-bottom: 0.5px solid rgba(159, 120, 53, 0.06);
+  border-bottom: 0.5px solid var(--identity-line);
   padding-bottom: 0.58rem;
 }
 
 .passport-identity-field--hero {
   margin-bottom: 0.5rem;
   padding-bottom: 1.05rem;
-  border-bottom: 0.5px solid rgba(159, 120, 53, 0.1);
+  border-bottom: 0.5px solid var(--identity-line-strong);
 }
 
 .passport-identity-field--official {
   padding-bottom: 0.48rem;
-  border-bottom-color: rgba(159, 120, 53, 0.035);
+  border-bottom-color: rgba(159, 120, 53, 0.022);
 }
 
 .passport-identity-field--wide {
@@ -632,61 +655,69 @@ textarea {
 
 .passport-identity-field__label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.42rem;
+  font-size: 0.43rem;
   font-weight: 400;
-  letter-spacing: 0.42em;
-  color: rgba(100, 76, 36, 0.54);
+  letter-spacing: 0.46em;
+  color: var(--identity-label);
 }
 
 .passport-identity-field--official .passport-identity-field__label {
-  font-size: 0.4rem;
-  letter-spacing: 0.44em;
-  color: rgba(100, 76, 36, 0.44);
+  font-size: 0.41rem;
+  letter-spacing: 0.48em;
+  color: var(--identity-label-muted);
 }
 
 .passport-identity-field__value {
   margin-top: 0.36rem;
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.73rem;
   font-weight: 400;
-  letter-spacing: 0.08em;
-  line-height: 1.4;
-  color: rgba(11, 28, 50, 0.62);
+  letter-spacing: 0.07em;
+  line-height: 1.42;
+  color: var(--identity-ink-secondary);
+}
+
+.passport-identity-field__value--primary {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  color: rgba(8, 21, 38, 0.84);
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.18);
 }
 
 .passport-identity-field--official .passport-identity-field__value {
   font-size: 0.66rem;
   font-weight: 400;
-  letter-spacing: 0.07em;
-  color: rgba(11, 28, 50, 0.5);
+  letter-spacing: 0.06em;
+  color: var(--identity-ink-muted);
 }
 
 .passport-identity-field__value--large {
   margin-top: 0.55rem;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(2.55rem, 5.4vw, 3.25rem);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 0.88;
-  color: var(--identity-ink);
+  font-size: clamp(2.7rem, 5.8vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 0.86;
+  color: var(--identity-ink-primary);
   text-transform: none;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.26);
 }
 
 /* ── Notes & seal ── */
 
 .passport-identity-notes {
-  border: 0.5px solid rgba(159, 120, 53, 0.032);
-  background: rgba(255, 252, 246, 0.08);
+  border: 0.5px solid rgba(159, 120, 53, 0.024);
+  background: rgba(255, 252, 246, 0.06);
   box-shadow: none;
 }
 
 .passport-identity-notes__label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.42rem;
+  font-size: 0.43rem;
   font-weight: 400;
-  letter-spacing: 0.42em;
-  color: rgba(100, 76, 36, 0.44);
+  letter-spacing: 0.46em;
+  color: var(--identity-label-muted);
 }
 
 .passport-identity-notes__body {
@@ -747,15 +778,15 @@ textarea {
   position: absolute;
   z-index: 3;
   left: 0;
-  right: -1px;
-  bottom: -1px;
-  width: auto;
+  right: 0;
+  bottom: 0;
+  width: 100%;
   margin: 0;
-  padding: 0.55rem var(--identity-page-pad-x) calc(0.65rem + 2px);
+  padding: 0.52rem var(--identity-page-pad-x) calc(0.62rem + 1px);
   border: none;
   border-bottom-right-radius: inherit;
   border-bottom-left-radius: inherit;
-  background: #0b1c32;
+  background: var(--identity-cover-blue);
   box-shadow: none;
   overflow: hidden;
 }
@@ -764,27 +795,28 @@ textarea {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  right: -3px;
-  bottom: -3px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
   border-bottom-right-radius: inherit;
   border-bottom-left-radius: inherit;
-  background: #0b1c32;
+  background: var(--identity-cover-blue);
   z-index: -1;
 }
 
 @media (min-width: 640px) {
   .passport-identity-mrz {
-    padding-bottom: calc(0.72rem + 2px);
+    padding-bottom: calc(0.68rem + 1px);
   }
 }
 
 .passport-identity-mrz__line {
-  font-family: "Courier New", Courier, ui-monospace, monospace;
-  font-size: clamp(0.44rem, 1.2vw, 0.54rem);
+  font-family: "Courier New", "Lucida Console", "Liberation Mono", ui-monospace, monospace;
+  font-size: clamp(0.42rem, 1.15vw, 0.52rem);
   font-weight: 400;
-  letter-spacing: 0.14em;
-  line-height: 1.5;
-  color: rgba(210, 200, 182, 0.62);
+  letter-spacing: 0.055em;
+  line-height: 1.32;
+  color: rgba(198, 190, 172, 0.68);
   text-shadow: none;
+  font-variant-numeric: tabular-nums;
 }

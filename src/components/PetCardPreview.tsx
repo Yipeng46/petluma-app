@@ -24,9 +24,9 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <div className="passport-identity-fine-lines pointer-events-none absolute inset-0" />
         <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
         <div className="passport-identity-edge pointer-events-none absolute inset-0" />
-        <div className="passport-identity-watermark-ring pointer-events-none absolute -right-8 top-12 h-56 w-56 rounded-full" />
-        <div className="passport-identity-watermark-text pointer-events-none absolute right-6 top-20 text-7xl leading-none">
-          PL
+        <div className="passport-identity-watermark" aria-hidden="true">
+          <div className="passport-identity-watermark-ring" />
+          <div className="passport-identity-watermark-text">PL</div>
         </div>
 
         <div className="passport-identity-body relative min-h-[430px]">
@@ -44,7 +44,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           <div className="mt-7 grid gap-7 sm:grid-cols-[0.76fr_1.24fr]">
             <div>
               <div className="passport-identity-photo-mount">
-                <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.15rem] p-[2px]">
+                <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.15rem] p-[3px]">
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--tl" aria-hidden="true" />
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--tr" aria-hidden="true" />
                   <span className="passport-identity-photo-corner passport-identity-photo-corner--bl" aria-hidden="true" />
@@ -100,6 +100,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                   <PassportPreviewField
                     label="Companion ID"
                     value={display.companionId}
+                    primary
                   />
                 </div>
 
@@ -170,12 +171,14 @@ function PassportPreviewField({
   label,
   value,
   large = false,
+  primary = false,
   official = false,
   wide = false,
 }: {
   label: string;
   value: string;
   large?: boolean;
+  primary?: boolean;
   official?: boolean;
   wide?: boolean;
 }) {
@@ -188,18 +191,20 @@ function PassportPreviewField({
     .filter(Boolean)
     .join(" ");
 
+  const valueClass = [
+    "break-words",
+    large
+      ? "passport-identity-field__value passport-identity-field__value--large"
+      : "passport-identity-field__value uppercase",
+    !large && primary ? "passport-identity-field__value--primary" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={fieldClass}>
       <p className="passport-identity-field__label uppercase">{label}</p>
-      <p
-        className={
-          large
-            ? "passport-identity-field__value passport-identity-field__value--large break-words"
-            : "passport-identity-field__value break-words uppercase"
-        }
-      >
-        {value}
-      </p>
+      <p className={valueClass}>{value}</p>
     </div>
   );
 }

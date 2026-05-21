@@ -30,9 +30,9 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
           <div className="passport-identity-fine-lines pointer-events-none absolute inset-0" />
           <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
           <div className="passport-identity-edge pointer-events-none absolute inset-0" />
-          <div className="passport-identity-watermark-ring pointer-events-none absolute -right-10 top-16 h-72 w-72 rounded-full" />
-          <div className="passport-identity-watermark-text pointer-events-none absolute right-10 top-24 text-[9rem] leading-none">
-            PL
+          <div className="passport-identity-watermark" aria-hidden="true">
+            <div className="passport-identity-watermark-ring" />
+            <div className="passport-identity-watermark-text">PL</div>
           </div>
 
           <div className="passport-identity-body relative flex min-h-[496px] flex-col">
@@ -50,7 +50,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             <div className="mt-9 grid flex-1 gap-9 lg:grid-cols-[0.82fr_1.18fr]">
               <div>
                 <div className="passport-identity-photo-mount">
-                  <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.15rem] p-[2px]">
+                  <div className="passport-identity-photo-frame relative flex aspect-[35/45] items-center justify-center overflow-hidden rounded-[0.15rem] p-[3px]">
                     <span className="passport-identity-photo-corner passport-identity-photo-corner--tl" aria-hidden="true" />
                     <span className="passport-identity-photo-corner passport-identity-photo-corner--tr" aria-hidden="true" />
                     <span className="passport-identity-photo-corner passport-identity-photo-corner--bl" aria-hidden="true" />
@@ -102,6 +102,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                     <PassportField
                       label="Passport No."
                       value={display.passportNo}
+                      primary
                     />
                   </div>
 
@@ -174,12 +175,14 @@ function PassportField({
   label,
   value,
   large = false,
+  primary = false,
   official = false,
   wide = false,
 }: {
   label: string;
   value: string;
   large?: boolean;
+  primary?: boolean;
   official?: boolean;
   wide?: boolean;
 }) {
@@ -192,18 +195,20 @@ function PassportField({
     .filter(Boolean)
     .join(" ");
 
+  const valueClass = [
+    "break-words",
+    large
+      ? "passport-identity-field__value passport-identity-field__value--large"
+      : "passport-identity-field__value uppercase",
+    !large && primary ? "passport-identity-field__value--primary" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={fieldClass}>
       <p className="passport-identity-field__label uppercase">{label}</p>
-      <p
-        className={
-          large
-            ? "passport-identity-field__value passport-identity-field__value--large break-words"
-            : "passport-identity-field__value break-words uppercase"
-        }
-      >
-        {value}
-      </p>
+      <p className={valueClass}>{value}</p>
     </div>
   );
 }
