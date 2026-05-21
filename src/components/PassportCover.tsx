@@ -19,14 +19,15 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
       <div className="passport-cover-spine pointer-events-none absolute inset-y-0 left-0 w-[3px]" />
 
       <div className="passport-cover-inner relative z-10">
-        <p className="passport-cover-gold passport-cover-kingdom">PETLUMA KINGDOM</p>
-
-        <div className="passport-cover-hero">
+        <div className="passport-cover-title-group">
+          <p className="passport-cover-gold passport-cover-kingdom">PETLUMA KINGDOM</p>
           <div className="passport-cover-heading">
             <h2 className="passport-cover-gold passport-cover-brand">PETLUMA</h2>
             <p className="passport-cover-gold passport-cover-passport">PASSPORT</p>
           </div>
+        </div>
 
+        <div className="passport-cover-hero">
           <div
             className="passport-cover-emblem-stage"
             role="img"
