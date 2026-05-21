@@ -25,7 +25,6 @@ export type PassportDisplay = {
   classification: string;
   issuedBy: string;
   registered: string;
-  kingdomId: string;
   mrz: PassportMrz;
 };
 
@@ -59,15 +58,6 @@ export function generateMRZ(data: PassportData): PassportMrz {
     line2: `${passportNoToken}PETLUMA<<<<<<<<<<`,
     line3: `${breedToken}<<<<<<<<<<<<<<<<<<<<`,
   };
-}
-
-function kingdomIdFromCompanion(companionId: string) {
-  const token = companionId.replace(/[^A-Z0-9]/gi, "").toUpperCase();
-  if (!token || token === "ASSIGNEDONREGISTRATION") {
-    return "PK-PENDING";
-  }
-
-  return `PK-${token.slice(-6).padStart(6, "0")}`;
 }
 
 function classificationFromSpecies(species: string) {
@@ -113,9 +103,8 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     companionId,
     registry: "PetLuma Companion Registry",
     classification: classificationFromSpecies(species),
-    issuedBy: "Kingdom Registry Office",
+    issuedBy: "PetLuma Registry Office",
     registered: isPending ? "Pending" : "Active",
-    kingdomId: kingdomIdFromCompanion(companionId),
     mrz: generateMRZ(data),
   };
 }

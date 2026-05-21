@@ -377,10 +377,10 @@ textarea {
 
 .passport-identity-id-label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.4rem;
+  font-size: 0.5rem;
   font-weight: 500;
   letter-spacing: 0.34em;
-  color: rgba(122, 96, 48, 0.48);
+  color: rgba(122, 96, 48, 0.5);
 }
 
 .passport-identity-id-value {
@@ -438,16 +438,16 @@ textarea {
 
 .passport-identity-field__label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.34rem;
+  font-size: 0.425rem;
   font-weight: 500;
   letter-spacing: 0.38em;
-  color: rgba(122, 96, 48, 0.36);
+  color: rgba(122, 96, 48, 0.42);
 }
 
 .passport-identity-field--official .passport-identity-field__label {
-  font-size: 0.32rem;
+  font-size: 0.4rem;
   letter-spacing: 0.4em;
-  color: rgba(122, 96, 48, 0.3);
+  color: rgba(122, 96, 48, 0.36);
 }
 
 .passport-identity-field__value {
@@ -486,10 +486,10 @@ textarea {
 
 .passport-identity-notes__label {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.34rem;
+  font-size: 0.425rem;
   font-weight: 500;
   letter-spacing: 0.38em;
-  color: rgba(122, 96, 48, 0.34);
+  color: rgba(122, 96, 48, 0.4);
 }
 
 .passport-identity-notes__body {

@@ -119,12 +119,6 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                       value={display.registered}
                       official
                     />
-                    <PassportField
-                      label="Kingdom ID"
-                      value={display.kingdomId}
-                      official
-                      wide
-                    />
                   </div>
                 </div>
 

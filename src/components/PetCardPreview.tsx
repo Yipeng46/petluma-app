@@ -115,12 +115,6 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                     value={display.registered}
                     official
                   />
-                  <PassportPreviewField
-                    label="Kingdom ID"
-                    value={display.kingdomId}
-                    official
-                    wide
-                  />
                 </div>
               </div>
             </div>
