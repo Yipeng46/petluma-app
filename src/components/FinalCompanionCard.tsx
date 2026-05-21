@@ -18,12 +18,12 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.24),transparent_19rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.13),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.28))]" />
 
-      <div className="relative grid min-h-[560px] gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
+      <div className="passport-spread relative grid min-h-[560px] gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
         <PassportCover passportNo={display.passportNo} />
 
         <section className="passport-identity-page relative overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
-          <div className="pointer-events-none absolute inset-y-8 left-0 w-px bg-[#9f7835]/12" />
-          <div className="pointer-events-none absolute inset-y-8 left-5 w-px bg-white/30" />
+          <div className="passport-identity-binding-line passport-identity-binding-line--outer pointer-events-none absolute inset-y-8 left-0 w-px" />
+          <div className="passport-identity-binding-line passport-identity-binding-line--inner pointer-events-none absolute inset-y-8 left-5 w-px" />
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
           <div className="passport-identity-grain pointer-events-none absolute inset-0" />
           <div className="passport-identity-security pointer-events-none absolute inset-0" />
