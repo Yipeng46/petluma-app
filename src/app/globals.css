@@ -174,9 +174,9 @@ textarea {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: clamp(20rem, 52cqh, 33rem);
-  height: clamp(21.5rem, 58cqh, 37.5rem);
-  max-height: clamp(22.8rem, 62cqh, 39.5rem);
+  min-height: clamp(31rem, 81cqh, 51rem);
+  height: clamp(33.3rem, 90cqh, 58rem);
+  max-height: clamp(35.3rem, 96cqh, 61rem);
   margin-top: 0.65rem;
   padding: 0;
 }
@@ -185,7 +185,7 @@ textarea {
   display: block;
   width: auto;
   height: 100%;
-  max-width: 72%;
+  max-width: 88%;
   object-fit: contain;
   object-position: center;
   opacity: 0.92;
