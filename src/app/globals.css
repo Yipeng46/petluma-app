@@ -107,7 +107,7 @@ textarea {
 
 .passport-cover-title-group {
   position: absolute;
-  top: 7.6rem;
+  top: calc(7.6rem - 2rem);
   left: 8.5%;
   right: 8.5%;
   z-index: 2;
