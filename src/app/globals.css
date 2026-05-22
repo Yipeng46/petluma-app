@@ -8,6 +8,10 @@
   --espresso-soft: #6f5b4b;
   --gold: #c7a15f;
   --sage: #8d927b;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body:
+    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 }
 
 * {
@@ -39,8 +43,7 @@ textarea {
 }
 
 .pet-serif {
-  font-family:
-    Georgia, "Times New Roman", Times, serif;
+  font-family: var(--font-display);
 }
 
 .passport-cover {
@@ -283,18 +286,19 @@ textarea {
 .passport-identity-page {
   position: relative;
   overflow: hidden;
+  font-family: var(--font-body);
   --identity-page-pad-x: 1.5rem;
   --identity-page-pad-b: 1.5rem;
   --identity-cover-blue: #071426;
-  --identity-ink-primary: #1c1814;
-  --identity-ink-secondary: rgba(28, 24, 20, 0.62);
-  --identity-ink-muted: rgba(28, 24, 20, 0.48);
-  --identity-label: rgba(92, 78, 58, 0.64);
-  --identity-label-muted: rgba(92, 78, 58, 0.5);
-  --identity-border: rgba(128, 114, 96, 0.1);
-  --identity-border-faint: rgba(128, 114, 96, 0.05);
-  --identity-line: rgba(128, 114, 96, 0.065);
-  --identity-line-strong: rgba(128, 114, 96, 0.095);
+  --identity-ink-primary: #2b2420;
+  --identity-ink-secondary: #2b2420;
+  --identity-ink-muted: #2b2420;
+  --identity-label: rgba(43, 36, 32, 0.48);
+  --identity-label-muted: rgba(43, 36, 32, 0.48);
+  --identity-border: rgba(43, 36, 32, 0.1);
+  --identity-border-faint: rgba(43, 36, 32, 0.06);
+  --identity-line: rgba(43, 36, 32, 0.1);
+  --identity-line-strong: rgba(43, 36, 32, 0.1);
   --identity-paper-base: #ede5d6;
   --identity-paper-warm: #e8dfd0;
   --identity-paper-cream: #f0e8da;
@@ -417,30 +421,7 @@ textarea {
   background-size: 5px 5px, 8px 8px, 13px 13px;
 }
 
-.passport-identity-scrollwork {
-  opacity: 0.024;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%237a6e5c' stroke-width='0.3'%3E%3Cpath d='M40 12 Q48 24 40 36 Q32 24 40 12'/%3E%3Cpath d='M40 42 Q52 52 40 62 Q28 52 40 42'/%3E%3C/g%3E%3Ccircle cx='40' cy='8' r='0.6' fill='%237a6e5c'/%3E%3C/svg%3E");
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 90% 85% at 60% 48%, black 6%, transparent 76%);
-}
-
-/* Layer 2 — blind emboss emblem */
-
-.passport-identity-emboss {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 130'%3E%3Cg fill='none' stroke='%237a6e5c' stroke-width='1.1'%3E%3Cpath d='M50 14 L58 28 L50 24 L42 28 Z'/%3E%3Cpath d='M24 40 C24 40 24 106 50 116 C76 106 76 40 76 40'/%3E%3Cpath d='M38 40 L38 98 M62 40 L62 98'/%3E%3Ccircle cx='50' cy='70' r='8'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 72% 68%;
-  background-size: clamp(7.5rem, 20vw, 10.5rem);
-  opacity: 0.42;
-  filter:
-    drop-shadow(-0.7px -0.7px 0 rgba(248, 241, 228, 0.55))
-    drop-shadow(0.9px 0.9px 0 rgba(128, 114, 96, 0.06));
-  mix-blend-mode: multiply;
-  mask-image: radial-gradient(ellipse 55% 50% at 72% 68%, black 15%, transparent 72%);
-}
-
-/* Layer 3–6 — ambient capture & lighting */
+/* Layer 2 — ambient capture & lighting */
 
 .passport-identity-ambient {
   z-index: 1;
@@ -491,19 +472,19 @@ textarea {
 }
 
 .passport-identity-header-kicker {
-  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.46rem;
-  font-weight: 400;
-  letter-spacing: 0.52em;
-  color: rgba(92, 78, 58, 0.52);
+  font-family: var(--font-body);
+  font-size: clamp(0.42rem, 1.1vw, 0.46rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--identity-label);
   text-shadow: var(--identity-ink-print);
 }
 
 .passport-identity-header-title {
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(2rem, 4.2vw, 2.55rem);
-  font-weight: 500;
-  letter-spacing: 0.26em;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4.2vw, 2.55rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   line-height: 0.92;
   color: var(--identity-ink-primary);
   text-shadow:
@@ -635,19 +616,19 @@ textarea {
 }
 
 .passport-identity-id-label {
-  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.44rem;
-  font-weight: 400;
-  letter-spacing: 0.44em;
+  font-family: var(--font-body);
+  font-size: clamp(0.4rem, 1vw, 0.44rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   color: var(--identity-label);
   text-shadow: var(--identity-ink-print);
 }
 
 .passport-identity-id-value {
-  font-family: "Courier New", Courier, ui-monospace, monospace;
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 1.8vw, 0.84rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   color: var(--identity-ink-primary);
   text-shadow: var(--identity-ink-print);
 }
@@ -692,7 +673,7 @@ textarea {
 
 .passport-identity-field--official {
   padding-bottom: 0.48rem;
-  border-bottom-color: rgba(132, 118, 98, 0.04);
+  border-bottom-color: rgba(43, 36, 32, 0.06);
 }
 
 .passport-identity-field--wide {
@@ -700,54 +681,54 @@ textarea {
 }
 
 .passport-identity-field__label {
-  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.43rem;
-  font-weight: 400;
-  letter-spacing: 0.46em;
+  font-family: var(--font-body);
+  font-size: clamp(0.38rem, 0.95vw, 0.43rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   color: var(--identity-label);
   text-shadow: var(--identity-ink-print);
 }
 
 .passport-identity-field--official .passport-identity-field__label {
-  font-size: 0.41rem;
-  letter-spacing: 0.48em;
+  font-size: clamp(0.36rem, 0.9vw, 0.41rem);
+  letter-spacing: 0.22em;
   color: var(--identity-label-muted);
 }
 
 .passport-identity-field__value {
   margin-top: 0.36rem;
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: 0.84rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(0.78rem, 1.9vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
   line-height: 1.38;
-  color: var(--identity-ink-secondary);
+  color: var(--identity-ink-primary);
   text-shadow: var(--identity-ink-print);
 }
 
 .passport-identity-field__value--primary {
-  font-size: 0.88rem;
+  font-size: clamp(0.8rem, 2vw, 0.92rem);
   font-weight: 600;
-  letter-spacing: 0.06em;
-  color: rgba(28, 24, 20, 0.82);
+  letter-spacing: 0.04em;
+  color: var(--identity-ink-primary);
   text-shadow: var(--identity-ink-print);
 }
 
 .passport-identity-field--official .passport-identity-field__value {
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: 0.78rem;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: clamp(0.74rem, 1.8vw, 0.84rem);
+  font-weight: 600;
   letter-spacing: 0.03em;
-  color: var(--identity-ink-muted);
+  color: var(--identity-ink-primary);
 }
 
 .passport-identity-field__value--large {
   margin-top: 0.55rem;
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(2.7rem, 5.8vw, 3.4rem);
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 0.86;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.8vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
   color: var(--identity-ink-primary);
   text-transform: none;
   text-shadow:
@@ -765,23 +746,23 @@ textarea {
 }
 
 .passport-identity-notes__label {
-  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.43rem;
-  font-weight: 400;
-  letter-spacing: 0.46em;
+  font-family: var(--font-body);
+  font-size: clamp(0.38rem, 0.95vw, 0.43rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   color: var(--identity-label-muted);
   text-shadow: var(--identity-ink-print);
 }
 
 .passport-identity-notes__body {
   margin-top: 0.42rem;
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: 0.98rem;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: clamp(0.88rem, 2.2vw, 0.98rem);
+  font-weight: 500;
   font-style: normal;
   line-height: 1.55;
-  letter-spacing: 0.01em;
-  color: rgba(28, 24, 20, 0.5);
+  letter-spacing: 0.02em;
+  color: var(--identity-ink-primary);
   text-shadow: var(--identity-ink-print);
 }
 
@@ -808,14 +789,14 @@ textarea {
 }
 
 .passport-identity-seal__kicker {
-  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.34rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
 }
 
 .passport-identity-seal__mark {
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1;
