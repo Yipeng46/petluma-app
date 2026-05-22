@@ -20,16 +20,10 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <div className="passport-identity-cotton pointer-events-none absolute inset-0" />
         <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
         <div className="passport-identity-grain pointer-events-none absolute inset-0" />
-        <div className="passport-identity-scrollwork pointer-events-none absolute inset-0" />
-        <div className="passport-identity-emboss pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="passport-identity-ambient pointer-events-none absolute inset-0" />
         <div className="passport-identity-vignette pointer-events-none absolute inset-0" />
         <div className="passport-identity-capture pointer-events-none absolute inset-0" />
         <div className="passport-identity-edge pointer-events-none absolute inset-0" />
-        <div className="passport-identity-watermark" aria-hidden="true">
-          <div className="passport-identity-watermark-ring" />
-          <div className="passport-identity-watermark-text">PL</div>
-        </div>
 
         <div className="passport-identity-body passport-identity-print-layer relative min-h-[430px]">
           <header className="passport-identity-header">

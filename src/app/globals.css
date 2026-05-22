@@ -472,44 +472,6 @@ textarea {
   mix-blend-mode: multiply;
 }
 
-.passport-identity-watermark {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.passport-identity-watermark-ring {
-  position: absolute;
-  top: 43%;
-  left: 58%;
-  width: clamp(19rem, 48vw, 28rem);
-  height: clamp(19rem, 48vw, 28rem);
-  transform: translate(-50%, -50%);
-  border: 14px solid rgba(132, 118, 98, 0.018);
-  border-radius: 50%;
-  mix-blend-mode: multiply;
-  box-shadow: inset 0 0 0 0.5px rgba(132, 118, 98, 0.012);
-}
-
-.passport-identity-watermark-text {
-  position: absolute;
-  top: 40%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(12rem, 34vw, 19rem);
-  font-weight: 600;
-  line-height: 0.82;
-  letter-spacing: -0.06em;
-  color: rgba(28, 24, 20, 0.028);
-  mix-blend-mode: multiply;
-  opacity: 0.65;
-  text-shadow: none;
-  user-select: none;
-}
-
 /* ── Header ── */
 
 .passport-identity-header {
