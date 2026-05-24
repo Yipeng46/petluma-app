@@ -18,7 +18,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.24),transparent_19rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.13),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.28))]" />
 
-      <div className="passport-spread relative grid min-h-[560px] max-w-full min-w-0 gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
+      <div className="passport-spread relative grid min-h-0 max-w-full min-w-0 gap-3 lg:min-h-[560px] lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
         <PassportCover passportNo={display.passportNo} />
 
         <section className="passport-identity-page relative max-w-full min-w-0 overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
@@ -31,7 +31,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
           <div className="passport-identity-capture pointer-events-none absolute inset-0" />
           <div className="passport-identity-edge pointer-events-none absolute inset-0" />
 
-          <div className="passport-identity-body passport-identity-print-layer relative flex min-h-[496px] flex-col">
+          <div className="passport-identity-body passport-identity-print-layer relative flex min-h-0 flex-col lg:min-h-[496px]">
             <header className="passport-identity-header min-w-0 max-w-full">
               <div className="min-w-0 max-w-full">
                 <p className="passport-identity-header-kicker uppercase">
