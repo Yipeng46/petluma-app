@@ -81,7 +81,7 @@ export function ResultExperience() {
   }
 
   return (
-    <main className="result-page relative min-h-screen overflow-x-hidden overflow-y-auto px-5 py-8 sm:px-8 lg:px-10">
+    <main className="relative min-h-screen overflow-hidden px-5 py-8 sm:px-8 lg:px-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(199,161,95,0.28),transparent_28rem),linear-gradient(135deg,#f8f0e4_0%,#efe0cb_54%,#f7efe3_100%)]" />
       <div className="pointer-events-none absolute left-1/2 top-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full border border-[#c7a15f]/20" />
       <div className="pointer-events-none absolute bottom-8 right-8 h-40 w-40 rounded-full bg-[#2f2119]/5 blur-3xl" />
@@ -99,7 +99,7 @@ export function ResultExperience() {
           </p>
         </div>
 
-        <div className="w-full max-w-full min-w-0 sm:max-w-6xl">
+        <div className="w-full max-w-6xl">
           {duplicateNotice ? (
             <div className="mb-4 rounded-2xl border border-[#c7a15f]/35 bg-[#fff8eb] px-5 py-4 text-center text-sm leading-6 text-[#6f5b4b]">
               {duplicateNotice}
@@ -111,18 +111,18 @@ export function ResultExperience() {
           <FinalCompanionCard card={card} cardRef={cardRef} />
         </div>
 
-        <div className="flex w-full max-w-full min-w-0 flex-col gap-3 sm:max-w-md sm:flex-row sm:justify-center">
+        <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
           <button
             type="button"
             onClick={handleDownloadCard}
             disabled={isDownloading}
-            className="box-border w-full max-w-full rounded-full bg-[#2f2119] px-5 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70 sm:w-auto sm:px-7"
+            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70"
           >
             {isDownloading ? "Preparing..." : "Download Passport"}
           </button>
           <Link
             href="/create"
-            className="box-border w-full max-w-full rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-5 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1] sm:w-auto sm:px-7"
+            className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
           >
             Create Another Passport
           </Link>
