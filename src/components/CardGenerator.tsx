@@ -118,8 +118,8 @@ export function CardGenerator() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-      <div>
+    <div className="grid max-w-full min-w-0 gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+      <div className="min-w-0 max-w-full">
         <PetCardForm
           passportData={passportData}
           onFieldChange={updateField}
@@ -135,7 +135,7 @@ export function CardGenerator() {
         </button>
       </div>
 
-      <div className="lg:sticky lg:top-8">
+      <div className="min-w-0 max-w-full overflow-x-hidden lg:sticky lg:top-8">
         <PetCardPreview passportData={passportData} />
       </div>
     </div>

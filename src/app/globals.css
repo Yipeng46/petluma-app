@@ -788,7 +788,7 @@ article:has(> .passport-spread) {
   gap: 0.95rem 1.15rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .passport-identity-fields__primary,
   .passport-identity-fields__registry {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1003,4 +1003,197 @@ article:has(> .passport-spread) {
   color: rgba(198, 190, 172, 0.68);
   text-shadow: none;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* ── Result page mobile fixes (desktop layout unchanged above) ── */
+
+@media (max-width: 1023px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .result-page,
+  .result-page .passport-preview,
+  .result-page .passport-cover,
+  .result-page .identity-page {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Cover: stable flex column, all content in document flow */
+  .result-page .passport-cover {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .result-page .passport-cover-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: auto;
+    gap: clamp(0.65rem, 2.8vw, 1.15rem);
+    padding-top: clamp(1.35rem, 4.5vw, 2rem);
+    padding-bottom: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  .result-page .passport-cover-title-group {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .result-page .passport-cover-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    padding-top: 0;
+  }
+
+  .result-page .passport-cover-emblem-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    max-height: none;
+    margin-top: 0;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
+  .result-page .cover-gate-emblem,
+  .result-page .passport-cover-emblem__art {
+    display: block;
+    width: min(62vw, 260px);
+    height: auto;
+    max-width: min(62vw, 260px);
+    max-height: none;
+    margin-inline: auto;
+    transform: none;
+    object-fit: contain;
+  }
+
+  .result-page .passport-cover-bottom {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: clamp(0.5rem, 2vw, 1rem);
+    padding-top: 0;
+  }
+
+  .result-page .cover-footer-text {
+    margin-top: 0;
+  }
+
+  /* PETLUMA title: shrink to fit, never clip */
+  .result-page .cover-title {
+    font-size: clamp(42px, 13vw, 64px);
+    letter-spacing: clamp(0.12em, 2vw, 0.22em);
+    white-space: nowrap;
+    max-width: 100%;
+    transform: none;
+    overflow: visible;
+  }
+
+  /* Identity page: auto height, MRZ in document flow */
+  .result-page .identity-page {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .result-page .passport-identity-body {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .result-page .notes-block {
+    padding-bottom: clamp(0.75rem, 2.5vw, 1.25rem);
+  }
+
+  .result-page .mrz-block {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: clamp(0.85rem, 2.5vw, 1.25rem);
+  }
+
+  .result-page .mrz-block::before {
+    display: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .result-page .cover-title {
+    font-size: clamp(34px, 10.5vw, 42px);
+    letter-spacing: clamp(0.04em, 0.08em, 0.1em);
+  }
+}
+
+@media (max-width: 639px) {
+  .passport-identity-page,
+  .passport-identity-body,
+  .passport-identity-header,
+  .passport-identity-fields,
+  .passport-identity-mrz {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .passport-identity-header-kicker {
+    font-size: clamp(0.32rem, 2.5vw, 0.42rem);
+    letter-spacing: clamp(0.1em, 0.16em, 0.22em);
+  }
+
+  .passport-identity-header-title {
+    font-size: clamp(1.15rem, 6.5vw, 1.85rem);
+    letter-spacing: clamp(0.08em, 0.14em, 0.22em);
+  }
+
+  .passport-identity-field__value--large {
+    font-size: clamp(1.45rem, 8vw, 2.25rem);
+  }
+
+  .passport-identity-id-value {
+    font-size: clamp(0.62rem, 3.2vw, 0.72rem);
+    overflow-wrap: anywhere;
+  }
+
+  .passport-identity-mrz__line {
+    font-size: clamp(0.34rem, 2.8vw, 0.42rem);
+    letter-spacing: 0.04em;
+  }
+
+  .passport-identity-seal {
+    width: clamp(4.5rem, 18vw, 7rem);
+    height: clamp(4.5rem, 18vw, 7rem);
+  }
 }
