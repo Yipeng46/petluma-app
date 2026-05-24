@@ -336,6 +336,255 @@ textarea {
   }
 }
 
+/* ── Landing hero passport mockup ── */
+
+.hero-passport-mockup {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.hero-passport-mockup__glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 8% 4% 2%;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse 72% 58% at 50% 46%,
+    rgba(201, 164, 92, 0.22),
+    transparent 72%
+  );
+  filter: blur(18px);
+}
+
+.hero-passport-mockup__stage {
+  position: relative;
+  width: 100%;
+  height: clamp(22rem, 52vw, 31rem);
+  max-height: min(31rem, 72vh);
+  perspective: 1400px;
+}
+
+.hero-passport-mockup__identity {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  z-index: 1;
+  width: min(54%, 13.5rem);
+  padding: 1.35rem 1.15rem 1.5rem;
+  border-radius: 0.85rem;
+  background:
+    radial-gradient(ellipse 90% 70% at 18% 12%, rgba(248, 241, 228, 0.55), transparent 58%),
+    linear-gradient(165deg, #f2eadc 0%, #ece3d2 52%, #e7decc 100%);
+  box-shadow:
+    0 18px 44px rgba(8, 21, 38, 0.14),
+    0 2px 0 rgba(255, 255, 255, 0.45) inset;
+  transform: rotateY(-10deg) rotateZ(2deg) translateX(8%);
+  transform-origin: left center;
+}
+
+.hero-passport-mockup__identity-kicker {
+  font-family: var(--font-body);
+  font-size: 0.46rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(43, 36, 32, 0.42);
+}
+
+.hero-passport-mockup__identity-name {
+  margin-top: 1.15rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.65rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: #2b2420;
+  white-space: nowrap;
+}
+
+.hero-passport-mockup__identity-breed {
+  margin-top: 0.55rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.82rem, 2vw, 0.98rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(43, 36, 32, 0.78);
+  white-space: nowrap;
+}
+
+.hero-passport-mockup__identity-id {
+  margin-top: 1.35rem;
+  padding-top: 0.85rem;
+  border-top: 0.5px solid rgba(43, 36, 32, 0.1);
+}
+
+.hero-passport-mockup__identity-id-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.42rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(43, 36, 32, 0.42);
+}
+
+.hero-passport-mockup__identity-id-value {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2b2420;
+  white-space: nowrap;
+}
+
+.hero-passport-mockup__cover {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  width: min(72%, 17.5rem);
+  flex-direction: column;
+  align-items: center;
+  padding: 1.65rem 1.25rem 1.35rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 88% 48% at 50% 18%, rgba(255, 255, 255, 0.022), transparent 54%),
+    radial-gradient(ellipse 95% 55% at 78% 88%, rgba(0, 0, 0, 0.42), transparent 52%),
+    linear-gradient(168deg, #0a1830 0%, #08182b 44%, #071426 100%);
+  box-shadow:
+    0 28px 70px rgba(8, 21, 38, 0.42),
+    0 10px 24px rgba(8, 21, 38, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transform: rotateY(11deg) rotateX(4deg) rotateZ(-1.5deg);
+  transform-origin: center bottom;
+}
+
+.hero-passport-mockup__cover-sheen {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 72% 42% at 50% 8%, rgba(255, 255, 255, 0.035), transparent 58%),
+    linear-gradient(
+      118deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      transparent 34%,
+      transparent 100%
+    );
+}
+
+.hero-passport-mockup__cover-kingdom {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 0.44rem;
+  font-weight: 600;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: rgba(201, 164, 92, 0.82);
+}
+
+.hero-passport-mockup__cover-titles {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.85rem;
+}
+
+.hero-passport-mockup__cover-brand {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4.8vw, 2.35rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: #c9a45c;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.62),
+    0 -0.5px 0 rgba(255, 236, 200, 0.08);
+  white-space: nowrap;
+}
+
+.hero-passport-mockup__cover-passport {
+  margin-top: 0.2rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.92rem, 2.4vw, 1.12rem);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #c9a45c;
+  white-space: nowrap;
+}
+
+.hero-passport-mockup__cover-emblem {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(58%, 6.75rem);
+  height: auto;
+  margin: 1.1rem auto 0.85rem;
+  object-fit: contain;
+  opacity: 0.92;
+  filter: brightness(0.95) contrast(1.04) saturate(0.92)
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.68));
+}
+
+.hero-passport-mockup__cover-footer {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 0.42rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: rgba(201, 164, 92, 0.72);
+}
+
+@media (max-width: 1023px) {
+  .hero-passport-mockup {
+    max-width: 100%;
+  }
+
+  .hero-passport-mockup__stage {
+    height: clamp(19rem, 74vw, 24rem);
+    max-height: none;
+  }
+
+  .hero-passport-mockup__cover {
+    width: min(68%, 15.5rem);
+    transform: rotateY(7deg) rotateX(3deg) rotateZ(-1deg);
+  }
+
+  .hero-passport-mockup__identity {
+    width: min(50%, 11.5rem);
+    transform: rotateY(-7deg) rotateZ(1.5deg) translateX(6%);
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-passport-mockup__stage {
+    height: clamp(17.5rem, 78vw, 21rem);
+  }
+
+  .hero-passport-mockup__cover-brand {
+    font-size: clamp(1.55rem, 7.2vw, 1.85rem);
+    letter-spacing: 0.14em;
+  }
+
+  .hero-passport-mockup__cover-passport {
+    letter-spacing: 0.24em;
+  }
+}
+
 .pet-card-grain::after {
   content: "";
   position: absolute;

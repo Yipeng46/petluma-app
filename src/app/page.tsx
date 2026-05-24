@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LandingPassportHeroPreview } from "@/components/LandingPassportHeroPreview";
+import { HeroPassportMockup } from "@/components/HeroPassportMockup";
 import { SiteHeader } from "@/components/SiteHeader";
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
           </div>
         </div>
 
-        <LandingPassportHeroPreview />
+        <HeroPassportMockup />
       </section>
     </main>
   );
