@@ -36,7 +36,9 @@ export default function Home() {
           </div>
         </div>
 
-        <HeroPassportMockup />
+        <div className="flex items-center justify-center lg:justify-end">
+          <HeroPassportMockup />
+        </div>
       </section>
     </main>
   );
