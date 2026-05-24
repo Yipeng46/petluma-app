@@ -10,7 +10,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
   return (
     <section
       aria-label="PetLuma Passport cover"
-      className="passport-cover relative flex min-h-0 max-w-full min-w-0 flex-col overflow-x-hidden overflow-y-visible rounded-[1.15rem] border border-[#0c1829]/85 text-center lg:min-h-[496px] lg:overflow-hidden lg:rounded-r-none lg:border-r-0 [container-type:size]"
+      className="passport-cover relative flex w-full max-w-full min-w-0 flex-col overflow-x-hidden overflow-y-visible rounded-[1.15rem] border border-[#0c1829]/85 text-center lg:min-h-[496px] lg:overflow-hidden lg:rounded-r-none lg:border-r-0 [container-type:size]"
     >
       <div className="passport-cover-leather pointer-events-none absolute inset-0" />
       <div className="passport-cover-grain pointer-events-none absolute inset-0" />

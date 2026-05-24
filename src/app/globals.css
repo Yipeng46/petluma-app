@@ -1022,13 +1022,26 @@ article:has(> .passport-spread) {
     overflow-x: hidden;
   }
 
-  /* Cover: stable flex column, all content in document flow */
+  .result-page .passport-spread {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 3vw, 1rem);
+  }
+
   .result-page .passport-cover {
     position: relative;
+    order: 1;
+    flex-shrink: 0;
+    width: 100%;
     height: auto;
-    min-height: auto;
+    min-height: fit-content;
     overflow-x: hidden;
     overflow-y: visible;
+  }
+
+  .result-page .identity-page {
+    order: 2;
+    flex-shrink: 0;
   }
 
   .result-page .passport-cover-inner {
@@ -1037,6 +1050,7 @@ article:has(> .passport-spread) {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
     height: auto;
     min-height: auto;
     gap: clamp(0.65rem, 2.8vw, 1.15rem);
