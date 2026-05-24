@@ -10,7 +10,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
   return (
     <section
       aria-label="PetLuma Passport cover"
-      className="passport-cover relative flex min-h-[496px] max-w-full min-w-0 flex-col overflow-hidden rounded-[1.15rem] border border-[#0c1829]/85 text-center lg:rounded-r-none lg:border-r-0 [container-type:size]"
+      className="passport-cover relative flex min-h-0 max-w-full min-w-0 flex-col overflow-x-hidden overflow-y-visible rounded-[1.15rem] border border-[#0c1829]/85 text-center lg:min-h-[496px] lg:overflow-hidden lg:rounded-r-none lg:border-r-0 [container-type:size]"
     >
       <div className="passport-cover-leather pointer-events-none absolute inset-0" />
       <div className="passport-cover-grain pointer-events-none absolute inset-0" />
@@ -22,7 +22,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
         <div className="passport-cover-title-group min-w-0 max-w-full">
           <p className="passport-cover-gold passport-cover-kingdom">PETLUMA KINGDOM</p>
           <div className="passport-cover-heading">
-            <h2 className="passport-cover-gold passport-cover-brand">PETLUMA</h2>
+            <h2 className="cover-title passport-cover-gold passport-cover-brand">PETLUMA</h2>
             <p className="passport-cover-gold passport-cover-passport">PASSPORT</p>
           </div>
         </div>
@@ -38,14 +38,14 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
               alt=""
               width={220}
               height={330}
-              className="passport-cover-emblem__art"
+              className="cover-gate-emblem passport-cover-emblem__art"
               draggable={false}
             />
           </div>
         </div>
 
         <footer className="passport-cover-bottom">
-          <p className="passport-cover-gold passport-cover-footer">
+          <p className="cover-footer-text passport-cover-gold passport-cover-footer">
             OFFICIAL COMPANION DOCUMENT
           </p>
           {passportNo ? (

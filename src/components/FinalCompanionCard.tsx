@@ -14,14 +14,14 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
   return (
     <article
       ref={cardRef}
-      className="relative w-full max-w-full min-w-0 overflow-hidden rounded-[1.4rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[0_38px_120px_rgba(8,21,38,0.38)] sm:p-5 lg:p-7"
+      className="passport-preview relative w-full max-w-full min-w-0 overflow-x-hidden overflow-y-visible rounded-[1.4rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[0_38px_120px_rgba(8,21,38,0.38)] sm:p-5 lg:overflow-hidden lg:p-7"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.24),transparent_19rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.13),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.28))]" />
 
       <div className="passport-spread relative grid min-h-0 max-w-full min-w-0 gap-3 lg:min-h-[560px] lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
         <PassportCover passportNo={display.passportNo} />
 
-        <section className="passport-identity-page relative max-w-full min-w-0 overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
+        <section className="identity-page passport-identity-page relative max-w-full min-w-0 overflow-x-hidden overflow-y-visible rounded-[1.2rem] p-6 lg:overflow-hidden lg:rounded-l-none sm:p-8">
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
           <div className="passport-identity-cotton pointer-events-none absolute inset-0" />
           <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
@@ -131,7 +131,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                 </div>
 
                 <div className="relative mt-10">
-                  <div className="passport-identity-notes p-4 pb-5 pr-16 sm:pr-24">
+                  <div className="passport-identity-notes notes-block p-4 pb-5 pr-16 sm:pr-24">
                     <p className="passport-identity-notes__label uppercase">
                       Notes
                     </p>
@@ -160,7 +160,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
             </div>
           </div>
 
-          <div className="passport-identity-mrz">
+          <div className="passport-identity-mrz mrz-block">
             <p className="passport-identity-mrz__line uppercase">{display.mrz.line1}</p>
             <p className="passport-identity-mrz__line uppercase">{display.mrz.line2}</p>
             <p className="passport-identity-mrz__line uppercase">{display.mrz.line3}</p>

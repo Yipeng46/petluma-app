@@ -856,81 +856,154 @@ textarea {
   overflow-wrap: anywhere;
 }
 
-/* ── Passport mobile responsive (desktop typography unchanged above) ── */
+/* ── Result page mobile fixes (desktop layout unchanged above) ── */
 
 @media (max-width: 1023px) {
-  .passport-cover-inner {
-    gap: 0.85rem;
-    padding-top: 2rem;
+  html,
+  body {
+    overflow-x: hidden;
   }
 
-  .passport-cover-title-group,
-  .passport-cover-heading,
-  .passport-cover-brand,
-  .passport-cover-passport {
+  .result-page,
+  .result-page .passport-preview,
+  .result-page .passport-cover,
+  .result-page .identity-page {
     max-width: 100%;
-    min-width: 0;
+    overflow-x: hidden;
   }
 
-  .passport-cover-title-group {
+  /* Cover: stable flex column, all content in document flow */
+  .result-page .passport-cover {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .result-page .passport-cover-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: auto;
+    gap: clamp(0.65rem, 2.8vw, 1.15rem);
+    padding-top: clamp(1.35rem, 4.5vw, 2rem);
+    padding-bottom: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  .result-page .passport-cover-title-group {
     position: relative;
     top: auto;
     left: auto;
     right: auto;
-    z-index: 2;
+    width: 100%;
     flex-shrink: 0;
   }
 
-  .passport-cover-brand {
-    font-size: clamp(1.85rem, 9.2vw, 2.6rem);
-    letter-spacing: clamp(0.06em, 0.09em, 0.14em);
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: visible;
-  }
-
-  .passport-cover-passport {
-    font-size: clamp(1rem, 5.2vw, 1.38rem);
-    letter-spacing: clamp(0.14em, 0.24em, 0.38em);
-  }
-
-  .passport-cover-kingdom,
-  .passport-cover-footer {
-    letter-spacing: clamp(0.18em, 0.32em, 0.42em);
-  }
-
-  .passport-cover-hero {
-    flex: 0 1 auto;
-    min-height: 0;
+  .result-page .passport-cover-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: auto;
+    height: auto;
     padding-top: 0;
   }
 
-  .passport-cover-emblem-stage {
+  .result-page .passport-cover-emblem-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     min-height: auto;
-    height: clamp(9.5rem, 34vw, 14rem);
-    max-height: clamp(11rem, 38vw, 16rem);
-    margin-top: 0.35rem;
-    margin-bottom: 1rem;
-  }
-
-  .passport-cover-emblem__art {
-    transform: scale(1);
-    max-height: 100%;
-  }
-
-  .passport-cover-bottom {
-    flex-shrink: 0;
+    height: auto;
+    max-height: none;
     margin-top: 0;
-    padding-top: 0.85rem;
+    margin-bottom: 24px;
+    padding: 0;
   }
 
-  .passport-identity-body {
+  .result-page .cover-gate-emblem,
+  .result-page .passport-cover-emblem__art {
+    display: block;
+    width: min(62vw, 260px);
+    height: auto;
+    max-width: min(62vw, 260px);
+    max-height: none;
+    margin-inline: auto;
+    transform: none;
+    object-fit: contain;
+  }
+
+  .result-page .passport-cover-bottom {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: clamp(0.5rem, 2vw, 1rem);
+    padding-top: 0;
+  }
+
+  .result-page .cover-footer-text {
+    margin-top: 0;
+  }
+
+  /* PETLUMA title: shrink to fit, never clip */
+  .result-page .cover-title {
+    font-size: clamp(42px, 13vw, 64px);
+    letter-spacing: clamp(0.12em, 2vw, 0.22em);
+    white-space: nowrap;
+    max-width: 100%;
+    transform: none;
+    overflow: visible;
+  }
+
+  /* Identity page: auto height, MRZ in document flow */
+  .result-page .identity-page {
+    display: flex;
+    flex-direction: column;
+    height: auto;
     min-height: auto;
-    padding-bottom: 5.85rem;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
-  .passport-identity-notes {
-    padding-bottom: 1.35rem;
+  .result-page .passport-identity-body {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .result-page .notes-block {
+    padding-bottom: clamp(0.75rem, 2.5vw, 1.25rem);
+  }
+
+  .result-page .mrz-block {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: clamp(0.85rem, 2.5vw, 1.25rem);
+  }
+
+  .result-page .mrz-block::before {
+    display: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .result-page .cover-title {
+    font-size: clamp(34px, 10.5vw, 42px);
+    letter-spacing: clamp(0.04em, 0.08em, 0.1em);
   }
 }
 

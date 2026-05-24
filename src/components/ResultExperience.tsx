@@ -81,7 +81,7 @@ export function ResultExperience() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden overflow-y-auto px-5 py-8 sm:px-8 lg:px-10">
+    <main className="result-page relative min-h-screen overflow-x-hidden overflow-y-auto px-5 py-8 sm:px-8 lg:px-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(199,161,95,0.28),transparent_28rem),linear-gradient(135deg,#f8f0e4_0%,#efe0cb_54%,#f7efe3_100%)]" />
       <div className="pointer-events-none absolute left-1/2 top-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full border border-[#c7a15f]/20" />
       <div className="pointer-events-none absolute bottom-8 right-8 h-40 w-40 rounded-full bg-[#2f2119]/5 blur-3xl" />
