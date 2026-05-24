@@ -10,7 +10,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
   return (
     <section
       aria-label="PetLuma Passport cover"
-      className="passport-cover relative flex min-h-[496px] flex-col overflow-hidden rounded-[1.15rem] border border-[#0c1829]/85 text-center lg:rounded-r-none lg:border-r-0 [container-type:size]"
+      className="passport-cover relative flex min-h-[496px] max-w-full min-w-0 flex-col overflow-hidden rounded-[1.15rem] border border-[#0c1829]/85 text-center lg:rounded-r-none lg:border-r-0 [container-type:size]"
     >
       <div className="passport-cover-leather pointer-events-none absolute inset-0" />
       <div className="passport-cover-grain pointer-events-none absolute inset-0" />
@@ -19,7 +19,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
       <div className="passport-cover-spine pointer-events-none absolute inset-y-0 left-0 w-[3px]" />
 
       <div className="passport-cover-inner relative z-10">
-        <div className="passport-cover-title-group">
+        <div className="passport-cover-title-group min-w-0 max-w-full">
           <p className="passport-cover-gold passport-cover-kingdom">PETLUMA KINGDOM</p>
           <div className="passport-cover-heading">
             <h2 className="passport-cover-gold passport-cover-brand">PETLUMA</h2>

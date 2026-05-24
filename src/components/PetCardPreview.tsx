@@ -9,13 +9,13 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
   const display = getPassportDisplay(passportData);
 
   return (
-    <section className="rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/74 p-3 shadow-[0_22px_70px_rgba(17,24,39,0.1)] backdrop-blur sm:p-5">
+    <section className="max-w-full min-w-0 overflow-x-hidden rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/74 p-3 shadow-[0_22px_70px_rgba(17,24,39,0.1)] backdrop-blur sm:p-5">
       <div className="mb-4 flex items-center justify-between gap-4 px-2 text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-[#C8A97E]">
         <span>Passport Preview</span>
         <span>PetLuma Passport</span>
       </div>
 
-      <article className="passport-identity-page relative overflow-hidden rounded-[24px] p-4 sm:p-6">
+      <article className="passport-identity-page relative max-w-full min-w-0 overflow-hidden rounded-[24px] p-4 sm:p-6">
         <div className="passport-identity-paper pointer-events-none absolute inset-0" />
         <div className="passport-identity-cotton pointer-events-none absolute inset-0" />
         <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
@@ -26,8 +26,8 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
         <div className="passport-identity-edge pointer-events-none absolute inset-0" />
 
         <div className="passport-identity-body passport-identity-print-layer relative min-h-[430px]">
-          <header className="passport-identity-header">
-            <div>
+          <header className="passport-identity-header min-w-0 max-w-full">
+            <div className="min-w-0 max-w-full">
               <p className="passport-identity-header-kicker uppercase">
                 PETLUMA PASSPORT
               </p>
@@ -37,8 +37,8 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
             </div>
           </header>
 
-          <div className="mt-7 grid gap-7 sm:grid-cols-[0.76fr_1.24fr]">
-            <div>
+          <div className="mt-7 grid max-w-full gap-7 lg:grid-cols-[0.76fr_1.24fr]">
+            <div className="min-w-0 max-w-full">
               <div className="passport-identity-photo-stack">
                 <div className="passport-identity-photo-mount">
                   <div className="passport-identity-photo-thickness" aria-hidden="true" />
@@ -81,7 +81,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
               </div>
             </div>
 
-            <div className="min-w-0">
+            <div className="min-w-0 max-w-full">
               <div className="passport-identity-fields">
                 <PassportPreviewField label="Pet Name" value={display.name} large />
 
@@ -131,7 +131,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           </div>
 
           <div className="relative mt-6">
-            <div className="passport-identity-notes p-3 pr-20">
+            <div className="passport-identity-notes p-3 pr-16 sm:pr-20">
               <p className="passport-identity-notes__label uppercase">
                 Notes
               </p>
@@ -140,7 +140,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
               </p>
             </div>
             <div
-              className="passport-identity-seal absolute -bottom-5 -right-1 flex h-20 w-20 rotate-[-13deg] items-center justify-center rounded-full text-center"
+              className="passport-identity-seal absolute -bottom-5 -right-1 flex rotate-[-13deg] items-center justify-center rounded-full text-center"
               aria-hidden="true"
             >
               <div className="passport-identity-seal__ring pointer-events-none absolute inset-2.5 rounded-full" />

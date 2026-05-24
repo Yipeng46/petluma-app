@@ -10,7 +10,7 @@ export default function CreatePage() {
       <div className="pointer-events-none absolute -left-24 bottom-10 h-72 w-72 rounded-full bg-[#111827]/5 blur-3xl" />
       <SiteHeader />
 
-      <section className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-4 sm:px-8">
+      <section className="relative mx-auto w-full max-w-6xl min-w-0 overflow-x-hidden px-5 pb-16 pt-4 sm:px-8">
         <Link
           href="/"
           className="mb-6 inline-flex text-sm font-medium text-[#6E6A64] transition hover:text-[#111827]"

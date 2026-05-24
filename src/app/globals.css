@@ -642,7 +642,7 @@ textarea {
   gap: 0.95rem 1.15rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .passport-identity-fields__primary,
   .passport-identity-fields__registry {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -853,4 +853,87 @@ textarea {
   color: rgba(198, 190, 172, 0.68);
   text-shadow: none;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* ── Passport mobile responsive (desktop typography unchanged above) ── */
+
+@media (max-width: 1023px) {
+  .passport-cover-title-group,
+  .passport-cover-heading,
+  .passport-cover-brand,
+  .passport-cover-passport {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .passport-cover-brand {
+    font-size: clamp(1.75rem, 10.5vw, 3.04rem);
+    letter-spacing: clamp(0.08em, 0.18em, 0.24em);
+  }
+
+  .passport-cover-passport {
+    font-size: clamp(1rem, 5.2vw, 1.38rem);
+    letter-spacing: clamp(0.14em, 0.24em, 0.38em);
+  }
+
+  .passport-cover-kingdom,
+  .passport-cover-footer {
+    letter-spacing: clamp(0.18em, 0.32em, 0.42em);
+  }
+
+  .passport-cover-emblem-stage {
+    min-height: clamp(14rem, 42vw, 31rem);
+    height: clamp(16rem, 48vw, 33.3rem);
+    max-height: clamp(18rem, 52vw, 35.3rem);
+  }
+
+  .passport-cover-title-group {
+    top: calc(5.5rem - 1.5rem);
+  }
+
+  .passport-cover-hero {
+    padding-top: 9rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .passport-identity-page,
+  .passport-identity-body,
+  .passport-identity-header,
+  .passport-identity-fields,
+  .passport-identity-mrz {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .passport-identity-header-kicker {
+    font-size: clamp(0.32rem, 2.5vw, 0.42rem);
+    letter-spacing: clamp(0.1em, 0.16em, 0.22em);
+  }
+
+  .passport-identity-header-title {
+    font-size: clamp(1.15rem, 6.5vw, 1.85rem);
+    letter-spacing: clamp(0.08em, 0.14em, 0.22em);
+  }
+
+  .passport-identity-field__value--large {
+    font-size: clamp(1.45rem, 8vw, 2.25rem);
+  }
+
+  .passport-identity-id-value {
+    font-size: clamp(0.62rem, 3.2vw, 0.72rem);
+    overflow-wrap: anywhere;
+  }
+
+  .passport-identity-mrz__line {
+    font-size: clamp(0.34rem, 2.8vw, 0.42rem);
+    letter-spacing: 0.04em;
+  }
+
+  .passport-identity-seal {
+    width: clamp(4.5rem, 18vw, 7rem);
+    height: clamp(4.5rem, 18vw, 7rem);
+  }
 }

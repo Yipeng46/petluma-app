@@ -14,14 +14,14 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
   return (
     <article
       ref={cardRef}
-      className="relative w-full overflow-hidden rounded-[1.4rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[0_38px_120px_rgba(8,21,38,0.38)] sm:p-5 lg:p-7"
+      className="relative w-full max-w-full min-w-0 overflow-hidden rounded-[1.4rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[0_38px_120px_rgba(8,21,38,0.38)] sm:p-5 lg:p-7"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.24),transparent_19rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.13),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.28))]" />
 
-      <div className="passport-spread relative grid min-h-[560px] gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
+      <div className="passport-spread relative grid min-h-[560px] max-w-full min-w-0 gap-3 lg:grid-cols-[0.68fr_1.32fr] lg:gap-0">
         <PassportCover passportNo={display.passportNo} />
 
-        <section className="passport-identity-page relative overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
+        <section className="passport-identity-page relative max-w-full min-w-0 overflow-hidden rounded-[1.2rem] p-6 lg:rounded-l-none sm:p-8">
           <div className="passport-identity-paper pointer-events-none absolute inset-0" />
           <div className="passport-identity-cotton pointer-events-none absolute inset-0" />
           <div className="passport-identity-fiber pointer-events-none absolute inset-0" />
@@ -32,8 +32,8 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
           <div className="passport-identity-edge pointer-events-none absolute inset-0" />
 
           <div className="passport-identity-body passport-identity-print-layer relative flex min-h-[496px] flex-col">
-            <header className="passport-identity-header">
-              <div>
+            <header className="passport-identity-header min-w-0 max-w-full">
+              <div className="min-w-0 max-w-full">
                 <p className="passport-identity-header-kicker uppercase">
                   PETLUMA PASSPORT
                 </p>
@@ -43,8 +43,8 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
               </div>
             </header>
 
-            <div className="mt-9 grid flex-1 gap-9 lg:grid-cols-[0.82fr_1.18fr]">
-              <div>
+            <div className="mt-9 grid max-w-full flex-1 gap-9 lg:grid-cols-[0.82fr_1.18fr]">
+              <div className="min-w-0 max-w-full">
                 <div className="passport-identity-photo-stack">
                   <div className="passport-identity-photo-mount">
                     <div className="passport-identity-photo-thickness" aria-hidden="true" />
@@ -83,7 +83,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                 </div>
               </div>
 
-              <div className="flex min-w-0 flex-col justify-between">
+              <div className="flex min-w-0 max-w-full flex-col justify-between">
                 <div className="passport-identity-fields">
                   <PassportField label="Pet Name" value={display.name} large />
 
@@ -131,7 +131,7 @@ export function FinalCompanionCard({ card, cardRef }: FinalCompanionCardProps) {
                 </div>
 
                 <div className="relative mt-10">
-                  <div className="passport-identity-notes p-4 pr-24 pb-5">
+                  <div className="passport-identity-notes p-4 pb-5 pr-16 sm:pr-24">
                     <p className="passport-identity-notes__label uppercase">
                       Notes
                     </p>
