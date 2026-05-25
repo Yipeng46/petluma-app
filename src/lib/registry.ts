@@ -47,6 +47,8 @@ export type CreateRegistryResult = {
   record: RegistryRecord;
   isDuplicate: boolean;
   message?: string;
+  cloudSynced?: boolean;
+  cloudSyncError?: string;
 };
 
 function emptyRegistry(): RegistryState {
@@ -275,6 +277,56 @@ function sanitizeCloudPhotoUrl(photoUrl?: string | null) {
   return photoUrl;
 }
 
+export type CloudRegistryInsertPayload = {
+  passport_no: string;
+  companion_id: string;
+  owner_email: string;
+  pet_name: string;
+  species: string;
+  breed: string;
+  gender: string;
+  date_of_birth: string;
+  place_of_origin: string;
+  photo_url: string | null;
+  status: string;
+  updated_at?: string;
+};
+
+function toCloudRegistryPayload(
+  input: CreateRegistryCloudInput,
+  ids: { passportNo: string; companionId: string },
+  updatedAt?: string,
+): CloudRegistryInsertPayload {
+  return {
+    passport_no: ids.passportNo,
+    companion_id: ids.companionId,
+    owner_email: input.ownerEmail.trim(),
+    pet_name: input.petName.trim(),
+    species: input.species.trim(),
+    breed: input.breed.trim(),
+    gender: input.gender.trim(),
+    date_of_birth: input.dateOfBirth.trim(),
+    place_of_origin: input.placeOfOrigin.trim(),
+    photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
+    status: "active",
+    ...(updatedAt ? { updated_at: updatedAt } : {}),
+  };
+}
+
+function toCloudRegistryPayloadPreview(input: CreateRegistryCloudInput) {
+  return {
+    owner_email: input.ownerEmail.trim(),
+    pet_name: input.petName.trim(),
+    species: input.species.trim(),
+    breed: input.breed.trim(),
+    gender: input.gender.trim(),
+    date_of_birth: input.dateOfBirth.trim(),
+    place_of_origin: input.placeOfOrigin.trim(),
+    photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
+    status: "active",
+  };
+}
+
 export function cloudRowToRegistryRecord(row: CloudPassportRow): RegistryRecord {
   return {
     passportNo: row.passport_no,
@@ -459,6 +511,7 @@ export async function createRegistryRecordCloud(
       record: existing,
       isDuplicate: true,
       message: "This companion already has a PetLuma Passport.",
+      cloudSynced: true,
     };
   }
 
@@ -466,26 +519,22 @@ export async function createRegistryRecordCloud(
   const companionId = await generateNextCompanionIdCloud();
   const now = new Date().toISOString();
 
-  const insertPayload = {
-    passport_no: passportNo,
-    companion_id: companionId,
-    owner_email: input.ownerEmail.trim(),
-    pet_name: input.petName.trim(),
-    species: input.species.trim(),
-    breed: input.breed.trim(),
-    gender: input.gender.trim(),
-    date_of_birth: input.dateOfBirth.trim(),
-    place_of_origin: input.placeOfOrigin.trim(),
-    photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
-    status: "active",
-    updated_at: now,
-  };
+  const insertPayload = toCloudRegistryPayload(
+    input,
+    { passportNo, companionId },
+    now,
+  );
+
+  console.log("Creating cloud registry record:", insertPayload);
 
   const { data, error } = await supabase
     .from(PETLUMA_PASSPORTS_TABLE)
     .insert(insertPayload)
-    .select("*")
+    .select()
     .single<CloudPassportRow>();
+
+  console.log("Supabase insert data:", data);
+  console.error("Supabase insert error:", error);
 
   if (error) {
     if (error.code === "23505") {
@@ -501,6 +550,7 @@ export async function createRegistryRecordCloud(
           record: conflict,
           isDuplicate: true,
           message: "This companion already has a PetLuma Passport.",
+          cloudSynced: true,
         };
       }
     }
@@ -518,6 +568,7 @@ export async function createRegistryRecordCloud(
   return {
     record,
     isDuplicate: false,
+    cloudSynced: true,
   };
 }
 
@@ -540,16 +591,59 @@ export async function findPassportByNumberWithFallback(
   return findPassportByNumber(passportNo);
 }
 
+function getCloudSyncErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof error.message === "string"
+  ) {
+    return error.message;
+  }
+
+  return String(error);
+}
+
 export async function createRegistryRecordWithFallback(
   input: CreateRegistryCloudInput,
 ): Promise<CreateRegistryResult> {
+  console.log("Supabase env:", {
+    hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+    hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  });
+
+  const payload = toCloudRegistryPayloadPreview(input);
+  console.log("Creating cloud registry record:", payload);
+
   if (isSupabaseConfigured()) {
     try {
       return await createRegistryRecordCloud(input);
     } catch (error) {
-      console.warn("[PetLuma] Cloud registry create failed, using local fallback.", error);
+      const cloudSyncError = getCloudSyncErrorMessage(error);
+      console.error("Supabase insert error:", error);
+      console.warn(
+        "[PetLuma] Cloud registry create failed, using local fallback.",
+        cloudSyncError,
+      );
+
+      return {
+        ...createRegistryRecord(input),
+        cloudSynced: false,
+        cloudSyncError,
+      };
     }
   }
 
-  return createRegistryRecord(input);
+  const cloudSyncError = "Supabase environment variables are not configured.";
+  console.warn("[PetLuma] Supabase not configured, using local registry only.");
+
+  return {
+    ...createRegistryRecord(input),
+    cloudSynced: false,
+    cloudSyncError,
+  };
 }

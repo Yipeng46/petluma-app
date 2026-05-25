@@ -9,6 +9,8 @@ import { exportPassportSvgToPng } from "@/lib/passport-svg-export";
 export function ResultExperience() {
   const passportData = useStoredCompanionCard();
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
+  const [cloudSyncNotice, setCloudSyncNotice] = useState<string | null>(null);
+  const [cloudSyncError, setCloudSyncError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
   const svgRef = useRef<SVGSVGElement>(null);
@@ -23,6 +25,20 @@ export function ResultExperience() {
     if (notice) {
       setDuplicateNotice(notice);
       sessionStorage.removeItem("petluma-passport-duplicate-notice");
+    }
+
+    const syncNotice = sessionStorage.getItem("petluma-cloud-sync-notice");
+
+    if (syncNotice) {
+      setCloudSyncNotice(syncNotice);
+      sessionStorage.removeItem("petluma-cloud-sync-notice");
+    }
+
+    const syncError = sessionStorage.getItem("petluma-cloud-sync-error");
+
+    if (syncError) {
+      setCloudSyncError(syncError);
+      sessionStorage.removeItem("petluma-cloud-sync-error");
     }
   }, []);
 
@@ -82,6 +98,14 @@ export function ResultExperience() {
           {duplicateNotice ? (
             <div className="mb-4 rounded-2xl border border-[#c7a15f]/35 bg-[#fff8eb] px-5 py-4 text-center text-sm leading-6 text-[#6f5b4b]">
               {duplicateNotice}
+            </div>
+          ) : null}
+          {cloudSyncNotice ? (
+            <div className="mb-4 rounded-2xl border border-[#c7a15f]/35 bg-[#fff8eb] px-5 py-4 text-center text-sm leading-6 text-[#6f5b4b]">
+              {cloudSyncNotice}
+              {cloudSyncError ? (
+                <p className="mt-2">Cloud sync failed: {cloudSyncError}</p>
+              ) : null}
             </div>
           ) : null}
           <PassportSVG ref={svgRef} passportData={passportData} />

@@ -72,7 +72,8 @@ export function CardGenerator() {
       return;
     }
 
-    const { record, isDuplicate, message } = await createRegistryRecordWithFallback({
+    const { record, isDuplicate, message, cloudSynced, cloudSyncError } =
+      await createRegistryRecordWithFallback({
       ownerEmail: passportData.ownerEmail,
       petName: passportData.name,
       species: passportData.species,
@@ -96,6 +97,25 @@ export function CardGenerator() {
       );
     } else {
       sessionStorage.removeItem("petluma-passport-duplicate-notice");
+    }
+
+    if (cloudSynced) {
+      sessionStorage.setItem(
+        "petluma-cloud-sync-notice",
+        "Cloud registry synced",
+      );
+      sessionStorage.removeItem("petluma-cloud-sync-error");
+    } else {
+      sessionStorage.setItem(
+        "petluma-cloud-sync-notice",
+        "Cloud registry failed, saved locally",
+      );
+
+      if (cloudSyncError) {
+        sessionStorage.setItem("petluma-cloud-sync-error", cloudSyncError);
+      } else {
+        sessionStorage.removeItem("petluma-cloud-sync-error");
+      }
     }
 
     localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
