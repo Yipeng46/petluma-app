@@ -12,6 +12,11 @@ import {
   type PassportData,
 } from "@/lib/passport-data";
 import { isValidEmail } from "@/lib/pet-identity";
+import {
+  isAllowedPassportPhotoType,
+  PASSPORT_PHOTO_MAX_BYTES,
+  validatePassportUserInput,
+} from "@/lib/passport-form";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 
@@ -34,6 +39,16 @@ export function CardGenerator() {
       return;
     }
 
+    if (!isAllowedPassportPhotoType(file.type)) {
+      alert("Please upload a JPG, PNG, or WEBP image.");
+      return;
+    }
+
+    if (file.size > PASSPORT_PHOTO_MAX_BYTES) {
+      alert("Photo must be 5 MB or smaller.");
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       if (typeof reader.result === "string") {
@@ -47,6 +62,13 @@ export function CardGenerator() {
     try {
       if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
         alert("Please enter a valid owner email before generating a passport.");
+        return;
+      }
+
+      const validationError = validatePassportUserInput(passportData);
+
+      if (validationError) {
+        alert(validationError);
         return;
       }
 

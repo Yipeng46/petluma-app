@@ -1,4 +1,10 @@
 import type { PassportData } from "@/lib/passport-data";
+import {
+  PASSPORT_FIELD_LIMITS,
+  PASSPORT_GENDER_OPTIONS,
+  PASSPORT_PHOTO_ACCEPT,
+  PASSPORT_SPECIES_OPTIONS,
+} from "@/lib/passport-form";
 
 type PetCardFormProps = {
   passportData: PassportData;
@@ -37,16 +43,16 @@ export function PetCardForm({
       <div className="relative space-y-6">
         <label className="block">
           <span className="mb-2 block text-sm font-semibold text-[#111827]">
-            Passport Photo
+            Pet Photo
           </span>
           <input
             type="file"
-            accept="image/*"
+            accept={PASSPORT_PHOTO_ACCEPT}
             onChange={(event) => onPhotoChange(event.target.files?.[0] ?? null)}
             className="w-full cursor-pointer rounded-2xl border border-dashed border-[#C8A97E]/60 bg-[#F8F3E8]/70 px-4 py-4 text-sm text-[#6E6A64] transition file:mr-4 file:rounded-full file:border-0 file:bg-[#111827] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#FFFDF8] hover:border-[#C8A97E] focus:outline-none focus:ring-4 focus:ring-[#C8A97E]/15"
           />
           <span className="mt-2 block text-xs text-[#7a6656]">
-            Choose a clear photo of your pet for the passport page.
+            JPG, PNG, or WEBP up to 5 MB.
           </span>
         </label>
 
@@ -59,29 +65,39 @@ export function PetCardForm({
         />
 
         <TextInput
-          label="Pet name"
+          label="Pet Name"
           value={passportData.name}
           placeholder="e.g. Luma"
+          maxLength={PASSPORT_FIELD_LIMITS.name}
           onChange={(value) => onFieldChange("name", value)}
+        />
+
+        <SelectInput
+          label="Species"
+          value={passportData.species}
+          options={PASSPORT_SPECIES_OPTIONS}
+          onChange={(value) => onFieldChange("species", value)}
         />
 
         <TextInput
           label="Breed"
           value={passportData.breed}
           placeholder="e.g. Golden Retriever"
+          maxLength={PASSPORT_FIELD_LIMITS.breed}
           onChange={(value) => onFieldChange("breed", value)}
         />
 
-        <TextInput
+        <SelectInput
           label="Gender"
           value={passportData.gender}
-          placeholder="e.g. Female"
+          options={PASSPORT_GENDER_OPTIONS}
+          placeholder="Select gender"
           onChange={(value) => onFieldChange("gender", value)}
         />
 
         <label className="block">
           <span className="mb-2 block text-sm font-semibold text-[#111827]">
-            Date of birth
+            Date of Birth
           </span>
           <input
             type="date"
@@ -91,23 +107,11 @@ export function PetCardForm({
           />
         </label>
 
-        <label className="block">
-          <span className="mb-2 block text-sm font-semibold text-[#111827]">
-            Personality
-          </span>
-          <textarea
-            value={passportData.personality}
-            onChange={(event) => onFieldChange("personality", event.target.value)}
-            placeholder="e.g. Gentle, playful, loyal"
-            rows={3}
-            className="w-full resize-none rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
-          />
-        </label>
-
         <TextInput
-          label="Place of origin"
+          label="Place of Origin"
           value={passportData.placeOfOrigin}
           placeholder="The pine trail after rain"
+          maxLength={PASSPORT_FIELD_LIMITS.placeOfOrigin}
           onChange={(value) => onFieldChange("placeOfOrigin", value)}
         />
       </div>
@@ -120,12 +124,14 @@ function TextInput({
   value,
   placeholder,
   type = "text",
+  maxLength,
   onChange,
 }: {
   label: string;
   value: string;
   placeholder: string;
   type?: string;
+  maxLength?: number;
   onChange: (value: string) => void;
 }) {
   return (
@@ -136,10 +142,45 @@ function TextInput({
       <input
         type={type}
         value={value}
+        maxLength={maxLength}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
       />
+    </label>
+  );
+}
+
+function SelectInput({
+  label,
+  value,
+  options,
+  placeholder,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: readonly string[];
+  placeholder?: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-semibold text-[#111827]">
+        {label}
+      </span>
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
+      >
+        {placeholder ? <option value="">{placeholder}</option> : null}
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
     </label>
   );
 }

@@ -17,7 +17,6 @@ export type PassportDisplay = {
   gender: string;
   birthdate: string;
   species: string;
-  personality: string;
   placeOfOrigin: string;
   passportNo: string;
   companionId: string;
@@ -30,7 +29,19 @@ export type PassportDisplay = {
 
 function displayValue(value: string, fallback = "—") {
   const trimmed = value.trim();
-  return trimmed || fallback;
+
+  if (
+    !trimmed ||
+    trimmed.toLowerCase() === "n/a" ||
+    trimmed.toLowerCase() === "undefined" ||
+    trimmed.toLowerCase() === "null" ||
+    trimmed === PENDING_COMPANION_ID ||
+    trimmed === PENDING_PASSPORT_NO
+  ) {
+    return fallback;
+  }
+
+  return trimmed;
 }
 
 function toMrzToken(value: string, fallback: string) {
@@ -78,17 +89,12 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
   const name = displayValue(data.name);
   const breed = displayValue(data.breed);
   const gender = displayValue(data.gender);
-  const birthdate = displayValue(data.birthdate, "Not declared");
+  const birthdate = displayValue(data.birthdate);
   const species = displayValue(data.species, "Companion");
-  const personality = displayValue(
-    data.personality,
-    "A cherished companion under PetLuma care.",
-  );
   const placeOfOrigin = displayValue(data.placeOfOrigin);
-  const companionId = displayValue(data.companionId, PENDING_COMPANION_ID);
-  const passportNo = displayValue(data.passportNo, PENDING_PASSPORT_NO);
-  const isPending =
-    companionId === PENDING_COMPANION_ID || passportNo === PENDING_PASSPORT_NO;
+  const companionId = displayValue(data.companionId);
+  const passportNo = displayValue(data.passportNo);
+  const isPending = !data.companionId.trim() || !data.passportNo.trim();
 
   return {
     photo: data.photo,
@@ -97,7 +103,6 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     gender,
     birthdate,
     species,
-    personality,
     placeOfOrigin,
     passportNo,
     companionId,
