@@ -12,13 +12,24 @@ import {
   normalizePassportData,
 } from "@/lib/passport-data";
 
+function buildPassportDownloadFilename(petName: string) {
+  const slug = petName
+    .trim()
+    .replace(/[^\w\s-]/gi, "")
+    .replace(/\s+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+
+  return slug ? `petluma-passport-${slug}.png` : "petluma-passport.png";
+}
+
 export function ResultExperience() {
   const [card, setCard] = useState<StoredCompanionCard>(() =>
     createInitialPassportData(),
   );
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
-  const cardRef = useRef<HTMLElement>(null);
+  const passportRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const savedCard = localStorage.getItem(companionCardStorageKey);
@@ -40,8 +51,8 @@ export function ResultExperience() {
     }
   }, []);
 
-  async function handleDownloadCard() {
-    if (!cardRef.current || isDownloading) {
+  async function handleDownloadPassport() {
+    if (!passportRef.current || isDownloading) {
       return;
     }
 
@@ -50,31 +61,21 @@ export function ResultExperience() {
     try {
       await document.fonts.ready;
 
-      let html2canvas: (
-        element: HTMLElement,
-        options?: Record<string, unknown>,
-      ) => Promise<HTMLCanvasElement>;
-
-      try {
-        html2canvas = (await import("html2canvas")).default;
-      } catch {
-        alert("html2canvas is not installed yet. Please run: npm install html2canvas");
-        return;
-      }
-
-      const canvas = await html2canvas(cardRef.current, {
-        allowTaint: true,
-        backgroundColor: "#241812",
+      const { default: html2canvas } = await import("html2canvas");
+      const canvas = await html2canvas(passportRef.current, {
+        backgroundColor: null,
         logging: false,
-        removeContainer: true,
-        scale: Math.max(2, window.devicePixelRatio || 1),
+        scale: 2,
         useCORS: true,
       });
 
       const link = document.createElement("a");
-      link.download = "petluma-companion-card.png";
+      link.download = buildPassportDownloadFilename(card.name);
       link.href = canvas.toDataURL("image/png");
       link.click();
+    } catch (error) {
+      console.error("Failed to download passport image", error);
+      alert("Unable to download passport image. Please try again.");
     } finally {
       setIsDownloading(false);
     }
@@ -108,13 +109,13 @@ export function ResultExperience() {
               </span>
             </div>
           ) : null}
-          <FinalCompanionCard card={card} cardRef={cardRef} />
+          <FinalCompanionCard card={card} passportRef={passportRef} />
         </div>
 
         <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
           <button
             type="button"
-            onClick={handleDownloadCard}
+            onClick={handleDownloadPassport}
             disabled={isDownloading}
             className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70"
           >
