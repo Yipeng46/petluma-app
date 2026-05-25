@@ -8,6 +8,7 @@ import {
 
 type PetCardFormProps = {
   passportData: PassportData;
+  photoInputKey: number;
   onFieldChange: <K extends keyof PassportData>(
     field: K,
     value: PassportData[K],
@@ -17,6 +18,7 @@ type PetCardFormProps = {
 
 export function PetCardForm({
   passportData,
+  photoInputKey,
   onFieldChange,
   onPhotoChange,
 }: PetCardFormProps) {
@@ -46,8 +48,10 @@ export function PetCardForm({
             Pet Photo
           </span>
           <input
+            key={photoInputKey}
             type="file"
             accept={PASSPORT_PHOTO_ACCEPT}
+            data-testid="pet-photo-input"
             onChange={(event) => onPhotoChange(event.target.files?.[0] ?? null)}
             className="w-full cursor-pointer rounded-2xl border border-dashed border-[#C8A97E]/60 bg-[#F8F3E8]/70 px-4 py-4 text-sm text-[#6E6A64] transition file:mr-4 file:rounded-full file:border-0 file:bg-[#111827] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#FFFDF8] hover:border-[#C8A97E] focus:outline-none focus:ring-4 focus:ring-[#C8A97E]/15"
           />

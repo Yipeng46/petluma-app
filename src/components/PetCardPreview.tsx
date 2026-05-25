@@ -53,6 +53,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                           src={display.photo}
                           alt={`${display.name} passport portrait`}
                           className="passport-identity-photo-img"
+                          data-testid="passport-preview-photo"
                         />
                       ) : (
                         <div className="flex h-full w-full flex-col items-center justify-center px-3 text-center">
