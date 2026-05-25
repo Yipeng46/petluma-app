@@ -17,7 +17,6 @@ export function ResultExperience() {
     createInitialPassportData(),
   );
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
-  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const savedCard = localStorage.getItem(companionCardStorageKey);
@@ -39,78 +38,45 @@ export function ResultExperience() {
     }
   }, []);
 
-  async function downloadPassportImage() {
-    if (isDownloading) {
-      return;
-    }
-
-    setIsDownloading(true);
+  const handleDownloadPassport = async () => {
+    alert("Download started");
+    console.log("download clicked");
 
     const target = document.getElementById("petluma-passport-result");
 
     if (!target) {
-      console.error("Passport result element not found");
-      alert("Passport result not found. Please generate again.");
-      setIsDownloading(false);
+      console.error("petluma-passport-result not found");
+      alert("Passport result not found.");
       return;
     }
 
     try {
-      await document.fonts.ready;
-
-      const { default: html2canvas } = await import("html2canvas");
-      const options = {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#f7f1e8",
-        logging: true,
-      };
-
-      target.querySelectorAll("img").forEach((img) => {
-        img.crossOrigin = "anonymous";
+      const { default: domtoimage } = await import("dom-to-image-more");
+      const dataUrl = await domtoimage.toPng(target, {
+        quality: 1,
+        bgcolor: "#f7f1e8",
+        cacheBust: true,
+        width: target.scrollWidth,
+        height: target.scrollHeight,
+        style: {
+          transform: "scale(1)",
+          transformOrigin: "top left",
+        },
       });
 
-      const downloadFromCanvas = async (element: HTMLElement) => {
-        const canvas = await html2canvas(element, options);
-        const dataUrl = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = `petluma-passport-${passportData.name?.trim() || "result"}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      };
+      const link = document.createElement("a");
+      link.download = "petluma-passport-result.png";
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-      try {
-        await downloadFromCanvas(target);
-      } catch (firstError) {
-        console.warn("Download failed with photos, retrying without pet photo:", firstError);
-
-        const petPhoto = target.querySelector(
-          ".passport-identity-photo-img",
-        ) as HTMLImageElement | null;
-        const previousVisibility = petPhoto?.style.visibility ?? "";
-
-        if (petPhoto) {
-          petPhoto.style.visibility = "hidden";
-        }
-
-        try {
-          await downloadFromCanvas(target);
-        } finally {
-          if (petPhoto) {
-            petPhoto.style.visibility = previousVisibility;
-          }
-        }
-      }
+      console.log("download success");
     } catch (error) {
-      console.error("Download failed:", error);
-      alert("Download failed. Please check console for details.");
-    } finally {
-      setIsDownloading(false);
+      console.error("dom-to-image download failed:", error);
+      alert("Download failed. Check console.");
     }
-  }
+  };
 
   return (
     <main className="relative min-h-screen overflow-hidden px-5 py-8 sm:px-8 lg:px-10">
@@ -143,11 +109,10 @@ export function ResultExperience() {
         <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
           <button
             type="button"
-            onClick={downloadPassportImage}
-            disabled={isDownloading}
-            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70"
+            onClick={handleDownloadPassport}
+            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f]"
           >
-            {isDownloading ? "Preparing..." : "Download Passport"}
+            Download Passport
           </button>
           <Link
             href="/create"

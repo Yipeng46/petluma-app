@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
+    "dom-to-image-more": "^3.7.2",
     "html2canvas": "^1.4.1",
     "next": "latest",
     "react": "latest",
