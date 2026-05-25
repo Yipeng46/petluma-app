@@ -3,7 +3,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import { getPassportDisplay } from "@/lib/passport-display";
 import type { PassportData } from "@/lib/passport-data";
-import { PassportKingdomGateEmblem } from "@/lib/passport-kingdom-gate-emblem";
+import { PetLumaGateEmblem, PETLUMA_GATE_EMBLEM_SRC } from "@/components/PetLumaGateEmblem";
 import { resolveImageDataUrl } from "@/lib/resolve-image-data-url";
 import { wrapSvgText } from "@/lib/svg-text-wrap";
 
@@ -105,10 +105,17 @@ function Field({
 export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
   function PassportSVG({ passportData }, ref) {
     const display = getPassportDisplay(passportData);
+    const [emblemDataUrl, setEmblemDataUrl] = useState("");
     const [photoDataUrl, setPhotoDataUrl] = useState("");
 
     useEffect(() => {
       let active = true;
+
+      void resolveImageDataUrl(PETLUMA_GATE_EMBLEM_SRC).then((url) => {
+        if (active) {
+          setEmblemDataUrl(url.startsWith("data:") ? url : "");
+        }
+      });
 
       if (display.photo) {
         void resolveImageDataUrl(display.photo).then((url) => {
@@ -241,11 +248,12 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             PASSPORT
           </text>
 
-          <PassportKingdomGateEmblem
+          <PetLumaGateEmblem
             x={COVER_X + 36}
             y={COVER_Y + 170}
             width={COVER_WIDTH - 72}
             height={COVER_HEIGHT - 250}
+            href={emblemDataUrl}
           />
 
           <text

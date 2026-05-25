@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-
-const KINGDOM_GATE_EMBLEM_SRC = "/petluma-kingdom-gate-emblem.png";
+import { PetLumaGateEmblemCover } from "@/components/PetLumaGateEmblem";
 
 type PassportCoverProps = {
   passportNo: string;
@@ -33,15 +31,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
             role="img"
             aria-label="PetLuma Kingdom Gate emblem"
           >
-            <img
-              src={KINGDOM_GATE_EMBLEM_SRC}
-              alt=""
-              width={220}
-              height={330}
-              className="cover-gate-emblem passport-cover-emblem__art"
-              crossOrigin="anonymous"
-              draggable={false}
-            />
+            <PetLumaGateEmblemCover />
           </div>
         </div>
 
