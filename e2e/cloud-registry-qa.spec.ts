@@ -117,7 +117,9 @@ test("verify cloud registry mock — desktop", async ({ page }) => {
     waitUntil: "networkidle",
   });
 
-  await expect(page.getByText("Verified in PetLuma Registry")).toBeVisible();
+  await expect(
+    page.getByText("Verified in Global PetLuma Registry"),
+  ).toBeVisible();
   await expect(page.getByText(QA_VALID_PASSPORT_NO)).toBeVisible();
 
   await page.screenshot({
@@ -136,7 +138,9 @@ test("verify fallback localStorage when cloud fails", async ({ page }) => {
     waitUntil: "networkidle",
   });
 
-  await expect(page.getByText("Verified in PetLuma Registry")).toBeVisible({
+  await expect(
+    page.getByText("Verified in Global PetLuma Registry"),
+  ).toBeVisible({
     timeout: 12_000,
   });
   await expect(
@@ -175,7 +179,9 @@ test("verify cloud registry mock — mobile", async ({ page }) => {
     waitUntil: "networkidle",
   });
 
-  await expect(page.getByText("Verified in PetLuma Registry")).toBeVisible();
+  await expect(
+    page.getByText("Verified in Global PetLuma Registry"),
+  ).toBeVisible();
   await expect(
     page.getByText(QA_SAMPLE_REGISTRY_RECORD.companionId),
   ).toBeVisible();

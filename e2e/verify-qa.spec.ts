@@ -57,7 +57,9 @@ test("verify valid passport — desktop", async ({ page }) => {
     waitUntil: "networkidle",
   });
 
-  await expect(page.getByText("Verified in PetLuma Registry")).toBeVisible();
+  await expect(
+    page.getByText("Verified in Global PetLuma Registry"),
+  ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Verified Passport" })).toBeVisible();
   await expect(page.getByText(QA_VALID_PASSPORT_NO)).toBeVisible();
   await expect(page.getByText(QA_SAMPLE_REGISTRY_RECORD.companionId)).toBeVisible();
@@ -108,7 +110,9 @@ test("verify valid passport — mobile", async ({ page }) => {
     waitUntil: "networkidle",
   });
 
-  await expect(page.getByText("Verified in PetLuma Registry")).toBeVisible();
+  await expect(
+    page.getByText("Verified in Global PetLuma Registry"),
+  ).toBeVisible();
   await expect(page.getByText(QA_SAMPLE_REGISTRY_RECORD.petName, { exact: true })).toBeVisible();
 
   const overflow = await checkVerifyOverflow(page);

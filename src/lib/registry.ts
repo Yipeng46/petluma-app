@@ -14,6 +14,7 @@ export type RegistryRecord = {
   dateOfBirth: string;
   placeOfOrigin: string;
   ownerEmail: string;
+  photoUrl?: string | null;
   createdAt: string;
   updatedAt: string;
   status: RegistryRecordStatus;
@@ -186,7 +187,7 @@ function generateNextCompanionId(registry: RegistryState, year = currentYear()) 
 }
 
 export function createRegistryRecord(
-  input: CreateRegistryInput,
+  input: CreateRegistryInput & { photoUrl?: string | null },
 ): CreateRegistryResult {
   const registry = getRegistry();
   const existing = findExistingPassport(registry, {
@@ -218,6 +219,7 @@ export function createRegistryRecord(
     dateOfBirth: input.dateOfBirth.trim(),
     placeOfOrigin: input.placeOfOrigin.trim(),
     ownerEmail: input.ownerEmail.trim(),
+    photoUrl: sanitizeCloudPhotoUrl(input.photoUrl),
     createdAt: now,
     updatedAt: now,
     status: "active",
@@ -338,6 +340,7 @@ export function cloudRowToRegistryRecord(row: CloudPassportRow): RegistryRecord 
     dateOfBirth: row.date_of_birth ?? "",
     placeOfOrigin: row.place_of_origin ?? "",
     ownerEmail: row.owner_email,
+    photoUrl: row.photo_url,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     status: row.status === "active" ? "active" : "active",
