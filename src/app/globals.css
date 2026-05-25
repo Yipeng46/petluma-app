@@ -1725,19 +1725,3 @@ article:has(> .passport-spread) {
   text-shadow: none;
   font-variant-numeric: tabular-nums;
 }
-
-@media print {
-  body {
-    background: #f7f1e8;
-  }
-
-  .no-print {
-    display: none !important;
-  }
-
-  #petluma-passport-result {
-    box-shadow: none !important;
-    transform: none !important;
-    margin: 0 auto;
-  }
-}

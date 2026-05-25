@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { FinalCompanionCard } from "@/components/FinalCompanionCard";
+import { useEffect, useRef, useState } from "react";
+import { PassportSVG } from "@/components/PassportSVG";
 import { useStoredCompanionCard } from "@/hooks/useStoredCompanionCard";
+import { exportPassportSvgToPng } from "@/lib/passport-svg-export";
 
 export function ResultExperience() {
   const passportData = useStoredCompanionCard();
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const notice = sessionStorage.getItem("petluma-passport-duplicate-notice");
@@ -17,6 +20,23 @@ export function ResultExperience() {
       sessionStorage.removeItem("petluma-passport-duplicate-notice");
     }
   }, []);
+
+  async function handleDownloadPassport() {
+    if (!svgRef.current || isDownloading) {
+      return;
+    }
+
+    setIsDownloading(true);
+
+    try {
+      const filename = `petluma-passport-${passportData.name?.trim() || "result"}.png`;
+      await exportPassportSvgToPng(svgRef.current, filename);
+    } catch (error) {
+      console.error("Download failed:", error);
+    } finally {
+      setIsDownloading(false);
+    }
+  }
 
   return (
     <main className="relative min-h-screen overflow-hidden px-5 py-8 sm:px-8 lg:px-10">
@@ -43,18 +63,18 @@ export function ResultExperience() {
               {duplicateNotice}
             </div>
           ) : null}
-          <FinalCompanionCard card={passportData} />
+          <PassportSVG ref={svgRef} passportData={passportData} />
         </div>
 
         <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
-          <Link
-            href="/result/print"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-center text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f]"
+          <button
+            type="button"
+            onClick={handleDownloadPassport}
+            disabled={isDownloading}
+            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70"
           >
-            Open Printable Passport
-          </Link>
+            {isDownloading ? "Preparing..." : "Download Passport"}
+          </button>
           <Link
             href="/create"
             className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
