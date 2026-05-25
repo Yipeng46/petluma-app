@@ -6,14 +6,17 @@ export function HeroPassportMockup() {
   return (
     <div className="hero-passport-mockup" aria-hidden="true">
       <div className="hero-passport-mockup__stage">
+        <div className="hero-passport-mockup__ambient" />
         <div className="hero-passport-mockup__product">
           <article className="hero-passport-mockup__identity">
+            <div className="hero-passport-mockup__identity-grain" />
             <p className="hero-passport-mockup__identity-name">Luma</p>
             <p className="hero-passport-mockup__identity-breed">Golden Retriever</p>
             <p className="hero-passport-mockup__identity-id">Companion ID</p>
           </article>
 
           <article className="hero-passport-mockup__cover">
+            <div className="hero-passport-mockup__cover-leather" />
             <div className="hero-passport-mockup__cover-texture" />
             <div className="hero-passport-mockup__cover-sheen" />
             <div className="hero-passport-mockup__cover-spine" />
@@ -26,15 +29,16 @@ export function HeroPassportMockup() {
               <img
                 src={KINGDOM_GATE_EMBLEM_SRC}
                 alt=""
-                width={200}
-                height={300}
+                width={220}
+                height={330}
                 className="hero-passport-mockup__cover-emblem"
                 draggable={false}
               />
             </div>
           </article>
         </div>
-        <div className="hero-passport-mockup__shadow" />
+        <div className="hero-passport-mockup__shadow hero-passport-mockup__shadow--contact" />
+        <div className="hero-passport-mockup__shadow hero-passport-mockup__shadow--floor" />
       </div>
     </div>
   );

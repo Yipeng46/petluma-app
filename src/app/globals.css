@@ -336,6 +336,44 @@ textarea {
   }
 }
 
+/* ── Landing page ── */
+
+.landing-page {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(201, 164, 92, 0.12), transparent 28rem),
+    radial-gradient(circle at 88% 18%, rgba(8, 21, 38, 0.04), transparent 24rem),
+    linear-gradient(135deg, #fff8e8 0%, #f2e4c9 52%, #fffaf0 100%);
+}
+
+.landing-page__texture {
+  opacity: 0.55;
+  background-image:
+    linear-gradient(90deg, rgba(8, 21, 38, 0.028) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(8, 21, 38, 0.022) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 92%);
+}
+
+.landing-page__grain {
+  opacity: 0.08;
+  background-image: radial-gradient(rgba(8, 21, 38, 0.55) 0.55px, transparent 0.55px);
+  background-size: 3px 3px;
+}
+
+.landing-kingdom {
+  background:
+    radial-gradient(ellipse 80% 90% at 18% 0%, rgba(201, 164, 92, 0.08), transparent 58%),
+    linear-gradient(168deg, #081526 0%, #0a1830 48%, #061222 100%);
+}
+
+.landing-kingdom__texture {
+  opacity: 0.12;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
 /* ── Landing hero passport mockup ── */
 
 .hero-passport-mockup {
@@ -343,6 +381,7 @@ textarea {
   width: 100%;
   max-width: 100%;
   margin-inline: auto;
+  transform: scale(1);
 }
 
 .hero-passport-mockup__stage {
@@ -351,18 +390,29 @@ textarea {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: clamp(16rem, 34vw, 22rem);
-  max-height: min(22rem, 58vh);
-  padding: 1.5rem 0 2rem;
-  perspective: 2200px;
+  min-height: clamp(18rem, 42vw, 30rem);
+  max-height: min(30rem, 72vh);
+  padding: 1.75rem 0 2.5rem;
+  perspective: 2400px;
   overflow: clip;
+}
+
+.hero-passport-mockup__ambient {
+  pointer-events: none;
+  position: absolute;
+  inset: 8% 4% 16%;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse 72% 64% at 48% 48%, rgba(201, 164, 92, 0.12), transparent 72%),
+    radial-gradient(ellipse 88% 70% at 50% 58%, rgba(8, 21, 38, 0.05), transparent 76%);
+  filter: blur(26px);
 }
 
 .hero-passport-mockup__product {
   position: relative;
-  width: min(100%, 16.75rem);
-  height: min(100%, 15.5rem);
-  transform: rotateY(-11deg) rotateX(4deg);
+  width: min(100%, 23.5rem);
+  height: min(100%, 21.5rem);
+  transform: rotateY(-12deg) rotateX(5deg) rotateZ(-0.75deg);
   transform-style: preserve-3d;
 }
 
@@ -371,22 +421,34 @@ textarea {
   top: 50%;
   right: 0;
   z-index: 1;
-  width: 9.25rem;
-  padding: 2.35rem 1.35rem 2.1rem 1.75rem;
-  border-radius: 0.35rem;
+  width: 12.75rem;
+  padding: 2.85rem 1.55rem 2.45rem 2rem;
+  border-radius: 0.55rem;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse 88% 70% at 12% 8%, rgba(255, 253, 248, 0.82), transparent 58%),
-    linear-gradient(172deg, #f8f2e6 0%, #ece3d2 55%, #e0d6c4 100%);
+    radial-gradient(ellipse 92% 72% at 14% 8%, rgba(255, 253, 248, 0.88), transparent 58%),
+    linear-gradient(172deg, #f3ebdc 0%, #e8decc 54%, #ddd2bf 100%);
   box-shadow:
-    0 16px 32px rgba(8, 21, 38, 0.07),
-    0 1px 0 rgba(255, 255, 255, 0.75) inset;
-  transform: translateY(-50%) rotateY(-6deg) rotateZ(0.5deg);
+    0 22px 44px rgba(8, 21, 38, 0.1),
+    0 8px 18px rgba(8, 21, 38, 0.05),
+    0 1px 0 rgba(255, 255, 255, 0.78) inset;
+  transform: translateY(-50%) rotateY(-7deg) rotateZ(0.75deg);
   transform-origin: left center;
 }
 
+.hero-passport-mockup__identity-grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: radial-gradient(rgba(43, 36, 32, 0.45) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+}
+
 .hero-passport-mockup__identity-name {
+  position: relative;
   font-family: var(--font-display);
-  font-size: 1.85rem;
+  font-size: 2.15rem;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.01em;
@@ -395,9 +457,10 @@ textarea {
 }
 
 .hero-passport-mockup__identity-breed {
-  margin-top: 1.1rem;
+  position: relative;
+  margin-top: 1.15rem;
   font-family: var(--font-display);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   font-weight: 500;
   letter-spacing: 0.05em;
   color: rgba(43, 36, 32, 0.58);
@@ -405,11 +468,12 @@ textarea {
 }
 
 .hero-passport-mockup__identity-id {
-  margin-top: 1.85rem;
-  padding-top: 1.1rem;
+  position: relative;
+  margin-top: 2rem;
+  padding-top: 1.15rem;
   border-top: 0.5px solid rgba(43, 36, 32, 0.08);
   font-family: var(--font-body);
-  font-size: 0.46rem;
+  font-size: 0.48rem;
   font-weight: 600;
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -423,36 +487,54 @@ textarea {
   left: 0;
   z-index: 2;
   display: flex;
-  width: 10.75rem;
+  width: 15rem;
   aspect-ratio: 10 / 13.5;
   flex-direction: column;
   align-items: center;
-  padding: 2.1rem 1.4rem 1.85rem;
-  border-radius: 1rem;
+  padding: 2.35rem 1.55rem 2rem;
+  border-radius: 1.05rem;
   overflow: hidden;
   text-align: center;
-  border: 0.5px solid rgba(255, 255, 255, 0.06);
+  border: 0.5px solid rgba(255, 255, 255, 0.07);
   background:
-    radial-gradient(ellipse 92% 52% at 50% 10%, rgba(255, 255, 255, 0.04), transparent 58%),
-    radial-gradient(ellipse 98% 60% at 82% 92%, rgba(0, 0, 0, 0.32), transparent 56%),
+    radial-gradient(ellipse 92% 52% at 50% 10%, rgba(255, 255, 255, 0.045), transparent 58%),
+    radial-gradient(ellipse 98% 60% at 82% 92%, rgba(0, 0, 0, 0.34), transparent 56%),
     linear-gradient(168deg, #0a1830 0%, #08182b 40%, #061222 100%);
   box-shadow:
-    0 40px 80px rgba(8, 21, 38, 0.28),
-    0 14px 32px rgba(8, 21, 38, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 48px 96px rgba(8, 21, 38, 0.3),
+    0 18px 40px rgba(8, 21, 38, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
   transform: translateY(-50%);
   transform-origin: center center;
   container-type: inline-size;
+}
+
+.hero-passport-mockup__cover-leather {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    repeating-linear-gradient(
+      35deg,
+      rgba(255, 255, 255, 0.018) 0 1px,
+      transparent 1px 4px
+    ),
+    repeating-linear-gradient(
+      -35deg,
+      rgba(0, 0, 0, 0.04) 0 1px,
+      transparent 1px 5px
+    );
 }
 
 .hero-passport-mockup__cover-texture {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.45;
+  opacity: 0.5;
   background:
-    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.03), transparent 32%),
-    radial-gradient(circle at 86% 82%, rgba(0, 0, 0, 0.16), transparent 38%);
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.035), transparent 32%),
+    radial-gradient(circle at 86% 82%, rgba(0, 0, 0, 0.18), transparent 38%);
 }
 
 .hero-passport-mockup__cover-sheen {
@@ -460,16 +542,16 @@ textarea {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 78% 40% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 62%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, transparent 44%);
+    radial-gradient(ellipse 78% 40% at 50% 0%, rgba(255, 255, 255, 0.09), transparent 62%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 44%);
 }
 
 .hero-passport-mockup__cover-spine {
   pointer-events: none;
   position: absolute;
   inset: 0 auto 0 0;
-  width: 0.5rem;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), transparent);
+  width: 0.55rem;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.58), transparent);
 }
 
 .hero-passport-mockup__cover-header {
@@ -484,7 +566,7 @@ textarea {
   font-weight: 600;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(201, 164, 92, 0.72);
+  color: rgba(201, 164, 92, 0.74);
   white-space: nowrap;
 }
 
@@ -499,7 +581,7 @@ textarea {
   color: #c9a45c;
   text-shadow:
     0 1px 0 rgba(0, 0, 0, 0.62),
-    0 -0.5px 0 rgba(255, 236, 200, 0.08);
+    0 -0.5px 0 rgba(255, 236, 200, 0.1);
   white-space: nowrap;
 }
 
@@ -530,7 +612,7 @@ textarea {
 .hero-passport-mockup__cover-emblem {
   display: block;
   width: 54cqw;
-  max-width: 6.5rem;
+  max-width: 7.25rem;
   height: auto;
   object-fit: contain;
   opacity: 0.96;
@@ -542,87 +624,104 @@ textarea {
   pointer-events: none;
   position: absolute;
   left: 50%;
-  bottom: 0.35rem;
-  z-index: 0;
-  width: min(62%, 11rem);
-  height: 1.65rem;
   border-radius: 999px;
-  background: radial-gradient(ellipse 100% 100% at 50% 50%, rgba(8, 21, 38, 0.16), transparent 76%);
-  filter: blur(14px);
   transform: translateX(-50%);
 }
 
+.hero-passport-mockup__shadow--contact {
+  bottom: 0.85rem;
+  z-index: 0;
+  width: min(58%, 13rem);
+  height: 1.35rem;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, rgba(8, 21, 38, 0.22), transparent 72%);
+  filter: blur(10px);
+}
+
+.hero-passport-mockup__shadow--floor {
+  bottom: 0.15rem;
+  z-index: 0;
+  width: min(72%, 16rem);
+  height: 2.35rem;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, rgba(8, 21, 38, 0.14), transparent 76%);
+  filter: blur(18px);
+}
+
 @media (min-width: 1024px) {
+  .hero-passport-mockup {
+    transform: scale(1.08);
+    transform-origin: center right;
+  }
+
   .hero-passport-mockup__stage {
-    min-height: 20rem;
-    max-height: min(24rem, 65vh);
-    padding: 2rem 0 2.25rem;
+    min-height: 28rem;
+    max-height: min(32rem, 74vh);
+    padding: 2.25rem 0 2.75rem;
   }
 
   .hero-passport-mockup__product {
-    width: 18.5rem;
-    height: 17rem;
+    width: 26rem;
+    height: 23.5rem;
   }
 
   .hero-passport-mockup__cover {
-    width: 11.75rem;
+    width: 16.5rem;
   }
 
   .hero-passport-mockup__identity {
-    width: 10rem;
-    padding: 2.5rem 1.4rem 2.25rem 1.85rem;
+    width: 14rem;
+    padding: 3rem 1.65rem 2.65rem 2.15rem;
   }
 
   .hero-passport-mockup__identity-name {
-    font-size: 2rem;
+    font-size: 2.35rem;
   }
 }
 
 @media (max-width: 1023px) {
   .hero-passport-mockup__product {
-    width: min(92%, 15.25rem);
-    height: 14rem;
-    transform: rotateY(-9deg) rotateX(3deg);
+    width: min(94%, 21rem);
+    height: 18.5rem;
+    transform: rotateY(-10deg) rotateX(4deg) rotateZ(-0.5deg);
   }
 
   .hero-passport-mockup__cover {
-    width: 9.75rem;
+    width: 13.5rem;
   }
 
   .hero-passport-mockup__identity {
-    width: 8.25rem;
-    padding: 2rem 1.1rem 1.85rem 1.5rem;
+    width: 11.5rem;
+    padding: 2.35rem 1.35rem 2.1rem 1.75rem;
   }
 
   .hero-passport-mockup__identity-name {
-    font-size: 1.65rem;
+    font-size: 1.95rem;
   }
 }
 
 @media (max-width: 639px) {
   .hero-passport-mockup__stage {
-    min-height: clamp(14rem, 62vw, 17rem);
+    min-height: clamp(16rem, 68vw, 22rem);
     max-height: none;
-    padding: 1rem 0 1.75rem;
+    padding: 0.75rem 0 1.75rem;
   }
 
   .hero-passport-mockup__product {
-    width: min(88vw, 14rem);
-    height: 12.5rem;
-    transform: rotateY(-8deg) rotateX(3deg) scale(0.94);
+    width: min(92vw, 19rem);
+    height: 16.5rem;
+    transform: rotateY(-9deg) rotateX(4deg);
   }
 
   .hero-passport-mockup__cover {
-    width: 8.75rem;
+    width: 12.25rem;
   }
 
   .hero-passport-mockup__identity {
-    width: 7.25rem;
-    padding: 1.75rem 0.95rem 1.6rem 1.25rem;
+    width: 10.25rem;
+    padding: 2.1rem 1.2rem 1.85rem 1.55rem;
   }
 
   .hero-passport-mockup__identity-name {
-    font-size: 1.45rem;
+    font-size: 1.75rem;
   }
 }
 
