@@ -522,10 +522,10 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             x={fieldsX}
             y={IDENTITY_Y + IDENTITY_HEIGHT - 96}
             fill="rgba(43, 36, 32, 0.48)"
-            fontFamily="Inter, Arial, sans-serif"
+            fontFamily={LABEL_FONT_FAMILY}
             fontSize={8}
             fontWeight={600}
-            letterSpacing="2"
+            letterSpacing="2.2"
           >
             NOTES
           </text>
@@ -533,11 +533,14 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             x={fieldsX}
             y={IDENTITY_Y + IDENTITY_HEIGHT - 72}
             fill="rgba(43, 36, 32, 0.93)"
-            fontFamily="Cormorant Garamond, Georgia, serif"
-            fontSize={15}
-            fontWeight={500}
+            fontFamily={VALUE_FONT_FAMILY}
+            fontSize={13}
+            fontWeight={600}
+            letterSpacing="1"
           >
-            Officially registered under PetLuma Kingdom.
+            <tspan x={fieldsX} dy={0}>
+              Officially registered under PetLuma Kingdom.
+            </tspan>
           </text>
 
           <g
