@@ -1725,3 +1725,17 @@ article:has(> .passport-spread) {
   text-shadow: none;
   font-variant-numeric: tabular-nums;
 }
+
+body.is-exporting-passport .passport-export-target,
+body.is-exporting-passport .passport-export-target * {
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+body.is-exporting-passport .passport-export-target {
+  background: #f7f1e8 !important;
+}

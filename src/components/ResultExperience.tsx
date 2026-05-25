@@ -39,42 +39,43 @@ export function ResultExperience() {
   }, []);
 
   const handleDownloadPassport = async () => {
-    alert("Download started");
-    console.log("download clicked");
-
     const target = document.getElementById("petluma-passport-result");
 
     if (!target) {
-      console.error("petluma-passport-result not found");
-      alert("Passport result not found.");
       return;
     }
 
+    document.body.classList.add("is-exporting-passport");
+
     try {
-      const { default: domtoimage } = await import("dom-to-image-more");
-      const dataUrl = await domtoimage.toPng(target, {
-        quality: 1,
-        bgcolor: "#f7f1e8",
-        cacheBust: true,
-        width: target.scrollWidth,
-        height: target.scrollHeight,
-        style: {
-          transform: "scale(1)",
-          transformOrigin: "top left",
-        },
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      const { default: html2canvas } = await import("html2canvas");
+      const canvas = await html2canvas(target, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#f7f1e8",
+        logging: true,
+        foreignObjectRendering: false,
+        width: target.offsetWidth,
+        height: target.offsetHeight,
+        windowWidth: document.documentElement.clientWidth,
+        windowHeight: document.documentElement.clientHeight,
       });
 
+      const dataUrl = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
-      link.download = "petluma-passport-result.png";
       link.href = dataUrl;
+      link.download = "petluma-passport-result.png";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      console.log("download success");
     } catch (error) {
-      console.error("dom-to-image download failed:", error);
-      alert("Download failed. Check console.");
+      console.error("html2canvas download failed:", error);
+      alert("Download failed. Please try again.");
+    } finally {
+      document.body.classList.remove("is-exporting-passport");
     }
   };
 
