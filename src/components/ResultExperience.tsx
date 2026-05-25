@@ -3,86 +3,20 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FinalCompanionCard } from "@/components/FinalCompanionCard";
-import {
-  companionCardStorageKey,
-  type StoredCompanionCard,
-} from "@/lib/cardStorage";
-import {
-  createInitialPassportData,
-  normalizePassportData,
-} from "@/lib/passport-data";
+import { useStoredCompanionCard } from "@/hooks/useStoredCompanionCard";
 
 export function ResultExperience() {
-  const [passportData, setPassportData] = useState<StoredCompanionCard>(() =>
-    createInitialPassportData(),
-  );
+  const passportData = useStoredCompanionCard();
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedCard = localStorage.getItem(companionCardStorageKey);
     const notice = sessionStorage.getItem("petluma-passport-duplicate-notice");
 
     if (notice) {
       setDuplicateNotice(notice);
       sessionStorage.removeItem("petluma-passport-duplicate-notice");
     }
-
-    if (!savedCard) {
-      return;
-    }
-
-    try {
-      setPassportData(normalizePassportData(JSON.parse(savedCard)));
-    } catch {
-      setPassportData(createInitialPassportData());
-    }
   }, []);
-
-  const handleDownloadPassport = async () => {
-    const target = document.getElementById("petluma-passport-result");
-
-    if (!target) {
-      return;
-    }
-
-    const images = target.querySelectorAll("img");
-    images.forEach((img) => {
-      img.dataset.oldVisibility = img.style.visibility;
-      img.style.visibility = "hidden";
-    });
-
-    target.classList.add("export-safe");
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      const { default: html2canvas } = await import("html2canvas");
-      const canvas = await html2canvas(target, {
-        scale: 2,
-        backgroundColor: "#f7f1e8",
-        useCORS: false,
-        allowTaint: false,
-        logging: true,
-      });
-
-      const dataUrl = canvas.toDataURL("image/png", 1.0);
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = "petluma-passport-result.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      target.classList.remove("export-safe");
-    } catch (error) {
-      console.error("Download failed:", error);
-    } finally {
-      images.forEach((img) => {
-        img.style.visibility = img.dataset.oldVisibility || "";
-      });
-      target.classList.remove("export-safe");
-    }
-  };
 
   return (
     <main className="relative min-h-screen overflow-hidden px-5 py-8 sm:px-8 lg:px-10">
@@ -113,13 +47,14 @@ export function ResultExperience() {
         </div>
 
         <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
-          <button
-            type="button"
-            onClick={handleDownloadPassport}
-            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f]"
+          <Link
+            href="/result/print"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-center text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f]"
           >
-            Download Passport
-          </button>
+            Open Printable Passport
+          </Link>
           <Link
             href="/create"
             className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"

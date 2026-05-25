@@ -1726,12 +1726,18 @@ article:has(> .passport-spread) {
   font-variant-numeric: tabular-nums;
 }
 
-.export-safe,
-.export-safe * {
-  transform: none !important;
-  filter: none !important;
-  backdrop-filter: none !important;
-  box-shadow: none !important;
-  animation: none !important;
-  transition: none !important;
+@media print {
+  body {
+    background: #f7f1e8;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  #petluma-passport-result {
+    box-shadow: none !important;
+    transform: none !important;
+    margin: 0 auto;
+  }
 }
