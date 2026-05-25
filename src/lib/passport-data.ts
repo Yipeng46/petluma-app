@@ -11,9 +11,6 @@ export type PassportData = {
   companionId: string;
 };
 
-export const PENDING_COMPANION_ID = "Assigned on registration";
-export const PENDING_PASSPORT_NO = "Assigned on registration";
-
 export function createInitialPassportData(): PassportData {
   return {
     ownerEmail: "",

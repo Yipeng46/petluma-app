@@ -40,8 +40,8 @@ function basePassport(overrides: Partial<PassportData> = {}): PassportData {
     gender: "Female",
     birthdate: "2020-06-15",
     placeOfOrigin: "Pine Trail",
-    passportNo: "PLM-QA-0001",
-    companionId: "CID-QA-0001",
+    passportNo: "PLM-2026-000021",
+    companionId: "PK-2026-AU-000021",
     ...overrides,
   };
 }

@@ -1,8 +1,4 @@
 import type { PassportData } from "@/lib/passport-data";
-import {
-  PENDING_COMPANION_ID,
-  PENDING_PASSPORT_NO,
-} from "@/lib/passport-data";
 
 export type PassportMrz = {
   line1: string;
@@ -35,9 +31,7 @@ function displayValue(value: string, fallback = "—") {
     trimmed.toLowerCase() === "companion" ||
     trimmed.toLowerCase() === "n/a" ||
     trimmed.toLowerCase() === "undefined" ||
-    trimmed.toLowerCase() === "null" ||
-    trimmed === PENDING_COMPANION_ID ||
-    trimmed === PENDING_PASSPORT_NO
+    trimmed.toLowerCase() === "null"
   ) {
     return fallback;
   }
@@ -107,7 +101,8 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
   const placeOfOrigin = displayValue(data.placeOfOrigin);
   const companionId = displayValue(data.companionId);
   const passportNo = displayValue(data.passportNo);
-  const isPending = !data.companionId.trim() || !data.passportNo.trim();
+  const hasRegistryIds =
+    Boolean(data.companionId.trim()) && Boolean(data.passportNo.trim());
 
   return {
     photo: data.photo,
@@ -122,7 +117,7 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     registry: "PetLuma Companion Registry",
     classification: classificationFromSpecies(species),
     issuedBy: "PetLuma Registry Office",
-    registered: isPending ? "Pending" : "Active",
+    registered: hasRegistryIds ? "Active" : "—",
     mrz: generateMRZ(data),
   };
 }

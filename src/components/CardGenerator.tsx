@@ -17,6 +17,7 @@ import {
   PASSPORT_PHOTO_MAX_BYTES,
   validatePassportUserInput,
 } from "@/lib/passport-form";
+import { createRegistryRecord } from "@/lib/registry";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 
@@ -58,85 +59,46 @@ export function CardGenerator() {
     reader.readAsDataURL(file);
   }
 
-  async function handlePreviewFinalCard() {
-    try {
-      if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
-        alert("Please enter a valid owner email before generating a passport.");
-        return;
-      }
-
-      const validationError = validatePassportUserInput(passportData);
-
-      if (validationError) {
-        alert(validationError);
-        return;
-      }
-
-      console.log("[PetLuma] Preview Final Card clicked", {
-        ownerEmail: passportData.ownerEmail,
-        name: passportData.name,
-        breed: passportData.breed,
-        gender: passportData.gender,
-        species: passportData.species,
-        birthdate: passportData.birthdate,
-        hasPhoto: Boolean(passportData.photo),
-      });
-
-      const response = await fetch("/api/pets", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          owner_email: passportData.ownerEmail,
-          pet_name: passportData.name,
-          species: passportData.species,
-          date_of_birth: passportData.birthdate,
-          breed: passportData.breed,
-          photo_url: passportData.photo,
-        }),
-      });
-      const data = await response.json();
-
-      console.log("[PetLuma] /api/pets response", {
-        status: response.status,
-        ok: response.ok,
-        data,
-      });
-
-      if (!response.ok) {
-        console.error("[PetLuma] /api/pets full error", data);
-        throw new Error(data?.error || "Could not save pet.");
-      }
-
-      console.log("[PetLuma] saved pet", data.pet);
-
-      const card: StoredCompanionCard = {
-        ...passportData,
-        companionId: data.pet.companion_id,
-        passportNo: data.pet.passport_number,
-      };
-
-      if (data.duplicate) {
-        sessionStorage.setItem(
-          "petluma-passport-duplicate-notice",
-          data.message ||
-            "This companion already has a PetLuma Passport.",
-        );
-      } else {
-        sessionStorage.removeItem("petluma-passport-duplicate-notice");
-      }
-
-      localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
-      router.push("/result");
-    } catch (error) {
-      console.error("[PetLuma] Preview Final Card save error", error);
-      alert(
-        error instanceof Error
-          ? error.message
-          : "The selected photo is too large to preview on the result page.",
-      );
+  function handlePreviewFinalCard() {
+    if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
+      alert("Please enter a valid owner email before generating a passport.");
+      return;
     }
+
+    const validationError = validatePassportUserInput(passportData);
+
+    if (validationError) {
+      alert(validationError);
+      return;
+    }
+
+    const { record, isDuplicate, message } = createRegistryRecord({
+      ownerEmail: passportData.ownerEmail,
+      petName: passportData.name,
+      species: passportData.species,
+      breed: passportData.breed,
+      gender: passportData.gender,
+      dateOfBirth: passportData.birthdate,
+      placeOfOrigin: passportData.placeOfOrigin,
+    });
+
+    const card: StoredCompanionCard = {
+      ...passportData,
+      companionId: record.companionId,
+      passportNo: record.passportNo,
+    };
+
+    if (isDuplicate) {
+      sessionStorage.setItem(
+        "petluma-passport-duplicate-notice",
+        message || "This companion already has a PetLuma Passport.",
+      );
+    } else {
+      sessionStorage.removeItem("petluma-passport-duplicate-notice");
+    }
+
+    localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
+    router.push("/result");
   }
 
   return (
