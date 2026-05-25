@@ -39,6 +39,7 @@ export function PassportCover({ passportNo }: PassportCoverProps) {
               width={220}
               height={330}
               className="cover-gate-emblem passport-cover-emblem__art"
+              crossOrigin="anonymous"
               draggable={false}
             />
           </div>

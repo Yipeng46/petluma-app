@@ -1,3 +1,5 @@
+"use client";
+
 import type { Ref } from "react";
 import { PassportCover } from "@/components/PassportCover";
 import { getPassportDisplay } from "@/lib/passport-display";
@@ -14,6 +16,7 @@ export function FinalCompanionCard({ card, passportRef }: FinalCompanionCardProp
   return (
     <article
       ref={passportRef}
+      data-passport-export-root="true"
       className="relative w-full overflow-hidden rounded-[1.4rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[0_38px_120px_rgba(8,21,38,0.38)] sm:p-5 lg:p-7"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(219,178,103,0.24),transparent_19rem),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.13),transparent_18rem),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_42%,rgba(0,0,0,0.28))]" />
