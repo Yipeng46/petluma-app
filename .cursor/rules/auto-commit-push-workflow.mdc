@@ -1,0 +1,23 @@
+---
+description: Auto build, commit, and push after code changes
+alwaysApply: true
+---
+
+# Auto Commit & Push Workflow
+
+After completing code modifications in this repo:
+
+1. Run `npm run build`
+2. If build fails: fix issues, rebuild, then continue
+3. Run `git add .` (exclude secrets like `.env`; skip unrelated local-only files when clearly unrelated)
+4. Commit with a concise message (lowercase, e.g. `fix passport export layout`)
+5. Push to the current branch (`git push`)
+
+Do not wait for the user to click Commit & Push.
+
+When done, report:
+- **已 push**
+- **branch** name
+- **Vercel preview URL** (from PR/deployment checks if available; otherwise state latest commit SHA)
+
+Only skip auto-push when the user explicitly says not to commit/push.
