@@ -39,7 +39,7 @@ export default function Home() {
             welcome them into the PetLuma Kingdom.
           </p>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href="/create"
               className="inline-flex items-center justify-center rounded-full border border-[#b8944d]/35 bg-[#081526] px-7 py-3.5 font-[family-name:var(--font-body)] text-sm font-semibold uppercase tracking-[0.12em] text-[#fff8eb] shadow-[0_18px_50px_rgba(8,21,38,0.2)] transition hover:-translate-y-0.5 hover:bg-[#0b1c32]"
@@ -52,9 +52,27 @@ export default function Home() {
             >
               Explore Kingdom
             </Link>
+            <Link
+              href="/recover"
+              className="hidden items-center justify-center rounded-full border border-[#081526]/10 bg-transparent px-7 py-3.5 font-[family-name:var(--font-body)] text-sm font-semibold uppercase tracking-[0.1em] text-[#3d4858] transition hover:-translate-y-0.5 hover:border-[#b8944d]/35 hover:text-[#081526] lg:inline-flex"
+            >
+              Recover Passport
+            </Link>
           </div>
 
-          <p className="landing-hero__preview-label mt-8 font-[family-name:var(--font-body)] text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#7d632e]/72">
+          <p className="landing-hero__recover mt-5 max-w-md font-[family-name:var(--font-body)] text-sm leading-7 text-[#3d4858]/76">
+            <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#7d632e]/80">
+              Already registered?
+            </span>
+            <Link
+              href="/recover"
+              className="mt-1 inline-flex items-center gap-1 font-medium text-[#081526] underline decoration-[#c9a45c]/45 underline-offset-[0.28em] transition hover:decoration-[#c9a45c]"
+            >
+              Recover your PetLuma Passport
+            </Link>
+          </p>
+
+          <p className="landing-hero__preview-label mt-6 font-[family-name:var(--font-body)] text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#7d632e]/72 lg:mt-8">
             Companion identity preview
           </p>
         </div>

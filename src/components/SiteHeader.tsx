@@ -14,12 +14,20 @@ export function SiteHeader() {
         />
       </Link>
 
-      <Link
-        href="/create"
-        className="hidden rounded-full border border-[#b8944d]/35 bg-[#081526] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#fff8eb] shadow-[0_14px_40px_rgba(8,21,38,0.16)] transition hover:-translate-y-0.5 hover:bg-[#0b1c32] sm:inline-flex"
-      >
-        Create Identity
-      </Link>
+      <nav className="flex items-center gap-4 sm:gap-5">
+        <Link
+          href="/recover"
+          className="font-[family-name:var(--font-body)] text-xs font-semibold uppercase tracking-[0.12em] text-[#7d632e] transition hover:text-[#081526] sm:text-sm"
+        >
+          Recover
+        </Link>
+        <Link
+          href="/create"
+          className="hidden rounded-full border border-[#b8944d]/35 bg-[#081526] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#fff8eb] shadow-[0_14px_40px_rgba(8,21,38,0.16)] transition hover:-translate-y-0.5 hover:bg-[#0b1c32] sm:inline-flex"
+        >
+          Create Identity
+        </Link>
+      </nav>
     </header>
   );
 }
