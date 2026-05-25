@@ -9,6 +9,25 @@ export const QA_TEST_PHOTO =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
 
 export const QA_STORAGE_KEY = "petluma-companion-card";
+export const QA_REGISTRY_KEY = "petluma_registry";
+
+export const QA_SAMPLE_REGISTRY_RECORD = {
+  passportNo: "PLM-2026-000021",
+  companionId: "PK-2026-AU-000021",
+  petName: "Luma",
+  species: "Dog",
+  breed: "Golden Retriever",
+  gender: "Female",
+  dateOfBirth: "2020-06-15",
+  placeOfOrigin: "Pine Trail",
+  ownerEmail: "qa@petluma.test",
+  createdAt: "2026-01-15T10:00:00.000Z",
+  updatedAt: "2026-01-15T10:00:00.000Z",
+  status: "active" as const,
+};
+
+export const QA_VALID_PASSPORT_NO = QA_SAMPLE_REGISTRY_RECORD.passportNo;
+export const QA_INVALID_PASSPORT_NO = "PLM-2099-999999";
 
 export type QaViewportProfile = "desktop" | "tablet" | "mobile";
 

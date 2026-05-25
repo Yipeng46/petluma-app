@@ -115,6 +115,27 @@ export function saveRegistry(state: RegistryState) {
   localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(state));
 }
 
+function normalizePassportNo(passportNo: string) {
+  return passportNo.trim().toUpperCase();
+}
+
+export function findPassportByNumber(
+  passportNo: string,
+  registry: RegistryState = getRegistry(),
+): RegistryRecord | null {
+  const normalized = normalizePassportNo(passportNo);
+
+  if (!normalized) {
+    return null;
+  }
+
+  return (
+    registry.records.find(
+      (record) => normalizePassportNo(record.passportNo) === normalized,
+    ) ?? null
+  );
+}
+
 export function findExistingPassport(
   registry: RegistryState,
   input: PassportLookupInput,

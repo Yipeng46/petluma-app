@@ -10,7 +10,12 @@ export function ResultExperience() {
   const passportData = useStoredCompanionCard();
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
   const svgRef = useRef<SVGSVGElement>(null);
+  const passportNo = passportData.passportNo.trim();
+  const verifyHref = passportNo
+    ? `/verify/${encodeURIComponent(passportNo)}`
+    : null;
 
   useEffect(() => {
     const notice = sessionStorage.getItem("petluma-passport-duplicate-notice");
@@ -20,6 +25,22 @@ export function ResultExperience() {
       sessionStorage.removeItem("petluma-passport-duplicate-notice");
     }
   }, []);
+
+  async function handleCopyVerifyLink() {
+    if (!passportNo || typeof window === "undefined") {
+      return;
+    }
+
+    const verifyUrl = `${window.location.origin}/verify/${encodeURIComponent(passportNo)}`;
+
+    try {
+      await navigator.clipboard.writeText(verifyUrl);
+      setCopyState("copied");
+      window.setTimeout(() => setCopyState("idle"), 2000);
+    } catch (error) {
+      console.error("Copy verify link failed:", error);
+    }
+  }
 
   async function handleDownloadPassport() {
     if (!svgRef.current || isDownloading) {
@@ -66,7 +87,7 @@ export function ResultExperience() {
           <PassportSVG ref={svgRef} passportData={passportData} />
         </div>
 
-        <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
+        <div className="flex w-full max-w-2xl flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
           <button
             type="button"
             onClick={handleDownloadPassport}
@@ -75,6 +96,23 @@ export function ResultExperience() {
           >
             {isDownloading ? "Preparing..." : "Download Passport"}
           </button>
+          {verifyHref ? (
+            <Link
+              href={verifyHref}
+              className="rounded-full border border-[#08182b]/15 bg-[#08182b] px-7 py-3.5 text-center text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(8,24,43,0.16)] transition hover:-translate-y-0.5 hover:bg-[#0a2038]"
+            >
+              Verify Passport
+            </Link>
+          ) : null}
+          {passportNo ? (
+            <button
+              type="button"
+              onClick={handleCopyVerifyLink}
+              className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
+            >
+              {copyState === "copied" ? "Link Copied" : "Copy Verify Link"}
+            </button>
+          ) : null}
           <Link
             href="/create"
             className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
