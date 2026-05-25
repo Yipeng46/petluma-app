@@ -1,7 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
-const KINGDOM_GATE_EMBLEM_SRC = "/petluma-kingdom-gate-emblem.png";
-
 export function HeroPassportMockup() {
   return (
     <div className="hero-passport-mockup" aria-hidden="true">
@@ -43,6 +39,7 @@ export function HeroPassportMockup() {
           </article>
 
           <article className="hero-passport-mockup__cover">
+            <div className="hero-passport-mockup__cover-thickness" />
             <div className="hero-passport-mockup__cover-edge" />
             <div className="hero-passport-mockup__cover-leather" />
             <div className="hero-passport-mockup__cover-texture" />
@@ -53,15 +50,10 @@ export function HeroPassportMockup() {
               <p className="hero-passport-mockup__cover-brand">PetLuma</p>
               <p className="hero-passport-mockup__cover-passport">Passport</p>
             </header>
-            <div className="hero-passport-mockup__cover-emblem-wrap">
-              <img
-                src={KINGDOM_GATE_EMBLEM_SRC}
-                alt=""
-                width={200}
-                height={300}
-                className="hero-passport-mockup__cover-emblem"
-                draggable={false}
-              />
+            <div className="hero-passport-mockup__cover-crest" aria-hidden="true">
+              <span className="hero-passport-mockup__cover-crest-shield">
+                <span className="hero-passport-mockup__cover-crest-paw" />
+              </span>
             </div>
             <footer className="hero-passport-mockup__cover-footer">
               <span className="hero-passport-mockup__cover-mark" />
