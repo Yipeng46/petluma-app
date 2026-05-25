@@ -1,7 +1,6 @@
 export const PASSPORT_SPECIES_OPTIONS = [
-  "Companion",
-  "Cat",
   "Dog",
+  "Cat",
   "Bird",
   "Rabbit",
   "Other",
@@ -74,8 +73,13 @@ export function validatePassportUserInput(input: {
     return `Pet name must be ${PASSPORT_FIELD_LIMITS.name} characters or fewer.`;
   }
 
-  if (!PASSPORT_SPECIES_OPTIONS.includes(input.species as (typeof PASSPORT_SPECIES_OPTIONS)[number])) {
-    return "Please choose a valid species.";
+  if (
+    !input.species.trim() ||
+    !PASSPORT_SPECIES_OPTIONS.includes(
+      input.species as (typeof PASSPORT_SPECIES_OPTIONS)[number],
+    )
+  ) {
+    return "Please select a species.";
   }
 
   if (breed.length > PASSPORT_FIELD_LIMITS.breed) {

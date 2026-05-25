@@ -32,6 +32,7 @@ function displayValue(value: string, fallback = "—") {
 
   if (
     !trimmed ||
+    trimmed.toLowerCase() === "companion" ||
     trimmed.toLowerCase() === "n/a" ||
     trimmed.toLowerCase() === "undefined" ||
     trimmed.toLowerCase() === "null" ||
@@ -74,12 +75,24 @@ export function generateMRZ(data: PassportData): PassportMrz {
 function classificationFromSpecies(species: string) {
   const normalized = species.trim().toLowerCase();
 
-  if (normalized.includes("cat")) {
+  if (normalized === "cat") {
     return "Feline Registry Class";
   }
 
-  if (normalized.includes("dog")) {
+  if (normalized === "dog") {
     return "Canine Registry Class";
+  }
+
+  if (normalized === "bird") {
+    return "Avian Registry Class";
+  }
+
+  if (normalized === "rabbit") {
+    return "Lagomorph Registry Class";
+  }
+
+  if (normalized === "other") {
+    return "Companion Registry Class";
   }
 
   return "Companion Registry Class";
@@ -90,7 +103,7 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
   const breed = displayValue(data.breed);
   const gender = displayValue(data.gender);
   const birthdate = displayValue(data.birthdate);
-  const species = displayValue(data.species, "Companion");
+  const species = displayValue(data.species);
   const placeOfOrigin = displayValue(data.placeOfOrigin);
   const companionId = displayValue(data.companionId);
   const passportNo = displayValue(data.passportNo);

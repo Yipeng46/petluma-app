@@ -76,6 +76,7 @@ export function PetCardForm({
           label="Species"
           value={passportData.species}
           options={PASSPORT_SPECIES_OPTIONS}
+          placeholder="Select species"
           onChange={(value) => onFieldChange("species", value)}
         />
 

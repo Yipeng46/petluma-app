@@ -429,73 +429,81 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             x={fieldLeftX}
             y={IDENTITY_Y + 168}
             width={fieldLeftWidth}
-            label="Breed"
-            value={display.breed}
+            label="Species"
+            value={display.species}
             wrapValue
           />
           <Field
             x={fieldRightX}
             y={IDENTITY_Y + 168}
             width={fieldRightWidth}
+            label="Breed"
+            value={display.breed}
+            wrapValue
+          />
+          <Field
+            x={fieldLeftX}
+            y={IDENTITY_Y + 226}
+            width={fieldLeftWidth}
             label="Gender"
             value={display.gender}
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 231}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 226}
+            width={fieldRightWidth}
             label="Date of Birth"
             value={display.birthdate}
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 231}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 284}
+            width={fieldLeftWidth}
             label="Place of Origin"
             value={display.placeOfOrigin}
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 294}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 284}
+            width={fieldRightWidth}
             label="Passport No."
             value={display.passportNo}
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 294}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 352}
+            width={fieldLeftWidth}
             label="Registry"
             value={display.registry}
             official
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 357}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 352}
+            width={fieldRightWidth}
             label="Classification"
             value={display.classification}
             official
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 357}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 422}
+            width={fieldLeftWidth}
             label="Issued By"
             value={display.issuedBy}
             official
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 420}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 422}
+            width={fieldRightWidth}
             label="Registered"
             value={display.registered}
             official

@@ -22,7 +22,7 @@ export function createInitialPassportData(): PassportData {
     breed: "",
     gender: "",
     birthdate: "",
-    species: "Companion",
+    species: "",
     placeOfOrigin: "",
     passportNo: "",
     companionId: "",
@@ -61,7 +61,7 @@ export function normalizePassportData(raw: unknown): PassportData {
     breed: readString(record.breed),
     gender: readString(record.gender),
     birthdate: readString(record.birthdate ?? record.birthday),
-    species: readString(record.species) || "Companion",
+    species: readString(record.species),
     placeOfOrigin: readString(record.placeOfOrigin ?? record.favoritePlace),
     passportNo: readString(record.passportNo) || initial.passportNo,
     companionId:
