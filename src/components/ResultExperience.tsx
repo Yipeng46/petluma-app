@@ -45,7 +45,13 @@ export function ResultExperience() {
       return;
     }
 
-    document.body.classList.add("is-exporting-passport");
+    const images = target.querySelectorAll("img");
+    images.forEach((img) => {
+      img.dataset.oldVisibility = img.style.visibility;
+      img.style.visibility = "hidden";
+    });
+
+    target.classList.add("export-safe");
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -53,15 +59,10 @@ export function ResultExperience() {
       const { default: html2canvas } = await import("html2canvas");
       const canvas = await html2canvas(target, {
         scale: 2,
-        useCORS: true,
-        allowTaint: true,
         backgroundColor: "#f7f1e8",
+        useCORS: false,
+        allowTaint: false,
         logging: true,
-        foreignObjectRendering: false,
-        width: target.offsetWidth,
-        height: target.offsetHeight,
-        windowWidth: document.documentElement.clientWidth,
-        windowHeight: document.documentElement.clientHeight,
       });
 
       const dataUrl = canvas.toDataURL("image/png", 1.0);
@@ -71,11 +72,15 @@ export function ResultExperience() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      target.classList.remove("export-safe");
     } catch (error) {
-      console.error("html2canvas download failed:", error);
-      alert("Download failed. Please try again.");
+      console.error("Download failed:", error);
     } finally {
-      document.body.classList.remove("is-exporting-passport");
+      images.forEach((img) => {
+        img.style.visibility = img.dataset.oldVisibility || "";
+      });
+      target.classList.remove("export-safe");
     }
   };
 
