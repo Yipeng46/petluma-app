@@ -427,7 +427,7 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             x={fieldLeftX}
             y={IDENTITY_Y + 284}
             width={fieldLeftWidth}
-            label="Place of Origin"
+            label="Country"
             value={display.placeOfOrigin}
             wrapValue
           />

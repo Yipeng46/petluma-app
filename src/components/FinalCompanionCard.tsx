@@ -93,7 +93,7 @@ export function FinalCompanionCard({ card }: FinalCompanionCardProps) {
                       value={display.birthdate}
                     />
                     <PassportField
-                      label="Place of Origin"
+                      label="Country"
                       value={display.placeOfOrigin}
                     />
                     <PassportField

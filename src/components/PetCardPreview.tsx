@@ -93,7 +93,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                     value={display.birthdate}
                   />
                   <PassportPreviewField
-                    label="Place of Origin"
+                    label="Country"
                     value={display.placeOfOrigin}
                   />
                   <PassportPreviewField
