@@ -1,26 +1,21 @@
-const SVG_NS = "http://www.w3.org/2000/svg";
+import { prepareSvgForExport } from "@/lib/prepare-svg-for-export";
 
-function normalizeSvgMarkup(svgElement: SVGSVGElement) {
-  const clone = svgElement.cloneNode(true) as SVGSVGElement;
-  clone.setAttribute("xmlns", SVG_NS);
+const MIN_EXPORT_WIDTH = 2400;
 
-  if (!clone.getAttribute("viewBox")) {
-    const { width, height } = svgElement.getBoundingClientRect();
-    clone.setAttribute("viewBox", `0 0 ${width} ${height}`);
-  }
-
-  return clone;
+function exportScaleForWidth(sourceWidth: number) {
+  return Math.max(2, Math.ceil(MIN_EXPORT_WIDTH / sourceWidth));
 }
 
 export async function exportPassportSvgToPng(
   svgElement: SVGSVGElement,
   filename: string,
-  scale = 2,
+  options?: { photoSrc?: string | null },
 ) {
-  const clone = normalizeSvgMarkup(svgElement);
+  const clone = await prepareSvgForExport(svgElement, options);
   const viewBox = clone.viewBox.baseVal;
   const width = viewBox.width || svgElement.clientWidth;
   const height = viewBox.height || svgElement.clientHeight;
+  const scale = exportScaleForWidth(width);
 
   const svgString = new XMLSerializer().serializeToString(clone);
   const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });

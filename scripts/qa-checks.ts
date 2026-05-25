@@ -162,13 +162,71 @@ export async function testSvgExport(passportSelector: string): Promise<{
     return { exportFailed: true, failure: "Passport SVG missing for export" };
   }
 
+  const xlinkNs = "http://www.w3.org/1999/xlink";
+
+  async function inlineSvgImages(clone: SVGSVGElement) {
+    const images = Array.from(clone.querySelectorAll("image"));
+
+    await Promise.all(
+      images.map(async (image) => {
+        const href =
+          image.getAttribute("href") ||
+          image.getAttributeNS(xlinkNs, "href") ||
+          image.getAttribute("xlink:href") ||
+          "";
+
+        if (!href) {
+          image.remove();
+          return;
+        }
+
+        if (href.startsWith("data:")) {
+          image.setAttribute("href", href);
+          image.setAttributeNS(xlinkNs, "xlink:href", href);
+          return;
+        }
+
+        try {
+          const response = await fetch(href);
+
+          if (!response.ok) {
+            image.remove();
+            return;
+          }
+
+          const blob = await response.blob();
+          const dataUrl = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result ?? ""));
+            reader.onerror = () => reject(new Error("Could not read image blob."));
+            reader.readAsDataURL(blob);
+          });
+
+          if (dataUrl.startsWith("data:")) {
+            image.setAttribute("href", dataUrl);
+            image.setAttributeNS(xlinkNs, "xlink:href", dataUrl);
+            return;
+          }
+
+          image.remove();
+        } catch {
+          image.remove();
+        }
+      }),
+    );
+  }
+
   try {
     const clone = svg.cloneNode(true) as SVGSVGElement;
     clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    clone.setAttribute("xmlns:xlink", xlinkNs);
+
+    await inlineSvgImages(clone);
 
     const viewBox = clone.viewBox.baseVal;
     const width = viewBox.width || svg.clientWidth;
     const height = viewBox.height || svg.clientHeight;
+    const scale = Math.max(2, Math.ceil(2400 / width));
 
     const svgString = new XMLSerializer().serializeToString(clone);
     const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
@@ -183,8 +241,8 @@ export async function testSvgExport(passportSelector: string): Promise<{
       });
 
       const canvas = document.createElement("canvas");
-      canvas.width = Math.round(width * 2);
-      canvas.height = Math.round(height * 2);
+      canvas.width = Math.round(width * scale);
+      canvas.height = Math.round(height * scale);
 
       const context = canvas.getContext("2d");
       if (!context) {

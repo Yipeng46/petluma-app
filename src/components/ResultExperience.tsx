@@ -67,7 +67,9 @@ export function ResultExperience() {
 
     try {
       const filename = `petluma-passport-${passportData.name?.trim() || "result"}.png`;
-      await exportPassportSvgToPng(svgRef.current, filename);
+      await exportPassportSvgToPng(svgRef.current, filename, {
+        photoSrc: passportData.photo,
+      });
     } catch (error) {
       console.error("Download failed:", error);
     } finally {

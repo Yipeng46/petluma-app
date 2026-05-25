@@ -3,6 +3,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import { getPassportDisplay } from "@/lib/passport-display";
 import type { PassportData } from "@/lib/passport-data";
+import { PassportKingdomGateEmblem } from "@/lib/passport-kingdom-gate-emblem";
 import { resolveImageDataUrl } from "@/lib/resolve-image-data-url";
 import { wrapSvgText } from "@/lib/svg-text-wrap";
 
@@ -20,7 +21,6 @@ const IDENTITY_HEIGHT = COVER_HEIGHT;
 const FIELD_COLUMN_GAP = 24;
 const FIELD_COLUMN_WIDTH = 240;
 
-const KINGDOM_EMBLEM_SRC = "/petluma-kingdom-gate-emblem.png";
 const VALUE_FONT_FAMILY = "Cormorant Garamond, Georgia, serif";
 const LABEL_FONT_FAMILY = "Inter, Arial, sans-serif";
 
@@ -105,22 +105,15 @@ function Field({
 export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
   function PassportSVG({ passportData }, ref) {
     const display = getPassportDisplay(passportData);
-    const [emblemDataUrl, setEmblemDataUrl] = useState("");
     const [photoDataUrl, setPhotoDataUrl] = useState("");
 
     useEffect(() => {
       let active = true;
 
-      void resolveImageDataUrl(KINGDOM_EMBLEM_SRC).then((url) => {
-        if (active) {
-          setEmblemDataUrl(url);
-        }
-      });
-
       if (display.photo) {
         void resolveImageDataUrl(display.photo).then((url) => {
           if (active) {
-            setPhotoDataUrl(url);
+            setPhotoDataUrl(url.startsWith("data:") ? url : "");
           }
         });
       } else {
@@ -248,25 +241,12 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             PASSPORT
           </text>
 
-          {emblemDataUrl ? (
-            <image
-              href={emblemDataUrl}
-              x={COVER_X + 36}
-              y={COVER_Y + 170}
-              width={COVER_WIDTH - 72}
-              height={COVER_HEIGHT - 250}
-              preserveAspectRatio="xMidYMid meet"
-            />
-          ) : (
-            <rect
-              x={COVER_X + 72}
-              y={COVER_Y + 220}
-              width={COVER_WIDTH - 144}
-              height={COVER_HEIGHT - 320}
-              fill="rgba(201,164,92,0.08)"
-              rx={8}
-            />
-          )}
+          <PassportKingdomGateEmblem
+            x={COVER_X + 36}
+            y={COVER_Y + 170}
+            width={COVER_WIDTH - 72}
+            height={COVER_HEIGHT - 250}
+          />
 
           <text
             x={COVER_X + COVER_WIDTH / 2}
@@ -359,14 +339,17 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             stroke="rgba(43, 36, 32, 0.18)"
             strokeWidth={1}
           />
-          {photoDataUrl ? (
+          {display.photo ? (
             <image
-              href={photoDataUrl}
+              id="passport-portrait-image"
+              href={photoDataUrl || undefined}
+              xlinkHref={photoDataUrl || undefined}
               x={photoX + 3}
               y={photoY + 3}
               width={photoW - 6}
               height={photoH - 6}
               preserveAspectRatio="xMidYMid slice"
+              opacity={photoDataUrl ? 1 : 0}
             />
           ) : (
             <text
