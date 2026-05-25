@@ -1850,6 +1850,10 @@ article:has(> .passport-spread) {
   letter-spacing: 0.02em;
 }
 
+.recover-card + .recover-card {
+  margin-top: 0;
+}
+
 @media (max-width: 639px) {
   .verify-page {
     padding-left: 1.15rem;

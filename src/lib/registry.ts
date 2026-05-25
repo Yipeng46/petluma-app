@@ -52,6 +52,12 @@ export type CreateRegistryResult = {
   cloudSyncError?: string;
 };
 
+export type RecoverPassportsResult = {
+  records: RegistryRecord[];
+  source: "cloud" | "local";
+  cloudError?: string;
+};
+
 function emptyRegistry(): RegistryState {
   return { records: [] };
 }
@@ -592,6 +598,71 @@ export async function findPassportByNumberWithFallback(
   }
 
   return findPassportByNumber(passportNo);
+}
+
+export function findPassportsByOwnerEmailLocal(ownerEmail: string): RegistryRecord[] {
+  const email = normalizeEmail(ownerEmail);
+
+  return getRegistry().records.filter(
+    (record) => normalizeEmail(record.ownerEmail) === email,
+  );
+}
+
+export async function findPassportsByOwnerEmailCloud(
+  ownerEmail: string,
+): Promise<RegistryRecord[]> {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    throw new Error("Supabase client is not configured.");
+  }
+
+  const response = await withCloudTimeout(
+    supabase
+      .from(PETLUMA_PASSPORTS_TABLE)
+      .select("*")
+      .eq("owner_email", normalizeEmail(ownerEmail))
+      .order("created_at", { ascending: false }),
+  );
+  const { data, error } = response;
+
+  if (error) {
+    throw error;
+  }
+
+  return (data ?? []).map((row) => cloudRowToRegistryRecord(row as CloudPassportRow));
+}
+
+export async function findPassportsByOwnerEmailWithFallback(
+  ownerEmail: string,
+): Promise<RecoverPassportsResult> {
+  if (isSupabaseConfigured()) {
+    try {
+      const records = await findPassportsByOwnerEmailCloud(ownerEmail);
+
+      for (const record of records) {
+        upsertLocalRegistryRecord(record);
+      }
+
+      return { records, source: "cloud" };
+    } catch (error) {
+      console.warn(
+        "[PetLuma] Cloud recover lookup failed, using local fallback.",
+        error,
+      );
+
+      return {
+        records: findPassportsByOwnerEmailLocal(ownerEmail),
+        source: "local",
+        cloudError: getCloudSyncErrorMessage(error),
+      };
+    }
+  }
+
+  return {
+    records: findPassportsByOwnerEmailLocal(ownerEmail),
+    source: "local",
+  };
 }
 
 function getCloudSyncErrorMessage(error: unknown) {
