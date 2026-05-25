@@ -383,39 +383,14 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             </text>
           )}
 
-          <rect
-            x={photoX - 4}
-            y={photoY + photoH + 14}
-            width={photoW + 8}
-            height={58}
-            fill="rgba(236, 227, 210, 0.45)"
-            stroke="rgba(43, 36, 32, 0.08)"
-            strokeWidth={0.75}
+          <Field
+            x={photoX}
+            y={photoY + photoH + 18}
+            width={photoW}
+            label="Companion ID"
+            value={display.companionId}
+            wrapValue
           />
-          <text
-            x={photoX + photoW / 2}
-            y={photoY + photoH + 34}
-            textAnchor="middle"
-            fill="rgba(43, 36, 32, 0.48)"
-            fontFamily="Inter, Arial, sans-serif"
-            fontSize={8}
-            fontWeight={600}
-            letterSpacing="2"
-          >
-            COMPANION ID
-          </text>
-          <text
-            x={photoX + photoW / 2}
-            y={photoY + photoH + 56}
-            textAnchor="middle"
-            fill="rgba(43, 36, 32, 0.93)"
-            fontFamily="Cormorant Garamond, Georgia, serif"
-            fontSize={13}
-            fontWeight={600}
-            letterSpacing="1.5"
-          >
-            {display.companionId.toUpperCase()}
-          </text>
 
           <Field
             x={fieldsX}

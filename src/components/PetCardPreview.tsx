@@ -71,13 +71,11 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                   </div>
                 </div>
               </div>
-              <div className="passport-identity-id-block mt-3 p-2.5 text-center">
-                <p className="passport-identity-id-label uppercase">
-                  Passport No.
-                </p>
-                <p className="passport-identity-id-value mt-1 uppercase">
-                  {display.passportNo}
-                </p>
+              <div className="mt-4">
+                <PassportPreviewField
+                  label="Companion ID"
+                  value={display.companionId}
+                />
               </div>
             </div>
 
@@ -98,8 +96,8 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
                     value={display.placeOfOrigin}
                   />
                   <PassportPreviewField
-                    label="Companion ID"
-                    value={display.companionId}
+                    label="Passport No."
+                    value={display.passportNo}
                     primary
                   />
                 </div>
@@ -130,15 +128,7 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
             </div>
           </div>
 
-          <div className="relative mt-6">
-            <div className="passport-identity-notes p-3 pr-16 sm:pr-20">
-              <p className="passport-identity-notes__label uppercase">
-                Notes
-              </p>
-              <p className="passport-identity-notes__body">
-                Officially registered under PetLuma Kingdom.
-              </p>
-            </div>
+          <div className="relative mt-8 min-h-[4.5rem]">
             <div
               className="passport-identity-seal absolute -bottom-5 -right-1 flex rotate-[-13deg] items-center justify-center rounded-full text-center"
               aria-hidden="true"

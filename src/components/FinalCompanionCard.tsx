@@ -75,13 +75,8 @@ export function FinalCompanionCard({ card }: FinalCompanionCardProps) {
                   </div>
                 </div>
 
-                <div className="passport-identity-id-block mt-5 p-4 text-center">
-                  <p className="passport-identity-id-label uppercase">
-                    Companion ID
-                  </p>
-                  <p className="passport-identity-id-value mt-2 uppercase">
-                    {display.companionId}
-                  </p>
+                <div className="mt-5">
+                  <PassportField label="Companion ID" value={display.companionId} />
                 </div>
               </div>
 
@@ -132,16 +127,7 @@ export function FinalCompanionCard({ card }: FinalCompanionCardProps) {
                   </div>
                 </div>
 
-                <div className="relative mt-10">
-                  <div className="passport-identity-notes p-4 pr-24 pb-5">
-                    <p className="passport-identity-notes__label uppercase">
-                      Notes
-                    </p>
-                    <p className="passport-identity-notes__body">
-                      Officially registered under PetLuma Kingdom.
-                    </p>
-                  </div>
-
+                <div className="relative mt-10 min-h-[5.5rem]">
                   <div
                     className="passport-identity-seal absolute -bottom-7 -right-2 flex rotate-[-13deg] items-center justify-center rounded-full text-center"
                     aria-hidden="true"
