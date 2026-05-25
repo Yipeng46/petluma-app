@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FinalCompanionCard } from "@/components/FinalCompanionCard";
 import {
   companionCardStorageKey,
@@ -12,67 +12,12 @@ import {
   normalizePassportData,
 } from "@/lib/passport-data";
 
-type ImageSnapshot = {
-  img: HTMLImageElement;
-  hidden: boolean;
-  visibility: string;
-  display: string;
-};
-
-function hidePassportImages(container: HTMLElement): ImageSnapshot[] {
-  return Array.from(container.querySelectorAll("img")).map((img) => {
-    const snapshot: ImageSnapshot = {
-      img,
-      hidden: Boolean(img.hidden),
-      visibility: img.style.visibility,
-      display: img.style.display,
-    };
-    img.style.visibility = "hidden";
-    return snapshot;
-  });
-}
-
-function restorePassportImages(snapshots: ImageSnapshot[]) {
-  snapshots.forEach(({ img, hidden, visibility, display }) => {
-    img.hidden = hidden;
-    img.style.visibility = visibility;
-    img.style.display = display;
-  });
-}
-
-async function capturePassportCanvas(element: HTMLElement) {
-  const { default: html2canvas } = await import("html2canvas");
-  const options = {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: "#f7f1e8",
-    logging: true,
-    windowWidth: element.scrollWidth,
-    windowHeight: element.scrollHeight,
-  };
-
-  try {
-    return await html2canvas(element, options);
-  } catch (firstError) {
-    console.warn("Passport capture failed with images, retrying without photos:", firstError);
-    const snapshots = hidePassportImages(element);
-
-    try {
-      return await html2canvas(element, options);
-    } finally {
-      restorePassportImages(snapshots);
-    }
-  }
-}
-
 export function ResultExperience() {
   const [passportData, setPassportData] = useState<StoredCompanionCard>(() =>
     createInitialPassportData(),
   );
   const [duplicateNotice, setDuplicateNotice] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
-  const passportRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const savedCard = localStorage.getItem(companionCardStorageKey);
@@ -95,27 +40,42 @@ export function ResultExperience() {
   }, []);
 
   async function downloadPassportImage() {
-    console.log("passportRef.current", passportRef.current);
-
-    if (!passportRef.current) {
-      console.error("Download failed: passportRef.current is null");
-      return;
-    }
-
     if (isDownloading) {
       return;
     }
 
     setIsDownloading(true);
-    const exportRoot = passportRef.current;
+
+    const target = document.getElementById("petluma-passport-result");
+
+    if (!target) {
+      console.error("Passport result element not found");
+      alert("Passport result not found. Please generate again.");
+      setIsDownloading(false);
+      return;
+    }
 
     try {
       await document.fonts.ready;
 
-      const downloadFromCanvas = (canvas: HTMLCanvasElement) => {
-        const image = canvas.toDataURL("image/png", 1.0);
+      const { default: html2canvas } = await import("html2canvas");
+      const options = {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#f7f1e8",
+        logging: true,
+      };
+
+      target.querySelectorAll("img").forEach((img) => {
+        img.crossOrigin = "anonymous";
+      });
+
+      const downloadFromCanvas = async (element: HTMLElement) => {
+        const canvas = await html2canvas(element, options);
+        const dataUrl = canvas.toDataURL("image/png");
         const link = document.createElement("a");
-        link.href = image;
+        link.href = dataUrl;
         link.download = `petluma-passport-${passportData.name?.trim() || "result"}.png`;
         document.body.appendChild(link);
         link.click();
@@ -123,21 +83,30 @@ export function ResultExperience() {
       };
 
       try {
-        downloadFromCanvas(await capturePassportCanvas(exportRoot));
-        return;
+        await downloadFromCanvas(target);
       } catch (firstError) {
-        console.warn("Passport download failed, retrying without photos:", firstError);
-      }
+        console.warn("Download failed with photos, retrying without pet photo:", firstError);
 
-      const snapshots = hidePassportImages(exportRoot);
+        const petPhoto = target.querySelector(
+          ".passport-identity-photo-img",
+        ) as HTMLImageElement | null;
+        const previousVisibility = petPhoto?.style.visibility ?? "";
 
-      try {
-        downloadFromCanvas(await capturePassportCanvas(exportRoot));
-      } finally {
-        restorePassportImages(snapshots);
+        if (petPhoto) {
+          petPhoto.style.visibility = "hidden";
+        }
+
+        try {
+          await downloadFromCanvas(target);
+        } finally {
+          if (petPhoto) {
+            petPhoto.style.visibility = previousVisibility;
+          }
+        }
       }
     } catch (error) {
       console.error("Download failed:", error);
+      alert("Download failed. Please check console for details.");
     } finally {
       setIsDownloading(false);
     }
@@ -166,12 +135,9 @@ export function ResultExperience() {
           {duplicateNotice ? (
             <div className="mb-4 rounded-2xl border border-[#c7a15f]/35 bg-[#fff8eb] px-5 py-4 text-center text-sm leading-6 text-[#6f5b4b]">
               {duplicateNotice}
-              <span className="mt-1 block text-xs text-[#9b7b45]">
-                同一宠物已存在护照，已返回原护照。
-              </span>
             </div>
           ) : null}
-          <FinalCompanionCard card={passportData} passportRef={passportRef} />
+          <FinalCompanionCard card={passportData} />
         </div>
 
         <div className="flex w-full max-w-md flex-col gap-3 sm:flex-row sm:justify-center">

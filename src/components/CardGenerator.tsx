@@ -99,7 +99,7 @@ export function CardGenerator() {
         sessionStorage.setItem(
           "petluma-passport-duplicate-notice",
           data.message ||
-            "This companion already has a PetLuma Passport. Returning the original passport.",
+            "This companion already has a PetLuma Passport.",
         );
       } else {
         sessionStorage.removeItem("petluma-passport-duplicate-notice");

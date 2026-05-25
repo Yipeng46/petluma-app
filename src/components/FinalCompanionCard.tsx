@@ -1,21 +1,19 @@
 "use client";
 
-import type { Ref } from "react";
 import { PassportCover } from "@/components/PassportCover";
 import { getPassportDisplay } from "@/lib/passport-display";
 import type { StoredCompanionCard } from "@/lib/cardStorage";
 
 type FinalCompanionCardProps = {
   card: StoredCompanionCard;
-  passportRef?: Ref<HTMLElement>;
 };
 
-export function FinalCompanionCard({ card, passportRef }: FinalCompanionCardProps) {
+export function FinalCompanionCard({ card }: FinalCompanionCardProps) {
   const display = getPassportDisplay(card);
 
   return (
     <article
-      ref={passportRef}
+      id="petluma-passport-result"
       data-passport-export-root="true"
       className="relative w-full overflow-hidden rounded-[1.4rem] border border-[#b8944d]/35 bg-[#081526] p-3 text-[#172030] shadow-[0_38px_120px_rgba(8,21,38,0.38)] sm:p-5 lg:p-7"
     >
