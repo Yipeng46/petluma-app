@@ -339,10 +339,7 @@ textarea {
 /* ── Landing page ── */
 
 .landing-page {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(201, 164, 92, 0.12), transparent 28rem),
-    radial-gradient(circle at 88% 18%, rgba(8, 21, 38, 0.04), transparent 24rem),
-    linear-gradient(135deg, #fff8e8 0%, #f2e4c9 52%, #fffaf0 100%);
+  background: linear-gradient(135deg, #fff8e8 0%, #f2e4c9 52%, #fffaf0 100%);
 }
 
 .landing-page__texture {

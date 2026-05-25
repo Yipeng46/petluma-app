@@ -21,8 +21,6 @@ export default function Home() {
     <main className="landing-page relative min-h-screen overflow-x-clip">
       <div className="landing-page__texture pointer-events-none absolute inset-0" />
       <div className="landing-page__grain pointer-events-none absolute inset-0" />
-      <div className="pointer-events-none absolute -right-24 top-28 h-96 w-96 rounded-full border-[36px] border-[#b9914c]/10" />
-      <div className="pointer-events-none absolute -left-20 bottom-32 h-72 w-72 rounded-full bg-[#081526]/5 blur-3xl" />
       <SiteHeader />
 
       <section className="landing-hero relative mx-auto flex w-full max-w-5xl flex-col items-center px-5 pb-20 pt-10 text-center sm:px-8 sm:pt-14 lg:max-w-6xl lg:pb-24 lg:pt-20">
