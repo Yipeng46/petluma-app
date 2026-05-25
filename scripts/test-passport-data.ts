@@ -20,6 +20,7 @@ export const QA_SAMPLE_REGISTRY_RECORD = {
   gender: "Female",
   dateOfBirth: "2020-06-15",
   placeOfOrigin: "Australia",
+  countryCode: "AU",
   ownerEmail: "qa@petluma.test",
   photoUrl: QA_TEST_PHOTO,
   createdAt: "2026-01-15T10:00:00.000Z",

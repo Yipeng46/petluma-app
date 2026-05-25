@@ -12,11 +12,22 @@ create table if not exists public.petluma_passports (
   gender text,
   date_of_birth text,
   place_of_origin text,
+  country_code text,
   photo_url text,
   status text not null default 'active',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+create index if not exists petluma_passports_companion_identity_idx
+  on public.petluma_passports (
+    owner_email,
+    country_code,
+    date_of_birth,
+    species,
+    breed,
+    gender
+  );
 
 create index if not exists petluma_passports_identity_idx
   on public.petluma_passports (owner_email, pet_name, date_of_birth);

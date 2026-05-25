@@ -1,9 +1,23 @@
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import {
+  findExistingCompanion,
+  normalizeCompanionLookupInput,
+  type CompanionLookupInput,
+} from "@/lib/companion-lookup";
+import {
   generateNextCompanionId,
   normalizeCountryCode,
+  parseCountryCodeFromCompanionId,
 } from "@/lib/companion-id";
 import { isValidCountryCode } from "@/lib/countries";
+import { normalizeEmail } from "@/lib/pet-identity";
+
+export { generateNextCompanionId as generateCompanionId } from "@/lib/companion-id";
+export {
+  findExistingCompanion,
+  normalizeCompanionLookupInput,
+  type CompanionLookupInput,
+} from "@/lib/companion-lookup";
 
 export const REGISTRY_STORAGE_KEY = "petluma_registry";
 
@@ -18,6 +32,7 @@ export type RegistryRecord = {
   gender: string;
   dateOfBirth: string;
   placeOfOrigin: string;
+  countryCode?: string;
   ownerEmail: string;
   photoUrl?: string | null;
   createdAt: string;
@@ -27,12 +42,6 @@ export type RegistryRecord = {
 
 export type RegistryState = {
   records: RegistryRecord[];
-};
-
-export type PassportLookupInput = {
-  ownerEmail: string;
-  petName: string;
-  dateOfBirth: string;
 };
 
 export type CreateRegistryInput = {
@@ -45,6 +54,17 @@ export type CreateRegistryInput = {
   countryCode: string;
   placeOfOrigin: string;
 };
+
+function toCompanionLookupInput(input: CreateRegistryInput): CompanionLookupInput {
+  return {
+    ownerEmail: input.ownerEmail,
+    species: input.species,
+    breed: input.breed,
+    gender: input.gender,
+    dateOfBirth: input.dateOfBirth,
+    countryCode: input.countryCode,
+  };
+}
 
 export type CreateRegistryCloudInput = CreateRegistryInput & {
   photoUrl?: string | null;
@@ -70,18 +90,6 @@ function emptyRegistry(): RegistryState {
 
 function currentYear() {
   return new Date().getFullYear();
-}
-
-function normalizeEmail(email: string) {
-  return email.trim().toLowerCase();
-}
-
-function normalizePetName(name: string) {
-  return name.trim().toLowerCase();
-}
-
-function normalizeDate(date: string) {
-  return date.trim();
 }
 
 function parsePassportSequence(passportNo: string, year: number) {
@@ -149,20 +157,9 @@ export function findPassportByNumber(
 
 export function findExistingPassport(
   registry: RegistryState,
-  input: PassportLookupInput,
+  input: CreateRegistryInput,
 ): RegistryRecord | null {
-  const email = normalizeEmail(input.ownerEmail);
-  const name = normalizePetName(input.petName);
-  const dateOfBirth = normalizeDate(input.dateOfBirth);
-
-  return (
-    registry.records.find(
-      (record) =>
-        normalizeEmail(record.ownerEmail) === email &&
-        normalizePetName(record.petName) === name &&
-        normalizeDate(record.dateOfBirth) === dateOfBirth,
-    ) ?? null
-  );
+  return findExistingCompanion(registry.records, toCompanionLookupInput(input));
 }
 
 export function generateNextPassportNumber(
@@ -200,11 +197,9 @@ export function createRegistryRecord(
   input: CreateRegistryInput & { photoUrl?: string | null },
 ): CreateRegistryResult {
   const registry = getRegistry();
-  const existing = findExistingPassport(registry, {
-    ownerEmail: input.ownerEmail,
-    petName: input.petName,
-    dateOfBirth: input.dateOfBirth,
-  });
+  const existing = findExistingPassport(registry, input);
+  const normalizedCountryCode = normalizeCountryCode(input.countryCode);
+  const normalizedEmail = normalizeEmail(input.ownerEmail);
 
   const now = new Date().toISOString();
 
@@ -228,7 +223,8 @@ export function createRegistryRecord(
     gender: input.gender.trim(),
     dateOfBirth: input.dateOfBirth.trim(),
     placeOfOrigin: input.placeOfOrigin.trim(),
-    ownerEmail: input.ownerEmail.trim(),
+    countryCode: normalizedCountryCode,
+    ownerEmail: normalizedEmail,
     photoUrl: sanitizeCloudPhotoUrl(input.photoUrl),
     createdAt: now,
     updatedAt: now,
@@ -275,6 +271,7 @@ export type CloudPassportRow = {
   gender: string | null;
   date_of_birth: string | null;
   place_of_origin: string | null;
+  country_code: string | null;
   photo_url: string | null;
   status: string | null;
   created_at: string;
@@ -299,6 +296,7 @@ export type CloudRegistryInsertPayload = {
   gender: string;
   date_of_birth: string;
   place_of_origin: string;
+  country_code: string;
   photo_url: string | null;
   status: string;
   updated_at?: string;
@@ -309,16 +307,19 @@ function toCloudRegistryPayload(
   ids: { passportNo: string; companionId: string },
   updatedAt?: string,
 ): CloudRegistryInsertPayload {
+  const normalized = normalizeCompanionLookupInput(toCompanionLookupInput(input));
+
   return {
     passport_no: ids.passportNo,
     companion_id: ids.companionId,
-    owner_email: input.ownerEmail.trim(),
+    owner_email: normalized.ownerEmail,
     pet_name: input.petName.trim(),
     species: input.species.trim(),
     breed: input.breed.trim(),
     gender: input.gender.trim(),
-    date_of_birth: input.dateOfBirth.trim(),
+    date_of_birth: normalized.dateOfBirth,
     place_of_origin: input.placeOfOrigin.trim(),
+    country_code: normalized.countryCode,
     photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
     status: "active",
     ...(updatedAt ? { updated_at: updatedAt } : {}),
@@ -326,14 +327,17 @@ function toCloudRegistryPayload(
 }
 
 function toCloudRegistryPayloadPreview(input: CreateRegistryCloudInput) {
+  const normalized = normalizeCompanionLookupInput(toCompanionLookupInput(input));
+
   return {
-    owner_email: input.ownerEmail.trim(),
+    owner_email: normalized.ownerEmail,
     pet_name: input.petName.trim(),
     species: input.species.trim(),
     breed: input.breed.trim(),
     gender: input.gender.trim(),
-    date_of_birth: input.dateOfBirth.trim(),
+    date_of_birth: normalized.dateOfBirth,
     place_of_origin: input.placeOfOrigin.trim(),
+    country_code: normalized.countryCode,
     photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
     status: "active",
   };
@@ -349,6 +353,7 @@ export function cloudRowToRegistryRecord(row: CloudPassportRow): RegistryRecord 
     gender: row.gender ?? "",
     dateOfBirth: row.date_of_birth ?? "",
     placeOfOrigin: row.place_of_origin ?? "",
+    countryCode: row.country_code ?? parseCountryCodeFromCompanionId(row.companion_id),
     ownerEmail: row.owner_email,
     photoUrl: row.photo_url,
     createdAt: row.created_at,
@@ -428,10 +433,8 @@ async function generateNextCompanionIdCloud(countryCode: string) {
   return generateNextCompanionId(companionIds, normalizedCountryCode, year);
 }
 
-export async function findExistingPassportCloud(
-  ownerEmail: string,
-  petName: string,
-  dateOfBirth: string,
+export async function findExistingCompanionCloud(
+  input: CreateRegistryInput,
 ): Promise<RegistryRecord | null> {
   const supabase = getSupabaseClient();
 
@@ -439,14 +442,13 @@ export async function findExistingPassportCloud(
     throw new Error("Supabase client is not configured.");
   }
 
+  const normalized = normalizeCompanionLookupInput(toCompanionLookupInput(input));
+
   const response = await withCloudTimeout(
     supabase
       .from(PETLUMA_PASSPORTS_TABLE)
       .select("*")
-      .eq("owner_email", normalizeEmail(ownerEmail))
-      .eq("pet_name", petName.trim())
-      .eq("date_of_birth", dateOfBirth.trim())
-      .maybeSingle<CloudPassportRow>(),
+      .eq("owner_email", normalized.ownerEmail),
   );
   const { data, error } = response;
 
@@ -458,7 +460,11 @@ export async function findExistingPassportCloud(
     throw error;
   }
 
-  return data ? cloudRowToRegistryRecord(data) : null;
+  const records = (data ?? []).map((row) =>
+    cloudRowToRegistryRecord(row as CloudPassportRow),
+  );
+
+  return findExistingCompanion(records, toCompanionLookupInput(input));
 }
 
 export async function findPassportByNumberCloud(
@@ -505,11 +511,7 @@ export async function createRegistryRecordCloud(
     throw new Error("Supabase client is not configured.");
   }
 
-  const existing = await findExistingPassportCloud(
-    input.ownerEmail,
-    input.petName,
-    input.dateOfBirth,
-  );
+  const existing = await findExistingCompanionCloud(input);
 
   if (existing) {
     const now = new Date().toISOString();
@@ -553,11 +555,7 @@ export async function createRegistryRecordCloud(
 
   if (error) {
     if (error.code === "23505") {
-      const conflict = await findExistingPassportCloud(
-        input.ownerEmail,
-        input.petName,
-        input.dateOfBirth,
-      );
+      const conflict = await findExistingCompanionCloud(input);
 
       if (conflict) {
         upsertLocalRegistryRecord(conflict);
@@ -727,3 +725,5 @@ export async function createRegistryRecordWithFallback(
     cloudSyncError,
   };
 }
+
+export { createRegistryRecord as createCompanion };

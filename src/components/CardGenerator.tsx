@@ -18,6 +18,7 @@ import {
   validatePassportUserInput,
 } from "@/lib/passport-form";
 import { getCountryByCode } from "@/lib/countries";
+import { getRecordCountryCode } from "@/lib/companion-lookup";
 import { createRegistryRecordWithFallback } from "@/lib/registry";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
@@ -120,11 +121,25 @@ export function CardGenerator() {
       photoUrl: passportData.photo,
     });
 
-    const card: StoredCompanionCard = {
-      ...passportData,
-      companionId: record.companionId,
-      passportNo: record.passportNo,
-    };
+    const card: StoredCompanionCard = isDuplicate
+      ? {
+          ownerEmail: record.ownerEmail,
+          photo: record.photoUrl ?? passportData.photo,
+          name: record.petName,
+          breed: record.breed,
+          gender: record.gender,
+          birthdate: record.dateOfBirth,
+          species: record.species,
+          countryCode: getRecordCountryCode(record),
+          placeOfOrigin: record.placeOfOrigin,
+          passportNo: record.passportNo,
+          companionId: record.companionId,
+        }
+      : {
+          ...passportData,
+          companionId: record.companionId,
+          passportNo: record.passportNo,
+        };
 
     if (isDuplicate) {
       sessionStorage.setItem(
