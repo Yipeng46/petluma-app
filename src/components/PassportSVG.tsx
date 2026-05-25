@@ -429,122 +429,81 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             x={fieldLeftX}
             y={IDENTITY_Y + 168}
             width={fieldLeftWidth}
-            label="Species"
-            value={display.species}
+            label="Breed"
+            value={display.breed}
             wrapValue
           />
           <Field
             x={fieldRightX}
             y={IDENTITY_Y + 168}
             width={fieldRightWidth}
-            label="Breed"
-            value={display.breed}
-            wrapValue
-          />
-          <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 226}
-            width={fieldLeftWidth}
             label="Gender"
             value={display.gender}
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 226}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 231}
+            width={fieldLeftWidth}
             label="Date of Birth"
             value={display.birthdate}
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 284}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 231}
+            width={fieldRightWidth}
             label="Place of Origin"
             value={display.placeOfOrigin}
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 284}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 294}
+            width={fieldLeftWidth}
             label="Passport No."
             value={display.passportNo}
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 352}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 294}
+            width={fieldRightWidth}
             label="Registry"
             value={display.registry}
             official
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 352}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 357}
+            width={fieldLeftWidth}
             label="Classification"
             value={display.classification}
             official
             wrapValue
           />
           <Field
-            x={fieldLeftX}
-            y={IDENTITY_Y + 422}
-            width={fieldLeftWidth}
+            x={fieldRightX}
+            y={IDENTITY_Y + 357}
+            width={fieldRightWidth}
             label="Issued By"
             value={display.issuedBy}
             official
             wrapValue
           />
           <Field
-            x={fieldRightX}
-            y={IDENTITY_Y + 422}
-            width={fieldRightWidth}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 420}
+            width={fieldLeftWidth}
             label="Registered"
             value={display.registered}
             official
             wrapValue
           />
 
-          <line
-            x1={fieldsX}
-            y1={IDENTITY_Y + IDENTITY_HEIGHT - 118}
-            x2={fieldsX + fieldsW - 90}
-            y2={IDENTITY_Y + IDENTITY_HEIGHT - 118}
-            stroke="rgba(43, 36, 32, 0.1)"
-            strokeWidth={0.75}
-          />
-          <text
-            x={fieldsX}
-            y={IDENTITY_Y + IDENTITY_HEIGHT - 96}
-            fill="rgba(43, 36, 32, 0.48)"
-            fontFamily={LABEL_FONT_FAMILY}
-            fontSize={8}
-            fontWeight={600}
-            letterSpacing="2.2"
-          >
-            NOTES
-          </text>
-          <text
-            x={fieldsX}
-            y={IDENTITY_Y + IDENTITY_HEIGHT - 72}
-            fill="rgba(43, 36, 32, 0.93)"
-            fontFamily={VALUE_FONT_FAMILY}
-            fontSize={13}
-            fontWeight={600}
-            letterSpacing="1"
-          >
-            <tspan x={fieldsX} dy={0}>
-              Officially registered under PetLuma Kingdom.
-            </tspan>
-          </text>
-
           <g
-            transform={`translate(${IDENTITY_X + IDENTITY_WIDTH - 96}, ${IDENTITY_Y + IDENTITY_HEIGHT - 132}) rotate(-13)`}
+            transform={`translate(${IDENTITY_X + IDENTITY_WIDTH - 96}, ${IDENTITY_Y + IDENTITY_HEIGHT - 118}) rotate(-13)`}
             opacity={0.22}
           >
             <circle cx={0} cy={0} r={42} fill="none" stroke="rgba(128,106,68,0.35)" strokeWidth={0.75} />
