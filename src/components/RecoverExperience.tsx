@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { companionCardStorageKey } from "@/lib/cardStorage";
 import { isValidEmail } from "@/lib/pet-identity";
+import { parseCountryCodeFromCompanionId } from "@/lib/companion-id";
 import type { PassportData } from "@/lib/passport-data";
 import {
   findPassportsByOwnerEmailWithFallback,
@@ -47,6 +48,7 @@ function registryRecordToPassportData(record: RegistryRecord): PassportData {
     gender: record.gender,
     birthdate: record.dateOfBirth,
     species: record.species,
+    countryCode: parseCountryCodeFromCompanionId(record.companionId),
     placeOfOrigin: record.placeOfOrigin,
     passportNo: record.passportNo,
     companionId: record.companionId,

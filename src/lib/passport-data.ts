@@ -1,3 +1,6 @@
+import { parseCountryCodeFromCompanionId } from "@/lib/companion-id";
+import { getCountryByCode } from "@/lib/countries";
+
 export type PassportData = {
   ownerEmail: string;
   photo: string | null;
@@ -6,6 +9,7 @@ export type PassportData = {
   gender: string;
   birthdate: string;
   species: string;
+  countryCode: string;
   placeOfOrigin: string;
   passportNo: string;
   companionId: string;
@@ -20,6 +24,7 @@ export function createInitialPassportData(): PassportData {
     gender: "",
     birthdate: "",
     species: "",
+    countryCode: "",
     placeOfOrigin: "",
     passportNo: "",
     companionId: "",
@@ -45,6 +50,15 @@ export function normalizePassportData(raw: unknown): PassportData {
   }
 
   const record = raw as Record<string, unknown>;
+  const companionId =
+    readString(record.companionId ?? record.kingdomId) || initial.companionId;
+  const countryCode =
+    readString(record.countryCode ?? record.country_code) ||
+    parseCountryCodeFromCompanionId(companionId);
+  const placeOfOrigin =
+    readString(record.placeOfOrigin ?? record.favoritePlace) ||
+    getCountryByCode(countryCode)?.name ||
+    "";
 
   return {
     ownerEmail: readString(record.ownerEmail ?? record.owner_email),
@@ -59,10 +73,10 @@ export function normalizePassportData(raw: unknown): PassportData {
     gender: readString(record.gender),
     birthdate: readString(record.birthdate ?? record.birthday),
     species: readString(record.species),
-    placeOfOrigin: readString(record.placeOfOrigin ?? record.favoritePlace),
+    countryCode,
+    placeOfOrigin,
     passportNo: readString(record.passportNo) || initial.passportNo,
-    companionId:
-      readString(record.companionId ?? record.kingdomId) || initial.companionId,
+    companionId,
   };
 }
 

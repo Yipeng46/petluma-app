@@ -1,4 +1,9 @@
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import {
+  generateNextCompanionId,
+  normalizeCountryCode,
+} from "@/lib/companion-id";
+import { isValidCountryCode } from "@/lib/countries";
 
 export const REGISTRY_STORAGE_KEY = "petluma_registry";
 
@@ -37,6 +42,7 @@ export type CreateRegistryInput = {
   breed: string;
   gender: string;
   dateOfBirth: string;
+  countryCode: string;
   placeOfOrigin: string;
 };
 
@@ -80,16 +86,6 @@ function normalizeDate(date: string) {
 
 function parsePassportSequence(passportNo: string, year: number) {
   const match = passportNo.match(new RegExp(`^PLM-${year}-(\\d{6})$`));
-
-  if (!match) {
-    return null;
-  }
-
-  return Number.parseInt(match[1], 10);
-}
-
-function parseCompanionSequence(companionId: string, year: number) {
-  const match = companionId.match(new RegExp(`^PK-${year}-AU-(\\d{6})$`));
 
   if (!match) {
     return null;
@@ -182,14 +178,22 @@ export function generateNextPassportNumber(
   return `PLM-${year}-${String(next).padStart(6, "0")}`;
 }
 
-function generateNextCompanionId(registry: RegistryState, year = currentYear()) {
-  const sequences = registry.records
-    .map((record) => parseCompanionSequence(record.companionId, year))
-    .filter((value): value is number => value !== null);
+function generateNextCompanionIdForRegistry(
+  registry: RegistryState,
+  countryCode: string,
+  year = currentYear(),
+) {
+  const normalizedCountryCode = normalizeCountryCode(countryCode);
 
-  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
+  if (!isValidCountryCode(normalizedCountryCode)) {
+    throw new Error(`Invalid country code: ${countryCode}`);
+  }
 
-  return `PK-${year}-AU-${String(next).padStart(6, "0")}`;
+  return generateNextCompanionId(
+    registry.records.map((record) => record.companionId),
+    normalizedCountryCode,
+    year,
+  );
 }
 
 export function createRegistryRecord(
@@ -217,7 +221,7 @@ export function createRegistryRecord(
 
   const record: RegistryRecord = {
     passportNo: generateNextPassportNumber(registry),
-    companionId: generateNextCompanionId(registry),
+    companionId: generateNextCompanionIdForRegistry(registry, input.countryCode),
     petName: input.petName.trim(),
     species: input.species.trim(),
     breed: input.breed.trim(),
@@ -396,30 +400,32 @@ export async function generateNextPassportNumberCloud() {
   return `PLM-${year}-${String(next).padStart(6, "0")}`;
 }
 
-async function generateNextCompanionIdCloud() {
+async function generateNextCompanionIdCloud(countryCode: string) {
   const supabase = getSupabaseClient();
 
   if (!supabase) {
     throw new Error("Supabase client is not configured.");
   }
 
+  const normalizedCountryCode = normalizeCountryCode(countryCode);
+
+  if (!isValidCountryCode(normalizedCountryCode)) {
+    throw new Error(`Invalid country code: ${countryCode}`);
+  }
+
   const year = currentYear();
   const { data, error } = await supabase
     .from(PETLUMA_PASSPORTS_TABLE)
     .select("companion_id")
-    .ilike("companion_id", `PK-${year}-AU-%`);
+    .ilike("companion_id", `PK-${year}-%`);
 
   if (error) {
     throw error;
   }
 
-  const sequences = (data ?? [])
-    .map((row) => parseCompanionSequence(row.companion_id, year))
-    .filter((value): value is number => value !== null);
+  const companionIds = (data ?? []).map((row) => row.companion_id as string);
 
-  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
-
-  return `PK-${year}-AU-${String(next).padStart(6, "0")}`;
+  return generateNextCompanionId(companionIds, normalizedCountryCode, year);
 }
 
 export async function findExistingPassportCloud(
@@ -525,7 +531,7 @@ export async function createRegistryRecordCloud(
   }
 
   const passportNo = await generateNextPassportNumberCloud();
-  const companionId = await generateNextCompanionIdCloud();
+  const companionId = await generateNextCompanionIdCloud(input.countryCode);
   const now = new Date().toISOString();
 
   const insertPayload = toCloudRegistryPayload(

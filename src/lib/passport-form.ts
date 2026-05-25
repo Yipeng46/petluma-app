@@ -1,3 +1,5 @@
+import { isValidCountryCode } from "@/lib/countries";
+
 export const PASSPORT_SPECIES_OPTIONS = [
   "Dog",
   "Cat",
@@ -5,7 +7,6 @@ export const PASSPORT_SPECIES_OPTIONS = [
   "Rabbit",
   "Other",
 ] as const;
-
 export const PASSPORT_GENDER_OPTIONS = [
   "Female",
   "Male",
@@ -58,11 +59,10 @@ export function validatePassportUserInput(input: {
   breed: string;
   gender: string;
   birthdate: string;
-  placeOfOrigin: string;
+  countryCode: string;
 }) {
   const name = input.name.trim();
   const breed = input.breed.trim();
-  const placeOfOrigin = input.placeOfOrigin.trim();
   const birthdate = input.birthdate.trim();
 
   if (!name) {
@@ -94,8 +94,8 @@ export function validatePassportUserInput(input: {
     return "Please enter a valid date of birth.";
   }
 
-  if (placeOfOrigin.length > PASSPORT_FIELD_LIMITS.placeOfOrigin) {
-    return `Place of origin must be ${PASSPORT_FIELD_LIMITS.placeOfOrigin} characters or fewer.`;
+  if (!isValidCountryCode(input.countryCode)) {
+    return "Please select a country.";
   }
 
   return null;

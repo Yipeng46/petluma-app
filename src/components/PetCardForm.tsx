@@ -1,4 +1,5 @@
 import type { PassportData } from "@/lib/passport-data";
+import { COUNTRIES, formatCountryOption } from "@/lib/countries";
 import {
   PASSPORT_FIELD_LIMITS,
   PASSPORT_GENDER_OPTIONS,
@@ -14,6 +15,7 @@ type PetCardFormProps = {
     value: PassportData[K],
   ) => void;
   onPhotoChange: (file: File | null) => void;
+  onCountryChange: (countryCode: string) => void;
 };
 
 export function PetCardForm({
@@ -21,6 +23,7 @@ export function PetCardForm({
   photoInputKey,
   onFieldChange,
   onPhotoChange,
+  onCountryChange,
 }: PetCardFormProps) {
   return (
     <section className="relative overflow-hidden rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/86 p-5 shadow-[0_22px_60px_rgba(17,24,39,0.08)] backdrop-blur sm:p-8">
@@ -112,13 +115,23 @@ export function PetCardForm({
           />
         </label>
 
-        <TextInput
-          label="Place of Origin"
-          value={passportData.placeOfOrigin}
-          placeholder="The pine trail after rain"
-          maxLength={PASSPORT_FIELD_LIMITS.placeOfOrigin}
-          onChange={(value) => onFieldChange("placeOfOrigin", value)}
-        />
+        <label className="block">
+          <span className="mb-2 block text-sm font-semibold text-[#111827]">
+            Country
+          </span>
+          <select
+            value={passportData.countryCode}
+            onChange={(event) => onCountryChange(event.target.value)}
+            className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
+          >
+            <option value="">Select country</option>
+            {COUNTRIES.map((country) => (
+              <option key={country.code} value={country.code}>
+                {formatCountryOption(country)}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
     </section>
   );

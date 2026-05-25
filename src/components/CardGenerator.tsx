@@ -17,6 +17,7 @@ import {
   PASSPORT_PHOTO_MAX_BYTES,
   validatePassportUserInput,
 } from "@/lib/passport-form";
+import { getCountryByCode } from "@/lib/countries";
 import { createRegistryRecordWithFallback } from "@/lib/registry";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
@@ -74,6 +75,25 @@ export function CardGenerator() {
     setPhotoInputKey((current) => current + 1);
   }
 
+  function handleCountryChange(countryCode: string) {
+    const country = getCountryByCode(countryCode);
+
+    if (!country) {
+      setPassportData((current) => ({
+        ...current,
+        countryCode: "",
+        placeOfOrigin: "",
+      }));
+      return;
+    }
+
+    setPassportData((current) => ({
+      ...current,
+      countryCode: country.code,
+      placeOfOrigin: country.name,
+    }));
+  }
+
   async function handlePreviewFinalCard() {
     if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
       alert("Please enter a valid owner email before generating a passport.");
@@ -95,6 +115,7 @@ export function CardGenerator() {
       breed: passportData.breed,
       gender: passportData.gender,
       dateOfBirth: passportData.birthdate,
+      countryCode: passportData.countryCode,
       placeOfOrigin: passportData.placeOfOrigin,
       photoUrl: passportData.photo,
     });
@@ -154,6 +175,7 @@ export function CardGenerator() {
             photoInputKey={photoInputKey}
             onFieldChange={updateField}
             onPhotoChange={handlePhotoChange}
+            onCountryChange={handleCountryChange}
           />
 
           <button

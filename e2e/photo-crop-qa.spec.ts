@@ -21,7 +21,7 @@ async function fillMinimalPassportForm(page: Page) {
   await page.getByLabel("Breed").fill("Golden Retriever");
   await page.getByLabel("Gender").selectOption("Female");
   await page.locator('input[type="date"]').fill("2020-06-15");
-  await page.getByLabel("Place of Origin").fill("Pine Trail");
+  await page.getByLabel("Country").selectOption("AU");
 }
 
 test.describe("Pet photo crop", () => {

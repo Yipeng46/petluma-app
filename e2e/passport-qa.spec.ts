@@ -46,7 +46,7 @@ async function fillPassportForm(page: Page, payload: Record<string, unknown>) {
     await page.locator('input[type="date"]').fill(birthdate);
   }
 
-  await page.getByLabel("Place of Origin").fill(read("placeOfOrigin"));
+  await page.getByLabel("Country").selectOption(read("countryCode") || "AU");
 }
 
 async function runCase(page: Page, testCase: QaTestCase) {
