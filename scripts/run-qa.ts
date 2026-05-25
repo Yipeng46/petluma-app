@@ -3,6 +3,9 @@ import { mkdirSync } from "node:fs";
 
 mkdirSync("qa-screenshots", { recursive: true });
 
+process.env.NEXT_PUBLIC_SUPABASE_URL = "http://127.0.0.1:54321";
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "qa-test-anon-key";
+
 console.log("[qa] Running production build...");
 execSync("npm run build", { stdio: "inherit" });
 

@@ -1,6 +1,6 @@
 import { mkdirSync } from "node:fs";
 import path from "node:path";
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import { reportFailedCase } from "../scripts/qa-checks";
 import {
   QA_INVALID_PASSPORT_NO,
@@ -12,6 +12,25 @@ import {
 const SCREENSHOT_DIR = path.join(process.cwd(), "qa-screenshots");
 
 mkdirSync(SCREENSHOT_DIR, { recursive: true });
+
+async function mockCloudNotConfigured(page: Page) {
+  await page.route("**/rest/v1/petluma_passports**", async (route) => {
+    if (route.request().method() === "GET") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: "null",
+      });
+      return;
+    }
+
+    await route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({ message: "Cloud unavailable in QA" }),
+    });
+  });
+}
 
 async function injectRegistry(page: import("@playwright/test").Page) {
   await page.addInitScript(
@@ -32,6 +51,7 @@ function checkVerifyOverflow(page: import("@playwright/test").Page) {
 
 test("verify valid passport — desktop", async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
+  await mockCloudNotConfigured(page);
   await injectRegistry(page);
   await page.goto(`/verify/${QA_VALID_PASSPORT_NO}`, {
     waitUntil: "networkidle",
@@ -57,6 +77,7 @@ test("verify valid passport — desktop", async ({ page }) => {
 
 test("verify invalid passport — desktop", async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
+  await mockCloudNotConfigured(page);
   await page.goto(`/verify/${QA_INVALID_PASSPORT_NO}`, {
     waitUntil: "networkidle",
   });
@@ -81,6 +102,7 @@ test("verify invalid passport — desktop", async ({ page }) => {
 
 test("verify valid passport — mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  await mockCloudNotConfigured(page);
   await injectRegistry(page);
   await page.goto(`/verify/${QA_VALID_PASSPORT_NO}`, {
     waitUntil: "networkidle",

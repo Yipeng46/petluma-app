@@ -29,6 +29,28 @@ export const QA_SAMPLE_REGISTRY_RECORD = {
 export const QA_VALID_PASSPORT_NO = QA_SAMPLE_REGISTRY_RECORD.passportNo;
 export const QA_INVALID_PASSPORT_NO = "PLM-2099-999999";
 
+export function toCloudPassportRow(
+  record: typeof QA_SAMPLE_REGISTRY_RECORD,
+  id = "00000000-0000-0000-0000-000000000001",
+) {
+  return {
+    id,
+    passport_no: record.passportNo,
+    companion_id: record.companionId,
+    owner_email: record.ownerEmail,
+    pet_name: record.petName,
+    species: record.species,
+    breed: record.breed,
+    gender: record.gender,
+    date_of_birth: record.dateOfBirth,
+    place_of_origin: record.placeOfOrigin,
+    photo_url: null,
+    status: record.status,
+    created_at: record.createdAt,
+    updated_at: record.updatedAt,
+  };
+}
+
 export type QaViewportProfile = "desktop" | "tablet" | "mobile";
 
 export type QaInjectionMethod = "form" | "storage";

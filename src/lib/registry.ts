@@ -1,3 +1,5 @@
+import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+
 export const REGISTRY_STORAGE_KEY = "petluma_registry";
 
 export type RegistryRecordStatus = "active";
@@ -35,6 +37,10 @@ export type CreateRegistryInput = {
   gender: string;
   dateOfBirth: string;
   placeOfOrigin: string;
+};
+
+export type CreateRegistryCloudInput = CreateRegistryInput & {
+  photoUrl?: string | null;
 };
 
 export type CreateRegistryResult = {
@@ -222,4 +228,328 @@ export function createRegistryRecord(
     record,
     isDuplicate: false,
   };
+}
+
+export const PETLUMA_PASSPORTS_TABLE = "petluma_passports";
+
+const CLOUD_PHOTO_URL_MAX = 120_000;
+const CLOUD_REQUEST_TIMEOUT_MS = 4_000;
+
+async function withCloudTimeout<T>(operation: PromiseLike<T>) {
+  return Promise.race([
+    Promise.resolve(operation),
+    new Promise<T>((_, reject) => {
+      setTimeout(() => {
+        reject(new Error("Cloud registry request timed out."));
+      }, CLOUD_REQUEST_TIMEOUT_MS);
+    }),
+  ]);
+}
+
+function isNotFoundError(error: { code?: string; message?: string }) {
+  return error.code === "PGRST116" || /0 rows/i.test(error.message ?? "");
+}
+
+export type CloudPassportRow = {
+  id: string;
+  passport_no: string;
+  companion_id: string;
+  owner_email: string;
+  pet_name: string;
+  species: string | null;
+  breed: string | null;
+  gender: string | null;
+  date_of_birth: string | null;
+  place_of_origin: string | null;
+  photo_url: string | null;
+  status: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+function sanitizeCloudPhotoUrl(photoUrl?: string | null) {
+  if (!photoUrl || photoUrl.length > CLOUD_PHOTO_URL_MAX) {
+    return null;
+  }
+
+  return photoUrl;
+}
+
+export function cloudRowToRegistryRecord(row: CloudPassportRow): RegistryRecord {
+  return {
+    passportNo: row.passport_no,
+    companionId: row.companion_id,
+    petName: row.pet_name,
+    species: row.species ?? "",
+    breed: row.breed ?? "",
+    gender: row.gender ?? "",
+    dateOfBirth: row.date_of_birth ?? "",
+    placeOfOrigin: row.place_of_origin ?? "",
+    ownerEmail: row.owner_email,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    status: row.status === "active" ? "active" : "active",
+  };
+}
+
+function upsertLocalRegistryRecord(record: RegistryRecord) {
+  const registry = getRegistry();
+  const index = registry.records.findIndex(
+    (entry) =>
+      normalizePassportNo(entry.passportNo) ===
+      normalizePassportNo(record.passportNo),
+  );
+
+  if (index >= 0) {
+    registry.records[index] = record;
+  } else {
+    registry.records.push(record);
+  }
+
+  saveRegistry(registry);
+}
+
+export async function generateNextPassportNumberCloud() {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    throw new Error("Supabase client is not configured.");
+  }
+
+  const year = currentYear();
+  const { data, error } = await supabase
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .select("passport_no")
+    .ilike("passport_no", `PLM-${year}-%`);
+
+  if (error) {
+    throw error;
+  }
+
+  const sequences = (data ?? [])
+    .map((row) => parsePassportSequence(row.passport_no, year))
+    .filter((value): value is number => value !== null);
+
+  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
+
+  return `PLM-${year}-${String(next).padStart(6, "0")}`;
+}
+
+async function generateNextCompanionIdCloud() {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    throw new Error("Supabase client is not configured.");
+  }
+
+  const year = currentYear();
+  const { data, error } = await supabase
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .select("companion_id")
+    .ilike("companion_id", `PK-${year}-AU-%`);
+
+  if (error) {
+    throw error;
+  }
+
+  const sequences = (data ?? [])
+    .map((row) => parseCompanionSequence(row.companion_id, year))
+    .filter((value): value is number => value !== null);
+
+  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
+
+  return `PK-${year}-AU-${String(next).padStart(6, "0")}`;
+}
+
+export async function findExistingPassportCloud(
+  ownerEmail: string,
+  petName: string,
+  dateOfBirth: string,
+): Promise<RegistryRecord | null> {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    throw new Error("Supabase client is not configured.");
+  }
+
+  const response = await withCloudTimeout(
+    supabase
+      .from(PETLUMA_PASSPORTS_TABLE)
+      .select("*")
+      .eq("owner_email", normalizeEmail(ownerEmail))
+      .eq("pet_name", petName.trim())
+      .eq("date_of_birth", dateOfBirth.trim())
+      .maybeSingle<CloudPassportRow>(),
+  );
+  const { data, error } = response;
+
+  if (error) {
+    if (isNotFoundError(error)) {
+      return null;
+    }
+
+    throw error;
+  }
+
+  return data ? cloudRowToRegistryRecord(data) : null;
+}
+
+export async function findPassportByNumberCloud(
+  passportNo: string,
+): Promise<RegistryRecord | null> {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    throw new Error("Supabase client is not configured.");
+  }
+
+  const normalized = normalizePassportNo(passportNo);
+
+  if (!normalized) {
+    return null;
+  }
+
+  const response = await withCloudTimeout(
+    supabase
+      .from(PETLUMA_PASSPORTS_TABLE)
+      .select("*")
+      .eq("passport_no", normalized)
+      .maybeSingle<CloudPassportRow>(),
+  );
+  const { data, error } = response;
+
+  if (error) {
+    if (isNotFoundError(error)) {
+      return null;
+    }
+
+    throw error;
+  }
+
+  return data ? cloudRowToRegistryRecord(data) : null;
+}
+
+export async function createRegistryRecordCloud(
+  input: CreateRegistryCloudInput,
+): Promise<CreateRegistryResult> {
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    throw new Error("Supabase client is not configured.");
+  }
+
+  const existing = await findExistingPassportCloud(
+    input.ownerEmail,
+    input.petName,
+    input.dateOfBirth,
+  );
+
+  if (existing) {
+    const now = new Date().toISOString();
+
+    await supabase
+      .from(PETLUMA_PASSPORTS_TABLE)
+      .update({ updated_at: now })
+      .eq("passport_no", existing.passportNo);
+
+    existing.updatedAt = now;
+    upsertLocalRegistryRecord(existing);
+
+    return {
+      record: existing,
+      isDuplicate: true,
+      message: "This companion already has a PetLuma Passport.",
+    };
+  }
+
+  const passportNo = await generateNextPassportNumberCloud();
+  const companionId = await generateNextCompanionIdCloud();
+  const now = new Date().toISOString();
+
+  const insertPayload = {
+    passport_no: passportNo,
+    companion_id: companionId,
+    owner_email: input.ownerEmail.trim(),
+    pet_name: input.petName.trim(),
+    species: input.species.trim(),
+    breed: input.breed.trim(),
+    gender: input.gender.trim(),
+    date_of_birth: input.dateOfBirth.trim(),
+    place_of_origin: input.placeOfOrigin.trim(),
+    photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
+    status: "active",
+    updated_at: now,
+  };
+
+  const { data, error } = await supabase
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .insert(insertPayload)
+    .select("*")
+    .single<CloudPassportRow>();
+
+  if (error) {
+    if (error.code === "23505") {
+      const conflict = await findExistingPassportCloud(
+        input.ownerEmail,
+        input.petName,
+        input.dateOfBirth,
+      );
+
+      if (conflict) {
+        upsertLocalRegistryRecord(conflict);
+        return {
+          record: conflict,
+          isDuplicate: true,
+          message: "This companion already has a PetLuma Passport.",
+        };
+      }
+    }
+
+    throw error;
+  }
+
+  if (!data) {
+    throw new Error("Cloud registry insert returned no record.");
+  }
+
+  const record = cloudRowToRegistryRecord(data);
+  upsertLocalRegistryRecord(record);
+
+  return {
+    record,
+    isDuplicate: false,
+  };
+}
+
+export async function findPassportByNumberWithFallback(
+  passportNo: string,
+): Promise<RegistryRecord | null> {
+  if (isSupabaseConfigured()) {
+    try {
+      const cloudRecord = await findPassportByNumberCloud(passportNo);
+
+      if (cloudRecord) {
+        upsertLocalRegistryRecord(cloudRecord);
+        return cloudRecord;
+      }
+    } catch (error) {
+      console.warn("[PetLuma] Cloud passport lookup failed, using local fallback.", error);
+    }
+  }
+
+  return findPassportByNumber(passportNo);
+}
+
+export async function createRegistryRecordWithFallback(
+  input: CreateRegistryCloudInput,
+): Promise<CreateRegistryResult> {
+  if (isSupabaseConfigured()) {
+    try {
+      return await createRegistryRecordCloud(input);
+    } catch (error) {
+      console.warn("[PetLuma] Cloud registry create failed, using local fallback.", error);
+    }
+  }
+
+  return createRegistryRecord(input);
 }

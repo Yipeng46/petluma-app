@@ -17,7 +17,7 @@ import {
   PASSPORT_PHOTO_MAX_BYTES,
   validatePassportUserInput,
 } from "@/lib/passport-form";
-import { createRegistryRecord } from "@/lib/registry";
+import { createRegistryRecordWithFallback } from "@/lib/registry";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 
@@ -59,7 +59,7 @@ export function CardGenerator() {
     reader.readAsDataURL(file);
   }
 
-  function handlePreviewFinalCard() {
+  async function handlePreviewFinalCard() {
     if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
       alert("Please enter a valid owner email before generating a passport.");
       return;
@@ -72,7 +72,7 @@ export function CardGenerator() {
       return;
     }
 
-    const { record, isDuplicate, message } = createRegistryRecord({
+    const { record, isDuplicate, message } = await createRegistryRecordWithFallback({
       ownerEmail: passportData.ownerEmail,
       petName: passportData.name,
       species: passportData.species,
@@ -80,6 +80,7 @@ export function CardGenerator() {
       gender: passportData.gender,
       dateOfBirth: passportData.birthdate,
       placeOfOrigin: passportData.placeOfOrigin,
+      photoUrl: passportData.photo,
     });
 
     const card: StoredCompanionCard = {

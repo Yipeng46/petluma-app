@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { isValidEmail } from "@/lib/pet-identity";
-import { savePet, type SupabaseInsertError } from "@/lib/supabase";
+import { savePet, type SupabaseInsertError } from "@/lib/supabase-server";
 
 export const runtime = "nodejs";
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  findPassportByNumber,
+  findPassportByNumberWithFallback,
   type RegistryRecord,
 } from "@/lib/registry";
 
@@ -136,7 +136,17 @@ export function VerifyExperience() {
   );
 
   useEffect(() => {
-    setRecord(findPassportByNumber(passportNo));
+    let active = true;
+
+    void findPassportByNumberWithFallback(passportNo).then((result) => {
+      if (active) {
+        setRecord(result);
+      }
+    });
+
+    return () => {
+      active = false;
+    };
   }, [passportNo]);
 
   if (record === undefined) {
