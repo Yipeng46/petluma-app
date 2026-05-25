@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useState } from "react";
 import { getPassportDisplay } from "@/lib/passport-display";
 import type { PassportData } from "@/lib/passport-data";
 import { resolveImageDataUrl } from "@/lib/resolve-image-data-url";
+import { wrapSvgText } from "@/lib/svg-text-wrap";
 
 const SVG_WIDTH = 1200;
 const SVG_HEIGHT = 620;
@@ -16,8 +17,12 @@ const IDENTITY_X = COVER_X + COVER_WIDTH;
 const IDENTITY_Y = FRAME_PAD;
 const IDENTITY_WIDTH = SVG_WIDTH - FRAME_PAD - IDENTITY_X;
 const IDENTITY_HEIGHT = COVER_HEIGHT;
+const FIELD_COLUMN_GAP = 24;
+const FIELD_COLUMN_WIDTH = 240;
 
 const KINGDOM_EMBLEM_SRC = "/petluma-kingdom-gate-emblem.png";
+const VALUE_FONT_FAMILY = "Cormorant Garamond, Georgia, serif";
+const LABEL_FONT_FAMILY = "Inter, Arial, sans-serif";
 
 type PassportSVGProps = {
   passportData: PassportData;
@@ -31,12 +36,29 @@ type FieldProps = {
   value: string;
   large?: boolean;
   official?: boolean;
+  wrapValue?: boolean;
 };
 
-function Field({ x, y, width, label, value, large = false, official = false }: FieldProps) {
+function Field({
+  x,
+  y,
+  width,
+  label,
+  value,
+  large = false,
+  official = false,
+  wrapValue = false,
+}: FieldProps) {
   const labelSize = official ? 8 : 8.5;
   const valueSize = large ? 34 : official ? 13 : 14;
   const valueY = y + (large ? 38 : 22);
+  const displayValue = large ? value : value.toUpperCase();
+  const valueLines = wrapValue
+    ? wrapSvgText(displayValue, width, valueSize, VALUE_FONT_FAMILY, large ? 700 : 600)
+    : [displayValue];
+  const lineHeight = valueSize * 1.38;
+  const valueBlockHeight = valueLines.length * lineHeight;
+  const underlineY = valueY + valueBlockHeight - lineHeight + 10;
 
   return (
     <g>
@@ -44,7 +66,7 @@ function Field({ x, y, width, label, value, large = false, official = false }: F
         x={x}
         y={y}
         fill="rgba(43, 36, 32, 0.48)"
-        fontFamily="Inter, Arial, sans-serif"
+        fontFamily={LABEL_FONT_FAMILY}
         fontSize={labelSize}
         fontWeight={600}
         letterSpacing="2.2"
@@ -55,19 +77,23 @@ function Field({ x, y, width, label, value, large = false, official = false }: F
         x={x}
         y={valueY}
         fill="rgba(43, 36, 32, 0.93)"
-        fontFamily="Cormorant Garamond, Georgia, serif"
+        fontFamily={VALUE_FONT_FAMILY}
         fontSize={valueSize}
         fontWeight={large ? 700 : 600}
         letterSpacing={large ? 0.5 : 1}
       >
-        {large ? value : value.toUpperCase()}
+        {valueLines.map((line, index) => (
+          <tspan key={`${label}-${index}`} x={x} dy={index === 0 ? 0 : lineHeight}>
+            {line}
+          </tspan>
+        ))}
       </text>
       {!large ? (
         <line
           x1={x}
-          y1={valueY + 8}
+          y1={underlineY}
           x2={x + width}
-          y2={valueY + 8}
+          y2={underlineY}
           stroke="rgba(43, 36, 32, 0.1)"
           strokeWidth={0.75}
         />
@@ -111,7 +137,11 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
     const photoW = 150;
     const photoH = 194;
     const fieldsX = photoX + photoW + 34;
-    const fieldsW = IDENTITY_X + IDENTITY_WIDTH - fieldsX - 36;
+    const fieldLeftX = fieldsX;
+    const fieldRightX = fieldsX + FIELD_COLUMN_WIDTH + FIELD_COLUMN_GAP;
+    const fieldLeftWidth = FIELD_COLUMN_WIDTH;
+    const fieldRightWidth = FIELD_COLUMN_WIDTH;
+    const fieldsW = fieldLeftWidth + FIELD_COLUMN_GAP + fieldRightWidth;
 
     return (
       <svg
@@ -396,78 +426,88 @@ export const PassportSVG = forwardRef<SVGSVGElement, PassportSVGProps>(
             large
           />
           <Field
-            x={fieldsX}
+            x={fieldLeftX}
             y={IDENTITY_Y + 168}
-            width={fieldsW / 2 - 8}
+            width={fieldLeftWidth}
             label="Species"
             value={display.species}
+            wrapValue
           />
           <Field
-            x={fieldsX + fieldsW / 2 + 8}
+            x={fieldRightX}
             y={IDENTITY_Y + 168}
-            width={fieldsW / 2 - 8}
+            width={fieldRightWidth}
             label="Breed"
             value={display.breed}
+            wrapValue
           />
           <Field
-            x={fieldsX}
+            x={fieldLeftX}
             y={IDENTITY_Y + 226}
-            width={fieldsW / 2 - 8}
+            width={fieldLeftWidth}
             label="Gender"
             value={display.gender}
+            wrapValue
           />
           <Field
-            x={fieldsX + fieldsW / 2 + 8}
+            x={fieldRightX}
             y={IDENTITY_Y + 226}
-            width={fieldsW / 2 - 8}
+            width={fieldRightWidth}
             label="Date of Birth"
             value={display.birthdate}
+            wrapValue
           />
           <Field
-            x={fieldsX}
+            x={fieldLeftX}
             y={IDENTITY_Y + 284}
-            width={fieldsW / 2 - 8}
+            width={fieldLeftWidth}
             label="Place of Origin"
             value={display.placeOfOrigin}
+            wrapValue
           />
           <Field
-            x={fieldsX + fieldsW / 2 + 8}
+            x={fieldRightX}
             y={IDENTITY_Y + 284}
-            width={fieldsW / 2 - 8}
+            width={fieldRightWidth}
             label="Passport No."
             value={display.passportNo}
+            wrapValue
           />
           <Field
-            x={fieldsX}
+            x={fieldLeftX}
             y={IDENTITY_Y + 352}
-            width={fieldsW / 2 - 8}
+            width={fieldLeftWidth}
             label="Registry"
             value={display.registry}
             official
+            wrapValue
           />
           <Field
-            x={fieldsX + fieldsW / 2 + 8}
+            x={fieldRightX}
             y={IDENTITY_Y + 352}
-            width={fieldsW / 2 - 8}
+            width={fieldRightWidth}
             label="Classification"
             value={display.classification}
             official
+            wrapValue
           />
           <Field
-            x={fieldsX}
-            y={IDENTITY_Y + 410}
-            width={fieldsW / 2 - 8}
+            x={fieldLeftX}
+            y={IDENTITY_Y + 422}
+            width={fieldLeftWidth}
             label="Issued By"
             value={display.issuedBy}
             official
+            wrapValue
           />
           <Field
-            x={fieldsX + fieldsW / 2 + 8}
-            y={IDENTITY_Y + 410}
-            width={fieldsW / 2 - 8}
+            x={fieldRightX}
+            y={IDENTITY_Y + 422}
+            width={fieldRightWidth}
             label="Registered"
             value={display.registered}
             official
+            wrapValue
           />
 
           <line
