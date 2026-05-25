@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "qa": "tsx scripts/run-qa.ts",
+    "qa:test": "playwright test"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
@@ -15,6 +17,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@eslint/eslintrc": "latest",
     "@tailwindcss/postcss": "latest",
     "@types/node": "latest",
@@ -23,6 +26,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "tailwindcss": "latest",
+    "tsx": "^4.19.4",
     "typescript": "latest"
   }
 }
