@@ -1,3 +1,4 @@
+import { PassportPreviewDisclaimer } from "@/components/PassportPreviewDisclaimer";
 import { getPassportDisplay } from "@/lib/passport-display";
 import type { PassportData } from "@/lib/passport-data";
 
@@ -154,6 +155,8 @@ export function PetCardPreview({ passportData }: PetCardPreviewProps) {
           <p className="passport-identity-mrz__line uppercase">{display.mrz.line3}</p>
         </div>
       </article>
+
+      <PassportPreviewDisclaimer />
     </section>
   );
 }

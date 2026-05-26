@@ -10,7 +10,10 @@ export function HeroSection() {
           <h1 className="font-display text-[2rem] font-medium leading-[1.15] tracking-tight text-kingdom-ink sm:text-4xl lg:text-[2.85rem]">
             Every companion deserves to be remembered.
           </h1>
-          <p className="mt-6 font-sans text-base leading-relaxed text-kingdom-ink-muted md:text-lg">
+          <p className="mt-4 font-sans text-sm leading-relaxed text-kingdom-ink-muted/90 md:text-base">
+            A refined identity and memory archive for beloved companions.
+          </p>
+          <p className="mt-5 font-sans text-base leading-relaxed text-kingdom-ink-muted md:text-lg">
             Register your companion with an official Companion ID and a permanent place inside
             the Kingdom Archive.
           </p>

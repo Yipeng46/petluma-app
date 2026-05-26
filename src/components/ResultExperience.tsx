@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { PassportPreviewDisclaimer } from "@/components/PassportPreviewDisclaimer";
 import { PassportSVG } from "@/components/PassportSVG";
 import { useStoredCompanionCard } from "@/hooks/useStoredCompanionCard";
 import { exportPassportSvgToPng } from "@/lib/passport-svg-export";
@@ -111,6 +112,7 @@ export function ResultExperience() {
             </div>
           ) : null}
           <PassportSVG ref={svgRef} passportData={passportData} />
+          <PassportPreviewDisclaimer />
         </div>
 
         <div className="flex w-full max-w-2xl flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">

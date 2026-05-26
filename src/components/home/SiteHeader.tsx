@@ -12,7 +12,7 @@ export function SiteHeader() {
             Kingdom Registry
           </span>
         </Link>
-        <nav className="flex items-center gap-6 md:gap-8" aria-label="Primary">
+        <nav className="flex items-center gap-4 md:gap-6" aria-label="Primary">
           <Link
             href="#kingdom-registry"
             className="hidden font-sans text-xs tracking-wide text-kingdom-ink-muted transition-colors duration-300 hover:text-kingdom-ink sm:inline"
@@ -24,6 +24,18 @@ export function SiteHeader() {
             className="hidden font-sans text-xs tracking-wide text-kingdom-ink-muted transition-colors duration-300 hover:text-kingdom-ink sm:inline"
           >
             Editions
+          </Link>
+          <Link
+            href="/privacy"
+            className="hidden font-sans text-xs tracking-wide text-kingdom-ink-muted transition-colors duration-300 hover:text-kingdom-ink md:inline"
+          >
+            Privacy
+          </Link>
+          <Link
+            href="/terms"
+            className="hidden font-sans text-xs tracking-wide text-kingdom-ink-muted transition-colors duration-300 hover:text-kingdom-ink md:inline"
+          >
+            Terms
           </Link>
           <Link
             href="/create"

@@ -14,7 +14,19 @@ export function SiteHeader() {
         />
       </Link>
 
-      <nav className="flex items-center gap-4 sm:gap-5">
+      <nav className="flex items-center gap-3 sm:gap-4 md:gap-5">
+        <Link
+          href="/privacy"
+          className="hidden font-[family-name:var(--font-body)] text-xs font-medium tracking-wide text-[#6E6A64] transition hover:text-[#081526] md:inline"
+        >
+          Privacy
+        </Link>
+        <Link
+          href="/terms"
+          className="hidden font-[family-name:var(--font-body)] text-xs font-medium tracking-wide text-[#6E6A64] transition hover:text-[#081526] md:inline"
+        >
+          Terms
+        </Link>
         <Link
           href="/recover"
           className="font-[family-name:var(--font-body)] text-xs font-semibold uppercase tracking-[0.12em] text-[#7d632e] transition hover:text-[#081526] sm:text-sm"

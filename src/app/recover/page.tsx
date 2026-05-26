@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { RecoverExperience } from "@/components/RecoverExperience";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "Recover PetLuma Passport",
@@ -7,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function RecoverPage() {
-  return <RecoverExperience />;
+  return (
+    <>
+      <RecoverExperience />
+      <SiteFooter />
+    </>
+  );
 }

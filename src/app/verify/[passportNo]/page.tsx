@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SiteFooter } from "@/components/SiteFooter";
 import { VerifyExperience } from "@/components/VerifyExperience";
 
 export const metadata: Metadata = {
@@ -7,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function VerifyPage() {
-  return <VerifyExperience />;
+  return (
+    <>
+      <VerifyExperience />
+      <SiteFooter />
+    </>
+  );
 }
