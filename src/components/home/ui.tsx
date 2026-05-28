@@ -5,9 +5,9 @@ type ButtonVariant = "primary" | "secondary" | "ghost";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-kingdom-forest text-kingdom-cream shadow-card hover:bg-kingdom-forest-deep hover:shadow-passport",
+    "border border-kingdom-navy/10 bg-kingdom-navy text-kingdom-cream hover:bg-kingdom-navy-deep",
   secondary:
-    "border border-kingdom-gold/40 bg-transparent text-kingdom-ink hover:border-kingdom-gold/60 hover:bg-kingdom-parchment/50",
+    "border border-kingdom-gold/35 bg-transparent text-kingdom-ink hover:border-kingdom-gold/55 hover:bg-kingdom-parchment/40",
   ghost: "text-kingdom-ink-muted hover:text-kingdom-ink",
 };
 
@@ -27,7 +27,7 @@ export function RegistryButton({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center rounded-sm px-6 py-3.5 font-sans text-sm font-medium tracking-wide transition-all duration-300 ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center px-5 py-2.5 font-sans text-[11px] font-medium uppercase tracking-[0.18em] transition-all duration-500 ${variantClasses[variant]} ${className}`}
     >
       {children}
     </Link>
@@ -40,7 +40,7 @@ type SectionEyebrowProps = {
 
 export function SectionEyebrow({ children }: SectionEyebrowProps) {
   return (
-    <p className="mb-3 font-sans text-[10px] font-medium uppercase tracking-[0.28em] text-kingdom-gold-dark">
+    <p className="mb-4 font-sans text-[10px] font-medium uppercase tracking-[0.32em] text-kingdom-gold-dark">
       {children}
     </p>
   );
@@ -55,7 +55,7 @@ type SectionTitleProps = {
 export function SectionTitle({ children, as: Tag = "h2", className = "" }: SectionTitleProps) {
   return (
     <Tag
-      className={`font-display text-3xl font-medium leading-tight tracking-tight text-kingdom-ink md:text-4xl lg:text-[2.75rem] ${className}`}
+      className={`font-display font-medium leading-[1.08] tracking-tight text-kingdom-ink ${className}`}
     >
       {children}
     </Tag>

@@ -1,25 +1,21 @@
-import { EditionsSection } from "./EditionsSection";
 import { FinalCtaSection } from "./FinalCtaSection";
 import { HeroSection } from "./HeroSection";
-import { ManifestoSection } from "./ManifestoSection";
-import { RegistrySection } from "./RegistrySection";
-import { SiteFooter } from "./SiteFooter";
+import { HomeFooter } from "./HomeFooter";
+import { RegistryStatementSection } from "./RegistryStatementSection";
 import { SiteHeader } from "./SiteHeader";
-import { WhySection } from "./WhySection";
+import { StorySection } from "./StorySection";
 
 export function HomePage() {
   return (
-    <div className="registry-home min-h-screen bg-kingdom-cream font-sans text-kingdom-ink antialiased">
+    <div className="registry-home min-h-screen font-sans text-kingdom-ink antialiased">
       <SiteHeader />
       <main>
         <HeroSection />
-        <RegistrySection />
-        <ManifestoSection />
-        <EditionsSection />
-        <WhySection />
+        <RegistryStatementSection />
+        <StorySection />
         <FinalCtaSection />
       </main>
-      <SiteFooter />
+      <HomeFooter />
     </div>
   );
 }

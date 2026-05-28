@@ -2,22 +2,17 @@ import { RegistryButton, SectionTitle } from "./ui";
 
 export function FinalCtaSection() {
   return (
-    <section className="bg-kingdom-forest px-6 py-20 md:px-10 md:py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        <SectionTitle as="h2" className="text-kingdom-cream">
-          Begin your companion&apos;s registration.
+    <section className="border-t border-kingdom-gold/10 px-6 py-24 md:px-10 md:py-32 lg:py-36">
+      <div className="mx-auto max-w-3xl text-center">
+        <SectionTitle as="h2" className="text-4xl md:text-5xl lg:text-[3rem]">
+          Join the PetLuma Kingdom.
         </SectionTitle>
-        <p className="mt-5 font-sans text-sm leading-relaxed text-kingdom-cream/75 md:text-base">
-          Issue an official Companion ID. Secure a place in the Kingdom Archive.
+        <p className="mx-auto mt-7 max-w-xl font-sans text-[15px] leading-[1.8] text-kingdom-ink-muted md:text-base">
+          Create your companion&apos;s passport and become part of a global family that
+          celebrates love, memory, and belonging.
         </p>
-        <div className="mt-10">
-          <RegistryButton
-            href="/create"
-            variant="secondary"
-            className="border-kingdom-cream/30 bg-kingdom-cream text-kingdom-forest hover:border-kingdom-cream hover:bg-kingdom-parchment"
-          >
-            Register Your Companion
-          </RegistryButton>
+        <div className="mt-10 flex justify-center">
+          <RegistryButton href="/create">Create Passport</RegistryButton>
         </div>
       </div>
     </section>
