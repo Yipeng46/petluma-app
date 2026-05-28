@@ -1,50 +1,110 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+
+const navLinks = [
+  { label: "About", href: "#story" },
+  { label: "Passport", href: "/create" },
+  { label: "Registry", href: "#registry" },
+  { label: "Memorial", href: "#registry" },
+  { label: "Journal", href: "#story" },
+] as const;
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <span className="relative block h-3.5 w-[18px]" aria-hidden>
+      <span
+        className={`absolute left-0 top-0 h-px w-full bg-kingdom-ink transition-all duration-500 ${open ? "top-[6px] rotate-45" : ""}`}
+      />
+      <span
+        className={`absolute left-0 top-[6px] h-px w-full bg-kingdom-ink transition-all duration-500 ${open ? "opacity-0" : ""}`}
+      />
+      <span
+        className={`absolute bottom-0 left-0 h-px w-full bg-kingdom-ink transition-all duration-500 ${open ? "bottom-[6px] -rotate-45" : ""}`}
+      />
+    </span>
+  );
+}
 
 export function SiteHeader() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-kingdom-gold/10 bg-kingdom-cream/88 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
-        <Link href="/" className="group flex flex-col">
-          <span className="font-display text-xl font-medium tracking-tight text-kingdom-ink transition-colors duration-500 group-hover:text-kingdom-navy">
+    <header className="sticky top-0 z-50 border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-4 md:px-10 md:py-5">
+        <Link href="/" className="group flex flex-col justify-self-start">
+          <span className="font-display text-[1.15rem] font-medium tracking-tight text-kingdom-ink transition-colors duration-500 group-hover:text-kingdom-brown md:text-xl">
             PetLuma
           </span>
-          <span className="font-sans text-[9px] uppercase tracking-[0.24em] text-kingdom-ink-muted">
+          <span className="mt-0.5 font-sans text-[8px] font-normal uppercase tracking-[0.32em] text-kingdom-ink-muted">
             Kingdom Registry
           </span>
         </Link>
-        <nav className="flex items-center gap-3 md:gap-5" aria-label="Primary">
-          <Link
-            href="#registry"
-            className="hidden font-sans text-[11px] tracking-wide text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink sm:inline"
-          >
-            The Registry
-          </Link>
-          <Link
-            href="#story"
-            className="hidden font-sans text-[11px] tracking-wide text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink sm:inline"
-          >
-            Story
-          </Link>
-          <Link
-            href="/privacy"
-            className="hidden font-sans text-[11px] tracking-wide text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink md:inline"
-          >
-            Privacy
-          </Link>
-          <Link
-            href="/terms"
-            className="hidden font-sans text-[11px] tracking-wide text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink md:inline"
-          >
-            Terms
-          </Link>
+
+        <nav
+          className="hidden items-center justify-center gap-7 lg:flex xl:gap-9"
+          aria-label="Primary"
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="font-sans text-[11px] tracking-[0.06em] text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center justify-end gap-3 md:gap-4">
           <Link
             href="/create"
-            className="border border-kingdom-navy/15 bg-kingdom-navy px-4 py-2 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream transition-all duration-500 hover:bg-kingdom-navy-deep"
+            className="hidden border border-kingdom-ink bg-kingdom-ink px-4 py-2 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream transition-colors duration-500 hover:bg-kingdom-brown sm:inline-flex"
           >
             Create Passport
           </Link>
-        </nav>
+          <button
+            type="button"
+            className="flex h-9 w-9 items-center justify-center border border-kingdom-ink/10 bg-transparent transition-colors duration-500 hover:border-kingdom-ink/20 lg:hidden"
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <MenuIcon open={menuOpen} />
+          </button>
+        </div>
       </div>
+
+      {menuOpen ? (
+        <nav
+          className="border-t border-kingdom-ink/[0.06] bg-kingdom-cream px-6 py-6 lg:hidden"
+          aria-label="Mobile"
+        >
+          <ul className="space-y-4">
+            {navLinks.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="block font-sans text-sm tracking-wide text-kingdom-ink-muted transition-colors hover:text-kingdom-ink"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li className="pt-2">
+              <Link
+                href="/create"
+                className="inline-flex border border-kingdom-ink bg-kingdom-ink px-5 py-2.5 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream"
+                onClick={() => setMenuOpen(false)}
+              >
+                Create Passport
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      ) : null}
     </header>
   );
 }

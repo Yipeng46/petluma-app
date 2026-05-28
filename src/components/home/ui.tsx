@@ -5,9 +5,9 @@ type ButtonVariant = "primary" | "secondary" | "ghost";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border border-kingdom-navy/10 bg-kingdom-navy text-kingdom-cream hover:bg-kingdom-navy-deep",
+    "border border-kingdom-ink bg-kingdom-ink text-kingdom-cream hover:bg-kingdom-brown",
   secondary:
-    "border border-kingdom-gold/35 bg-transparent text-kingdom-ink hover:border-kingdom-gold/55 hover:bg-kingdom-parchment/40",
+    "border border-kingdom-ink/20 bg-kingdom-cream text-kingdom-ink hover:border-kingdom-ink/35 hover:bg-kingdom-ivory",
   ghost: "text-kingdom-ink-muted hover:text-kingdom-ink",
 };
 

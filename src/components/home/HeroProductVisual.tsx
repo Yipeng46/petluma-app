@@ -1,58 +1,57 @@
 export function HeroProductVisual() {
   return (
-    <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
-      <div
-        className="hero-product-stage hero-product-linen relative aspect-[4/5] overflow-hidden rounded-sm border border-kingdom-gold/12 shadow-card"
-        aria-hidden
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_85%,rgba(0,0,0,0.06),transparent_70%)]" />
+    <div className="relative h-full w-full max-w-[540px] lg:max-w-none">
+      <div className="hero-editorial-stage relative aspect-[4/5] w-full overflow-hidden sm:aspect-[5/6] lg:aspect-[4/5] lg:min-h-[min(72vh,640px)]">
+        <div className="hero-editorial-linen pointer-events-none absolute -right-8 top-0 h-[55%] w-[48%] opacity-90" aria-hidden />
+        <div className="hero-editorial-botanical pointer-events-none absolute bottom-[18%] left-[6%] h-28 w-20 opacity-70" aria-hidden />
+        <div className="hero-editorial-botanical hero-editorial-botanical--alt pointer-events-none absolute right-[10%] top-[12%] h-16 w-12 opacity-50" aria-hidden />
 
-        <div className="absolute inset-0 flex items-center justify-center px-8 pb-10 pt-14">
-          <div className="relative flex h-[78%] w-[62%] max-w-[220px]">
-            <div className="hero-passport-spine absolute bottom-0 left-0 top-0 w-[14%] rounded-l-[2px]" />
-            <article className="hero-passport-cover passport-texture relative ml-[12%] flex h-full w-[88%] flex-col justify-between overflow-hidden rounded-r-[3px] p-5 md:p-6">
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(255,255,255,0.06)_0%,transparent_38%,rgba(0,0,0,0.08)_100%)]" />
+        <div className="absolute inset-0 flex items-end justify-center px-6 pb-8 pt-10 sm:px-10 sm:pb-10 md:pb-12">
+          <div className="hero-passport-stack relative w-[min(72%,280px)] sm:w-[min(68%,320px)] lg:w-[min(75%,360px)]">
+            <div className="hero-passport-shadow-back pointer-events-none absolute inset-0 translate-x-3 translate-y-4" aria-hidden />
+            <div className="hero-passport-shadow-mid pointer-events-none absolute inset-0 translate-x-1.5 translate-y-2" aria-hidden />
 
-              <header>
-                <p className="font-sans text-[8px] uppercase tracking-[0.34em] text-kingdom-gold-light/70">
-                  PetLuma Kingdom
-                </p>
-                <p className="mt-3 font-display text-[1.35rem] leading-none tracking-wide text-kingdom-cream/95">
-                  Companion
-                  <br />
-                  Passport
-                </p>
-              </header>
+            <div className="relative flex aspect-[3/4] w-full">
+              <div className="hero-passport-spine-ivory absolute bottom-0 left-0 top-0 w-[9%] rounded-l-[2px]" aria-hidden />
+              <div className="hero-passport-pages absolute bottom-[2%] left-[7%] top-[2%] w-[88%] rounded-[1px]" aria-hidden />
 
-              <div className="flex flex-col items-center py-2">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-kingdom-gold/45 bg-kingdom-navy-deep/40">
-                  <span className="hero-gold-foil font-display text-xl font-medium">PL</span>
+              <article className="hero-passport-ivory passport-texture relative ml-[6%] flex w-[91%] flex-col justify-between overflow-hidden rounded-r-[3px] p-6 sm:p-7 md:p-8">
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(148deg,rgba(255,255,255,0.55)_0%,transparent_42%,rgba(0,0,0,0.03)_100%)]" />
+
+                <header className="relative">
+                  <p className="font-sans text-[8px] uppercase tracking-[0.36em] text-kingdom-warm-gray">
+                    PetLuma Kingdom Registry
+                  </p>
+                  <p className="mt-4 font-display text-[1.65rem] leading-[1.05] tracking-tight text-kingdom-ink sm:text-[1.85rem]">
+                    Companion
+                    <br />
+                    Passport
+                  </p>
+                </header>
+
+                <div className="relative flex flex-col items-center py-4">
+                  <div className="hero-passport-emblem flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full sm:h-20 sm:w-20">
+                    <span className="hero-gold-foil font-display text-2xl font-medium sm:text-[1.65rem]">
+                      PL
+                    </span>
+                  </div>
+                  <p className="mt-4 font-sans text-[7px] uppercase tracking-[0.3em] text-kingdom-gold-dark">
+                    Registry Edition
+                  </p>
                 </div>
-                <p className="mt-3 font-sans text-[7px] uppercase tracking-[0.28em] text-kingdom-gold-light/60">
-                  Registry Edition
-                </p>
-              </div>
 
-              <footer className="border-t border-white/8 pt-4">
-                <p className="font-sans text-[7px] uppercase tracking-[0.24em] text-white/35">
-                  Commemorative Identity · No. 001
-                </p>
-              </footer>
-
-              <div
-                className="pointer-events-none absolute -right-3 bottom-[38%] h-16 w-16 rounded-full border border-kingdom-gold/25 opacity-40"
-                aria-hidden
-              />
-            </article>
+                <footer className="relative border-t border-kingdom-gold/20 pt-5">
+                  <p className="font-sans text-[7px] uppercase tracking-[0.26em] text-kingdom-warm-gray">
+                    Commemorative Identity Record
+                  </p>
+                </footer>
+              </article>
+            </div>
           </div>
         </div>
 
-        <div className="pointer-events-none absolute bottom-6 left-6 right-6 h-px bg-gradient-to-r from-transparent via-kingdom-gold/25 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-8 bottom-5 h-px bg-gradient-to-r from-transparent via-kingdom-gold/20 to-transparent" />
       </div>
-
-      <p className="mt-4 text-center font-sans text-[9px] uppercase tracking-[0.26em] text-kingdom-warm-gray">
-        Registry Collection · MMXVI
-      </p>
     </div>
   );
 }
