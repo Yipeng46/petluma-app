@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -34,18 +33,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
       <nav className="mx-auto flex w-full items-center px-8 py-5" aria-label="Site">
-        <div className="flex min-w-[260px] shrink-0 items-center">
-          <Link href="/" className="relative block h-[72px] w-[260px] shrink-0">
-            <Image
-              src="/petluma-header-logo.png"
-              alt="PetLuma"
-              fill
-              priority
-              sizes="260px"
-              className="object-contain object-left"
-            />
-          </Link>
-        </div>
+        <Link href="/" className="group flex shrink-0 flex-col justify-center">
+          <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
+            PetLuma
+          </span>
+          <span className="mt-1.5 font-sans text-[9px] font-medium uppercase tracking-[0.22em] text-[#6F6256]">
+            Kingdom Registry
+          </span>
+        </Link>
 
         <div className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex xl:gap-7">
           {navLinks.map((link) => (
