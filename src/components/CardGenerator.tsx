@@ -198,7 +198,7 @@ export function CardGenerator() {
             onClick={handlePreviewFinalCard}
             className="mt-5 w-full rounded-full border border-[#C8A97E]/35 bg-[#111827] px-7 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#FFFDF8] shadow-[0_16px_42px_rgba(17,24,39,0.18)] transition hover:-translate-y-0.5 hover:bg-[#1E293B]"
           >
-            Begin Registration
+            Issue Passport
           </button>
         </div>
 
