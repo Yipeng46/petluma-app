@@ -32,25 +32,26 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
-      <div className="mx-auto grid min-h-[88px] max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5 md:px-10">
-        <Link href="/" className="group inline-flex items-center justify-self-start">
-          <div className="relative h-[50px] w-[140px] md:h-[64px] md:w-[180px]">
-            <Image
-              src="/petluma-logo.svg"
-              alt="PetLuma"
-              fill
-              priority
-              sizes="180px"
-              className="object-contain object-left opacity-100 transition-opacity duration-300 group-hover:opacity-80"
-            />
-          </div>
+    <header className="sticky top-0 z-50 w-full border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
+      <nav
+        className="mx-auto flex min-h-[88px] max-w-[1400px] items-center justify-between gap-4 px-6 py-5 md:px-10"
+        aria-label="Site"
+      >
+        <Link
+          href="/"
+          className="group relative h-[56px] w-[180px] min-w-[180px] shrink-0 flex-shrink-0 md:h-[70px] md:w-[220px] md:min-w-[220px]"
+        >
+          <Image
+            src="/petluma-logo.svg"
+            alt="PetLuma"
+            fill
+            priority
+            sizes="220px"
+            className="object-contain object-left transition-opacity duration-300 group-hover:opacity-80"
+          />
         </Link>
 
-        <nav
-          className="hidden items-center justify-center gap-7 lg:flex xl:gap-9"
-          aria-label="Primary"
-        >
+        <div className="hidden flex-1 items-center justify-center gap-7 lg:flex xl:gap-9">
           {navLinks.map((link) => (
             <Link
               key={link.label}
@@ -60,9 +61,9 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
-        </nav>
+        </div>
 
-        <div className="flex items-center justify-end gap-3 md:gap-4">
+        <div className="flex shrink-0 flex-shrink-0 items-center justify-end gap-3 md:gap-4">
           <Link
             href="/create"
             className="hidden border border-kingdom-ink bg-kingdom-ink px-4 py-2 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream transition-colors duration-500 hover:bg-kingdom-brown sm:inline-flex"
@@ -79,7 +80,7 @@ export function SiteHeader() {
             <MenuIcon open={menuOpen} />
           </button>
         </div>
-      </div>
+      </nav>
 
       {menuOpen ? (
         <nav
