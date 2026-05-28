@@ -5,7 +5,7 @@ import { HeroProductVisual } from "@/components/home/HeroProductVisual";
 import { HomeFooter } from "@/components/home/HomeFooter";
 import { RegistryStatementSection } from "@/components/home/RegistryStatementSection";
 import { SiteHeader } from "@/components/home/SiteHeader";
-import { StorySection } from "@/components/home/StorySection";
+import { ManifestoSection } from "@/components/home/ManifestoSection";
 import { RegistryButton } from "@/components/home/ui";
 
 export default function HomePage() {
@@ -42,8 +42,8 @@ export default function HomePage() {
           </div>
         </section>
 
+        <ManifestoSection />
         <RegistryStatementSection />
-        <StorySection />
         <FinalCtaSection />
       </main>
 

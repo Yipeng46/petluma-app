@@ -3,7 +3,7 @@ import { HeroSection } from "./HeroSection";
 import { HomeFooter } from "./HomeFooter";
 import { RegistryStatementSection } from "./RegistryStatementSection";
 import { SiteHeader } from "./SiteHeader";
-import { StorySection } from "./StorySection";
+import { ManifestoSection } from "./ManifestoSection";
 
 export function HomePage() {
   return (
@@ -11,8 +11,8 @@ export function HomePage() {
       <SiteHeader />
       <main>
         <HeroSection />
+        <ManifestoSection />
         <RegistryStatementSection />
-        <StorySection />
         <FinalCtaSection />
       </main>
       <HomeFooter />
