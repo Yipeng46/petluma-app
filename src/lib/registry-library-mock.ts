@@ -8,6 +8,17 @@ export type RegistryLibraryRecord = {
   guardianNote: string;
 };
 
+export type DecorativeVolume = {
+  id: string;
+  variant: 0 | 1 | 2 | 3 | 4;
+  heightRem: number;
+  widthRem: number;
+};
+
+export type ShelfVolume =
+  | { kind: "record"; record: RegistryLibraryRecord }
+  | { kind: "decorative"; volume: DecorativeVolume };
+
 export const registryLibraryRecords: RegistryLibraryRecord[] = [
   {
     companionId: "PK-2024-AU-000142",
@@ -121,6 +132,74 @@ export const registryLibraryRecords: RegistryLibraryRecord[] = [
   },
 ];
 
+function createDecorativeVolume(index: number): DecorativeVolume {
+  const variants = [0, 1, 2, 3, 4] as const;
+  return {
+    id: `decorative-${index}`,
+    variant: variants[index % variants.length],
+    heightRem: 8.4 + (index % 7) * 0.45,
+    widthRem: 2.05 + (index % 5) * 0.14,
+  };
+}
+
+function recordSpineMetrics(index: number) {
+  return {
+    heightRem: 9.2 + (index % 4) * 0.35,
+    widthRem: 2.35 + (index % 3) * 0.12,
+    variant: (index % 5) as DecorativeVolume["variant"],
+  };
+}
+
+export function buildLibraryShelfRows(records: RegistryLibraryRecord[]): ShelfVolume[][] {
+  const rowSizes = [15, 17, 14];
+  const totalSlots = rowSizes.reduce((sum, size) => sum + size, 0);
+  const decorativeCount = totalSlots - records.length;
+
+  const decoratives: ShelfVolume[] = Array.from({ length: decorativeCount }, (_, index) => ({
+    kind: "decorative",
+    volume: createDecorativeVolume(index),
+  }));
+
+  const merged: ShelfVolume[] = [];
+  let decorativeIndex = 0;
+  let recordIndex = 0;
+  const spacing = Math.floor(totalSlots / (records.length + 1));
+
+  for (let slot = 0; slot < totalSlots; slot += 1) {
+    const shouldPlaceRecord =
+      recordIndex < records.length &&
+      (slot % spacing === spacing - 1 || decorativeIndex >= decorativeCount);
+
+    if (shouldPlaceRecord) {
+      merged.push({ kind: "record", record: records[recordIndex] });
+      recordIndex += 1;
+    } else if (decorativeIndex < decorativeCount) {
+      merged.push(decoratives[decorativeIndex]);
+      decorativeIndex += 1;
+    } else if (recordIndex < records.length) {
+      merged.push({ kind: "record", record: records[recordIndex] });
+      recordIndex += 1;
+    }
+  }
+
+  while (recordIndex < records.length) {
+    merged.push({ kind: "record", record: records[recordIndex] });
+    recordIndex += 1;
+  }
+
+  let offset = 0;
+  return rowSizes.map((size) => {
+    const row = merged.slice(offset, offset + size);
+    offset += size;
+    return row;
+  });
+}
+
+export function getRecordSpineStyle(index: number) {
+  return recordSpineMetrics(index);
+}
+
+/** @deprecated Use buildLibraryShelfRows */
 export function splitLibraryShelves(records: RegistryLibraryRecord[]) {
   const midpoint = Math.ceil(records.length / 2);
   return {
