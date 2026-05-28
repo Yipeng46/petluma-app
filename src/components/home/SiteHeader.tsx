@@ -33,36 +33,33 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
-      <nav
-        className="mx-auto flex min-h-[88px] max-w-[1400px] items-center justify-between gap-4 px-6 py-5 md:px-10"
-        aria-label="Site"
-      >
-        <Link href="/" className="group shrink-0 flex-shrink-0">
-          <div className="relative h-[48px] w-[170px] shrink-0 flex-shrink-0">
+      <nav className="mx-auto flex w-full items-center px-8 py-5" aria-label="Site">
+        <div className="flex min-w-[260px] shrink-0 items-center">
+          <Link href="/" className="relative block h-[72px] w-[260px] shrink-0">
             <Image
               src="/petluma-header-logo.png"
               alt="PetLuma"
               fill
               priority
-              sizes="170px"
-              className="object-contain object-left transition-opacity duration-300 group-hover:opacity-80"
+              sizes="260px"
+              className="object-contain object-left"
             />
-          </div>
-        </Link>
+          </Link>
+        </div>
 
-        <div className="hidden flex-1 items-center justify-center gap-7 lg:flex xl:gap-9">
+        <div className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex xl:gap-7">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="font-sans text-[11px] tracking-[0.06em] text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink"
+              className="whitespace-nowrap font-sans text-[11px] tracking-[0.06em] text-kingdom-ink-muted transition-colors duration-500 hover:text-kingdom-ink"
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        <div className="flex shrink-0 flex-shrink-0 items-center justify-end gap-3 md:gap-4">
+        <div className="flex shrink-0 items-center gap-3 md:gap-4">
           <Link
             href="/create"
             className="hidden border border-kingdom-ink bg-kingdom-ink px-4 py-2 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream transition-colors duration-500 hover:bg-kingdom-brown sm:inline-flex"
