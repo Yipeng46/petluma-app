@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
 import { HeroProductVisual } from "@/components/home/HeroProductVisual";
 import { HomeFooter } from "@/components/home/HomeFooter";
@@ -26,17 +25,11 @@ export default function HomePage() {
                 PetLuma Kingdom Registry provides official companion passports, memorial
                 archives, and lifelong identity records.
               </p>
-              <div className="mt-10 flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center md:mt-12">
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center md:mt-12">
                 <RegistryButton href="/create">Create Passport</RegistryButton>
                 <RegistryButton href="#registry" variant="secondary">
                   Learn More
                 </RegistryButton>
-                <Link
-                  href="/registry-library"
-                  className="inline-flex w-full items-center justify-center border border-kingdom-ink/12 bg-transparent px-5 py-2.5 font-sans text-[11px] font-medium uppercase tracking-[0.18em] text-kingdom-ink transition-all duration-500 hover:border-kingdom-ink/25 hover:bg-kingdom-ivory sm:w-auto"
-                >
-                  Explore The Registry Library
-                </Link>
               </div>
             </div>
 
