@@ -89,7 +89,7 @@ export default function RegistryHallPage() {
                 No companions match your search within the public archive.
               </p>
             ) : (
-              <div className="relative z-10 mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="archive-desk relative z-10 mt-12">
                 {visibleRecords.map((record) => (
                   <ArchiveCard key={record.companionId} record={record} />
                 ))}

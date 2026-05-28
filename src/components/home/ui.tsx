@@ -5,9 +5,9 @@ type ButtonVariant = "primary" | "secondary" | "ghost";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border border-kingdom-ink bg-kingdom-ink text-kingdom-cream hover:bg-kingdom-brown",
+    "border border-[#2e2820] bg-[#2e2820] text-kingdom-cream hover:border-[#3d342b] hover:bg-[#3d342b]",
   secondary:
-    "border border-kingdom-ink/20 bg-kingdom-cream text-kingdom-ink hover:border-kingdom-ink/35 hover:bg-kingdom-ivory",
+    "border border-[#2e2820]/14 bg-transparent text-kingdom-ink hover:border-[#2e2820]/26 hover:bg-[#f7f3eb]/80",
   ghost: "text-kingdom-ink-muted hover:text-kingdom-ink",
 };
 
@@ -27,7 +27,7 @@ export function RegistryButton({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center px-5 py-2.5 font-sans text-[11px] font-medium uppercase tracking-[0.18em] transition-all duration-500 ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center px-6 py-3 font-sans text-[10px] font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${variantClasses[variant]} ${className}`}
     >
       {children}
     </Link>
