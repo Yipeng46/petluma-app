@@ -4,11 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { label: "About", href: "#story" },
-  { label: "Passport", href: "/create" },
-  { label: "Registry", href: "/registry-hall" },
-  { label: "Memorial", href: "#registry" },
-  { label: "Journal", href: "#story" },
+  { label: "Story", href: "/#story" },
+  { label: "Passport", href: "/#passport" },
+  { label: "Registry Hall", href: "/registry-hall" },
 ] as const;
 
 function MenuIcon({ open }: { open: boolean }) {
