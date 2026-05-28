@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -33,13 +34,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
       <div className="mx-auto grid max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-4 md:px-10 md:py-5">
-        <Link href="/" className="group flex flex-col justify-self-start">
-          <span className="font-display text-[1.15rem] font-medium tracking-tight text-kingdom-ink transition-colors duration-500 group-hover:text-kingdom-brown md:text-xl">
-            PetLuma
-          </span>
-          <span className="mt-0.5 font-sans text-[8px] font-normal uppercase tracking-[0.32em] text-kingdom-ink-muted">
-            Kingdom Registry
-          </span>
+        <Link href="/" className="group inline-flex items-center justify-self-start">
+          <Image
+            src="/petluma-logo.svg"
+            alt="PetLuma"
+            width={960}
+            height={320}
+            priority
+            className="h-8 w-auto object-contain object-left opacity-100 transition-opacity duration-300 group-hover:opacity-80 sm:h-9 md:h-11 lg:h-[52px]"
+          />
         </Link>
 
         <nav
