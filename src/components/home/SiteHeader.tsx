@@ -33,16 +33,18 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-4 md:px-10 md:py-5">
+      <div className="mx-auto grid min-h-[88px] max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5 md:px-10">
         <Link href="/" className="group inline-flex items-center justify-self-start">
-          <Image
-            src="/petluma-logo.svg"
-            alt="PetLuma"
-            width={960}
-            height={320}
-            priority
-            className="h-8 w-auto object-contain object-left opacity-100 transition-opacity duration-300 group-hover:opacity-80 sm:h-9 md:h-11 lg:h-[52px]"
-          />
+          <div className="relative h-[50px] w-[140px] md:h-[64px] md:w-[180px]">
+            <Image
+              src="/petluma-logo.svg"
+              alt="PetLuma"
+              fill
+              priority
+              sizes="180px"
+              className="object-contain object-left opacity-100 transition-opacity duration-300 group-hover:opacity-80"
+            />
+          </div>
         </Link>
 
         <nav
