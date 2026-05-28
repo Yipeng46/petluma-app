@@ -80,7 +80,7 @@ test.describe("Pet photo crop", () => {
     await uploadPhoto(page, LANDSCAPE_PHOTO);
     await page.getByTestId("photo-crop-confirm").click();
     await fillMinimalPassportForm(page);
-    await page.getByRole("button", { name: /Generate Passport/i }).click();
+    await page.getByRole("button", { name: /Begin Registration/i }).click();
     await page.waitForURL("**/result", { timeout: 20000 });
 
     const svg = page.locator(PASSPORT_SVG_SELECTOR);
@@ -112,7 +112,7 @@ test.describe("Pet photo crop", () => {
     await uploadPhoto(page, PORTRAIT_PHOTO);
     await page.getByTestId("photo-crop-confirm").click();
     await fillMinimalPassportForm(page);
-    await page.getByRole("button", { name: /Generate Passport/i }).click();
+    await page.getByRole("button", { name: /Begin Registration/i }).click();
     await page.waitForURL("**/result", { timeout: 20000 });
     await page.locator(PASSPORT_SVG_SELECTOR).waitFor({ state: "visible" });
     await page.waitForTimeout(800);

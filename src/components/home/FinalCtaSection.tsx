@@ -8,11 +8,11 @@ export function FinalCtaSection() {
           Join the PetLuma Kingdom.
         </SectionTitle>
         <p className="mx-auto mt-7 max-w-xl font-sans text-[15px] leading-[1.8] text-kingdom-ink-muted md:text-base">
-          Create your companion&apos;s passport and become part of a global family that
-          celebrates love, memory, and belonging.
+          Begin your companion&apos;s Kingdom registration and become part of a global
+          family that celebrates love, memory, and belonging.
         </p>
         <div className="mt-10 flex justify-center">
-          <RegistryButton href="/create">Create Passport</RegistryButton>
+          <RegistryButton href="/create">Begin Registration</RegistryButton>
         </div>
       </div>
     </section>

@@ -34,14 +34,14 @@ export function PetCardForm({
 
       <div className="mb-10">
         <p className="relative text-xs font-semibold uppercase tracking-[0.34em] text-[#C8A97E]">
-          Create Passport
+          Kingdom Registration
         </p>
         <h1 className="relative mt-4 text-4xl font-semibold tracking-[-0.055em] text-[#111827] sm:text-5xl">
-          Create your companion passport.
+          Begin your companion&apos;s Kingdom registration.
         </h1>
         <p className="relative mt-4 max-w-xl text-sm leading-7 text-[#6E6A64] sm:text-base">
-          Add a photo and a few details about your pet. We&apos;ll create a
-          beautiful PetLuma passport for you.
+          Add a photo and a few details about your companion. We&apos;ll prepare their
+          official Kingdom identity record.
         </p>
       </div>
 

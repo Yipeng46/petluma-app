@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "PetLuma — Companion Identity & Kingdom Registry",
   description:
-    "Create refined companion passports, memorial archives, and identity records for beloved pets.",
+    "Begin Kingdom registration for companion identity, memorial archives, and lifelong records for beloved pets.",
 };
 
 export default function RootLayout({

@@ -15,7 +15,7 @@ export function HeroSection() {
             archives, and lifelong identity records.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center md:mt-12">
-            <RegistryButton href="/create">Create Passport</RegistryButton>
+            <RegistryButton href="/create">Begin Registration</RegistryButton>
             <RegistryButton href="#registry" variant="secondary">
               Learn More
             </RegistryButton>
