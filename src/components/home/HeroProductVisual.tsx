@@ -19,10 +19,10 @@ export function HeroProductVisual() {
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(148deg,rgba(255,255,255,0.55)_0%,transparent_42%,rgba(0,0,0,0.03)_100%)]" />
 
                 <header className="relative">
-                  <p className="font-sans text-[8px] uppercase tracking-[0.36em] text-kingdom-warm-gray">
+                  <p className="font-sans text-[8px] uppercase tracking-[0.36em] text-[#8a8278]">
                     PetLuma Kingdom Registry
                   </p>
-                  <p className="mt-4 font-display text-[1.65rem] leading-[1.05] tracking-tight text-kingdom-ink sm:text-[1.85rem]">
+                  <p className="mt-4 font-[family-name:var(--font-cormorant)] text-[1.65rem] leading-[1.05] tracking-tight text-[#2e2820] sm:text-[1.85rem]">
                     Companion
                     <br />
                     Passport
@@ -31,17 +31,17 @@ export function HeroProductVisual() {
 
                 <div className="relative flex flex-col items-center py-4">
                   <div className="hero-passport-emblem flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full sm:h-20 sm:w-20">
-                    <span className="hero-gold-foil font-display text-2xl font-medium sm:text-[1.65rem]">
+                    <span className="hero-gold-foil font-[family-name:var(--font-cormorant)] text-2xl font-medium sm:text-[1.65rem]">
                       PL
                     </span>
                   </div>
-                  <p className="mt-4 font-sans text-[7px] uppercase tracking-[0.3em] text-kingdom-gold-dark">
+                  <p className="mt-4 font-sans text-[7px] uppercase tracking-[0.3em] text-[#8a7349]">
                     Registry Edition
                   </p>
                 </div>
 
                 <footer className="relative border-t border-kingdom-gold/20 pt-5">
-                  <p className="font-sans text-[7px] uppercase tracking-[0.26em] text-kingdom-warm-gray">
+                  <p className="font-sans text-[7px] uppercase tracking-[0.26em] text-[#8a8278]">
                     Commemorative Identity Record
                   </p>
                 </footer>
