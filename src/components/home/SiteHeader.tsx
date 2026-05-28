@@ -37,18 +37,17 @@ export function SiteHeader() {
         className="mx-auto flex min-h-[88px] max-w-[1400px] items-center justify-between gap-4 px-6 py-5 md:px-10"
         aria-label="Site"
       >
-        <Link
-          href="/"
-          className="group relative h-[56px] w-[180px] min-w-[180px] shrink-0 flex-shrink-0 md:h-[70px] md:w-[220px] md:min-w-[220px]"
-        >
-          <Image
-            src="/petluma-logo.svg"
-            alt="PetLuma"
-            fill
-            priority
-            sizes="220px"
-            className="object-contain object-left transition-opacity duration-300 group-hover:opacity-80"
-          />
+        <Link href="/" className="group shrink-0 flex-shrink-0">
+          <div className="relative h-[48px] w-[170px] shrink-0 flex-shrink-0">
+            <Image
+              src="/petluma-header-logo.png"
+              alt="PetLuma"
+              fill
+              priority
+              sizes="170px"
+              className="object-contain object-left transition-opacity duration-300 group-hover:opacity-80"
+            />
+          </div>
         </Link>
 
         <div className="hidden flex-1 items-center justify-center gap-7 lg:flex xl:gap-9">
