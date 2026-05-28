@@ -20,7 +20,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Siberian Forest",
     kingdomSince: "January 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=320&h=400&fit=crop&q=75",
     category: "feline",
   },
   {
@@ -31,7 +31,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Golden Retriever",
     kingdomSince: "September 2023",
     photoUrl:
-      "https://images.unsplash.com/photo-1558787533-7fb0319a8a8e?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1558787533-7fb0319a8a8e?w=320&h=400&fit=crop&q=75",
     category: "canine",
   },
   {
@@ -42,7 +42,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "British Shorthair",
     kingdomSince: "March 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=320&h=400&fit=crop&q=75",
     category: "feline",
   },
   {
@@ -53,7 +53,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Border Collie",
     kingdomSince: "June 2022",
     photoUrl:
-      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=320&h=400&fit=crop&q=75",
     category: "canine",
   },
   {
@@ -64,7 +64,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Budgerigar",
     kingdomSince: "April 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1452572738146-62f516285a50?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1452572738146-62f516285a50?w=320&h=400&fit=crop&q=75",
     category: "other",
   },
   {
@@ -75,7 +75,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Holland Lop",
     kingdomSince: "November 2023",
     photoUrl:
-      "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=320&h=400&fit=crop&q=75",
     category: "other",
   },
   {
@@ -86,7 +86,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Cavalier King Charles",
     kingdomSince: "February 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1530281700549-e82e7eb16046?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1530281700549-e82e7eb16046?w=320&h=400&fit=crop&q=75",
     category: "canine",
   },
   {
@@ -97,7 +97,7 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Ragdoll",
     kingdomSince: "August 2021",
     photoUrl:
-      "https://images.unsplash.com/photo-1495360010541-f48722b34f5d?w=600&h=720&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1495360010541-f48722b34f5d?w=320&h=400&fit=crop&q=75",
     category: "feline",
   },
 ];

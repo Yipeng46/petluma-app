@@ -31,7 +31,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-kingdom-ink/[0.06] bg-kingdom-cream/92 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-kingdom-ink/[0.06] bg-kingdom-cream">
       <nav className="mx-auto flex w-full items-center px-8 py-5" aria-label="Site">
         <Link href="/" className="group flex shrink-0 flex-col justify-center">
           <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">

@@ -28,12 +28,12 @@ export default function RegistryHallPage() {
   );
 
   return (
-    <div className="registry-hall registry-home min-h-screen font-sans antialiased">
+    <div className="registry-hall min-h-screen font-sans antialiased">
       <SiteHeader />
 
       <main className="relative z-10 px-6 py-14 text-[#2e2820] md:px-10 md:py-20 lg:py-24">
-        <div className="hall-animate-in mx-auto max-w-6xl">
-          <header className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-6xl">
+          <header className="hall-header-in mx-auto max-w-3xl text-center">
             <p className="font-sans text-[10px] uppercase tracking-[0.34em] text-[#8a7349]">
               PetLuma Kingdom Registry
             </p>

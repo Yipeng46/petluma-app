@@ -1,22 +1,14 @@
 .registry-hall {
   background-color: #f0e8dc;
   background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.76' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse 65% 42% at 50% 0%, rgba(184, 154, 106, 0.12), transparent 62%),
-    radial-gradient(ellipse 45% 38% at 100% 80%, rgba(139, 115, 85, 0.08), transparent 55%),
+    radial-gradient(ellipse 65% 42% at 50% 0%, rgba(184, 154, 106, 0.1), transparent 62%),
     linear-gradient(180deg, #f4ede4 0%, #ebe3d6 55%, #e3d9cc 100%);
 }
 
 .registry-hall .registry-hall-cabinet {
-  background-color: rgba(248, 243, 235, 0.78);
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255, 252, 246, 0.55), transparent 58%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, transparent 100%);
+  background-color: #f8f3eb;
   border: 1px solid rgba(139, 115, 85, 0.16);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 24px 64px rgba(46, 40, 32, 0.09);
+  box-shadow: 0 8px 24px rgba(46, 40, 32, 0.06);
 }
 
 .registry-hall .archive-desk {
@@ -27,74 +19,60 @@
   gap: 2rem 2.25rem;
   padding: 2.5rem 1.25rem 3rem;
   border-radius: 2px;
-  background:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse 90% 70% at 50% 20%, rgba(255, 255, 255, 0.18), transparent 62%),
-    linear-gradient(165deg, #ddd2c4 0%, #d4c8b8 38%, #c9bcab 100%);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -18px 36px rgba(46, 40, 32, 0.08);
-}
-
-.registry-hall .archive-document {
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  background: linear-gradient(165deg, #ddd2c4 0%, #d4c8b8 38%, #c9bcab 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .registry-hall .archive-document:nth-child(6n + 1) {
-  transform: rotate(-1.4deg) translateY(6px);
+  transform: rotate(-1.4deg);
+  margin-top: 6px;
 }
 
 .registry-hall .archive-document:nth-child(6n + 2) {
-  transform: rotate(0.8deg) translateY(2px);
+  transform: rotate(0.8deg);
+  margin-top: 2px;
 }
 
 .registry-hall .archive-document:nth-child(6n + 3) {
-  transform: rotate(-0.5deg) translateY(8px);
+  transform: rotate(-0.5deg);
+  margin-top: 8px;
 }
 
 .registry-hall .archive-document:nth-child(6n + 4) {
-  transform: rotate(1.2deg) translateY(4px);
+  transform: rotate(1.2deg);
+  margin-top: 4px;
 }
 
 .registry-hall .archive-document:nth-child(6n + 5) {
-  transform: rotate(-0.9deg) translateY(1px);
+  transform: rotate(-0.9deg);
+  margin-top: 1px;
 }
 
 .registry-hall .archive-document:nth-child(6n + 6) {
-  transform: rotate(0.6deg) translateY(7px);
-}
-
-.registry-hall .archive-document:hover {
-  transform: rotate(0deg) translateY(-3px);
-  z-index: 20;
+  transform: rotate(0.6deg);
+  margin-top: 7px;
 }
 
 .registry-hall .archive-card {
   background: linear-gradient(165deg, #fcf8f2 0%, #f6f0e6 48%, #efe8dc 100%);
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
-    linear-gradient(165deg, #fcf8f2 0%, #f6f0e6 48%, #efe8dc 100%);
   border: 1px solid rgba(184, 154, 106, 0.2);
-  box-shadow:
-    0 10px 26px rgba(46, 40, 32, 0.1),
-    0 2px 6px rgba(46, 40, 32, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  box-shadow: 0 2px 8px rgba(46, 40, 32, 0.07);
+  transition: transform 0.3s ease;
 }
 
-.registry-hall .archive-card:hover {
-  border-color: rgba(184, 154, 106, 0.32);
-  box-shadow:
-    0 18px 40px rgba(46, 40, 32, 0.14),
-    0 4px 10px rgba(46, 40, 32, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+.registry-hall .archive-document:hover {
+  z-index: 20;
+}
+
+.registry-hall .archive-document:hover .archive-card {
+  transform: translateY(-2px);
+  will-change: transform;
 }
 
 .registry-hall .archive-official-stamp {
   border: 1.5px solid rgba(138, 115, 73, 0.48);
   color: rgba(138, 115, 73, 0.78);
-  background: rgba(252, 248, 242, 0.82);
-  box-shadow: inset 0 0 0 2px rgba(250, 246, 240, 0.65);
-  opacity: 0.92;
+  background: #fcf8f2;
 }
 
 .registry-hall .archive-card-photo-frame {
@@ -102,15 +80,13 @@
 }
 
 .registry-hall .archive-card-photo {
-  box-shadow:
-    inset 0 0 0 1px rgba(184, 154, 106, 0.18),
-    inset 0 0 0 4px rgba(252, 248, 242, 0.85);
+  box-shadow: inset 0 0 0 1px rgba(184, 154, 106, 0.18);
 }
 
 .registry-hall .filter-pill {
   border: 1px solid rgba(139, 115, 85, 0.18);
-  background: rgba(252, 248, 242, 0.6);
-  transition: border-color 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+  background: rgba(252, 248, 242, 0.85);
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .registry-hall .filter-pill--active {
@@ -121,8 +97,7 @@
 
 .registry-hall .hall-search {
   border: 1px solid rgba(139, 115, 85, 0.18);
-  background: rgba(252, 248, 242, 0.88);
-  box-shadow: inset 0 1px 2px rgba(46, 40, 32, 0.03);
+  background: #fcf8f2;
 }
 
 .registry-hall .hall-search:focus {
@@ -130,17 +105,30 @@
   outline: none;
 }
 
-@keyframes hall-fade-in {
+@keyframes hall-header-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-.registry-hall .hall-animate-in {
-  animation: hall-fade-in 0.9s ease-out forwards;
+.registry-hall .hall-header-in {
+  animation: hall-header-in 0.7s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .registry-hall .hall-header-in {
+    animation: none;
+  }
+
+  .registry-hall .archive-card {
+    transition: none;
+  }
+
+  .registry-hall .archive-document:hover .archive-card {
+    transform: none;
+    will-change: auto;
+  }
 }
