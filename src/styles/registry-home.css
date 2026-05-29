@@ -86,15 +86,14 @@
 
 @media (min-width: 1024px) {
   .registry-home .hero-section__inner {
-    /* ~120px from viewport top: 80px header + 40px padding */
-    padding-top: 2.5rem;
+    /* 80px header + ~88px breathing room ≈ 168px from viewport top */
+    padding-top: 5.5rem;
   }
 }
 
 @media (max-width: 1023px) {
   .registry-home .hero-section__inner {
-    /* Clear fixed header without excess top air */
-    padding-top: 1.5rem;
+    padding-top: 2.75rem;
   }
 }
 
