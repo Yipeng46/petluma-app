@@ -13,10 +13,10 @@ export default function HomePage() {
     <div className="registry-home min-h-screen font-sans antialiased">
       <SiteHeader />
 
-      <main className="relative z-10 text-[#2e2820]">
+      <main className="relative text-[#2e2820]">
         <section
           id="passport"
-          className="hero-section relative min-h-[calc(100svh-4.25rem)] overflow-hidden md:min-h-[calc(100svh-4.75rem)]"
+          className="hero-section relative min-h-[calc(100svh-var(--site-header-height))] overflow-hidden"
         >
           <div className="mx-auto flex h-full min-h-[inherit] max-w-[1400px] flex-col px-6 py-10 md:px-10 md:py-14 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 lg:py-16 xl:gap-20">
             <div className="relative z-10 flex flex-col justify-center lg:max-w-xl xl:max-w-[34rem]">

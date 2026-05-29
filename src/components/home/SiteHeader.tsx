@@ -28,8 +28,12 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-kingdom-ink/[0.06] bg-kingdom-cream">
-      <nav className="mx-auto flex w-full items-center px-8 py-5" aria-label="Site">
+    <>
+      <header className="site-header w-full border-b border-kingdom-ink/[0.06]">
+        <nav
+          className="site-header__bar mx-auto flex h-[var(--site-header-height)] w-full items-center px-8"
+          aria-label="Site"
+        >
         <Link href="/" className="group flex shrink-0 flex-col justify-center">
           <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
             PetLuma
@@ -72,7 +76,7 @@ export function SiteHeader() {
 
       {menuOpen ? (
         <nav
-          className="border-t border-kingdom-ink/[0.06] bg-kingdom-cream px-6 py-6 lg:hidden"
+          className="site-header__mobile border-t border-kingdom-ink/[0.06] px-6 py-6 lg:hidden"
           aria-label="Mobile"
         >
           <ul className="space-y-4">
@@ -99,6 +103,8 @@ export function SiteHeader() {
           </ul>
         </nav>
       ) : null}
-    </header>
+      </header>
+      <div className="site-header-spacer" aria-hidden />
+    </>
   );
 }
