@@ -421,6 +421,81 @@
     linear-gradient(180deg, rgba(255, 252, 247, 0.4) 0%, transparent 55%);
 }
 
+.registry-home .manifesto-section__chapter p {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.registry-home .manifesto-section__index {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.28em;
+}
+
+.registry-home .manifesto-section__chapter-rule {
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(184, 154, 106, 0.55),
+    rgba(184, 154, 106, 0.15)
+  );
+}
+
+.registry-home .manifesto-section__grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .registry-home .manifesto-section__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .registry-home .manifesto-section__title-col {
+    padding-right: 1.5rem;
+  }
+
+  .registry-home .manifesto-section__body-col {
+    border-left: 1px solid rgba(184, 154, 106, 0.22);
+    padding-left: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .registry-home .manifesto-section__grid {
+    gap: 5.5rem;
+  }
+
+  .registry-home .manifesto-section__body-col {
+    padding-left: 3.75rem;
+  }
+}
+
+.registry-home .manifesto-section__body {
+  max-width: 28rem;
+}
+
+.registry-home .manifesto-section__divider {
+  height: 1px;
+  margin: 2rem 0 1.75rem;
+  max-width: 7rem;
+  background: linear-gradient(
+    90deg,
+    rgba(184, 154, 106, 0.42),
+    rgba(184, 154, 106, 0.08)
+  );
+}
+
+@media (min-width: 768px) {
+  .registry-home .manifesto-section__divider {
+    margin: 2.25rem 0 2rem;
+  }
+}
+
 .registry-home .registry-icon-ring {
   border: 1px solid rgba(184, 154, 106, 0.28);
   background: rgba(250, 246, 240, 0.6);
