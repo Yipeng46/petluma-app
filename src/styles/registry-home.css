@@ -84,6 +84,20 @@
     linear-gradient(118deg, #f6f0e6 0%, #efe7db 38%, #e8dfd2 100%);
 }
 
+@media (min-width: 1024px) {
+  .registry-home .hero-section__inner {
+    /* ~120px from viewport top: 80px header + 40px padding */
+    padding-top: 2.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .registry-home .hero-section__inner {
+    /* Clear fixed header without excess top air */
+    padding-top: 1.5rem;
+  }
+}
+
 .registry-home .registry-btn--primary {
   color: #ffffff;
 }

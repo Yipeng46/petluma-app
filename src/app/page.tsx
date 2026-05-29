@@ -18,8 +18,8 @@ export default function HomePage() {
           id="home"
           className="hero-section relative min-h-[calc(100svh-var(--site-header-height))] overflow-hidden"
         >
-          <div className="mx-auto flex h-full min-h-[inherit] max-w-[1400px] flex-col px-6 py-10 md:px-10 md:py-14 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 lg:py-16 xl:gap-20">
-            <div className="relative z-10 flex flex-col justify-center lg:max-w-xl xl:max-w-[34rem]">
+          <div className="hero-section__inner mx-auto flex max-w-[1400px] flex-col px-6 pb-10 md:px-10 md:pb-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10 lg:pb-14 xl:gap-16">
+            <div className="relative z-10 flex flex-col justify-start lg:max-w-xl xl:max-w-[34rem]">
               <h1 className="font-[family-name:var(--font-cormorant)] text-[2.65rem] font-medium leading-[1.02] tracking-[-0.02em] text-[#2e2820] sm:text-5xl md:text-[3.35rem] lg:text-[3.75rem] xl:text-[4.25rem]">
                 Every companion
                 <span className="block">deserves to be remembered.</span>
@@ -38,7 +38,7 @@ export default function HomePage() {
 
             <div
               id="passport"
-              className="relative z-10 mt-12 flex min-h-[320px] flex-1 items-center justify-center lg:mt-0 lg:min-h-0"
+              className="relative z-10 mt-8 flex min-h-[280px] flex-1 items-start justify-center sm:mt-10 lg:mt-2 lg:min-h-0 lg:justify-end"
             >
               <HeroProductVisual />
             </div>
