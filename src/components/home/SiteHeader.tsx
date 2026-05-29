@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { label: "Passport", href: "/#passport" },
+  { label: "The Passport", href: "/#passport" },
   { label: "Registry Hall", href: "/registry-hall" },
 ] as const;
 
@@ -31,10 +31,10 @@ export function SiteHeader() {
     <>
       <header className="site-header w-full border-b border-kingdom-ink/[0.06]">
         <nav
-          className="site-header__bar mx-auto flex h-[var(--site-header-height)] w-full items-center px-8 md:px-10"
+          className="site-header__bar mx-auto grid h-[var(--site-header-height)] w-full max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center px-8 md:px-10"
           aria-label="Site"
         >
-          <Link href="/" className="group flex shrink-0 flex-col justify-center">
+          <Link href="/" className="site-header__brand group flex shrink-0 flex-col justify-center justify-self-start">
             <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
               PetLuma
             </span>
@@ -43,7 +43,7 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <div className="site-header__links hidden min-w-0 flex-1 items-center justify-center lg:flex">
+          <div className="site-header__wayfinding hidden justify-self-center lg:flex">
             {navLinks.map((link) => (
               <Link key={link.label} href={link.href} className="site-header__link">
                 {link.label}
@@ -51,12 +51,9 @@ export function SiteHeader() {
             ))}
           </div>
 
-          <div className="flex shrink-0 items-center gap-3 md:gap-4">
-            <Link
-              href="/create"
-              className="site-header__cta hidden sm:inline-flex"
-            >
-              Register Companion
+          <div className="flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
+            <Link href="/create" className="site-header__cta hidden sm:inline-flex">
+              Begin Registration
             </Link>
             <button
               type="button"
@@ -75,25 +72,25 @@ export function SiteHeader() {
             className="site-header__mobile border-t border-kingdom-ink/[0.06] px-8 py-7 lg:hidden"
             aria-label="Mobile"
           >
-            <ul className="space-y-5">
+            <ul className="site-header__wayfinding site-header__wayfinding--mobile">
               {navLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="site-header__link site-header__link--mobile"
+                    className="site-header__link"
                     onClick={() => setMenuOpen(false)}
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
-              <li className="pt-3">
+              <li className="site-header__mobile-cta">
                 <Link
                   href="/create"
                   className="site-header__cta inline-flex"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Register Companion
+                  Begin Registration
                 </Link>
               </li>
             </ul>
