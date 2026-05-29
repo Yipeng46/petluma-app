@@ -96,6 +96,10 @@
   }
 }
 
+.registry-home .hero-section__content {
+  max-width: min(620px, 100%);
+}
+
 .registry-home .registry-btn--primary {
   color: #ffffff;
 }
