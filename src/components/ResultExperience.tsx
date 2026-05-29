@@ -145,7 +145,7 @@ export function ResultExperience() {
             href="/create"
             className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
           >
-            Begin Another Registration
+            Register Another Companion
           </Link>
         </div>
       </section>

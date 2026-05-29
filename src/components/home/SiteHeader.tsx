@@ -56,7 +56,7 @@ export function SiteHeader() {
             href="/create"
             className="hidden border border-kingdom-ink bg-kingdom-ink px-4 py-2 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream transition-colors duration-500 hover:bg-kingdom-brown sm:inline-flex"
           >
-            Begin Registration
+            Register Companion
           </Link>
           <button
             type="button"
@@ -93,7 +93,7 @@ export function SiteHeader() {
                 className="inline-flex border border-kingdom-ink bg-kingdom-ink px-5 py-2.5 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-kingdom-cream"
                 onClick={() => setMenuOpen(false)}
               >
-                Begin Registration
+                Register Companion
               </Link>
             </li>
           </ul>

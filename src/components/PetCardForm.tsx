@@ -34,14 +34,14 @@ export function PetCardForm({
 
       <div className="mb-10">
         <p className="relative text-xs font-semibold uppercase tracking-[0.34em] text-[#C8A97E]">
-          Kingdom Registration
+          Kingdom Registry
         </p>
         <h1 className="relative mt-4 text-4xl font-semibold tracking-[-0.055em] text-[#111827] sm:text-5xl">
-          Begin your companion&apos;s Kingdom registration.
+          Register your companion within the Kingdom.
         </h1>
         <p className="relative mt-4 max-w-xl text-sm leading-7 text-[#6E6A64] sm:text-base">
-          Add a photo and a few details about your companion. We&apos;ll prepare their
-          official Kingdom identity record.
+          Add a portrait and a few details. The Registry will prepare their official
+          companion identity record.
         </p>
       </div>
 

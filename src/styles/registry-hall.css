@@ -5,6 +5,11 @@
     linear-gradient(180deg, #f4ede4 0%, #ebe3d6 55%, #e3d9cc 100%);
 }
 
+.registry-hall .hall-intro {
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(184, 154, 106, 0.06), transparent 65%);
+}
+
 .registry-hall .registry-hall-cabinet {
   background-color: #f8f3eb;
   border: 1px solid rgba(139, 115, 85, 0.16);
