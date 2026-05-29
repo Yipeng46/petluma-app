@@ -15,7 +15,7 @@ export default function HomePage() {
 
       <main className="relative text-[#2e2820]">
         <section
-          id="passport"
+          id="home"
           className="hero-section relative min-h-[calc(100svh-var(--site-header-height))] overflow-hidden"
         >
           <div className="mx-auto flex h-full min-h-[inherit] max-w-[1400px] flex-col px-6 py-10 md:px-10 md:py-14 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 lg:py-16 xl:gap-20">
@@ -36,7 +36,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative z-10 mt-12 flex min-h-[320px] flex-1 items-center justify-center lg:mt-0 lg:min-h-0">
+            <div
+              id="passport"
+              className="relative z-10 mt-12 flex min-h-[320px] flex-1 items-center justify-center lg:mt-0 lg:min-h-0"
+            >
               <HeroProductVisual />
             </div>
           </div>
