@@ -13,22 +13,10 @@ export const metadata: Metadata = {
 };
 
 const CHARTER_PRINCIPLES = [
-  {
-    title: "Presence Over Possession",
-    text: "Companions are registered as lives shared in trust — not categories held in custody. The Registry records relationship, not ownership.",
-  },
-  {
-    title: "Memory With Form",
-    text: "Every entry receives identity, record, and a permanent place within the Kingdom archives. What is remembered deserves a form worthy of remembrance.",
-  },
-  {
-    title: "Guardianship, Not Transaction",
-    text: "The Kingdom speaks the language of care, memorial, and belonging. Registration is an act of devotion, not a transfer of property.",
-  },
-  {
-    title: "A Record That Endures",
-    text: "Each inscription strengthens a cultural archive of companionship — one that outlasts trends, platforms, and the passing of individual accounts.",
-  },
+  "Every Companion Deserves To Be Remembered.",
+  "Every Companion Has An Identity.",
+  "Every Story Matters.",
+  "Every Memory Has A Place.",
 ] as const;
 
 const KINGDOM_BUILDINGS = [
@@ -36,13 +24,13 @@ const KINGDOM_BUILDINGS = [
     name: "Passport Office",
     note: "Where companion identities are first inscribed and the official Kingdom passport is issued.",
     status: "Open",
-    href: "/create",
+    href: "/passport",
   },
   {
     name: "Registry Hall",
     note: "The public archive of registered companions whose guardians have chosen to share their Kingdom identity.",
     status: "Open",
-    href: "/registry-hall",
+    href: "/hall",
   },
   {
     name: "Hall of Stories",
@@ -94,6 +82,7 @@ function FoundingSection({ index, label, title, children, fullWidth }: FoundingS
 export default function FoundingChamberPage() {
   return (
     <div className="founding-chamber min-h-screen font-sans antialiased">
+      <div className="founding-chamber__texture" aria-hidden="true" />
       <SiteHeader />
 
       <main className="founding-chamber__main">
@@ -107,7 +96,7 @@ export default function FoundingChamberPage() {
           </div>
         </section>
 
-        <FoundingSection index="I" label="Origin" title="Why The Kingdom Exists">
+        <FoundingSection index="II" label="Origin" title="Why The Kingdom Exists">
           <div className="founding-chamber__prose">
             <p>
               The Kingdom was founded to answer a quiet question: what becomes of a life
@@ -127,7 +116,7 @@ export default function FoundingChamberPage() {
           </div>
         </FoundingSection>
 
-        <FoundingSection index="II" label="Language" title="Why Companion, Not Pet">
+        <FoundingSection index="III" label="Language" title="Why Companion, Not Pet">
           <div className="founding-chamber__prose">
             <p className="founding-chamber__prose-emphasis">
               &ldquo;Pet&rdquo; speaks of category. &ldquo;Companion&rdquo; speaks of
@@ -145,18 +134,17 @@ export default function FoundingChamberPage() {
           </div>
         </FoundingSection>
 
-        <FoundingSection index="III" label="Charter" title="The Kingdom Charter" fullWidth>
+        <FoundingSection index="IV" label="Charter" title="The Kingdom Charter" fullWidth>
           <ol className="founding-chamber__charter-list">
             {CHARTER_PRINCIPLES.map((principle) => (
-              <li key={principle.title} className="founding-chamber__charter-item">
-                <h3 className="founding-chamber__charter-title">{principle.title}</h3>
-                <p className="founding-chamber__charter-text">{principle.text}</p>
+              <li key={principle} className="founding-chamber__charter-item">
+                <p className="founding-chamber__charter-title">{principle}</p>
               </li>
             ))}
           </ol>
         </FoundingSection>
 
-        <FoundingSection index="IV" label="Architecture" title="The Future Of The Kingdom" fullWidth>
+        <FoundingSection index="V" label="Architecture" title="The Future Of The Kingdom" fullWidth>
           <ul className="founding-chamber__catalog">
             {KINGDOM_BUILDINGS.map((building) => (
               <li key={building.name} className="founding-chamber__catalog-item">
@@ -183,7 +171,7 @@ export default function FoundingChamberPage() {
               </p>
             </div>
             <div className="founding-chamber__cta">
-              <RegistryButton href="/create">Register A Companion</RegistryButton>
+              <RegistryButton href="/passport">Register A Companion</RegistryButton>
             </div>
           </div>
         </section>

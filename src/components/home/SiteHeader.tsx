@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { label: "The Passport", href: "/#passport" },
-  { label: "Registry Hall", href: "/registry-hall" },
+  { label: "Home", href: "/" },
+  { label: "Passport Office", href: "/passport" },
+  { label: "Registry Hall", href: "/hall" },
+  { label: "Founding Chamber", href: "/founding" },
 ] as const;
 
 function MenuIcon({ open }: { open: boolean }) {
@@ -52,7 +54,7 @@ export function SiteHeader() {
           </div>
 
           <div className="flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
-            <Link href="/create" className="site-header__cta hidden sm:inline-flex">
+            <Link href="/passport" className="site-header__cta hidden sm:inline-flex">
               Begin Registration
             </Link>
             <button
@@ -86,7 +88,7 @@ export function SiteHeader() {
               ))}
               <li className="site-header__mobile-cta">
                 <Link
-                  href="/create"
+                  href="/passport"
                   className="site-header__cta inline-flex"
                   onClick={() => setMenuOpen(false)}
                 >
