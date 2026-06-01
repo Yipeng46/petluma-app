@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import {
   filterRegistryHallRecords,
-  registryHallRecords,
+  getPublicRegistryRecords,
   type RegistryHallFilter,
 } from "@/lib/registry-hall-mock";
 import "@/styles/registry-hall.css";
@@ -24,7 +24,7 @@ export default function RegistryHallPage() {
   const [activeFilter, setActiveFilter] = useState<RegistryHallFilter>("all");
 
   const visibleRecords = useMemo(
-    () => filterRegistryHallRecords(registryHallRecords, query, activeFilter),
+    () => filterRegistryHallRecords(getPublicRegistryRecords(), query, activeFilter),
     [query, activeFilter],
   );
 

@@ -895,24 +895,82 @@
 }
 
 .registry-home .recently-section__grid {
-  display: grid;
+  display: flex;
   gap: 1rem;
   margin-top: 3rem;
   list-style: none;
-  padding: 0;
+  padding: 0 0 0.35rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46, 40, 32, 0.18) transparent;
 }
 
-@media (min-width: 640px) {
-  .registry-home .recently-section__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
-  }
+.registry-home .recently-section__grid::-webkit-scrollbar {
+  height: 4px;
+}
+
+.registry-home .recently-section__grid::-webkit-scrollbar-thumb {
+  background-color: rgba(46, 40, 32, 0.18);
+  border-radius: 999px;
+}
+
+.registry-home .recently-section__empty {
+  margin-top: 3rem;
+  padding: 3rem 1.5rem;
+  border: 1px solid rgba(46, 40, 32, 0.1);
+  background-color: #faf6f0;
+  text-align: center;
+}
+
+.registry-home .recently-section__empty-text {
+  max-width: 28rem;
+  margin: 0 auto;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #2e2820;
+}
+
+.registry-home .recently-section__empty-action {
+  margin-top: 1.75rem;
 }
 
 .registry-home .registry-preview-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 min(78vw, 15.5rem);
+  scroll-snap-align: start;
   border: 1px solid rgba(46, 40, 32, 0.1);
   background-color: #faf6f0;
-  padding: 1.5rem 1.35rem 1.35rem;
+}
+
+.registry-home .registry-preview-card__link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.registry-home .registry-preview-card__portrait {
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+  background-color: #ebe3d6;
+}
+
+.registry-home .registry-preview-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.registry-home .registry-preview-card__body {
+  flex: 1;
+  padding: 1.15rem 1.15rem 0.85rem;
 }
 
 .registry-home .registry-preview-card__id {
@@ -925,9 +983,9 @@
 }
 
 .registry-home .registry-preview-card__name {
-  margin-top: 0.65rem;
+  margin-top: 0.55rem;
   font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
-  font-size: 1.75rem;
+  font-size: 1.55rem;
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -935,11 +993,89 @@
 }
 
 .registry-home .registry-preview-card__meta {
-  margin-top: 0.5rem;
+  margin-top: 0.45rem;
   font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: 12px;
   line-height: 1.6;
   color: #6b6358;
+}
+
+.registry-home .registry-preview-card__meta-sep {
+  margin: 0 0.35rem;
+  color: #b89a6a;
+}
+
+.registry-home .registry-preview-card__since {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.registry-home .registry-preview-card__since-label {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.registry-home .registry-preview-card__since-value {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  color: #2e2820;
+}
+
+.registry-home .registry-preview-card__action {
+  margin: 0 1.15rem 1.15rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgba(46, 40, 32, 0.18);
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color: #2e2820;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.registry-home .registry-preview-card__action:hover,
+.registry-home .registry-preview-card__link:hover + .registry-preview-card__action {
+  border-color: rgba(46, 40, 32, 0.32);
+  background-color: rgba(250, 246, 240, 0.8);
+}
+
+@media (min-width: 768px) {
+  .registry-home .registry-preview-card {
+    flex-basis: min(42vw, 15.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .registry-home .recently-section__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+
+  .registry-home .registry-preview-card {
+    flex: initial;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .registry-home .recently-section__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 
 .registry-home .explore-section__title {
