@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { RegistryButton } from "./ui";
 
-const HERO_PASSPORT_WIDTH = 1024;
-const HERO_PASSPORT_HEIGHT = 575;
+const HERO_PRODUCT_WIDTH = 420;
+const HERO_PRODUCT_HEIGHT = 520;
 
 export function HeroSection() {
   return (
@@ -28,24 +28,14 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="hero-section__scene" aria-hidden={false}>
-          <div className="hero-section__decor" aria-hidden="true">
-            <Image
-              src="/hero-passport.png"
-              alt=""
-              width={HERO_PASSPORT_WIDTH}
-              height={HERO_PASSPORT_HEIGHT}
-              sizes="45vw"
-              className="hero-section__decor-image"
-            />
-          </div>
+        <div className="hero-section__scene">
           <Image
-            src="/hero-passport.png"
-            alt="PetLuma Passport on stone with dried flowers"
-            width={HERO_PASSPORT_WIDTH}
-            height={HERO_PASSPORT_HEIGHT}
+            src="/hero-passport-product.png"
+            alt="PetLuma Passport with gold-foil Kingdom emblem"
+            width={HERO_PRODUCT_WIDTH}
+            height={HERO_PRODUCT_HEIGHT}
             priority
-            sizes="(max-width: 1023px) 92vw, 45vw"
+            sizes="(max-width: 1023px) 88vw, 38vw"
             className="hero-section__passport"
           />
         </div>
