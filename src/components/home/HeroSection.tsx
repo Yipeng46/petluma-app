@@ -10,9 +10,10 @@ export function HeroSection() {
           alt="PetLuma Passport displayed on stone with dried flowers and ceramic vase"
           fill
           priority
-          sizes="(max-width: 1024px) 100vw, 60vw"
+          sizes="100vw"
           className="hero-section__image"
         />
+        <div className="hero-section__visual-blend" aria-hidden="true" />
       </div>
 
       <div className="hero-section__inner mx-auto w-full max-w-[1440px] px-6 md:px-10">
