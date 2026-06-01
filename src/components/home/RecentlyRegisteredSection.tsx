@@ -61,20 +61,7 @@ export function RecentlyRegisteredSection() {
   return (
     <section className="home-section recently-section">
       <div className="home-section__inner mx-auto max-w-6xl px-6 md:px-10">
-        <header className="home-section__chapter">
-          <p className="home-section__chapter-label">
-            <span className="home-section__chapter-index">03</span>
-            <span className="home-section__chapter-rule" aria-hidden="true" />
-            <span>Recently Registered</span>
-          </p>
-        </header>
-
-        <div className="recently-section__intro">
-          <h2 className="home-section__title">Recently Registered</h2>
-          <p className="home-section__subtitle">
-            A growing archive of companions from around the world.
-          </p>
-        </div>
+        <h2 className="home-section__title">Recently Registered</h2>
 
         {records.length === 0 ? (
           <div className="recently-section__empty">

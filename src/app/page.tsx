@@ -1,8 +1,7 @@
-import { ExploreKingdomSection } from "@/components/home/ExploreKingdomSection";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { HomeFooter } from "@/components/home/HomeFooter";
-import { PassportSection } from "@/components/home/PassportSection";
+import { ManifestoSection } from "@/components/home/ManifestoSection";
 import { RecentlyRegisteredSection } from "@/components/home/RecentlyRegisteredSection";
 import { SiteHeader } from "@/components/home/SiteHeader";
 
@@ -13,9 +12,8 @@ export default function HomePage() {
 
       <main className="relative text-[#2e2820]">
         <HeroSection />
-        <PassportSection />
+        <ManifestoSection />
         <RecentlyRegisteredSection />
-        <ExploreKingdomSection />
         <FinalCtaSection />
       </main>
 

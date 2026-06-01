@@ -1,8 +1,4 @@
-import Image from "next/image";
 import { RegistryButton } from "./ui";
-
-const HERO_PRODUCT_WIDTH = 420;
-const HERO_PRODUCT_HEIGHT = 520;
 
 export function HeroSection() {
   return (
@@ -16,28 +12,9 @@ export function HeroSection() {
             <span className="block">deserves to be</span>
             <span className="block">remembered.</span>
           </h1>
-          <p className="mt-8 font-sans text-[14px] leading-[1.85] text-[#6b6358] md:mt-10 md:text-[15px] md:leading-8">
-            PetLuma Kingdom Registry preserves companion identities, memories, and stories
-            for generations to come.
-          </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start md:mt-12">
+          <div className="mt-10 md:mt-12">
             <RegistryButton href="/passport">Register Companion</RegistryButton>
-            <RegistryButton href="#explore-kingdom" variant="secondary">
-              Explore the Kingdom
-            </RegistryButton>
           </div>
-        </div>
-
-        <div className="hero-section__scene">
-          <Image
-            src="/hero-passport-product.png"
-            alt="PetLuma Passport with gold-foil Kingdom emblem"
-            width={HERO_PRODUCT_WIDTH}
-            height={HERO_PRODUCT_HEIGHT}
-            priority
-            sizes="(max-width: 1023px) 88vw, 38vw"
-            className="hero-section__passport"
-          />
         </div>
       </div>
     </section>
