@@ -11,12 +11,8 @@ export default function CompanionArchiveNotFound() {
 
       <main className="companion-archive__main companion-archive-not-found">
         <div className="mx-auto max-w-6xl px-6 md:px-10">
-          <p className="companion-archive__eyebrow">PetLuma Kingdom Registry</p>
+          <p className="companion-archive__eyebrow">PetLuma Kingdom</p>
           <h1 className="companion-archive-not-found__title">Archive Not Found</h1>
-          <p className="companion-archive-not-found__text">
-            No companion archive exists for this registry identifier within the public
-            Kingdom records.
-          </p>
           <div className="companion-archive__actions mt-10">
             <Link href="/hall" className="companion-archive__back">
               Return To Registry Hall

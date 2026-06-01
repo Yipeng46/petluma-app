@@ -22,13 +22,13 @@ export async function generateMetadata({
 
   if (!record) {
     return {
-      title: "Archive Not Found — PetLuma Kingdom Registry",
+      title: "Archive Not Found — PetLuma Kingdom",
     };
   }
 
   return {
     title: `${record.name} — Companion Archive`,
-    description: `Official public archive record for ${record.name}, ${record.companionId}.`,
+    description: `Archive record for ${record.name}, ${record.companionId}, within the PetLuma Kingdom collection.`,
   };
 }
 
@@ -44,7 +44,6 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
   const registryFields = [
     { label: "Companion ID", value: record.companionId, mono: true },
-    { label: "Name", value: record.name },
     { label: "Species", value: record.species },
     { label: "Breed", value: record.breed },
     { label: "Country", value: country },
@@ -60,9 +59,9 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
       <main className="companion-archive__main">
         <section className="companion-archive__hero">
           <div className="mx-auto max-w-6xl px-6 md:px-10">
-            <p className="companion-archive__eyebrow">PetLuma Kingdom Registry</p>
+            <p className="companion-archive__eyebrow">PetLuma Kingdom</p>
             <p className="companion-archive__eyebrow companion-archive__eyebrow-sub">
-              Companion Archive
+              Archive Record
             </p>
             <h1 className="companion-archive__name">{record.name}</h1>
             <p className="companion-archive__companion-id">{record.companionId}</p>
@@ -85,9 +84,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
               </div>
 
               <div className="companion-archive__registry">
-                <h2 className="companion-archive__registry-title">
-                  Official Registry Information
-                </h2>
+                <h2 className="companion-archive__registry-title">Registry Record</h2>
                 <dl className="companion-archive__registry-list">
                   {registryFields.map((field) => (
                     <div key={field.label} className="companion-archive__registry-row">
@@ -112,12 +109,10 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
         <section className="companion-archive__record">
           <div className="mx-auto max-w-6xl px-6 md:px-10">
             <div className="companion-archive__prose">
+              <p>This companion holds a place within the Kingdom Registry.</p>
               <p>
-                This companion holds an official place within the PetLuma Kingdom Registry.
-              </p>
-              <p>
-                The archive preserves identity, memory, and companionship for generations to
-                come.
+                Its archive preserves identity, memory and companionship within the PetLuma
+                collection.
               </p>
             </div>
           </div>
@@ -131,6 +126,25 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
             </div>
           </section>
         ) : null}
+
+        <section className="companion-archive__footer-meta">
+          <div className="mx-auto max-w-6xl px-6 md:px-10">
+            <div className="companion-archive__footer-grid">
+              <div>
+                <p className="companion-archive__footer-label">Archive Collection</p>
+                <p className="companion-archive__footer-value">PetLuma Kingdom</p>
+              </div>
+              <div>
+                <p className="companion-archive__footer-label">Kingdom Since</p>
+                <p className="companion-archive__footer-value">2026</p>
+              </div>
+              <div>
+                <p className="companion-archive__footer-label">Preserved Within</p>
+                <p className="companion-archive__footer-value">The Registry</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div className="companion-archive__actions mx-auto max-w-6xl px-6 md:px-10">
           <Link href="/hall" className="companion-archive__back">
