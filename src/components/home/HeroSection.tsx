@@ -3,7 +3,7 @@ import { RegistryButton } from "./ui";
 
 export function HeroSection() {
   return (
-    <section id="home" className="hero-section relative overflow-hidden">
+    <section id="home" className="hero-section relative overflow-visible">
       <div className="hero-section__inner mx-auto w-full max-w-[1440px] px-6 md:px-10">
         <div className="hero-section__grid">
           <div id="passport" className="hero-section__content relative z-10 text-left">
@@ -25,14 +25,16 @@ export function HeroSection() {
           </div>
 
           <div className="hero-section__visual">
-            <Image
-              src="/hero-passport.png"
-              alt="PetLuma Passport displayed on stone with dried flowers and ceramic vase"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-contain object-center"
-            />
+            <div className="hero-section__visual-frame">
+              <Image
+                src="/hero-passport.png"
+                alt="PetLuma Passport displayed on stone with dried flowers and ceramic vase"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="hero-section__image object-contain"
+              />
+            </div>
           </div>
         </div>
       </div>
