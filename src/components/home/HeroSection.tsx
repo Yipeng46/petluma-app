@@ -21,8 +21,8 @@ export function HeroSection() {
             for generations to come.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start md:mt-12">
-            <RegistryButton href="/create">Register Companion</RegistryButton>
-            <RegistryButton href="#registry" variant="secondary">
+            <RegistryButton href="/passport">Register Companion</RegistryButton>
+            <RegistryButton href="#explore-kingdom" variant="secondary">
               Explore the Kingdom
             </RegistryButton>
           </div>

@@ -1,10 +1,11 @@
 "use client";
 
+import { ExploreKingdomSection } from "@/components/home/ExploreKingdomSection";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { HomeFooter } from "@/components/home/HomeFooter";
-import { ManifestoSection } from "@/components/home/ManifestoSection";
-import { RegistryStatementSection } from "@/components/home/RegistryStatementSection";
+import { PassportSection } from "@/components/home/PassportSection";
+import { RecentlyRegisteredSection } from "@/components/home/RecentlyRegisteredSection";
 import { SiteHeader } from "@/components/home/SiteHeader";
 
 export default function HomePage() {
@@ -14,8 +15,9 @@ export default function HomePage() {
 
       <main className="relative text-[#2e2820]">
         <HeroSection />
-        <ManifestoSection />
-        <RegistryStatementSection />
+        <PassportSection />
+        <RecentlyRegisteredSection />
+        <ExploreKingdomSection />
         <FinalCtaSection />
       </main>
 

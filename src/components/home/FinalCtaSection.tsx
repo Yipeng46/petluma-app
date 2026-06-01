@@ -12,7 +12,7 @@ export function FinalCtaSection() {
           held for generations to come.
         </p>
         <div className="mt-10 flex justify-center">
-          <RegistryButton href="/create">Register Companion</RegistryButton>
+          <RegistryButton href="/passport">Register Companion</RegistryButton>
         </div>
       </div>
     </section>

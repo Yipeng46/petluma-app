@@ -686,3 +686,336 @@
 .registry-home .opacity-0-start {
   opacity: 0;
 }
+
+/* ── Home sections (Passport, Recently Registered, Explore) ── */
+
+.registry-home .home-section {
+  border-top: 1px solid rgba(46, 40, 32, 0.08);
+  padding: 5.5rem 0;
+}
+
+@media (min-width: 1024px) {
+  .registry-home .home-section {
+    padding: 7rem 0;
+  }
+}
+
+.registry-home .home-section__chapter-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8a7349;
+}
+
+.registry-home .home-section__chapter-index {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.28em;
+}
+
+.registry-home .home-section__chapter-rule {
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  background-color: rgba(138, 115, 73, 0.35);
+}
+
+.registry-home .home-section__title {
+  margin-top: 2rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2e2820;
+}
+
+.registry-home .home-section__subtitle {
+  margin-top: 1rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #2e2820;
+}
+
+.registry-home .home-section__prose {
+  margin-top: 1.75rem;
+  max-width: 22rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #6b6358;
+}
+
+.registry-home .passport-section__grid {
+  display: grid;
+  gap: 3.5rem;
+  margin-top: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .registry-home .passport-section__grid {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    gap: 4rem;
+  }
+}
+
+.registry-home .passport-showcase__composition {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  aspect-ratio: 4 / 3.6;
+}
+
+.registry-home .passport-showcase__cover {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 52%;
+  z-index: 1;
+}
+
+.registry-home .passport-showcase__cover-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.registry-home .passport-showcase__identity {
+  position: absolute;
+  right: 0;
+  top: 8%;
+  width: 58%;
+  z-index: 2;
+  border: 1px solid rgba(46, 40, 32, 0.1);
+  background-color: #f7f3eb;
+  padding: 1.25rem 1.35rem 1.1rem;
+}
+
+.registry-home .passport-showcase__identity-kingdom {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8a7349;
+}
+
+.registry-home .passport-showcase__identity-title {
+  margin-top: 0.45rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #2e2820;
+}
+
+.registry-home .passport-showcase__identity-header {
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.registry-home .passport-showcase__identity-body {
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 0.95rem;
+}
+
+.registry-home .passport-showcase__photo {
+  width: 4.5rem;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(46, 40, 32, 0.1);
+  background-color: #ebe3d6;
+}
+
+.registry-home .passport-showcase__fields {
+  flex: 1;
+  min-width: 0;
+}
+
+.registry-home .passport-showcase__field {
+  margin-top: 0.65rem;
+}
+
+.registry-home .passport-showcase__field:first-child {
+  margin-top: 0;
+}
+
+.registry-home .passport-showcase__field dt {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.registry-home .passport-showcase__field dd {
+  margin-top: 0.2rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.15;
+  color: #2e2820;
+}
+
+.registry-home .passport-showcase__field--id dd {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #243832;
+}
+
+.registry-home .passport-showcase__identity-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(46, 40, 32, 0.12);
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.registry-home .recently-section__intro {
+  margin-top: 2rem;
+}
+
+.registry-home .recently-section__grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 3rem;
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .registry-home .recently-section__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.registry-home .registry-preview-card {
+  border: 1px solid rgba(46, 40, 32, 0.1);
+  background-color: #faf6f0;
+  padding: 1.5rem 1.35rem 1.35rem;
+}
+
+.registry-home .registry-preview-card__id {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a7349;
+}
+
+.registry-home .registry-preview-card__name {
+  margin-top: 0.65rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #2e2820;
+}
+
+.registry-home .registry-preview-card__meta {
+  margin-top: 0.5rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6b6358;
+}
+
+.registry-home .explore-section__title {
+  margin-top: 2rem;
+}
+
+.registry-home .explore-section__list {
+  margin-top: 3rem;
+  list-style: none;
+  padding: 0;
+}
+
+.registry-home .kingdom-wayfinding {
+  display: grid;
+  gap: 1.25rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.registry-home .kingdom-wayfinding:first-child {
+  padding-top: 0;
+}
+
+.registry-home .kingdom-wayfinding:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .registry-home .kingdom-wayfinding {
+    grid-template-columns: 3rem 1fr auto;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.registry-home .kingdom-wayfinding__index {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: #8a7349;
+}
+
+.registry-home .kingdom-wayfinding__title {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.registry-home .kingdom-wayfinding__title a {
+  color: #2e2820;
+  text-decoration: none;
+}
+
+.registry-home .kingdom-wayfinding__title a:hover {
+  color: #243832;
+}
+
+.registry-home .kingdom-wayfinding__description {
+  margin-top: 0.5rem;
+  max-width: 28rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.85;
+  color: #6b6358;
+}
+
+.registry-home .kingdom-wayfinding__action {
+  justify-self: start;
+}
+
+@media (min-width: 768px) {
+  .registry-home .kingdom-wayfinding__action {
+    justify-self: end;
+  }
+}
