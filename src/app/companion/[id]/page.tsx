@@ -44,10 +44,11 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
   const registryFields = [
     { label: "Companion ID", value: record.companionId, mono: true },
+    { label: "Name", value: record.name },
     { label: "Species", value: record.species },
     { label: "Breed", value: record.breed },
     { label: "Country", value: country },
-    { label: "Registered", value: record.kingdomSince },
+    { label: "Kingdom Since", value: record.kingdomSince },
     { label: "Guardian", value: record.guardian },
   ] as const;
 
@@ -110,13 +111,12 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
         <section className="companion-archive__record">
           <div className="mx-auto max-w-6xl px-6 md:px-10">
-            <h2 className="companion-archive__section-title">Kingdom Record</h2>
             <div className="companion-archive__prose">
               <p>
                 This companion holds an official place within the PetLuma Kingdom Registry.
               </p>
               <p>
-                The archive preserves identity, memory and companionship for generations to
+                The archive preserves identity, memory, and companionship for generations to
                 come.
               </p>
             </div>
@@ -131,21 +131,6 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
             </div>
           </section>
         ) : null}
-
-        <section className="companion-archive__footer-meta">
-          <div className="mx-auto max-w-6xl px-6 md:px-10">
-            <div className="companion-archive__footer-grid">
-              <div>
-                <p className="companion-archive__footer-label">Kingdom Since</p>
-                <p className="companion-archive__footer-value">{record.kingdomSince}</p>
-              </div>
-              <div>
-                <p className="companion-archive__footer-label">Archive Status</p>
-                <p className="companion-archive__footer-value">Official Public Archive</p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <div className="companion-archive__actions mx-auto max-w-6xl px-6 md:px-10">
           <Link href="/hall" className="companion-archive__back">
