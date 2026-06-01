@@ -1,19 +1,15 @@
 import Image from "next/image";
 import { RegistryButton } from "./ui";
 
+const HERO_PASSPORT_WIDTH = 1024;
+const HERO_PASSPORT_HEIGHT = 575;
+
 export function HeroSection() {
   return (
     <section id="home" className="hero-section">
-      <Image
-        src="/hero-passport.png"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hero-section__background"
-      />
+      <div className="hero-section__backdrop" aria-hidden="true" />
 
-      <div className="hero-section__inner mx-auto w-full max-w-[1440px] px-6 md:px-10">
+      <div className="hero-section__inner">
         <div id="passport" className="hero-section__content text-left">
           <h1 className="font-[family-name:var(--font-cormorant)] text-[2.65rem] font-medium leading-[1.02] tracking-[-0.02em] text-[#2e2820] sm:text-5xl md:text-[3.35rem] lg:text-[3.75rem] xl:text-[4.25rem]">
             Every companion
@@ -30,6 +26,28 @@ export function HeroSection() {
               Explore the Kingdom
             </RegistryButton>
           </div>
+        </div>
+
+        <div className="hero-section__scene" aria-hidden={false}>
+          <div className="hero-section__decor" aria-hidden="true">
+            <Image
+              src="/hero-passport.png"
+              alt=""
+              width={HERO_PASSPORT_WIDTH}
+              height={HERO_PASSPORT_HEIGHT}
+              sizes="45vw"
+              className="hero-section__decor-image"
+            />
+          </div>
+          <Image
+            src="/hero-passport.png"
+            alt="PetLuma Passport on stone with dried flowers"
+            width={HERO_PASSPORT_WIDTH}
+            height={HERO_PASSPORT_HEIGHT}
+            priority
+            sizes="(max-width: 1023px) 92vw, 45vw"
+            className="hero-section__passport"
+          />
         </div>
       </div>
     </section>
