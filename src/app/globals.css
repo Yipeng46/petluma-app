@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -8,10 +7,8 @@
   --espresso-soft: #6f5b4b;
   --gold: #c7a15f;
   --sage: #8d927b;
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-body:
-    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font-display: var(--pl-font-heading);
+  --font-body: var(--pl-font-body);
 }
 
 * {
@@ -28,8 +25,8 @@ body {
     radial-gradient(circle at top left, rgba(199, 161, 95, 0.22), transparent 30rem),
     linear-gradient(135deg, #f8f0e4 0%, #efe0cb 52%, #f7efe3 100%);
   color: var(--espresso);
-  font-family:
-    "Inter", "Avenir Next", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-body);
 }
 
 ::selection {

@@ -36,20 +36,16 @@ export default function RegistryHallPage() {
         <div className="mx-auto max-w-6xl">
           {!archivesEntered ? (
             <section className="hall-intro mx-auto flex min-h-[calc(100svh-12rem)] max-w-2xl flex-col items-center justify-center text-center">
-              <p className="font-sans text-[10px] uppercase tracking-[0.34em] text-[#8a7349]">
-                PetLuma Kingdom Registry
-              </p>
-              <h1 className="mt-6 font-[family-name:var(--font-cormorant)] text-4xl font-medium tracking-tight text-[#2e2820] md:text-5xl lg:text-[3.5rem]">
-                Registry Hall
-              </h1>
-              <p className="mx-auto mt-8 max-w-lg font-sans text-[15px] leading-[1.9] text-[#6b6358] md:text-base md:leading-8">
+              <p className="pl-caption">PetLuma Kingdom Registry</p>
+              <h1 className="pl-section-title hall-intro__title">Registry Hall</h1>
+              <p className="pl-body mx-auto max-w-lg hall-intro__lead">
                 Every registered companion holds a permanent place within the Kingdom
                 archives.
               </p>
               <button
                 type="button"
                 onClick={() => setArchivesEntered(true)}
-                className="mt-12 border border-kingdom-ink bg-kingdom-ink px-7 py-3 font-sans text-[10px] font-medium uppercase tracking-[0.18em] text-kingdom-cream transition-colors duration-500 hover:bg-kingdom-brown"
+                className="pl-btn hall-intro__cta border border-kingdom-ink bg-kingdom-ink px-7 py-3 text-kingdom-cream transition-colors duration-500 hover:bg-kingdom-brown"
               >
                 Enter the Archives
               </button>
@@ -57,13 +53,9 @@ export default function RegistryHallPage() {
           ) : (
             <>
               <header className="hall-header-in mx-auto max-w-3xl text-center">
-                <p className="font-sans text-[10px] uppercase tracking-[0.34em] text-[#8a7349]">
-                  PetLuma Kingdom Registry
-                </p>
-                <h1 className="mt-5 font-[family-name:var(--font-cormorant)] text-4xl font-medium tracking-tight text-[#2e2820] md:text-5xl lg:text-[3.25rem]">
-                  Registry Hall
-                </h1>
-                <p className="mx-auto mt-7 max-w-2xl font-sans text-[15px] leading-[1.85] text-[#6b6358]">
+                <p className="pl-caption">PetLuma Kingdom Registry</p>
+                <h1 className="pl-section-title hall-header-in__title">Registry Hall</h1>
+                <p className="pl-body mx-auto max-w-2xl hall-header-in__lead">
                   A quiet public archive of companions whose guardians have chosen to share
                   their official Kingdom identity.
                 </p>
@@ -78,7 +70,7 @@ export default function RegistryHallPage() {
                       value={query}
                       onChange={(event) => setQuery(event.target.value)}
                       placeholder="Search by Companion ID or Name"
-                      className="hall-search w-full px-4 py-3 font-sans text-sm text-[#2e2820] placeholder:text-[#8a8278]"
+                      className="hall-search w-full px-4 py-3 text-[#2e2820] placeholder:text-[#8a8278]"
                     />
                   </label>
 
@@ -92,7 +84,7 @@ export default function RegistryHallPage() {
                         key={filter.value}
                         type="button"
                         onClick={() => setActiveFilter(filter.value)}
-                        className={`filter-pill px-4 py-2 font-sans text-[10px] uppercase tracking-[0.14em] ${
+                        className={`filter-pill pl-btn px-4 py-2 ${
                           activeFilter === filter.value
                             ? "filter-pill--active"
                             : "text-[#6b6358]"
@@ -105,7 +97,7 @@ export default function RegistryHallPage() {
                 </div>
 
                 {visibleRecords.length === 0 ? (
-                  <p className="mt-14 text-center font-sans text-sm text-[#6b6358]">
+                  <p className="pl-small mt-14 text-center text-[#6b6358]">
                     No companions match your search within the public archive.
                   </p>
                 ) : (
@@ -117,7 +109,7 @@ export default function RegistryHallPage() {
                 )}
               </div>
 
-              <p className="relative z-10 mx-auto mt-14 max-w-2xl text-center font-sans text-[12px] leading-[1.85] text-[#6b6358] md:mt-16">
+              <p className="pl-small relative z-10 mx-auto mt-14 max-w-2xl text-center md:mt-16">
                 Only companions with guardian consent are shown here. Private records remain
                 sealed within the Kingdom Registry.
               </p>

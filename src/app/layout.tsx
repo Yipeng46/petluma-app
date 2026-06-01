@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import "@/styles/design-system.css";
 import "@/styles/registry-home.css";
 
 const cormorant = Cormorant_Garamond({
@@ -10,10 +11,10 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -29,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen">{children}</body>
+    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+      <body className="min-h-screen font-sans antialiased">{children}</body>
     </html>
   );
 }

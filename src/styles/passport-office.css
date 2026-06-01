@@ -1,0 +1,56 @@
+/* Passport Office typography + spacing */
+.passport-office {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-body);
+  color: #2e2820;
+}
+
+.passport-office h1 {
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-section);
+  font-weight: 500;
+  line-height: var(--pl-leading-section);
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+.passport-office .passport-office__back {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-small);
+}
+
+.passport-office .passport-form-card {
+  padding: var(--pl-space-card-padding);
+}
+
+.passport-office .passport-form-card h1 + p {
+  margin-top: var(--pl-space-title-desc);
+}
+
+.passport-office .passport-form-card label > span:first-child {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-small);
+  font-weight: 500;
+}
+
+.passport-office .passport-form-card .passport-form-eyebrow {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-caption);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.passport-office .passport-form-card .passport-form-lead {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-body);
+  line-height: var(--pl-leading-body);
+}
+
+.passport-office .passport-form-submit {
+  font-family: var(--pl-font-button);
+  font-size: var(--pl-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}

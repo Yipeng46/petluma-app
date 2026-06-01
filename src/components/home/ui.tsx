@@ -27,7 +27,7 @@ export function RegistryButton({
   return (
     <Link
       href={href}
-      className={`registry-btn registry-btn--${variant} inline-flex items-center justify-center px-6 py-3 font-sans text-[10px] font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${variantClasses[variant]} ${className}`}
+      className={`registry-btn registry-btn--${variant} pl-btn inline-flex items-center justify-center px-6 py-3 transition-colors duration-500 ${variantClasses[variant]} ${className}`}
     >
       {children}
     </Link>
@@ -39,11 +39,7 @@ type SectionEyebrowProps = {
 };
 
 export function SectionEyebrow({ children }: SectionEyebrowProps) {
-  return (
-    <p className="mb-4 font-sans text-[10px] font-medium uppercase tracking-[0.32em] text-kingdom-gold-dark">
-      {children}
-    </p>
-  );
+  return <p className="pl-caption mb-4">{children}</p>;
 }
 
 type SectionTitleProps = {
@@ -54,9 +50,7 @@ type SectionTitleProps = {
 
 export function SectionTitle({ children, as: Tag = "h2", className = "" }: SectionTitleProps) {
   return (
-    <Tag
-      className={`font-display font-medium leading-[1.08] tracking-tight text-kingdom-ink ${className}`}
-    >
+    <Tag className={`pl-section-title ${className}`}>
       {children}
     </Tag>
   );

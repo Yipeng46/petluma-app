@@ -40,7 +40,7 @@ export function SiteHeader() {
             <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
               PetLuma
             </span>
-            <span className="mt-1.5 font-sans text-[9px] font-medium uppercase tracking-[0.22em] text-[#6F6256]">
+            <span className="pl-caption mt-1.5 text-[#6F6256]">
               Kingdom Registry
             </span>
           </Link>

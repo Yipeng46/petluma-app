@@ -26,20 +26,20 @@ export function PetCardForm({
   onCountryChange,
 }: PetCardFormProps) {
   return (
-    <section className="relative overflow-hidden rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/86 p-5 shadow-[0_22px_60px_rgba(17,24,39,0.08)] backdrop-blur sm:p-8">
+    <section className="passport-form-card relative overflow-hidden rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/86 shadow-[0_22px_60px_rgba(17,24,39,0.08)] backdrop-blur">
       <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:radial-gradient(ellipse_at_center,transparent_0%,transparent_52%,rgba(8,21,38,0.14)_53%,transparent_54%),linear-gradient(90deg,rgba(8,21,38,0.05)_1px,transparent_1px)] [background-size:96px_44px,28px_28px]" />
       <div className="pointer-events-none absolute right-6 top-6 text-8xl font-semibold leading-none tracking-[-0.08em] text-[#111827]/[0.035]">
         PL
       </div>
 
       <div className="mb-10">
-        <p className="relative text-xs font-semibold uppercase tracking-[0.34em] text-[#C8A97E]">
+        <p className="passport-form-eyebrow relative text-[#C8A97E]">
           Kingdom Registry
         </p>
-        <h1 className="relative mt-4 text-4xl font-semibold tracking-[-0.055em] text-[#111827] sm:text-5xl">
+        <h1 className="relative">
           Register your companion within the Kingdom.
         </h1>
-        <p className="relative mt-4 max-w-xl text-sm leading-7 text-[#6E6A64] sm:text-base">
+        <p className="passport-form-lead relative max-w-xl text-[#6E6A64]">
           Add a portrait and a few details. The Registry will prepare their official
           companion identity record.
         </p>

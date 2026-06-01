@@ -15,7 +15,7 @@
   --color-kingdom-warm-gray: #8a8278;
 
   --font-family-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
-  --font-family-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --shadow-passport: 0 24px 64px rgba(18, 31, 51, 0.14), 0 8px 24px rgba(46, 40, 32, 0.08);
   --shadow-card: 0 12px 40px rgba(46, 40, 32, 0.07);
@@ -73,7 +73,7 @@
 }
 
 .site-header__link {
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--pl-font-body);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -92,7 +92,7 @@
   border: 1px solid #2e2820;
   background: #2e2820;
   padding: 0.625rem 1rem;
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--pl-font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -140,7 +140,7 @@
 
 .registry-home .hero-section {
   position: relative;
-  padding: calc(var(--site-header-height) + 5rem) 0 6rem;
+  padding: calc(var(--site-header-height) + 5rem) 0 var(--pl-space-hero-bottom);
   background-color: #f3f0ea;
 }
 
@@ -164,7 +164,7 @@
 
 @media (min-width: 768px) {
   .registry-home .hero-section {
-    padding: calc(var(--site-header-height) + 6.5rem) 0 8rem;
+    padding: calc(var(--site-header-height) + 6.5rem) 0 var(--pl-space-hero-bottom);
   }
 
   .registry-home .hero-section__inner {
@@ -174,8 +174,12 @@
 
 @media (min-width: 1024px) {
   .registry-home .hero-section {
-    padding: calc(var(--site-header-height) + 8rem) 0 9rem;
+    padding: calc(var(--site-header-height) + 8rem) 0 var(--pl-space-hero-bottom);
   }
+}
+
+.registry-home .hero-section__cta {
+  margin-top: var(--pl-space-desc-button);
 }
 
 .registry-home .registry-btn--primary {
@@ -498,13 +502,31 @@
 
 .registry-home .manifesto-section {
   border-top: 1px solid rgba(46, 40, 32, 0.08);
-  padding: 5.5rem 0;
+  padding: var(--pl-space-section) 0;
 }
 
-@media (min-width: 1024px) {
-  .registry-home .manifesto-section {
-    padding: 7rem 0;
-  }
+.registry-home .manifesto-section__title {
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-section);
+  font-weight: 500;
+  line-height: var(--pl-leading-section);
+  letter-spacing: -0.02em;
+  color: #2e2820;
+}
+
+.registry-home .manifesto-section__core {
+  margin-top: var(--pl-space-title-desc);
+}
+
+.registry-home .manifesto-section__line {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-body);
+  line-height: var(--pl-leading-body);
+  color: #2e2820;
+}
+
+.registry-home .manifesto-section__line--emphasis {
+  color: #243832;
 }
 
 .registry-home .registry-icon-ring {
@@ -520,38 +542,26 @@
 
 .registry-home .home-section {
   border-top: 1px solid rgba(46, 40, 32, 0.08);
-  padding: 5.5rem 0;
-}
-
-@media (min-width: 1024px) {
-  .registry-home .home-section {
-    padding: 7rem 0;
-  }
+  padding: var(--pl-space-section) 0;
 }
 
 .registry-home .home-section--cta {
-  padding-bottom: 6rem;
-}
-
-@media (min-width: 1024px) {
-  .registry-home .home-section--cta {
-    padding-bottom: 8rem;
-  }
+  padding-bottom: var(--pl-space-section);
 }
 
 .registry-home .home-section__title {
-  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-section);
   font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
+  line-height: var(--pl-leading-section);
+  letter-spacing: -0.02em;
   color: #2e2820;
 }
 
 .registry-home .recently-section__grid {
   display: flex;
   gap: 1rem;
-  margin-top: 3.5rem;
+  margin-top: var(--pl-space-title-desc);
   list-style: none;
   padding: 0 0 0.35rem;
   overflow-x: auto;
@@ -581,10 +591,10 @@
 .registry-home .recently-section__empty-text {
   max-width: 28rem;
   margin: 0 auto;
-  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
-  font-size: 1.5rem;
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-card);
   font-weight: 500;
-  line-height: 1.45;
+  line-height: var(--pl-leading-card);
   color: #2e2820;
 }
 
@@ -624,12 +634,13 @@
 
 .registry-home .registry-preview-card__body {
   flex: 1;
-  padding: 1.15rem 1.15rem 0.85rem;
+  padding: var(--pl-space-card-padding);
+  padding-bottom: 1rem;
 }
 
 .registry-home .registry-preview-card__id {
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 9px;
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-caption);
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -638,18 +649,18 @@
 
 .registry-home .registry-preview-card__name {
   margin-top: 0.55rem;
-  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
-  font-size: 1.55rem;
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-card);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: var(--pl-leading-card);
   letter-spacing: -0.01em;
   color: #2e2820;
 }
 
 .registry-home .registry-preview-card__meta {
   margin-top: 0.45rem;
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 12px;
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-small);
   line-height: 1.6;
   color: #6b6358;
 }
@@ -669,8 +680,8 @@
 }
 
 .registry-home .registry-preview-card__since-label {
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 9px;
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-caption);
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -678,17 +689,17 @@
 }
 
 .registry-home .registry-preview-card__since-value {
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 13px;
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-small);
   color: #2e2820;
 }
 
 .registry-home .registry-preview-card__action {
-  margin: 0 1.15rem 1.15rem;
+  margin: 0 var(--pl-space-card-padding) var(--pl-space-card-padding);
   padding: 0.55rem 0.85rem;
   border: 1px solid rgba(46, 40, 32, 0.18);
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 10px;
+  font-family: var(--pl-font-button);
+  font-size: var(--pl-text-caption);
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -767,7 +778,7 @@
 }
 
 .registry-home .kingdom-wayfinding__index {
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--pl-font-body);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.22em;
@@ -794,7 +805,7 @@
 .registry-home .kingdom-wayfinding__description {
   margin-top: 0.5rem;
   max-width: 28rem;
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--pl-font-body);
   font-size: 13px;
   line-height: 1.85;
   color: #6b6358;

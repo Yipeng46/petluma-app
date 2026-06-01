@@ -1,0 +1,103 @@
+/**
+ * PetLuma Design System
+ * Typography + spacing tokens shared across all pages.
+ */
+
+:root {
+  /* Font families (Google Fonts via next/font in layout.tsx) */
+  --pl-font-heading: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --pl-font-body: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+  --pl-font-button: var(--pl-font-body);
+
+  /* Typography scale */
+  --pl-text-hero: 72px;
+  --pl-text-section: 48px;
+  --pl-text-card: 32px;
+  --pl-text-body: 18px;
+  --pl-text-small: 14px;
+  --pl-text-caption: 12px;
+
+  /* Spacing scale */
+  --pl-space-section: 120px;
+  --pl-space-hero-bottom: 140px;
+  --pl-space-title-desc: 24px;
+  --pl-space-desc-button: 32px;
+  --pl-space-card-padding: 32px;
+
+  /* Line heights */
+  --pl-leading-hero: 1.02;
+  --pl-leading-section: 1.08;
+  --pl-leading-card: 1.12;
+  --pl-leading-body: 1.65;
+}
+
+/* Typography utilities */
+.pl-hero-title {
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-hero);
+  font-weight: 500;
+  line-height: var(--pl-leading-hero);
+  letter-spacing: -0.02em;
+  color: #2e2820;
+}
+
+.pl-section-title {
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-section);
+  font-weight: 500;
+  line-height: var(--pl-leading-section);
+  letter-spacing: -0.02em;
+  color: #2e2820;
+}
+
+.pl-card-title {
+  font-family: var(--pl-font-heading);
+  font-size: var(--pl-text-card);
+  font-weight: 500;
+  line-height: var(--pl-leading-card);
+  letter-spacing: -0.01em;
+  color: #2e2820;
+}
+
+.pl-body {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-body);
+  font-weight: 400;
+  line-height: var(--pl-leading-body);
+  color: #6b6358;
+}
+
+.pl-small {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-small);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #6b6358;
+}
+
+.pl-caption {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-caption);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a7349;
+}
+
+.pl-btn {
+  font-family: var(--pl-font-button);
+  font-size: var(--pl-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Spacing utilities */
+.pl-stack-title-desc {
+  margin-top: var(--pl-space-title-desc);
+}
+
+.pl-stack-desc-button {
+  margin-top: var(--pl-space-desc-button);
+}

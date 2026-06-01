@@ -137,3 +137,35 @@
     will-change: auto;
   }
 }
+
+/* Typography + spacing */
+.registry-hall .hall-intro__title,
+.registry-hall .hall-header-in__title {
+  margin-top: var(--pl-space-title-desc);
+}
+
+.registry-hall .hall-intro__lead,
+.registry-hall .hall-header-in__lead {
+  margin-top: var(--pl-space-title-desc);
+}
+
+.registry-hall .hall-intro__cta {
+  margin-top: var(--pl-space-desc-button);
+}
+
+.registry-hall .archive-card-body {
+  padding-left: var(--pl-space-card-padding);
+  padding-right: var(--pl-space-card-padding);
+  padding-bottom: var(--pl-space-card-padding);
+}
+
+.registry-hall .archive-card__name {
+  font-size: var(--pl-text-card);
+  line-height: var(--pl-leading-card);
+}
+
+.registry-hall .hall-search,
+.registry-hall .filter-pill {
+  font-family: var(--pl-font-body);
+  font-size: var(--pl-text-small);
+}
