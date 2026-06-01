@@ -12,20 +12,12 @@ export function PassportSection() {
           </p>
         </header>
 
-        <div className="passport-section__grid">
-          <div className="passport-section__copy">
-            <h2 className="home-section__title">THE PASSPORT</h2>
-            <p className="home-section__subtitle">A permanent identity for every companion.</p>
-            <p className="home-section__prose">
-              Each registered companion receives an official Companion ID and a place within
-              the Kingdom Registry.
-            </p>
-          </div>
-
-          <div className="passport-section__visual">
-            <PassportShowcase />
-          </div>
+        <div className="passport-section__intro">
+          <h2 className="home-section__title">THE PASSPORT</h2>
+          <p className="home-section__subtitle">A permanent identity for every companion.</p>
         </div>
+
+        <PassportShowcase />
       </div>
     </section>
   );
