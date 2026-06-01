@@ -59,7 +59,7 @@ export function ArchiveCard({ record }: ArchiveCardProps) {
           </div>
 
           <Link
-            href={`/verify/${encodeURIComponent(record.passportNo)}`}
+            href={`/companion/${encodeURIComponent(record.companionId)}`}
             className="relative z-10 mt-5 inline-flex self-start border border-[#2e2820]/18 px-4 py-2 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-[#2e2820] transition-colors duration-300 hover:border-[#2e2820]/32 hover:bg-[#faf6f0]/80"
           >
             View Archive

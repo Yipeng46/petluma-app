@@ -1,0 +1,265 @@
+.companion-archive {
+  background-color: #f3f0ea;
+  color: #2e2820;
+}
+
+.companion-archive__texture {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.32;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+}
+
+.companion-archive__main {
+  position: relative;
+  z-index: 1;
+}
+
+.companion-archive__hero {
+  padding: 3.5rem 0 4.5rem;
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.companion-archive__eyebrow {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8a7349;
+}
+
+.companion-archive__eyebrow-sub {
+  margin-top: 0.65rem;
+  letter-spacing: 0.28em;
+}
+
+.companion-archive__name {
+  margin-top: 2rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: #2e2820;
+}
+
+.companion-archive__companion-id {
+  margin-top: 1.25rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a7349;
+}
+
+.companion-archive__profile {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.companion-archive__profile-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: start;
+}
+
+.companion-archive__portrait {
+  border: 1px solid rgba(46, 40, 32, 0.1);
+  background-color: #faf6f0;
+  max-width: 28rem;
+}
+
+.companion-archive__portrait-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.companion-archive__registry-title {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #2e2820;
+}
+
+.companion-archive__registry-list {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.companion-archive__registry-row {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.companion-archive__registry-row dt {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.companion-archive__registry-row dd {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  color: #2e2820;
+}
+
+.companion-archive__registry-row dd.companion-archive__registry-value--mono {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.companion-archive__record,
+.companion-archive__story {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid rgba(46, 40, 32, 0.08);
+}
+
+.companion-archive__section-title {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #2e2820;
+}
+
+.companion-archive__prose {
+  margin-top: 1.5rem;
+  max-width: 32rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.95;
+  color: #6b6358;
+}
+
+.companion-archive__prose p + p {
+  margin-top: 1rem;
+}
+
+.companion-archive__story-text {
+  margin-top: 1.5rem;
+  max-width: 36rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #6b6358;
+}
+
+.companion-archive__footer-meta {
+  padding: 4rem 0 3rem;
+}
+
+.companion-archive__footer-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.companion-archive__footer-label {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.companion-archive__footer-value {
+  margin-top: 0.5rem;
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #2e2820;
+}
+
+.companion-archive__actions {
+  padding-bottom: 5rem;
+}
+
+.companion-archive__back {
+  display: inline-flex;
+  border: 1px solid rgba(46, 40, 32, 0.18);
+  background-color: #faf6f0;
+  padding: 0.75rem 1.35rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2e2820;
+  text-decoration: none;
+  transition: border-color 0.35s ease, background-color 0.35s ease;
+}
+
+.companion-archive__back:hover {
+  border-color: rgba(46, 40, 32, 0.32);
+  background-color: #f7f3eb;
+}
+
+.companion-archive-not-found {
+  min-height: calc(100svh - var(--site-header-height));
+  display: flex;
+  align-items: center;
+  padding: 4rem 0 6rem;
+}
+
+.companion-archive-not-found__title {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: #2e2820;
+}
+
+.companion-archive-not-found__text {
+  margin-top: 1.25rem;
+  max-width: 24rem;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #6b6358;
+}
+
+@media (min-width: 1024px) {
+  .companion-archive__hero {
+    padding: 5rem 0 5.5rem;
+  }
+
+  .companion-archive__profile {
+    padding: 5.5rem 0;
+  }
+
+  .companion-archive__profile-grid {
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+    gap: 5rem;
+  }
+
+  .companion-archive__record,
+  .companion-archive__story {
+    padding: 5.5rem 0;
+  }
+
+  .companion-archive__footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 32rem;
+  }
+}

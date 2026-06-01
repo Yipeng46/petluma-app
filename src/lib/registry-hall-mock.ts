@@ -9,7 +9,21 @@ export type RegistryHallRecord = {
   kingdomSince: string;
   photoUrl: string;
   category: RegistryHallCategory;
+  guardian: string;
+  story?: string;
 };
+
+const COUNTRY_BY_CODE: Record<string, string> = {
+  AU: "Australia",
+  UK: "United Kingdom",
+  JP: "Japan",
+  US: "United States",
+};
+
+export function getCountryFromCompanionId(companionId: string): string {
+  const code = companionId.split("-")[2];
+  return code ? (COUNTRY_BY_CODE[code] ?? code) : "—";
+}
 
 export const registryHallRecords: RegistryHallRecord[] = [
   {
@@ -20,8 +34,11 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Siberian Forest",
     kingdomSince: "January 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=640&h=800&fit=crop&q=80",
     category: "feline",
+    guardian: "Eleanor Whitmore",
+    story:
+      "Luna arrived on a quiet winter evening and never left the sunlit corner of the study. Her presence turned an ordinary home into a place worth recording.",
   },
   {
     companionId: "PK-2023-AU-000089",
@@ -31,8 +48,11 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Golden Retriever",
     kingdomSince: "September 2023",
     photoUrl:
-      "https://images.unsplash.com/photo-1558787533-7fb0319a8a8e?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1558787533-7fb0319a8a8e?w=640&h=800&fit=crop&q=80",
     category: "canine",
+    guardian: "James & Clara Nguyen",
+    story:
+      "Archie walked every coastal path we knew and several we discovered together. The Registry holds what the tide cannot take.",
   },
   {
     companionId: "PK-2024-UK-000201",
@@ -42,8 +62,9 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "British Shorthair",
     kingdomSince: "March 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=640&h=800&fit=crop&q=80",
     category: "feline",
+    guardian: "Thomas Reed",
   },
   {
     companionId: "PK-2022-AU-000044",
@@ -53,8 +74,9 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Border Collie",
     kingdomSince: "June 2022",
     photoUrl:
-      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=640&h=800&fit=crop&q=80",
     category: "canine",
+    guardian: "Margaret Olsen",
   },
   {
     companionId: "PK-2024-JP-000118",
@@ -64,8 +86,9 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Budgerigar",
     kingdomSince: "April 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1452572738146-62f516285a50?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1452572738146-62f516285a50?w=640&h=800&fit=crop&q=80",
     category: "other",
+    guardian: "Yuki Tanaka",
   },
   {
     companionId: "PK-2023-AU-000156",
@@ -75,8 +98,9 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Holland Lop",
     kingdomSince: "November 2023",
     photoUrl:
-      "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=640&h=800&fit=crop&q=80",
     category: "other",
+    guardian: "Amelia Hart",
   },
   {
     companionId: "PK-2024-AU-000178",
@@ -86,8 +110,9 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Cavalier King Charles",
     kingdomSince: "February 2024",
     photoUrl:
-      "https://images.unsplash.com/photo-1530281700549-e82e7eb16046?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1530281700549-e82e7eb16046?w=640&h=800&fit=crop&q=80",
     category: "canine",
+    guardian: "Catherine Bell",
   },
   {
     companionId: "PK-2021-AU-000031",
@@ -97,12 +122,22 @@ export const registryHallRecords: RegistryHallRecord[] = [
     breed: "Ragdoll",
     kingdomSince: "August 2021",
     photoUrl:
-      "https://images.unsplash.com/photo-1495360010541-f48722b34f5d?w=320&h=400&fit=crop&q=75",
+      "https://images.unsplash.com/photo-1495360010541-f48722b34f5d?w=640&h=800&fit=crop&q=80",
     category: "feline",
+    guardian: "Daniel Mercer",
   },
 ];
 
 export type RegistryHallFilter = "all" | RegistryHallCategory;
+
+export function getRegistryHallRecordByCompanionId(
+  companionId: string,
+): RegistryHallRecord | undefined {
+  const normalized = decodeURIComponent(companionId).trim().toUpperCase();
+  return registryHallRecords.find(
+    (record) => record.companionId.toUpperCase() === normalized,
+  );
+}
 
 export function filterRegistryHallRecords(
   records: RegistryHallRecord[],
