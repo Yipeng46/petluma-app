@@ -10,6 +10,7 @@ import {
   type RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
 import {
+  formatFoundingEraLabel,
   foundingCompanionToHallRecord,
   getFoundingCompanionById,
 } from "@/lib/founding-collection";
@@ -60,12 +61,17 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
   const country = foundingCompanion?.country ?? getCountryFromCompanionId(record.companionId);
 
+  const eraLabel = foundingCompanion
+    ? formatFoundingEraLabel(foundingCompanion.era)
+    : null;
+
   const registryFields = [
     { label: "Companion ID", value: record.companionId, mono: true },
     { label: "Species", value: record.species },
     { label: "Breed", value: record.breed },
     { label: "Country", value: country },
     { label: "Kingdom Since", value: record.kingdomSince },
+    ...(eraLabel ? [{ label: "Era", value: eraLabel }] : []),
     foundingCompanion
       ? { label: "Status", value: foundingCompanion.status }
       : { label: "Guardian", value: record.guardian },
@@ -81,7 +87,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           <div className="mx-auto max-w-6xl px-6 md:px-10">
             <p className="companion-archive__eyebrow">PetLuma Kingdom</p>
             <p className="companion-archive__eyebrow companion-archive__eyebrow-sub">
-              {foundingCompanion ? "Founding Collection" : "Archive Record"}
+              {eraLabel ?? "Archive Record"}
             </p>
             <h1 className="companion-archive__name">{record.name}</h1>
             <p className="companion-archive__companion-id">{record.companionId}</p>
@@ -138,11 +144,47 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           </div>
         </section>
 
-        {record.story ? (
+        {foundingCompanion?.guardianNote.trim() ? (
+          <section className="companion-archive__story">
+            <div className="mx-auto max-w-6xl px-6 md:px-10">
+              <h2 className="companion-archive__section-title">Guardian Story</h2>
+              <div className="companion-archive__story-text">
+                {foundingCompanion.guardianNote
+                  .trim()
+                  .split(/\n\n+/)
+                  .map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+              </div>
+            </div>
+          </section>
+        ) : record.story ? (
           <section className="companion-archive__story">
             <div className="mx-auto max-w-6xl px-6 md:px-10">
               <h2 className="companion-archive__section-title">Guardian Story</h2>
               <p className="companion-archive__story-text">{record.story}</p>
+            </div>
+          </section>
+        ) : null}
+
+        {foundingCompanion?.specialMemory.trim() ? (
+          <section className="companion-archive__story">
+            <div className="mx-auto max-w-6xl px-6 md:px-10">
+              <h2 className="companion-archive__section-title">Special Memory</h2>
+              <p className="companion-archive__story-text">{foundingCompanion.specialMemory}</p>
+            </div>
+          </section>
+        ) : null}
+
+        {foundingCompanion && foundingCompanion.favoriteThings.length > 0 ? (
+          <section className="companion-archive__story">
+            <div className="mx-auto max-w-6xl px-6 md:px-10">
+              <h2 className="companion-archive__section-title">Favourite Things</h2>
+              <ul className="companion-archive__story-text list-disc pl-5">
+                {foundingCompanion.favoriteThings.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
           </section>
         ) : null}
@@ -153,7 +195,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
               <div>
                 <p className="companion-archive__footer-label">Archive Collection</p>
                 <p className="companion-archive__footer-value">
-                  {foundingCompanion ? "Founding Collection" : "Community Registry"}
+                  {eraLabel ?? "Community Registry"}
                 </p>
               </div>
               <div>

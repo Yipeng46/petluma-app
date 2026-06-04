@@ -56,13 +56,7 @@ function resolvePhotoUrl(photoUrl?: string | null) {
 export function foundingCompanionToRegistryHallRecord(
   companion: FoundingCompanion,
 ): RegistryHallRecord {
-  const storyParts = [
-    companion.guardianNote.trim(),
-    companion.specialMemory.trim(),
-    companion.favoriteThings.length
-      ? `Favourite things: ${companion.favoriteThings.join(", ")}`
-      : "",
-  ].filter(Boolean);
+  const guardianNote = companion.guardianNote.trim();
 
   return {
     companionId: companion.id,
@@ -76,7 +70,7 @@ export function foundingCompanionToRegistryHallRecord(
     category: speciesToRegistryHallCategory(companion.species),
     guardian: companion.country,
     isPublic: true,
-    story: storyParts.length > 0 ? storyParts.join("\n\n") : undefined,
+    story: guardianNote || undefined,
   };
 }
 
