@@ -33,19 +33,50 @@ function createCommunityRegistryClient() {
 }
 
 export async function fetchCommunityRegistryHallRecords(): Promise<RegistryHallRecord[]> {
+  const rawSupabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const tableName = PETLUMA_PASSPORTS_TABLE;
+
+  console.log("[PetLuma][Hall] fetchCommunityRegistryHallRecords", {
+    SUPABASE_URL: rawSupabaseUrl ?? "(undefined)",
+    table: tableName,
+    hasServiceRoleKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
+    hasAnonKey: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+  });
+
   const supabase = createCommunityRegistryClient();
 
   if (!supabase) {
+    console.warn("[PetLuma][Hall] Supabase client not created — missing URL or API key");
     return [];
   }
 
   try {
     const { data, error } = await supabase
-      .from(PETLUMA_PASSPORTS_TABLE)
+      .from(tableName)
       .select(communityPassportSelect)
       .eq("status", "active")
       .eq("is_public", true)
       .order("created_at", { ascending: false });
+
+    console.log("[PetLuma][Hall] Supabase query result", {
+      error: error
+        ? {
+            message: error.message,
+            code: error.code,
+            details: error.details,
+            hint: error.hint,
+          }
+        : null,
+      dataLength: data?.length ?? 0,
+      firstRecord: data?.[0]
+        ? {
+            companion_id: (data[0] as CloudPassportRow).companion_id,
+            status: (data[0] as CloudPassportRow).status,
+            is_public: (data[0] as CloudPassportRow).is_public,
+            pet_name: (data[0] as CloudPassportRow).pet_name,
+          }
+        : null,
+    });
 
     if (error) {
       console.warn("[PetLuma] Community registry fetch failed:", error.message);
@@ -56,7 +87,13 @@ export async function fetchCommunityRegistryHallRecords(): Promise<RegistryHallR
       cloudPassportRowToRegistryHallRecord(row as CloudPassportRow),
     );
 
-    return excludeFoundingFromCommunityRecords(records);
+    const filtered = excludeFoundingFromCommunityRecords(records);
+
+    console.log("[PetLuma][Hall] after excludeFoundingFromCommunityRecords", {
+      recordsLength: filtered.length,
+    });
+
+    return filtered;
   } catch (error) {
     console.warn("[PetLuma] Community registry fetch failed:", error);
     return [];
