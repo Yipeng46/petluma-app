@@ -17,6 +17,9 @@ export const PASSPORT_FIELD_LIMITS = {
   name: 24,
   breed: 40,
   placeOfOrigin: 20,
+  story: 4000,
+  specialMemory: 2000,
+  favoriteThings: 500,
 } as const;
 
 export const PASSPORT_PHOTO_ACCEPT =

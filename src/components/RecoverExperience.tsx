@@ -52,6 +52,10 @@ function registryRecordToPassportData(record: RegistryRecord): PassportData {
     placeOfOrigin: record.placeOfOrigin,
     passportNo: record.passportNo,
     companionId: record.companionId,
+    story: record.story ?? "",
+    specialMemory: record.specialMemory ?? "",
+    favoriteThings: record.favoriteThings ?? "",
+    isPublic: record.isPublic === true,
   };
 }
 

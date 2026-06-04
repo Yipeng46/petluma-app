@@ -14,6 +14,12 @@ create table if not exists public.petluma_passports (
   place_of_origin text,
   country_code text,
   photo_url text,
+  story text,
+  special_memory text,
+  favorite_things text,
+  is_public boolean not null default false,
+  guardian_email text,
+  guardian_name text,
   status text not null default 'active',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

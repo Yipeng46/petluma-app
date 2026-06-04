@@ -13,6 +13,10 @@ export type RegistryHallRecord = {
   guardian: string;
   isPublic: boolean;
   story?: string;
+  specialMemory?: string;
+  favoriteThings?: string[];
+  country?: string;
+  hasPhoto?: boolean;
 };
 
 const COUNTRY_BY_CODE: Record<string, string> = {

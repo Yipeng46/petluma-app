@@ -5,10 +5,15 @@ import {
   type CompanionLookupInput,
 } from "@/lib/companion-lookup";
 import {
+  COMMUNITY_COMPANION_SEQUENCE_MIN,
   generateNextCompanionId,
   normalizeCountryCode,
   parseCountryCodeFromCompanionId,
 } from "@/lib/companion-id";
+import {
+  normalizeStoryField,
+  serializeFavoriteThings,
+} from "@/lib/story-archive";
 import { isValidCountryCode } from "@/lib/countries";
 import { normalizeEmail } from "@/lib/pet-identity";
 
@@ -38,6 +43,12 @@ export type RegistryRecord = {
   createdAt: string;
   updatedAt: string;
   status: RegistryRecordStatus;
+  story?: string;
+  specialMemory?: string;
+  favoriteThings?: string;
+  isPublic: boolean;
+  guardianEmail?: string | null;
+  guardianName?: string | null;
 };
 
 export type RegistryState = {
@@ -53,6 +64,12 @@ export type CreateRegistryInput = {
   dateOfBirth: string;
   countryCode: string;
   placeOfOrigin: string;
+  story?: string;
+  specialMemory?: string;
+  favoriteThings?: string;
+  isPublic?: boolean;
+  guardianEmail?: string | null;
+  guardianName?: string | null;
 };
 
 function toCompanionLookupInput(input: CreateRegistryInput): CompanionLookupInput {
@@ -170,7 +187,10 @@ export function generateNextPassportNumber(
     .map((record) => parsePassportSequence(record.passportNo, year))
     .filter((value): value is number => value !== null);
 
-  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
+  const next = Math.max(
+    (sequences.length ? Math.max(...sequences) : 0) + 1,
+    COMMUNITY_COMPANION_SEQUENCE_MIN,
+  );
 
   return `PLM-${year}-${String(next).padStart(6, "0")}`;
 }
@@ -229,6 +249,12 @@ export function createRegistryRecord(
     createdAt: now,
     updatedAt: now,
     status: "active",
+    story: normalizeStoryField(input.story) || undefined,
+    specialMemory: normalizeStoryField(input.specialMemory) || undefined,
+    favoriteThings: serializeFavoriteThings(input.favoriteThings ?? "") || undefined,
+    isPublic: input.isPublic === true,
+    guardianEmail: input.guardianEmail?.trim() || null,
+    guardianName: input.guardianName?.trim() || null,
   };
 
   registry.records.push(record);
@@ -276,6 +302,12 @@ export type CloudPassportRow = {
   status: string | null;
   created_at: string;
   updated_at: string;
+  story?: string | null;
+  special_memory?: string | null;
+  favorite_things?: string | null;
+  is_public?: boolean | null;
+  guardian_email?: string | null;
+  guardian_name?: string | null;
 };
 
 function sanitizeCloudPhotoUrl(photoUrl?: string | null) {
@@ -299,6 +331,12 @@ export type CloudRegistryInsertPayload = {
   country_code: string;
   photo_url: string | null;
   status: string;
+  story?: string | null;
+  special_memory?: string | null;
+  favorite_things?: string | null;
+  is_public: boolean;
+  guardian_email?: string | null;
+  guardian_name?: string | null;
   updated_at?: string;
 };
 
@@ -322,6 +360,12 @@ function toCloudRegistryPayload(
     country_code: normalized.countryCode,
     photo_url: sanitizeCloudPhotoUrl(input.photoUrl),
     status: "active",
+    story: normalizeStoryField(input.story) || null,
+    special_memory: normalizeStoryField(input.specialMemory) || null,
+    favorite_things: serializeFavoriteThings(input.favoriteThings ?? "") || null,
+    is_public: input.isPublic === true,
+    guardian_email: input.guardianEmail?.trim() || null,
+    guardian_name: input.guardianName?.trim() || null,
     ...(updatedAt ? { updated_at: updatedAt } : {}),
   };
 }
@@ -359,6 +403,12 @@ export function cloudRowToRegistryRecord(row: CloudPassportRow): RegistryRecord 
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     status: row.status === "active" ? "active" : "active",
+    story: row.story?.trim() || undefined,
+    specialMemory: row.special_memory?.trim() || undefined,
+    favoriteThings: row.favorite_things?.trim() || undefined,
+    isPublic: row.is_public === true,
+    guardianEmail: row.guardian_email?.trim() || null,
+    guardianName: row.guardian_name?.trim() || null,
   };
 }
 
@@ -400,7 +450,10 @@ export async function generateNextPassportNumberCloud() {
     .map((row) => parsePassportSequence(row.passport_no, year))
     .filter((value): value is number => value !== null);
 
-  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
+  const next = Math.max(
+    (sequences.length ? Math.max(...sequences) : 0) + 1,
+    COMMUNITY_COMPANION_SEQUENCE_MIN,
+  );
 
   return `PLM-${year}-${String(next).padStart(6, "0")}`;
 }

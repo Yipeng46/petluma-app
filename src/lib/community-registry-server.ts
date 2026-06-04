@@ -8,7 +8,7 @@ import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 import { PETLUMA_PASSPORTS_TABLE, type CloudPassportRow } from "@/lib/registry";
 
 const communityPassportSelect =
-  "id, passport_no, companion_id, owner_email, pet_name, species, breed, gender, date_of_birth, place_of_origin, country_code, photo_url, status, created_at, updated_at";
+  "id, passport_no, companion_id, owner_email, pet_name, species, breed, gender, date_of_birth, place_of_origin, country_code, photo_url, story, special_memory, favorite_things, is_public, guardian_email, guardian_name, status, created_at, updated_at";
 
 function normalizeSupabaseUrl(url: string) {
   return url.replace(/\/rest\/v1\/?$/, "").replace(/\/$/, "");
@@ -44,6 +44,7 @@ export async function fetchCommunityRegistryHallRecords(): Promise<RegistryHallR
       .from(PETLUMA_PASSPORTS_TABLE)
       .select(communityPassportSelect)
       .eq("status", "active")
+      .eq("is_public", true)
       .order("created_at", { ascending: false });
 
     if (error) {

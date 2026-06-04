@@ -32,6 +32,13 @@ async function resolveRegistryHallRecord(
   return fetchCommunityRegistryHallRecordByCompanionId(companionId);
 }
 
+function StoryParagraphs({ text }: { text: string }) {
+  return text
+    .trim()
+    .split(/\n\n+/)
+    .map((paragraph, index) => <p key={index}>{paragraph}</p>);
+}
+
 export async function generateMetadata({
   params,
 }: CompanionArchivePageProps): Promise<Metadata> {
@@ -59,23 +66,43 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
     notFound();
   }
 
-  const country = foundingCompanion?.country ?? getCountryFromCompanionId(record.companionId);
+  const country =
+    record.country ??
+    foundingCompanion?.country ??
+    getCountryFromCompanionId(record.companionId);
 
   const eraLabel = foundingCompanion
     ? formatFoundingEraLabel(foundingCompanion.era)
-    : null;
+    : record.isPublic
+      ? "Community Registry"
+      : "Archive Record";
+
+  const storyText = foundingCompanion
+    ? foundingCompanion.guardianNote.trim()
+    : record.story?.trim() ?? "";
+
+  const specialMemoryText = foundingCompanion
+    ? foundingCompanion.specialMemory.trim()
+    : record.specialMemory?.trim() ?? "";
+
+  const favoriteThings = foundingCompanion
+    ? foundingCompanion.favoriteThings
+    : record.favoriteThings ?? [];
 
   const registryFields = [
     { label: "Companion ID", value: record.companionId, mono: true },
+    { label: "Name", value: record.name },
     { label: "Species", value: record.species },
     { label: "Breed", value: record.breed },
     { label: "Country", value: country },
-    { label: "Kingdom Since", value: record.kingdomSince },
+    { label: "Registry Date", value: record.kingdomSince },
     ...(eraLabel ? [{ label: "Era", value: eraLabel }] : []),
-    foundingCompanion
-      ? { label: "Status", value: foundingCompanion.status }
-      : { label: "Guardian", value: record.guardian },
+    ...(foundingCompanion
+      ? [{ label: "Status", value: foundingCompanion.status }]
+      : []),
   ] as const;
+
+  const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);
 
   return (
     <div className="companion-archive min-h-screen font-sans antialiased">
@@ -87,7 +114,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           <div className="mx-auto max-w-6xl px-6 md:px-10">
             <p className="companion-archive__eyebrow">PetLuma Kingdom</p>
             <p className="companion-archive__eyebrow companion-archive__eyebrow-sub">
-              {eraLabel ?? "Archive Record"}
+              {eraLabel}
             </p>
             <h1 className="companion-archive__name">{record.name}</h1>
             <p className="companion-archive__companion-id">{record.companionId}</p>
@@ -97,17 +124,19 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
         <section className="companion-archive__profile">
           <div className="mx-auto max-w-6xl px-6 md:px-10">
             <div className="companion-archive__profile-grid">
-              <div className="companion-archive__portrait">
-                <Image
-                  src={record.photoUrl}
-                  alt={`Portrait of ${record.name}`}
-                  width={640}
-                  height={800}
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 28rem"
-                  className="companion-archive__portrait-image"
-                />
-              </div>
+              {showPortrait ? (
+                <div className="companion-archive__portrait">
+                  <Image
+                    src={record.photoUrl}
+                    alt={`Portrait of ${record.name}`}
+                    width={640}
+                    height={800}
+                    priority
+                    sizes="(max-width: 1023px) 100vw, 28rem"
+                    className="companion-archive__portrait-image"
+                  />
+                </div>
+              ) : null}
 
               <div className="companion-archive__registry">
                 <h2 className="companion-archive__registry-title">Registry Record</h2>
@@ -132,56 +161,32 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           </div>
         </section>
 
-        <section className="companion-archive__record">
-          <div className="mx-auto max-w-6xl px-6 md:px-10">
-            <div className="companion-archive__prose">
-              <p>This companion holds a place within the Kingdom Registry.</p>
-              <p>
-                Its archive preserves identity, memory and companionship within the PetLuma
-                collection.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {foundingCompanion?.guardianNote.trim() ? (
+        {storyText ? (
           <section className="companion-archive__story">
             <div className="mx-auto max-w-6xl px-6 md:px-10">
-              <h2 className="companion-archive__section-title">Guardian Story</h2>
+              <h2 className="companion-archive__section-title">Story</h2>
               <div className="companion-archive__story-text">
-                {foundingCompanion.guardianNote
-                  .trim()
-                  .split(/\n\n+/)
-                  .map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                  ))}
+                <StoryParagraphs text={storyText} />
               </div>
             </div>
           </section>
-        ) : record.story ? (
-          <section className="companion-archive__story">
-            <div className="mx-auto max-w-6xl px-6 md:px-10">
-              <h2 className="companion-archive__section-title">Guardian Story</h2>
-              <p className="companion-archive__story-text">{record.story}</p>
-            </div>
-          </section>
         ) : null}
 
-        {foundingCompanion?.specialMemory.trim() ? (
+        {specialMemoryText ? (
           <section className="companion-archive__story">
             <div className="mx-auto max-w-6xl px-6 md:px-10">
               <h2 className="companion-archive__section-title">Special Memory</h2>
-              <p className="companion-archive__story-text">{foundingCompanion.specialMemory}</p>
+              <p className="companion-archive__story-text">{specialMemoryText}</p>
             </div>
           </section>
         ) : null}
 
-        {foundingCompanion && foundingCompanion.favoriteThings.length > 0 ? (
+        {favoriteThings.length > 0 ? (
           <section className="companion-archive__story">
             <div className="mx-auto max-w-6xl px-6 md:px-10">
-              <h2 className="companion-archive__section-title">Favourite Things</h2>
+              <h2 className="companion-archive__section-title">Favorite Things</h2>
               <ul className="companion-archive__story-text list-disc pl-5">
-                {foundingCompanion.favoriteThings.map((item) => (
+                {favoriteThings.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -194,12 +199,10 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
             <div className="companion-archive__footer-grid">
               <div>
                 <p className="companion-archive__footer-label">Archive Collection</p>
-                <p className="companion-archive__footer-value">
-                  {eraLabel ?? "Community Registry"}
-                </p>
+                <p className="companion-archive__footer-value">{eraLabel}</p>
               </div>
               <div>
-                <p className="companion-archive__footer-label">Kingdom Since</p>
+                <p className="companion-archive__footer-label">Registry Date</p>
                 <p className="companion-archive__footer-value">{record.kingdomSince}</p>
               </div>
               <div>

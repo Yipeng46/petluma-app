@@ -12,8 +12,8 @@ export const QA_STORAGE_KEY = "petluma-companion-card";
 export const QA_REGISTRY_KEY = "petluma_registry";
 
 export const QA_SAMPLE_REGISTRY_RECORD = {
-  passportNo: "PLM-2026-000021",
-  companionId: "PK-2026-AU-000021",
+  passportNo: "PLM-2026-001021",
+  companionId: "PK-2026-AU-001021",
   petName: "Luma",
   species: "Dog",
   breed: "Golden Retriever",
@@ -26,6 +26,10 @@ export const QA_SAMPLE_REGISTRY_RECORD = {
   createdAt: "2026-01-15T10:00:00.000Z",
   updatedAt: "2026-01-15T10:00:00.000Z",
   status: "active" as const,
+  isPublic: false,
+  story: "",
+  specialMemory: "",
+  favoriteThings: "",
 };
 
 export const QA_VALID_PASSPORT_NO = QA_SAMPLE_REGISTRY_RECORD.passportNo;
@@ -46,7 +50,14 @@ export function toCloudPassportRow(
     gender: record.gender,
     date_of_birth: record.dateOfBirth,
     place_of_origin: record.placeOfOrigin,
+    country_code: record.countryCode ?? null,
     photo_url: record.photoUrl ?? null,
+    story: record.story ?? null,
+    special_memory: record.specialMemory ?? null,
+    favorite_things: record.favoriteThings ?? null,
+    is_public: record.isPublic === true,
+    guardian_email: null,
+    guardian_name: null,
     status: record.status,
     created_at: record.createdAt,
     updated_at: record.updatedAt,
@@ -84,8 +95,8 @@ function basePassport(overrides: Partial<PassportData> = {}): PassportData {
     birthdate: "2020-06-15",
     placeOfOrigin: "Australia",
     countryCode: "AU",
-    passportNo: "PLM-2026-000021",
-    companionId: "PK-2026-AU-000021",
+    passportNo: "PLM-2026-001021",
+    companionId: "PK-2026-AU-001021",
     ...overrides,
   };
 }

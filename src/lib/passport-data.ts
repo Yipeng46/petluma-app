@@ -13,6 +13,10 @@ export type PassportData = {
   placeOfOrigin: string;
   passportNo: string;
   companionId: string;
+  story: string;
+  specialMemory: string;
+  favoriteThings: string;
+  isPublic: boolean;
 };
 
 export function createInitialPassportData(): PassportData {
@@ -28,6 +32,10 @@ export function createInitialPassportData(): PassportData {
     placeOfOrigin: "",
     passportNo: "",
     companionId: "",
+    story: "",
+    specialMemory: "",
+    favoriteThings: "",
+    isPublic: false,
   };
 }
 
@@ -77,6 +85,10 @@ export function normalizePassportData(raw: unknown): PassportData {
     placeOfOrigin,
     passportNo: readString(record.passportNo) || initial.passportNo,
     companionId,
+    story: readString(record.story),
+    specialMemory: readString(record.specialMemory ?? record.special_memory),
+    favoriteThings: readString(record.favoriteThings ?? record.favorite_things),
+    isPublic: record.isPublic === true || record.is_public === true,
   };
 }
 

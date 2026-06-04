@@ -7,6 +7,9 @@ import {
   PASSPORT_SPECIES_OPTIONS,
 } from "@/lib/passport-form";
 
+const REGISTRY_VISIBILITY_NOTE =
+  "Only companions shared by their guardians will appear within the public Registry Hall.";
+
 type PetCardFormProps = {
   passportData: PassportData;
   photoInputKey: number;
@@ -132,8 +135,85 @@ export function PetCardForm({
             ))}
           </select>
         </label>
+
+        <div className="border-t border-[#E6DED2]/80 pt-6">
+          <p className="text-sm font-semibold text-[#111827]">Story Archive</p>
+          <p className="mt-1 text-xs text-[#7a6656]">
+            Optional. Share as much or as little as you wish — every field may remain
+            empty.
+          </p>
+        </div>
+
+        <TextareaInput
+          label="Story"
+          value={passportData.story}
+          placeholder="Tell your companion's story within the Kingdom…"
+          maxLength={PASSPORT_FIELD_LIMITS.story}
+          onChange={(value) => onFieldChange("story", value)}
+        />
+
+        <TextareaInput
+          label="Special Memory"
+          value={passportData.specialMemory}
+          placeholder="A moment you wish to preserve…"
+          maxLength={PASSPORT_FIELD_LIMITS.specialMemory}
+          onChange={(value) => onFieldChange("specialMemory", value)}
+        />
+
+        <TextareaInput
+          label="Favorite Things"
+          value={passportData.favoriteThings}
+          placeholder="One per line, or separated with commas"
+          maxLength={PASSPORT_FIELD_LIMITS.favoriteThings}
+          onChange={(value) => onFieldChange("favoriteThings", value)}
+        />
+
+        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/50 px-4 py-4 transition hover:border-[#C8A97E]/70">
+          <input
+            type="checkbox"
+            checked={passportData.isPublic}
+            onChange={(event) => onFieldChange("isPublic", event.target.checked)}
+            className="mt-1 h-4 w-4 shrink-0 rounded border-[#C8A97E]/60 text-[#111827] focus:ring-[#C8A97E]/25"
+          />
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-[#111827]">
+              Share this companion with the Kingdom Registry
+            </span>
+            <span className="mt-1 block text-xs leading-relaxed text-[#6E6A64]">
+              {REGISTRY_VISIBILITY_NOTE}
+            </span>
+          </span>
+        </label>
       </div>
     </section>
+  );
+}
+
+function TextareaInput({
+  label,
+  value,
+  placeholder,
+  maxLength,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  placeholder: string;
+  maxLength?: number;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-semibold text-[#111827]">{label}</span>
+      <textarea
+        value={value}
+        maxLength={maxLength}
+        rows={4}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        className="w-full resize-y rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
+      />
+    </label>
   );
 }
 

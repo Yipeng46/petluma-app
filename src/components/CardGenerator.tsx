@@ -119,6 +119,12 @@ export function CardGenerator() {
       countryCode: passportData.countryCode,
       placeOfOrigin: passportData.placeOfOrigin,
       photoUrl: passportData.photo,
+      story: passportData.story,
+      specialMemory: passportData.specialMemory,
+      favoriteThings: passportData.favoriteThings,
+      isPublic: passportData.isPublic,
+      guardianEmail: null,
+      guardianName: null,
     });
 
     const card: StoredCompanionCard = isDuplicate
@@ -134,6 +140,10 @@ export function CardGenerator() {
           placeOfOrigin: record.placeOfOrigin,
           passportNo: record.passportNo,
           companionId: record.companionId,
+          story: record.story ?? passportData.story,
+          specialMemory: record.specialMemory ?? passportData.specialMemory,
+          favoriteThings: record.favoriteThings ?? passportData.favoriteThings,
+          isPublic: record.isPublic,
         }
       : {
           ...passportData,
