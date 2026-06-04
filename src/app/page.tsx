@@ -4,8 +4,14 @@ import { HomeFooter } from "@/components/home/HomeFooter";
 import { ManifestoSection } from "@/components/home/ManifestoSection";
 import { RecentlyRegisteredSection } from "@/components/home/RecentlyRegisteredSection";
 import { SiteHeader } from "@/components/home/SiteHeader";
+import { fetchCommunityRegistryHallRecords } from "@/lib/community-registry-server";
 
-export default function HomePage() {
+const RECENTLY_REGISTERED_LIMIT = 6;
+
+export default async function HomePage() {
+  const communityRecords = await fetchCommunityRegistryHallRecords();
+  const recentlyRegistered = communityRecords.slice(0, RECENTLY_REGISTERED_LIMIT);
+
   return (
     <div className="registry-home min-h-screen font-sans antialiased">
       <SiteHeader />
@@ -13,7 +19,7 @@ export default function HomePage() {
       <main className="relative text-[#2e2820]">
         <HeroSection />
         <ManifestoSection />
-        <RecentlyRegisteredSection />
+        <RecentlyRegisteredSection records={recentlyRegistered} />
         <FinalCtaSection />
       </main>
 

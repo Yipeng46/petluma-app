@@ -169,3 +169,46 @@
   font-family: var(--pl-font-body);
   font-size: var(--pl-text-small);
 }
+
+.registry-hall__section {
+  margin-top: 3.5rem;
+}
+
+.registry-hall__section--community {
+  margin-top: 4.5rem;
+}
+
+.registry-hall__section-header {
+  max-width: 36rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.registry-hall__section-title {
+  font-family: var(--pl-font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #2e2820;
+}
+
+.registry-hall__section-lead {
+  margin-top: 0.75rem;
+}
+
+.registry-hall__section-empty {
+  margin-top: 2.5rem;
+  text-align: center;
+  color: #6b6358;
+}
+
+@media (min-width: 768px) {
+  .registry-hall__section {
+    margin-top: 4.5rem;
+  }
+
+  .registry-hall__section--community {
+    margin-top: 5.5rem;
+  }
+}

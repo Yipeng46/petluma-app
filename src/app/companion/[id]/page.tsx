@@ -4,21 +4,38 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
 import {
   getCountryFromCompanionId,
-  getRegistryHallRecordByCompanionId,
+  type RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
+import {
+  foundingCompanionToHallRecord,
+  getFoundingCompanionById,
+} from "@/lib/founding-collection";
 import "@/styles/companion-archive.css";
 
 type CompanionArchivePageProps = {
   params: Promise<{ id: string }>;
 };
 
+async function resolveRegistryHallRecord(
+  companionId: string,
+): Promise<RegistryHallRecord | undefined> {
+  const foundingCompanion = getFoundingCompanionById(companionId);
+
+  if (foundingCompanion) {
+    return foundingCompanionToHallRecord(foundingCompanion);
+  }
+
+  return fetchCommunityRegistryHallRecordByCompanionId(companionId);
+}
+
 export async function generateMetadata({
   params,
 }: CompanionArchivePageProps): Promise<Metadata> {
   const { id } = await params;
-  const record = getRegistryHallRecordByCompanionId(id);
+  const record = await resolveRegistryHallRecord(id);
 
   if (!record) {
     return {
@@ -34,13 +51,14 @@ export async function generateMetadata({
 
 export default async function CompanionArchivePage({ params }: CompanionArchivePageProps) {
   const { id } = await params;
-  const record = getRegistryHallRecordByCompanionId(id);
+  const record = await resolveRegistryHallRecord(id);
+  const foundingCompanion = getFoundingCompanionById(id);
 
   if (!record) {
     notFound();
   }
 
-  const country = getCountryFromCompanionId(record.companionId);
+  const country = foundingCompanion?.country ?? getCountryFromCompanionId(record.companionId);
 
   const registryFields = [
     { label: "Companion ID", value: record.companionId, mono: true },
@@ -48,7 +66,9 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
     { label: "Breed", value: record.breed },
     { label: "Country", value: country },
     { label: "Kingdom Since", value: record.kingdomSince },
-    { label: "Guardian", value: record.guardian },
+    foundingCompanion
+      ? { label: "Status", value: foundingCompanion.status }
+      : { label: "Guardian", value: record.guardian },
   ] as const;
 
   return (
@@ -61,7 +81,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           <div className="mx-auto max-w-6xl px-6 md:px-10">
             <p className="companion-archive__eyebrow">PetLuma Kingdom</p>
             <p className="companion-archive__eyebrow companion-archive__eyebrow-sub">
-              Archive Record
+              {foundingCompanion ? "Founding Collection" : "Archive Record"}
             </p>
             <h1 className="companion-archive__name">{record.name}</h1>
             <p className="companion-archive__companion-id">{record.companionId}</p>
@@ -132,11 +152,13 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
             <div className="companion-archive__footer-grid">
               <div>
                 <p className="companion-archive__footer-label">Archive Collection</p>
-                <p className="companion-archive__footer-value">PetLuma Kingdom</p>
+                <p className="companion-archive__footer-value">
+                  {foundingCompanion ? "Founding Collection" : "Community Registry"}
+                </p>
               </div>
               <div>
                 <p className="companion-archive__footer-label">Kingdom Since</p>
-                <p className="companion-archive__footer-value">2026</p>
+                <p className="companion-archive__footer-value">{record.kingdomSince}</p>
               </div>
               <div>
                 <p className="companion-archive__footer-label">Preserved Within</p>

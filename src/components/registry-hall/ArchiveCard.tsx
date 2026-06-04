@@ -27,15 +27,23 @@ export function ArchiveCard({ record }: ArchiveCardProps) {
 
         <div className="archive-card-photo-frame px-4 pb-1 pt-4">
           <div className="archive-card-photo relative mx-auto overflow-hidden bg-[#ebe3d6]">
-            <Image
-              src={record.photoUrl}
-              alt={`${record.name}, registered companion`}
-              width={PHOTO_WIDTH}
-              height={PHOTO_HEIGHT}
-              className="h-[200px] w-[160px] object-cover"
-              sizes="160px"
-              loading="lazy"
-            />
+            {record.photoUrl ? (
+              <Image
+                src={record.photoUrl}
+                alt={`${record.name}, registered companion`}
+                width={PHOTO_WIDTH}
+                height={PHOTO_HEIGHT}
+                className="h-[200px] w-[160px] object-cover"
+                sizes="160px"
+                loading="lazy"
+              />
+            ) : (
+              <div
+                className="h-[200px] w-[160px]"
+                role="img"
+                aria-label={`Portrait placeholder for ${record.name}`}
+              />
+            )}
           </div>
         </div>
 

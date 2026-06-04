@@ -1,14 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  getRecentlyRegisteredCompanions,
-  type RegistryHallRecord,
-} from "@/lib/registry-hall-mock";
+import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 import { RegistryButton } from "./ui";
 
 const PORTRAIT_WIDTH = 280;
 const PORTRAIT_HEIGHT = 350;
-const RECENTLY_REGISTERED_LIMIT = 6;
 
 type RecentlyRegisteredCardProps = {
   record: RegistryHallRecord;
@@ -55,9 +51,11 @@ function RecentlyRegisteredCard({ record }: RecentlyRegisteredCardProps) {
   );
 }
 
-export function RecentlyRegisteredSection() {
-  const records = getRecentlyRegisteredCompanions(RECENTLY_REGISTERED_LIMIT);
+type RecentlyRegisteredSectionProps = {
+  records: RegistryHallRecord[];
+};
 
+export function RecentlyRegisteredSection({ records }: RecentlyRegisteredSectionProps) {
   return (
     <section className="home-section recently-section">
       <div className="home-section__inner mx-auto max-w-6xl px-6 md:px-10">
