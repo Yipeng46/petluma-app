@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { parseCountryCodeFromCompanionId } from "@/lib/companion-id";
 import {
   buildPetIdentityKey,
   DUPLICATE_PASSPORT_MESSAGE,
@@ -6,6 +7,7 @@ import {
   normalizeEmail,
   trimCollapseSpaces,
 } from "@/lib/pet-identity";
+import { PETLUMA_PASSPORTS_TABLE, type CloudPassportRow } from "@/lib/registry";
 
 type SavePetInput = {
   owner_email: string;
@@ -51,8 +53,8 @@ type AllocatedIdentity = {
   sequence_value: number;
 };
 
-const savedPetSelect =
-  "id, petluma_id, companion_id, passport_number, owner_email, pet_name, species, date_of_birth, pet_identity_key, breed, photo_url, created_at";
+const passportSelect =
+  "id, passport_no, companion_id, owner_email, pet_name, species, date_of_birth, breed, photo_url, created_at";
 
 function normalizeSupabaseUrl(url: string) {
   return url.replace(/\/rest\/v1\/?$/, "").replace(/\/$/, "");
@@ -61,13 +63,6 @@ function normalizeSupabaseUrl(url: string) {
 function createSupabaseServerClient() {
   const rawSupabaseUrl = process.env.SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  console.log("[PetLuma] Supabase server env", {
-    cwd: process.cwd(),
-    hasSupabaseUrl: Boolean(rawSupabaseUrl),
-    hasServiceRoleKey: Boolean(serviceRoleKey),
-    supabaseUrlHasRestSuffix: Boolean(rawSupabaseUrl?.includes("/rest/v1")),
-  });
 
   if (!rawSupabaseUrl || !serviceRoleKey) {
     throw new Error(
@@ -81,6 +76,23 @@ function createSupabaseServerClient() {
       autoRefreshToken: false,
     },
   });
+}
+
+function passportRowToSavedPet(row: CloudPassportRow, petIdentityKey: string | null): SavedPet {
+  return {
+    id: row.id,
+    petluma_id: row.companion_id,
+    companion_id: row.companion_id,
+    passport_number: row.passport_no,
+    owner_email: row.owner_email,
+    pet_name: row.pet_name,
+    species: row.species,
+    date_of_birth: row.date_of_birth,
+    pet_identity_key: petIdentityKey,
+    breed: row.breed,
+    photo_url: row.photo_url,
+    created_at: row.created_at,
+  };
 }
 
 async function allocateCompanionIdentity(
@@ -119,48 +131,43 @@ async function allocateCompanionIdentity(
   return identity as AllocatedIdentity;
 }
 
-async function findExistingPet(
+async function findExistingPassport(
   supabase: ReturnType<typeof createSupabaseServerClient>,
   input: SavePetInput,
+  petIdentityKey: string,
 ) {
-  const dateOfBirth = normalizeDateOfBirth(input.date_of_birth) || null;
-  const { data, error } = await supabase.rpc("find_pet_by_identity", {
-    p_owner_email: normalizeEmail(input.owner_email),
-    p_pet_name: trimCollapseSpaces(input.pet_name),
-    p_species: trimCollapseSpaces(input.species) || "Companion",
-    p_date_of_birth: dateOfBirth,
-  });
+  const ownerEmail = normalizeEmail(input.owner_email);
+  const petName = trimCollapseSpaces(input.pet_name);
+  const species = trimCollapseSpaces(input.species) || "Companion";
+  const dateOfBirth = normalizeDateOfBirth(input.date_of_birth) || "";
+
+  const { data, error } = await supabase
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .select(passportSelect)
+    .eq("owner_email", ownerEmail);
 
   if (error) {
-    console.error("[PetLuma] find_pet_by_identity error", error);
-
-    const petIdentityKey = buildPetIdentityKey({
-      ownerEmail: input.owner_email,
-      petName: input.pet_name,
-      species: input.species,
-      dateOfBirth: input.date_of_birth,
-    });
-
-    const { data: fallbackPet, error: fallbackError } = await supabase
-      .from("pets")
-      .select(savedPetSelect)
-      .eq("pet_identity_key", petIdentityKey)
-      .maybeSingle<SavedPet>();
-
-    if (fallbackError) {
-      throw {
-        code: fallbackError.code,
-        message: fallbackError.message || "Could not check for an existing passport.",
-        details: fallbackError.details,
-        hint: fallbackError.hint,
-      } satisfies SupabaseInsertError;
-    }
-
-    return fallbackPet;
+    throw {
+      code: error.code,
+      message: error.message || "Could not check for an existing passport.",
+      details: error.details,
+      hint: error.hint,
+    } satisfies SupabaseInsertError;
   }
 
-  const pet = Array.isArray(data) ? data[0] : data;
-  return (pet as SavedPet | null | undefined) ?? null;
+  const match = (data ?? []).find((row) => {
+    const record = row as CloudPassportRow;
+    const key = buildPetIdentityKey({
+      ownerEmail: record.owner_email,
+      petName: record.pet_name,
+      species: record.species ?? "",
+      dateOfBirth: record.date_of_birth ?? "",
+    });
+
+    return key === petIdentityKey;
+  });
+
+  return match ? passportRowToSavedPet(match as CloudPassportRow, petIdentityKey) : null;
 }
 
 function duplicateResult(pet: SavedPet): SavePetResult {
@@ -182,59 +189,42 @@ export async function savePet(input: SavePetInput): Promise<SavePetResult> {
     dateOfBirth,
   });
 
-  const existingPet = await findExistingPet(supabase, input);
+  const existingPet = await findExistingPassport(supabase, input, petIdentityKey);
   if (existingPet) {
-    console.log("[PetLuma] existing passport returned", {
-      pet_identity_key: existingPet.pet_identity_key,
-      companion_id: existingPet.companion_id,
-    });
     return duplicateResult(existingPet);
   }
 
-  const identity = await allocateCompanionIdentity(
-    supabase,
-    input.region_code ?? "AU",
-  );
+  const regionCode = input.region_code ?? "AU";
+  const identity = await allocateCompanionIdentity(supabase, regionCode);
+  const countryCode =
+    parseCountryCodeFromCompanionId(identity.companion_id) || regionCode;
+  const now = new Date().toISOString();
 
   const insertPayload = {
-    petluma_id: identity.companion_id,
+    passport_no: identity.passport_number,
     companion_id: identity.companion_id,
-    passport_number: identity.passport_number,
     owner_email: ownerEmail,
     pet_name: trimCollapseSpaces(input.pet_name),
     species: trimCollapseSpaces(input.species) || "Companion",
     date_of_birth: dateOfBirth || null,
-    pet_identity_key: petIdentityKey,
     breed: input.breed || null,
     photo_url: input.photo_url || null,
+    country_code: countryCode,
+    status: "active",
+    is_public: false,
+    updated_at: now,
   };
 
-  console.log("[PetLuma] savePet insert", {
-    payload: {
-      ...insertPayload,
-      photo_url: insertPayload.photo_url
-        ? {
-            length: insertPayload.photo_url.length,
-            prefix: insertPayload.photo_url.slice(0, 80),
-          }
-        : null,
-    },
-  });
-
   const { data, error } = await supabase
-    .from("pets")
+    .from(PETLUMA_PASSPORTS_TABLE)
     .insert(insertPayload)
-    .select(savedPetSelect)
-    .single<SavedPet>();
+    .select(passportSelect)
+    .single<CloudPassportRow>();
 
   if (error) {
     if (error.code === "23505") {
-      const conflictPet = await findExistingPet(supabase, input);
+      const conflictPet = await findExistingPassport(supabase, input, petIdentityKey);
       if (conflictPet) {
-        console.log("[PetLuma] duplicate caught by unique constraint", {
-          pet_identity_key: conflictPet.pet_identity_key,
-          companion_id: conflictPet.companion_id,
-        });
         return duplicateResult(conflictPet);
       }
     }
@@ -255,9 +245,8 @@ export async function savePet(input: SavePetInput): Promise<SavePetResult> {
     } satisfies SupabaseInsertError;
   }
 
-  console.log("[PetLuma] saved pet", data);
   return {
-    pet: data,
+    pet: passportRowToSavedPet(data, petIdentityKey),
     duplicate: false,
   };
 }
