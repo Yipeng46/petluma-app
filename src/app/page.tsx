@@ -1,7 +1,6 @@
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { HomeFooter } from "@/components/home/HomeFooter";
-import { ManifestoSection } from "@/components/home/ManifestoSection";
 import { RecentlyRegisteredSection } from "@/components/home/RecentlyRegisteredSection";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { fetchCommunityRegistryHallRecords } from "@/lib/community-registry-server";
@@ -18,7 +17,6 @@ export default async function HomePage() {
 
       <main className="relative text-[#2e2820]">
         <HeroSection />
-        <ManifestoSection />
         <RecentlyRegisteredSection records={recentlyRegistered} />
         <FinalCtaSection />
       </main>
