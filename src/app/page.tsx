@@ -5,6 +5,8 @@ import { RecentlyRegisteredSection } from "@/components/home/RecentlyRegisteredS
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { fetchCommunityRegistryHallRecords } from "@/lib/community-registry-server";
 
+export const dynamic = "force-dynamic";
+
 const RECENTLY_REGISTERED_LIMIT = 6;
 
 export default async function HomePage() {
