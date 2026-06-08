@@ -28,7 +28,7 @@ const KINGDOM_BUILDINGS = [
   },
   {
     name: "Registry Hall",
-    note: "The public archive of registered companions whose guardians have chosen to share their Kingdom identity.",
+    note: "A public archive of companions preserved within the Kingdom.",
     status: "Open",
     href: "/hall",
   },

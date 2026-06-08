@@ -76,7 +76,7 @@ export function cloudPassportRowToRegistryHallRecord(
     photoUrl: photo ? photo : resolvePhotoUrl(null),
     hasPhoto: Boolean(photo),
     category: speciesToRegistryHallCategory(row.species ?? ""),
-    guardian: "Community Registry",
+    guardian: "Public Archive",
     country: resolveCountryLabel(row.country_code, row.place_of_origin),
     isPublic: row.is_public === true,
     story: row.story?.trim() || undefined,

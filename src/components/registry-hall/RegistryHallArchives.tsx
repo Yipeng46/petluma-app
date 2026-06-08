@@ -46,7 +46,7 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<RegistryHallFilter>("all");
 
-  const visibleCommunityRecords = useMemo(
+  const visibleRecords = useMemo(
     () => filterRegistryHallRecords(communityRecords, query, activeFilter),
     [communityRecords, query, activeFilter],
   );
@@ -60,10 +60,9 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
           {!archivesEntered ? (
             <section className="hall-intro mx-auto flex min-h-[calc(100svh-12rem)] max-w-2xl flex-col items-center justify-center text-center">
               <p className="pl-caption">PetLuma Kingdom Registry</p>
-              <h1 className="pl-section-title hall-intro__title">Registry Hall</h1>
+              <h1 className="pl-section-title hall-intro__title">The Registry Hall</h1>
               <p className="pl-body mx-auto max-w-lg hall-intro__lead">
-                Every registered companion holds a permanent place within the Kingdom
-                archives.
+                A public archive of companions preserved within the Kingdom.
               </p>
               <button
                 type="button"
@@ -77,30 +76,21 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
             <>
               <header className="hall-header-in mx-auto max-w-3xl text-center">
                 <p className="pl-caption">PetLuma Kingdom Registry</p>
-                <h1 className="pl-section-title hall-header-in__title">Registry Hall</h1>
+                <h1
+                  id="registry-hall-heading"
+                  className="pl-section-title hall-header-in__title"
+                >
+                  The Registry Hall
+                </h1>
                 <p className="pl-body mx-auto max-w-2xl hall-header-in__lead">
-                  A quiet public archive of companions whose guardians have chosen to share
-                  their Kingdom identity.
+                  A public archive of companions preserved within the Kingdom.
                 </p>
               </header>
 
               <section
                 className="registry-hall__section registry-hall__section--community"
-                aria-labelledby="community-registry-heading"
+                aria-labelledby="registry-hall-heading"
               >
-                <div className="registry-hall__section-header">
-                  <p className="pl-caption">PetLuma Kingdom Registry</p>
-                  <h2
-                    id="community-registry-heading"
-                    className="registry-hall__section-title mt-2"
-                  >
-                    Community Registry
-                  </h2>
-                  <p className="registry-hall__section-lead pl-small">
-                    Companion records shared by guardians as the Kingdom grows.
-                  </p>
-                </div>
-
                 <div className="registry-hall-cabinet relative z-10 mx-auto mt-10 max-w-6xl rounded-sm px-5 py-8 md:px-10 md:py-12">
                   <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                     <label className="block w-full md:max-w-md">
@@ -138,20 +128,21 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
 
                   {communityRecords.length === 0 ? (
                     <p className="pl-small registry-hall__section-empty">
-                      New companion records will appear here as the Kingdom grows.
+                      Companion archives will appear here when guardians choose to share
+                      them publicly.
                     </p>
                   ) : (
                     <RegistryCollectionGrid
-                      records={visibleCommunityRecords}
-                      emptyMessage="No companions match your search within the community registry."
+                      records={visibleRecords}
+                      emptyMessage="No companions match your search in the Registry Hall."
                     />
                   )}
                 </div>
               </section>
 
               <p className="pl-small relative z-10 mx-auto mt-14 max-w-2xl text-center md:mt-16">
-                Only companions with guardian consent are shown here. Private records remain
-                sealed within the Kingdom Registry.
+                Only companions shared with guardian consent are displayed here. Private
+                records remain preserved within the Kingdom archives.
               </p>
             </>
           )}

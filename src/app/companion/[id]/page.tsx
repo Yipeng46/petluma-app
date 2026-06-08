@@ -56,7 +56,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
   const country = record.country ?? getCountryFromCompanionId(record.companionId);
 
-  const eraLabel = record.isPublic ? "Community Registry" : "Archive Record";
+  const eraLabel = record.isPublic ? "Public Archive" : "Archive Record";
 
   const storyText = record.story?.trim() ?? "";
   const specialMemoryText = record.specialMemory?.trim() ?? "";

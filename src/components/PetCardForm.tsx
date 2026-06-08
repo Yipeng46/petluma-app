@@ -8,7 +8,7 @@ import {
 } from "@/lib/passport-form";
 
 const REGISTRY_VISIBILITY_NOTE =
-  "Only companions shared by their guardians will appear within the public Registry Hall.";
+  "Only companions shared with guardian consent will appear within the public Registry Hall.";
 
 type PetCardFormProps = {
   passportData: PassportData;

@@ -9,7 +9,7 @@ const KINGDOM_ENTRIES = [
   },
   {
     title: "Registry Hall",
-    description: "Browse the public archive of registered companions.",
+    description: "A public archive of companions preserved within the Kingdom.",
     href: "/hall",
   },
   {
