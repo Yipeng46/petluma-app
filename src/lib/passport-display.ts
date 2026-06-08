@@ -70,26 +70,26 @@ function classificationFromSpecies(species: string) {
   const normalized = species.trim().toLowerCase();
 
   if (normalized === "cat") {
-    return "Feline Registry Class";
+    return "Feline Class";
   }
 
   if (normalized === "dog") {
-    return "Canine Registry Class";
+    return "Canine Class";
   }
 
   if (normalized === "bird") {
-    return "Avian Registry Class";
+    return "Avian Class";
   }
 
   if (normalized === "rabbit") {
-    return "Lagomorph Registry Class";
+    return "Lagomorph Class";
   }
 
   if (normalized === "other") {
-    return "Companion Registry Class";
+    return "Companion Class";
   }
 
-  return "Companion Registry Class";
+  return "Companion Class";
 }
 
 export function getPassportDisplay(data: PassportData): PassportDisplay {
@@ -114,7 +114,7 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     placeOfOrigin,
     passportNo,
     companionId,
-    registry: "PetLuma Companion Registry",
+    registry: "Kingdom Registry",
     classification: classificationFromSpecies(species),
     issuedBy: "PetLuma Registry Office",
     registered: hasRegistryIds ? "Active" : "—",
