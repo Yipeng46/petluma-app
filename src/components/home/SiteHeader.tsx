@@ -10,12 +10,10 @@ const navLinks = [
   { label: "Founding Chamber", href: "/founding" },
 ] as const;
 
-function MenuIcon() {
+function MenuIcon({ open }: { open: boolean }) {
   return (
-    <span className="relative block h-3.5 w-[18px]" aria-hidden>
-      <span className="absolute left-0 top-0 h-px w-full bg-kingdom-ink" />
-      <span className="absolute left-0 top-[6px] h-px w-full bg-kingdom-ink" />
-      <span className="absolute bottom-0 left-0 h-px w-full bg-kingdom-ink" />
+    <span className="site-header__menu-glyph" aria-hidden>
+      {open ? "✕" : "☰"}
     </span>
   );
 }
@@ -58,12 +56,12 @@ export function SiteHeader() {
             </Link>
             <button
               type="button"
-              className="site-header__menu flex h-9 w-9 items-center justify-center border border-kingdom-ink/10 bg-transparent md:hidden"
+              className="site-header__menu flex h-9 w-9 items-center justify-center rounded-none border border-kingdom-ink/10 bg-transparent md:hidden"
               aria-expanded={menuOpen}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               onClick={() => setMenuOpen((open) => !open)}
             >
-              <MenuIcon />
+              <MenuIcon open={menuOpen} />
             </button>
           </div>
         </nav>
