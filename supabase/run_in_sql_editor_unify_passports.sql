@@ -105,7 +105,7 @@ where p.companion_id is not null
   and p.passport_number is not null
 on conflict (companion_id) do nothing;
 
--- ── 4. Community companion IDs from 001001 (20260604) ──
+-- ── 4. Companion IDs from 000001 (PK-YYYY-CC-000001) ──
 create table if not exists public.companion_identity_counters (
   year integer not null,
   region_code text not null default 'AU',
@@ -129,20 +129,17 @@ declare
   v_year integer := extract(year from timezone('utc', now()))::integer;
   v_region text := upper(coalesce(nullif(trim(p_region_code), ''), 'AU'));
   v_sequence bigint;
-  v_companion_sequence bigint;
 begin
   insert into public.companion_identity_counters as counters (year, region_code, last_value)
-  values (v_year, v_region, 1001)
+  values (v_year, v_region, 1)
   on conflict (year, region_code)
   do update
-    set last_value = greatest(counters.last_value + 1, 1001)
+    set last_value = counters.last_value + 1
   returning counters.last_value into v_sequence;
 
-  v_companion_sequence := greatest(v_sequence, 1001);
-
-  companion_id := format('PK-%s-%s-%s', v_year, v_region, lpad(v_companion_sequence::text, 6, '0'));
-  passport_number := format('PLM-%s-%s', v_year, lpad(v_companion_sequence::text, 6, '0'));
-  sequence_value := v_companion_sequence;
+  companion_id := format('PK-%s-%s-%s', v_year, v_region, lpad(v_sequence::text, 6, '0'));
+  passport_number := format('PLM-%s-%s', v_year, lpad(v_sequence::text, 6, '0'));
+  sequence_value := v_sequence;
 
   return next;
 end;

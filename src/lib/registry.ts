@@ -5,7 +5,6 @@ import {
   type CompanionLookupInput,
 } from "@/lib/companion-lookup";
 import {
-  COMMUNITY_COMPANION_SEQUENCE_MIN,
   generateNextCompanionId,
   normalizeCountryCode,
   parseCountryCodeFromCompanionId,
@@ -187,10 +186,7 @@ export function generateNextPassportNumber(
     .map((record) => parsePassportSequence(record.passportNo, year))
     .filter((value): value is number => value !== null);
 
-  const next = Math.max(
-    (sequences.length ? Math.max(...sequences) : 0) + 1,
-    COMMUNITY_COMPANION_SEQUENCE_MIN,
-  );
+  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
 
   return `PLM-${year}-${String(next).padStart(6, "0")}`;
 }
@@ -450,10 +446,7 @@ export async function generateNextPassportNumberCloud() {
     .map((row) => parsePassportSequence(row.passport_no, year))
     .filter((value): value is number => value !== null);
 
-  const next = Math.max(
-    (sequences.length ? Math.max(...sequences) : 0) + 1,
-    COMMUNITY_COMPANION_SEQUENCE_MIN,
-  );
+  const next = (sequences.length ? Math.max(...sequences) : 0) + 1;
 
   return `PLM-${year}-${String(next).padStart(6, "0")}`;
 }

@@ -1,18 +1,5 @@
--- PetLuma V1.5 — Story Archive, public registry, future guardian fields
-
-alter table public.petluma_passports
-  add column if not exists story text,
-  add column if not exists special_memory text,
-  add column if not exists favorite_things text,
-  add column if not exists is_public boolean not null default false,
-  add column if not exists guardian_email text,
-  add column if not exists guardian_name text;
-
-create index if not exists petluma_passports_public_registry_idx
-  on public.petluma_passports (is_public, created_at desc)
-  where is_public = true and status = 'active';
-
 -- Companion IDs start at 000001 (PK-YYYY-CC-000001)
+
 create or replace function public.allocate_companion_identity(
   p_region_code text default 'AU'
 )
@@ -44,3 +31,16 @@ begin
   return next;
 end;
 $$;
+
+-- Align counters with existing passports to avoid duplicate IDs after the rule change.
+insert into public.companion_identity_counters (year, region_code, last_value)
+select
+  (m[1])::integer as year,
+  m[2] as region_code,
+  max((m[3])::bigint) as last_value
+from public.petluma_passports p,
+  lateral regexp_match(p.companion_id, '^PK-(\d{4})-([A-Z]{2})-(\d{6})$') as m
+where p.companion_id is not null
+group by (m[1])::integer, m[2]
+on conflict (year, region_code) do update
+  set last_value = greatest(companion_identity_counters.last_value, excluded.last_value);

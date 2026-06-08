@@ -1,4 +1,3 @@
-import { foundingCollection, type FoundingCompanion } from "@data/foundingCollection";
 import { getCountryByCode } from "@/lib/countries";
 import type { CloudPassportRow } from "@/lib/registry";
 import type {
@@ -9,14 +8,6 @@ import { parseFavoriteThings } from "@/lib/story-archive";
 
 export const REGISTRY_HALL_PLACEHOLDER_PHOTO =
   "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=640&h=800&fit=crop&q=80";
-
-const FOUNDING_COMPANION_IDS = new Set(
-  foundingCollection.map((entry) => entry.id.trim().toUpperCase()),
-);
-
-export function isFoundingCompanionId(companionId: string) {
-  return FOUNDING_COMPANION_IDS.has(companionId.trim().toUpperCase());
-}
 
 export function speciesToRegistryHallCategory(species: string): RegistryHallCategory {
   const normalized = species.trim().toLowerCase();
@@ -55,7 +46,10 @@ function resolvePhotoUrl(photoUrl?: string | null) {
   return trimmed ? trimmed : REGISTRY_HALL_PLACEHOLDER_PHOTO;
 }
 
-function resolveCountryLabel(countryCode: string | null | undefined, placeOfOrigin: string | null | undefined) {
+function resolveCountryLabel(
+  countryCode: string | null | undefined,
+  placeOfOrigin: string | null | undefined,
+) {
   const origin = placeOfOrigin?.trim();
   if (origin) {
     return origin;
@@ -63,44 +57,6 @@ function resolveCountryLabel(countryCode: string | null | undefined, placeOfOrig
 
   const code = countryCode?.trim();
   return code ? (getCountryByCode(code)?.name ?? code) : "—";
-}
-
-export function foundingCompanionToRegistryHallRecord(
-  companion: FoundingCompanion,
-): RegistryHallRecord {
-  const guardianNote = companion.guardianNote.trim();
-  const photo = companion.imageUrl?.trim();
-
-  return {
-    companionId: companion.id,
-    passportNo: companion.archiveNo,
-    name: companion.name,
-    species: companion.species,
-    breed: companion.breed?.trim() || "—",
-    kingdomSince: companion.registryDate,
-    registeredAt: "2026-06-01T00:00:00.000Z",
-    photoUrl: photo ? photo : resolvePhotoUrl(null),
-    hasPhoto: Boolean(photo),
-    category: speciesToRegistryHallCategory(companion.species),
-    guardian: companion.country,
-    country: companion.country,
-    isPublic: true,
-    story: guardianNote || undefined,
-    specialMemory: companion.specialMemory.trim() || undefined,
-    favoriteThings: companion.favoriteThings.length ? companion.favoriteThings : undefined,
-  };
-}
-
-export function getFoundingRegistryHallRecords(): RegistryHallRecord[] {
-  return foundingCollection.map(foundingCompanionToRegistryHallRecord);
-}
-
-export function getFoundingCompanionById(
-  companionId: string,
-): FoundingCompanion | undefined {
-  const normalized = decodeURIComponent(companionId).trim().toUpperCase();
-
-  return foundingCollection.find((entry) => entry.id.toUpperCase() === normalized);
 }
 
 export function cloudPassportRowToRegistryHallRecord(
@@ -127,10 +83,4 @@ export function cloudPassportRowToRegistryHallRecord(
     specialMemory: row.special_memory?.trim() || undefined,
     favoriteThings: favoriteThings.length ? favoriteThings : undefined,
   };
-}
-
-export function excludeFoundingFromCommunityRecords(
-  records: RegistryHallRecord[],
-): RegistryHallRecord[] {
-  return records.filter((record) => !isFoundingCompanionId(record.companionId));
 }

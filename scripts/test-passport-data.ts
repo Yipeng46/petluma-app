@@ -12,8 +12,8 @@ export const QA_STORAGE_KEY = "petluma-companion-card";
 export const QA_REGISTRY_KEY = "petluma_registry";
 
 export const QA_SAMPLE_REGISTRY_RECORD = {
-  passportNo: "PLM-2026-001021",
-  companionId: "PK-2026-AU-001021",
+  passportNo: "PLM-2026-000021",
+  companionId: "PK-2026-AU-000021",
   petName: "Luma",
   species: "Dog",
   breed: "Golden Retriever",
@@ -95,8 +95,8 @@ function basePassport(overrides: Partial<PassportData> = {}): PassportData {
     birthdate: "2020-06-15",
     placeOfOrigin: "Australia",
     countryCode: "AU",
-    passportNo: "PLM-2026-001021",
-    companionId: "PK-2026-AU-001021",
+    passportNo: "PLM-2026-000021",
+    companionId: "PK-2026-AU-000021",
     ...overrides,
   };
 }

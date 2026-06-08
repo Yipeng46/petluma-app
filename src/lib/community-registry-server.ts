@@ -1,9 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import {
-  cloudPassportRowToRegistryHallRecord,
-  excludeFoundingFromCommunityRecords,
-  isFoundingCompanionId,
-} from "@/lib/registry-hall";
+import { cloudPassportRowToRegistryHallRecord } from "@/lib/registry-hall";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 import { PETLUMA_PASSPORTS_TABLE, type CloudPassportRow } from "@/lib/registry";
 
@@ -87,13 +83,11 @@ export async function fetchCommunityRegistryHallRecords(): Promise<RegistryHallR
       cloudPassportRowToRegistryHallRecord(row as CloudPassportRow),
     );
 
-    const filtered = excludeFoundingFromCommunityRecords(records);
-
-    console.log("[PetLuma][Hall] after excludeFoundingFromCommunityRecords", {
-      recordsLength: filtered.length,
+    console.log("[PetLuma][Hall] community records", {
+      recordsLength: records.length,
     });
 
-    return filtered;
+    return records;
   } catch (error) {
     console.warn("[PetLuma] Community registry fetch failed:", error);
     return [];
@@ -105,7 +99,7 @@ export async function fetchCommunityRegistryHallRecordByCompanionId(
 ): Promise<RegistryHallRecord | undefined> {
   const normalized = decodeURIComponent(companionId).trim();
 
-  if (!normalized || isFoundingCompanionId(normalized)) {
+  if (!normalized) {
     return undefined;
   }
 

@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
-import { getFoundingHallRecords } from "@/lib/founding-collection";
 import {
   filterRegistryHallRecords,
   type RegistryHallFilter,
@@ -17,8 +16,6 @@ const filters: { label: string; value: RegistryHallFilter }[] = [
   { label: "Feline", value: "feline" },
   { label: "Other", value: "other" },
 ];
-
-const foundingRecords = getFoundingHallRecords();
 
 type RegistryHallArchivesProps = {
   communityRecords: RegistryHallRecord[];
@@ -49,14 +46,9 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<RegistryHallFilter>("all");
 
-  const visibleFoundingRecords = useMemo(
-    () => filterRegistryHallRecords(foundingRecords, query, activeFilter),
-    [query, activeFilter],
-  );
-
   const visibleCommunityRecords = useMemo(
     () => filterRegistryHallRecords(communityRecords, query, activeFilter),
-    [query, activeFilter],
+    [communityRecords, query, activeFilter],
   );
 
   return (
@@ -91,29 +83,6 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
                   their Kingdom identity.
                 </p>
               </header>
-
-              <section
-                className="registry-hall__section"
-                aria-labelledby="founding-collection-heading"
-              >
-                <div className="registry-hall__section-header">
-                  <p className="pl-caption">PetLuma Kingdom Registry</p>
-                  <h2
-                    id="founding-collection-heading"
-                    className="registry-hall__section-title mt-2"
-                  >
-                    Founding Collection
-                  </h2>
-                  <p className="registry-hall__section-lead pl-small">
-                    The first companions preserved within the Kingdom archives.
-                  </p>
-                </div>
-
-                <RegistryCollectionGrid
-                  records={visibleFoundingRecords}
-                  emptyMessage="No founding companions match your search."
-                />
-              </section>
 
               <section
                 className="registry-hall__section registry-hall__section--community"

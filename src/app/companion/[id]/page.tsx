@@ -9,11 +9,6 @@ import {
   getCountryFromCompanionId,
   type RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
-import {
-  formatFoundingEraLabel,
-  foundingCompanionToHallRecord,
-  getFoundingCompanionById,
-} from "@/lib/founding-collection";
 import "@/styles/companion-archive.css";
 
 type CompanionArchivePageProps = {
@@ -23,12 +18,6 @@ type CompanionArchivePageProps = {
 async function resolveRegistryHallRecord(
   companionId: string,
 ): Promise<RegistryHallRecord | undefined> {
-  const foundingCompanion = getFoundingCompanionById(companionId);
-
-  if (foundingCompanion) {
-    return foundingCompanionToHallRecord(foundingCompanion);
-  }
-
   return fetchCommunityRegistryHallRecordByCompanionId(companionId);
 }
 
@@ -60,34 +49,18 @@ export async function generateMetadata({
 export default async function CompanionArchivePage({ params }: CompanionArchivePageProps) {
   const { id } = await params;
   const record = await resolveRegistryHallRecord(id);
-  const foundingCompanion = getFoundingCompanionById(id);
 
   if (!record) {
     notFound();
   }
 
-  const country =
-    record.country ??
-    foundingCompanion?.country ??
-    getCountryFromCompanionId(record.companionId);
+  const country = record.country ?? getCountryFromCompanionId(record.companionId);
 
-  const eraLabel = foundingCompanion
-    ? formatFoundingEraLabel(foundingCompanion.era)
-    : record.isPublic
-      ? "Community Registry"
-      : "Archive Record";
+  const eraLabel = record.isPublic ? "Community Registry" : "Archive Record";
 
-  const storyText = foundingCompanion
-    ? foundingCompanion.guardianNote.trim()
-    : record.story?.trim() ?? "";
-
-  const specialMemoryText = foundingCompanion
-    ? foundingCompanion.specialMemory.trim()
-    : record.specialMemory?.trim() ?? "";
-
-  const favoriteThings = foundingCompanion
-    ? foundingCompanion.favoriteThings
-    : record.favoriteThings ?? [];
+  const storyText = record.story?.trim() ?? "";
+  const specialMemoryText = record.specialMemory?.trim() ?? "";
+  const favoriteThings = record.favoriteThings ?? [];
 
   const registryFields = [
     { label: "Companion ID", value: record.companionId, mono: true },
@@ -97,9 +70,6 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
     { label: "Country", value: country },
     { label: "Registry Date", value: record.kingdomSince },
     ...(eraLabel ? [{ label: "Era", value: eraLabel }] : []),
-    ...(foundingCompanion
-      ? [{ label: "Status", value: foundingCompanion.status }]
-      : []),
   ] as const;
 
   const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);

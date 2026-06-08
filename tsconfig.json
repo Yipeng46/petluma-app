@@ -25,15 +25,11 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@data/*": [
-        "./data/*"
       ]
     }
   },
   "include": [
     "next-env.d.ts",
-    "data/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
