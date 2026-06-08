@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import { NavigationFeedback } from "@/components/NavigationFeedback";
 import "./globals.css";
 import "@/styles/design-system.css";
 import "@/styles/registry-home.css";
@@ -31,7 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <body className="min-h-screen font-sans antialiased">{children}</body>
+      <body className="min-h-screen font-sans antialiased">
+        <NavigationFeedback />
+        {children}
+      </body>
     </html>
   );
 }

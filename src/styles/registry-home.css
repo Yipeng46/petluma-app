@@ -164,6 +164,33 @@
   flex-shrink: 0;
 }
 
+.nav-feedback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.nav-feedback__line {
+  height: 1px;
+  width: 100%;
+  background: rgba(46, 40, 32, 0.24);
+}
+
+.nav-feedback__label {
+  margin: 0;
+  padding: 0.7rem 1rem 0;
+  text-align: center;
+  font-family: var(--pl-font-body);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(46, 40, 32, 0.46);
+}
+
 .registry-home [id],
 .registry-hall [id] {
   scroll-margin-top: var(--site-header-height);
