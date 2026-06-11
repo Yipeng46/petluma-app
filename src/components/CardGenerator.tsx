@@ -29,6 +29,7 @@ import { buildCompanionUrl } from "@/lib/site-url";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 import { PetPhotoCropModal } from "./PetPhotoCropModal";
+import { TermsConfirmationField } from "./TermsConfirmationField";
 
 export function CardGenerator() {
   const router = useRouter();
@@ -37,6 +38,7 @@ export function CardGenerator() {
   );
   const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
   const [photoInputKey, setPhotoInputKey] = useState(0);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   function updateField<K extends keyof PassportData>(
     field: K,
@@ -102,6 +104,11 @@ export function CardGenerator() {
   }
 
   async function handlePreviewFinalCard() {
+    if (!termsAccepted) {
+      alert("Please confirm the Terms and Privacy Policy before continuing.");
+      return;
+    }
+
     const guardianEmail = passportData.ownerEmail.trim();
 
     if (guardianEmail && !isValidEmail(guardianEmail)) {
@@ -221,6 +228,11 @@ export function CardGenerator() {
             onFieldChange={updateField}
             onPhotoChange={handlePhotoChange}
             onCountryChange={handleCountryChange}
+          />
+
+          <TermsConfirmationField
+            checked={termsAccepted}
+            onChange={setTermsAccepted}
           />
 
           <button
