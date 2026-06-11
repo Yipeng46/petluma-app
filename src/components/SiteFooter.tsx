@@ -27,9 +27,9 @@ export function SiteFooter() {
           <Link href="/terms" className={footerLinkClass}>
             Terms
           </Link>
-          <a href="mailto:hello@petluma.com" className={footerLinkClass}>
+          <Link href="/contact" className={footerLinkClass}>
             Contact
-          </a>
+          </Link>
         </nav>
       </div>
     </footer>
