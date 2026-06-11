@@ -1,15 +1,31 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
+import { formatRegistryEmailDate } from "@/lib/welcome-email";
+import { buildCompanionUrl, getSiteUrl } from "@/lib/site-url";
 
 export const runtime = "nodejs";
 
 const FROM_EMAIL = "PetLuma Kingdom Registry <registry@petluma.co>";
+const EMAIL_DIVIDER = "────────────────────";
 
 type SendWelcomeEmailRequest = {
   email?: unknown;
   petName?: unknown;
   companionId?: unknown;
+  passportNo?: unknown;
+  date?: unknown;
+  country?: unknown;
+  archiveUrl?: unknown;
+};
+
+type WelcomeEmailContent = {
+  petName: string;
+  companionId: string;
+  passportNo: string;
+  date: string;
+  country: string;
+  archiveUrl: string;
 };
 
 function readText(value: unknown, maxLength: number) {
@@ -20,31 +36,102 @@ function readText(value: unknown, maxLength: number) {
   return value.trim().slice(0, maxLength);
 }
 
-function buildEmailSubject(petName: string) {
-  return `Welcome to the Kingdom, ${petName}`;
+function formatPetNameForEmail(petName: string) {
+  const trimmed = petName.trim();
+
+  if (!trimmed) {
+    return trimmed;
+  }
+
+  const first = trimmed.charAt(0);
+
+  if (first === first.toLowerCase() && first !== first.toUpperCase()) {
+    return first.toUpperCase() + trimmed.slice(1);
+  }
+
+  return trimmed;
 }
 
-function buildEmailText(petName: string, companionId: string) {
+function buildEmailSubject(petName: string) {
+  return `Welcome to the Kingdom, ${formatPetNameForEmail(petName)}`;
+}
+
+function buildEmailText(content: WelcomeEmailContent) {
+  const petName = formatPetNameForEmail(content.petName);
+
   return [
-    `${petName} has been entered into the Registry.`,
+    "PETLUMA KINGDOM REGISTRY",
+    "",
+    "Dear Guardian,",
+    "",
+    "A new companion has entered the Kingdom.",
+    "",
+    "Companion Name:",
+    petName,
     "",
     "Companion ID:",
-    companionId,
+    content.companionId,
     "",
-    "The archive has been preserved within the Kingdom.",
+    "Passport Number:",
+    content.passportNo,
+    "",
+    "Date Registered:",
+    content.date,
+    "",
+    "Country:",
+    content.country,
+    "",
+    EMAIL_DIVIDER,
+    "",
+    `${petName} has now been preserved within the Kingdom Registry.`,
+    "",
+    "This archive marks their place in the Kingdom, not as property, not as data, but as family.",
+    "",
+    "May this record stand as a lasting testament to their place in your life.",
     "",
     "Every companion deserves to be remembered.",
     "",
+    EMAIL_DIVIDER,
+    "",
+    "View Archive:",
+    content.archiveUrl,
+    "",
+    "Keep this email as a record of entry.",
+    "",
     "PetLuma Kingdom Registry",
+    "",
+    getSiteUrl(),
   ].join("\n");
+}
+
+function resolveWelcomeEmailContent(body: SendWelcomeEmailRequest): WelcomeEmailContent | null {
+  const petName = readText(body.petName, 100);
+  const companionId = readText(body.companionId, 40);
+
+  if (!petName || !companionId) {
+    return null;
+  }
+
+  const passportNo = readText(body.passportNo, 40) || "—";
+  const rawDate = readText(body.date, 40);
+  const country = readText(body.country, 120) || "—";
+  const archiveUrl = buildCompanionUrl(companionId);
+
+  return {
+    petName,
+    companionId,
+    passportNo,
+    date: rawDate ? formatRegistryEmailDate(rawDate) : "—",
+    country,
+    archiveUrl,
+  };
 }
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as SendWelcomeEmailRequest;
     const email = readText(body.email, 320);
-    const petName = readText(body.petName, 100);
-    const companionId = readText(body.companionId, 40);
+    const content = resolveWelcomeEmailContent(body);
 
     if (!isRecoverableOwnerEmail(email) || !isValidEmail(email)) {
       return NextResponse.json(
@@ -53,7 +140,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!petName || !companionId) {
+    if (!content) {
       return NextResponse.json(
         { success: false, reason: "missing_required_fields" },
         { status: 400 },
@@ -74,8 +161,8 @@ export async function POST(request: Request) {
     const { error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: normalizeEmail(email),
-      subject: buildEmailSubject(petName),
-      text: buildEmailText(petName, companionId),
+      subject: buildEmailSubject(content.petName),
+      text: buildEmailText(content),
     });
 
     if (error) {

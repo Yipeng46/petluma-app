@@ -25,6 +25,7 @@ import {
 import { getCountryByCode } from "@/lib/countries";
 import { getRecordCountryCode } from "@/lib/companion-lookup";
 import { createRegistryRecordWithFallback } from "@/lib/registry";
+import { buildCompanionUrl } from "@/lib/site-url";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 import { PetPhotoCropModal } from "./PetPhotoCropModal";
@@ -189,8 +190,12 @@ export function CardGenerator() {
     if (!isDuplicate && cloudSynced && isRecoverableOwnerEmail(guardianEmail)) {
       notifyWelcomeEmail({
         email: guardianEmail,
-        petName: record.petName,
+        petName: passportData.name.trim(),
         companionId: record.companionId,
+        passportNo: record.passportNo,
+        date: record.createdAt,
+        country: record.placeOfOrigin || passportData.placeOfOrigin || "—",
+        archiveUrl: buildCompanionUrl(record.companionId),
       });
     }
 

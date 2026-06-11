@@ -2,6 +2,10 @@ type WelcomeEmailNotificationInput = {
   email: string;
   petName: string;
   companionId: string;
+  passportNo: string;
+  date: string;
+  country: string;
+  archiveUrl: string;
 };
 
 export function notifyWelcomeEmail(input: WelcomeEmailNotificationInput) {
