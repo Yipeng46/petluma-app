@@ -11,7 +11,12 @@ import {
   updatePassportField,
   type PassportData,
 } from "@/lib/passport-data";
-import { displayOwnerEmail, isValidEmail } from "@/lib/pet-identity";
+import {
+  displayOwnerEmail,
+  isRecoverableOwnerEmail,
+  isValidEmail,
+} from "@/lib/pet-identity";
+import { notifyWelcomeEmail } from "@/lib/welcome-email-client";
 import {
   isAllowedPassportPhotoType,
   PASSPORT_PHOTO_MAX_BYTES,
@@ -179,6 +184,17 @@ export function CardGenerator() {
       } else {
         sessionStorage.removeItem("petluma-cloud-sync-error");
       }
+    }
+
+    if (!isDuplicate && isRecoverableOwnerEmail(guardianEmail)) {
+      notifyWelcomeEmail({
+        toEmail: guardianEmail,
+        petName: record.petName,
+        companionId: record.companionId,
+        passportNo: record.passportNo,
+        dateRegistered: record.createdAt,
+        country: record.placeOfOrigin || passportData.placeOfOrigin,
+      });
     }
 
     localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
