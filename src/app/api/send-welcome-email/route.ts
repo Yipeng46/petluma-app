@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
 import { formatRegistryEmailDate } from "@/lib/welcome-email";
-import { buildCompanionUrl, getSiteUrl } from "@/lib/site-url";
+import { getSiteUrl } from "@/lib/site-url";
 
 export const runtime = "nodejs";
 
@@ -36,11 +36,29 @@ function readText(value: unknown, maxLength: number) {
   return value.trim().slice(0, maxLength);
 }
 
+function isAllLowercaseLetters(value: string) {
+  const letters = value.replace(/[^a-zA-Z]/g, "");
+
+  return letters.length > 0 && letters === letters.toLowerCase();
+}
+
+function toTitleCaseWords(value: string) {
+  return value
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
 function formatPetNameForEmail(petName: string) {
   const trimmed = petName.trim();
 
   if (!trimmed) {
     return trimmed;
+  }
+
+  if (isAllLowercaseLetters(trimmed)) {
+    return toTitleCaseWords(trimmed);
   }
 
   const first = trimmed.charAt(0);
@@ -50,6 +68,12 @@ function formatPetNameForEmail(petName: string) {
   }
 
   return trimmed;
+}
+
+function buildCleanArchiveUrl(companionId: string) {
+  const id = companionId.trim();
+
+  return `${getSiteUrl()}/companion/${id}`;
 }
 
 function buildEmailSubject(petName: string) {
@@ -85,7 +109,13 @@ function buildEmailText(content: WelcomeEmailContent) {
     "",
     `${petName} has now been preserved within the Kingdom Registry.`,
     "",
-    "This archive marks their place in the Kingdom, not as property, not as data, but as family.",
+    "This archive marks their place in the Kingdom —",
+    "",
+    "not as property,",
+    "",
+    "not as data,",
+    "",
+    "but as family.",
     "",
     "May this record stand as a lasting testament to their place in your life.",
     "",
@@ -115,7 +145,7 @@ function resolveWelcomeEmailContent(body: SendWelcomeEmailRequest): WelcomeEmail
   const passportNo = readText(body.passportNo, 40) || "—";
   const rawDate = readText(body.date, 40);
   const country = readText(body.country, 120) || "—";
-  const archiveUrl = buildCompanionUrl(companionId);
+  const archiveUrl = buildCleanArchiveUrl(companionId);
 
   return {
     petName,
