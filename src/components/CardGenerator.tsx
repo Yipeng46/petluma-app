@@ -186,14 +186,11 @@ export function CardGenerator() {
       }
     }
 
-    if (!isDuplicate && isRecoverableOwnerEmail(guardianEmail)) {
+    if (!isDuplicate && cloudSynced && isRecoverableOwnerEmail(guardianEmail)) {
       notifyWelcomeEmail({
-        toEmail: guardianEmail,
+        email: guardianEmail,
         petName: record.petName,
         companionId: record.companionId,
-        passportNo: record.passportNo,
-        dateRegistered: record.createdAt,
-        country: record.placeOfOrigin || passportData.placeOfOrigin,
       });
     }
 
