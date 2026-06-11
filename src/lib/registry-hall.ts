@@ -46,6 +46,36 @@ function resolvePhotoUrl(photoUrl?: string | null) {
   return trimmed ? trimmed : REGISTRY_HALL_PLACEHOLDER_PHOTO;
 }
 
+function formatDateOfBirth(value: string | null | undefined) {
+  const trimmed = value?.trim();
+
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const parsed = new Date(trimmed);
+
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
+  return trimmed;
+}
+
+function resolveRegisteredStatus(status: string | null | undefined) {
+  const normalized = status?.trim().toLowerCase();
+
+  if (!normalized || normalized === "active") {
+    return "Registered";
+  }
+
+  return status?.trim() || "Registered";
+}
+
 function resolveCountryLabel(
   countryCode: string | null | undefined,
   placeOfOrigin: string | null | undefined,
@@ -82,5 +112,8 @@ export function cloudPassportRowToRegistryHallRecord(
     story: row.story?.trim() || undefined,
     specialMemory: row.special_memory?.trim() || undefined,
     favoriteThings: favoriteThings.length ? favoriteThings : undefined,
+    gender: row.gender?.trim() || undefined,
+    dateOfBirth: formatDateOfBirth(row.date_of_birth),
+    registeredStatus: resolveRegisteredStatus(row.status),
   };
 }

@@ -22,6 +22,16 @@ async function resolveRegistryHallRecord(
   return fetchCommunityRegistryHallRecordByCompanionId(companionId);
 }
 
+function displayArchiveValue(value: string | undefined, fallback = "—") {
+  const trimmed = value?.trim();
+
+  if (!trimmed) {
+    return fallback;
+  }
+
+  return trimmed;
+}
+
 function StoryParagraphs({ text }: { text: string }) {
   return text
     .trim()
@@ -42,7 +52,7 @@ export async function generateMetadata({
   }
 
   const title = `${record.name} — Companion Archive`;
-  const description = `Archive record for ${record.name}, ${record.companionId}, within the PetLuma Kingdom collection.`;
+  const description = `Archive record for ${record.name}, ${record.companionId}, preserved within the PetLuma Kingdom Registry.`;
 
   return {
     title,
@@ -74,24 +84,22 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
   }
 
   const country = record.country ?? getCountryFromCompanionId(record.companionId);
-
-  const eraLabel = record.isPublic ? "Public Archive" : "Archive Record";
-
   const storyText = record.story?.trim() ?? "";
   const specialMemoryText = record.specialMemory?.trim() ?? "";
   const favoriteThings = record.favoriteThings ?? [];
-
-  const registryFields = [
-    { label: "Companion ID", value: record.companionId, mono: true },
-    { label: "Name", value: record.name },
-    { label: "Species", value: record.species },
-    { label: "Breed", value: record.breed },
-    { label: "Country", value: country },
-    { label: "Registry Date", value: record.kingdomSince },
-    ...(eraLabel ? [{ label: "Era", value: eraLabel }] : []),
-  ] as const;
-
   const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);
+
+  const archiveDetails = [
+    { label: "Species", value: displayArchiveValue(record.species) },
+    { label: "Breed", value: displayArchiveValue(record.breed) },
+    { label: "Gender", value: displayArchiveValue(record.gender) },
+    { label: "Country", value: displayArchiveValue(country) },
+    { label: "Date of Birth", value: displayArchiveValue(record.dateOfBirth) },
+    {
+      label: "Registered Status",
+      value: displayArchiveValue(record.registeredStatus, "Registered"),
+    },
+  ] as const;
 
   return (
     <div className="companion-archive min-h-screen font-sans antialiased">
@@ -100,48 +108,65 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
       <main className="companion-archive__main">
         <section className="companion-archive__hero">
-          <div className="mx-auto max-w-6xl px-6 md:px-10">
-            <p className="companion-archive__eyebrow">PetLuma Kingdom</p>
+          <div className="companion-archive__container">
+            <p className="companion-archive__eyebrow">PetLuma Kingdom Registry</p>
             <p className="companion-archive__eyebrow companion-archive__eyebrow-sub">
-              {eraLabel}
+              Companion Archive
             </p>
-            <h1 className="companion-archive__name">{record.name}</h1>
-            <p className="companion-archive__companion-id">{record.companionId}</p>
+
+            <div className="companion-archive__identity">
+              <p className="companion-archive__field-label">Companion Name</p>
+              <h1 className="companion-archive__name">{record.name}</h1>
+            </div>
+
+            <dl className="companion-archive__header-meta">
+              <div className="companion-archive__header-meta-item">
+                <dt>Companion ID</dt>
+                <dd className="companion-archive__mono">{record.companionId}</dd>
+              </div>
+              <div className="companion-archive__header-meta-item">
+                <dt>Passport Number</dt>
+                <dd className="companion-archive__mono">{record.passportNo}</dd>
+              </div>
+              <div className="companion-archive__header-meta-item">
+                <dt>Kingdom Since</dt>
+                <dd>{record.kingdomSince}</dd>
+              </div>
+            </dl>
           </div>
         </section>
 
         <section className="companion-archive__profile">
-          <div className="mx-auto max-w-6xl px-6 md:px-10">
+          <div className="companion-archive__container">
             <div className="companion-archive__profile-grid">
-              {showPortrait ? (
+              <div className="companion-archive__portrait-wrap">
+                <p className="companion-archive__portrait-label">Companion Portrait</p>
                 <div className="companion-archive__portrait">
-                  <Image
-                    src={record.photoUrl}
-                    alt={`Portrait of ${record.name}`}
-                    width={640}
-                    height={800}
-                    priority
-                    sizes="(max-width: 1023px) 100vw, 28rem"
-                    className="companion-archive__portrait-image"
-                  />
+                  {showPortrait ? (
+                    <Image
+                      src={record.photoUrl}
+                      alt={`Portrait of ${record.name}`}
+                      width={640}
+                      height={800}
+                      priority
+                      sizes="(max-width: 1023px) 100vw, 22rem"
+                      className="companion-archive__portrait-image"
+                    />
+                  ) : (
+                    <div className="companion-archive__portrait-empty" aria-hidden="true">
+                      <span>No portrait archived</span>
+                    </div>
+                  )}
                 </div>
-              ) : null}
+              </div>
 
               <div className="companion-archive__registry">
-                <h2 className="companion-archive__registry-title">Registry Record</h2>
+                <h2 className="companion-archive__registry-title">Archive Details</h2>
                 <dl className="companion-archive__registry-list">
-                  {registryFields.map((field) => (
+                  {archiveDetails.map((field) => (
                     <div key={field.label} className="companion-archive__registry-row">
                       <dt>{field.label}</dt>
-                      <dd
-                        className={
-                          "mono" in field && field.mono
-                            ? "companion-archive__registry-value--mono"
-                            : undefined
-                        }
-                      >
-                        {field.value}
-                      </dd>
+                      <dd>{field.value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -150,62 +175,72 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           </div>
         </section>
 
-        {storyText ? (
-          <section className="companion-archive__story">
-            <div className="mx-auto max-w-6xl px-6 md:px-10">
-              <h2 className="companion-archive__section-title">Story</h2>
-              <div className="companion-archive__story-text">
+        <section className="companion-archive__story">
+          <div className="companion-archive__container">
+            <h2 className="companion-archive__section-title">Story</h2>
+            <div className="companion-archive__story-text">
+              {storyText ? (
                 <StoryParagraphs text={storyText} />
-              </div>
+              ) : (
+                <p className="companion-archive__story-placeholder">
+                  This archive has not yet included a written story.
+                </p>
+              )}
             </div>
-          </section>
-        ) : null}
+          </div>
+        </section>
 
         {specialMemoryText ? (
           <section className="companion-archive__story">
-            <div className="mx-auto max-w-6xl px-6 md:px-10">
+            <div className="companion-archive__container">
               <h2 className="companion-archive__section-title">Special Memory</h2>
-              <p className="companion-archive__story-text">{specialMemoryText}</p>
+              <div className="companion-archive__story-text">
+                <StoryParagraphs text={specialMemoryText} />
+              </div>
             </div>
           </section>
         ) : null}
 
         {favoriteThings.length > 0 ? (
           <section className="companion-archive__story">
-            <div className="mx-auto max-w-6xl px-6 md:px-10">
+            <div className="companion-archive__container">
               <h2 className="companion-archive__section-title">Favorite Things</h2>
-              <ul className="companion-archive__story-text list-disc pl-5">
-                {favoriteThings.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              <div className="companion-archive__story-text">
+                {favoriteThings.length === 1 ? (
+                  <p>{favoriteThings[0]}</p>
+                ) : (
+                  <ul className="companion-archive__favorite-list">
+                    {favoriteThings.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
           </section>
         ) : null}
 
-        <section className="companion-archive__footer-meta">
-          <div className="mx-auto max-w-6xl px-6 md:px-10">
-            <div className="companion-archive__footer-grid">
-              <div>
-                <p className="companion-archive__footer-label">Archive Collection</p>
-                <p className="companion-archive__footer-value">{eraLabel}</p>
-              </div>
-              <div>
-                <p className="companion-archive__footer-label">Registry Date</p>
-                <p className="companion-archive__footer-value">{record.kingdomSince}</p>
-              </div>
-              <div>
-                <p className="companion-archive__footer-label">Preserved Within</p>
-                <p className="companion-archive__footer-value">The Registry</p>
-              </div>
-            </div>
+        <section className="companion-archive__declaration">
+          <div className="companion-archive__container">
+            <p>
+              This companion archive is preserved within the PetLuma Kingdom Registry.
+            </p>
+            <p>Every companion deserves to be remembered.</p>
           </div>
         </section>
 
-        <div className="companion-archive__actions mx-auto max-w-6xl px-6 md:px-10">
-          <Link href="/hall" className="companion-archive__back">
-            Back To Registry Hall
-          </Link>
+        <div className="companion-archive__actions">
+          <div className="companion-archive__container companion-archive__actions-inner">
+            <Link href="/hall" className="companion-archive__action companion-archive__action--primary">
+              Back to Registry Hall
+            </Link>
+            <Link
+              href="/passport"
+              className="companion-archive__action companion-archive__action--secondary"
+            >
+              Register Another Companion
+            </Link>
+          </div>
         </div>
       </main>
 

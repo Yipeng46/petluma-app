@@ -17,6 +17,9 @@ export type RegistryHallRecord = {
   favoriteThings?: string[];
   country?: string;
   hasPhoto?: boolean;
+  gender?: string;
+  dateOfBirth?: string;
+  registeredStatus?: string;
 };
 
 const COUNTRY_BY_CODE: Record<string, string> = {
