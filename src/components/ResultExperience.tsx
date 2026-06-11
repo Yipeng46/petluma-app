@@ -6,6 +6,7 @@ import { PassportPreviewDisclaimer } from "@/components/PassportPreviewDisclaime
 import { PassportSVG } from "@/components/PassportSVG";
 import { useStoredCompanionCard } from "@/hooks/useStoredCompanionCard";
 import { exportPassportSvgToPng } from "@/lib/passport-svg-export";
+import { buildVerifyUrl } from "@/lib/site-url";
 
 export function ResultExperience() {
   const passportData = useStoredCompanionCard();
@@ -48,7 +49,7 @@ export function ResultExperience() {
       return;
     }
 
-    const verifyUrl = `${window.location.origin}/verify/${encodeURIComponent(passportNo)}`;
+    const verifyUrl = buildVerifyUrl(passportNo);
 
     try {
       await navigator.clipboard.writeText(verifyUrl);

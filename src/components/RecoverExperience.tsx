@@ -7,6 +7,7 @@ import { companionCardStorageKey } from "@/lib/cardStorage";
 import { isValidEmail } from "@/lib/pet-identity";
 import { getRecordCountryCode } from "@/lib/companion-lookup";
 import type { PassportData } from "@/lib/passport-data";
+import { buildVerifyUrl } from "@/lib/site-url";
 import {
   findPassportsByOwnerEmailWithFallback,
   type RecoverPassportsResult,
@@ -69,7 +70,7 @@ function RecoverPassportCard({ record }: { record: RegistryRecord }) {
       return;
     }
 
-    const verifyUrl = `${window.location.origin}${verifyHref}`;
+    const verifyUrl = buildVerifyUrl(record.passportNo);
 
     try {
       await navigator.clipboard.writeText(verifyUrl);

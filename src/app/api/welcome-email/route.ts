@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
-import {
-  buildCompanionArchiveUrl,
-  formatRegistryEmailDate,
-  sendWelcomeEmail,
-} from "@/lib/welcome-email";
+import { buildCompanionUrl } from "@/lib/site-url";
+import { formatRegistryEmailDate, sendWelcomeEmail } from "@/lib/welcome-email";
 
 export const runtime = "nodejs";
 
@@ -52,7 +49,7 @@ export async function POST(request: Request) {
         ? formatRegistryEmailDate(dateRegistered)
         : formatRegistryEmailDate(new Date().toISOString()),
       country: country || "—",
-      archiveUrl: buildCompanionArchiveUrl(companionId),
+      archiveUrl: buildCompanionUrl(companionId),
     });
 
     return NextResponse.json(result);

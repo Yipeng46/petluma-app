@@ -1,8 +1,16 @@
 import Link from "next/link";
 import { CardGenerator } from "@/components/CardGenerator";
+import { createSiteMetadata } from "@/lib/site-metadata";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "@/styles/passport-office.css";
+
+export const metadata = createSiteMetadata({
+  title: "Kingdom Passport Office — PetLuma",
+  description:
+    "Register a companion within the PetLuma Kingdom Registry and receive a lifelong passport record.",
+  path: "/passport",
+});
 
 export default function PassportOfficePage() {
   return (

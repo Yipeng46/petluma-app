@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
 import { LegalPageShell } from "@/components/LegalPageShell";
+import { createSiteMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createSiteMetadata({
   title: "Privacy — PetLuma",
   description: "PetLuma privacy policy for companion identity and memorial services.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

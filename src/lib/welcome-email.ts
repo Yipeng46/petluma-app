@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
+import { getSiteUrl } from "@/lib/site-url";
 
 export type WelcomeEmailPayload = {
   toEmail: string;
@@ -12,20 +13,6 @@ export type WelcomeEmailPayload = {
 };
 
 const EMAIL_DIVIDER = "────────────────────";
-
-export function getRegistrySiteOrigin() {
-  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-
-  if (configured) {
-    return configured.replace(/\/$/, "");
-  }
-
-  return "https://petluma.co";
-}
-
-export function buildCompanionArchiveUrl(companionId: string) {
-  return `${getRegistrySiteOrigin()}/companion/${encodeURIComponent(companionId)}`;
-}
 
 export function formatRegistryEmailDate(isoDate: string) {
   const parsed = new Date(isoDate);
@@ -88,7 +75,7 @@ export function buildWelcomeEmailText(payload: WelcomeEmailPayload) {
     "The Kingdom grows one companion at a time.",
     "",
     "PetLuma Kingdom Registry",
-    "https://petluma.co",
+    getSiteUrl(),
   ].join("\n");
 }
 

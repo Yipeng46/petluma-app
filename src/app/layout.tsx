@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import { NavigationFeedback } from "@/components/NavigationFeedback";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 import "@/styles/design-system.css";
 import "@/styles/registry-home.css";
@@ -19,10 +20,33 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteTitle = "PetLuma — Companion Identity & Kingdom Registry";
+const siteDescription =
+  "Begin Kingdom registration for companion identity, memorial archives, and lifelong records for beloved pets.";
+
 export const metadata: Metadata = {
-  title: "PetLuma — Companion Identity & Kingdom Registry",
-  description:
-    "Begin Kingdom registration for companion identity, memorial archives, and lifelong records for beloved pets.",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: siteTitle,
+    template: "%s — PetLuma Kingdom",
+  },
+  description: siteDescription,
+  alternates: {
+    canonical: getSiteUrl(),
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: getSiteUrl(),
+    siteName: "PetLuma Kingdom Registry",
+    title: siteTitle,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({

@@ -9,6 +9,7 @@ import {
   getCountryFromCompanionId,
   type RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
+import { buildCompanionUrl } from "@/lib/site-url";
 import "@/styles/companion-archive.css";
 
 type CompanionArchivePageProps = {
@@ -40,9 +41,27 @@ export async function generateMetadata({
     };
   }
 
+  const title = `${record.name} — Companion Archive`;
+  const description = `Archive record for ${record.name}, ${record.companionId}, within the PetLuma Kingdom collection.`;
+
   return {
-    title: `${record.name} — Companion Archive`,
-    description: `Archive record for ${record.name}, ${record.companionId}, within the PetLuma Kingdom collection.`,
+    title,
+    description,
+    alternates: {
+      canonical: buildCompanionUrl(id),
+    },
+    openGraph: {
+      title,
+      description,
+      url: buildCompanionUrl(id),
+      type: "website",
+      siteName: "PetLuma Kingdom Registry",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
   };
 }
 

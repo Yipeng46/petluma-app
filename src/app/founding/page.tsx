@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { RegistryButton } from "@/components/home/ui";
 import { SiteFooter } from "@/components/SiteFooter";
+import { createSiteMetadata } from "@/lib/site-metadata";
 import "@/styles/founding-chamber.css";
 
-export const metadata: Metadata = {
+export const metadata = createSiteMetadata({
   title: "Founding Chamber — PetLuma Kingdom Registry",
   description:
     "The place where the Kingdom began. An archival record of purpose, language, and the future of the PetLuma Registry.",
-};
+  path: "/founding",
+});
 
 const CHARTER_PRINCIPLES = [
   "Every Companion Deserves To Be Remembered.",
