@@ -27,6 +27,7 @@ function sampleRecord(overrides: Partial<RegistryRecord> = {}): RegistryRecord {
 
 const lookup = {
   ownerEmail: "Owner@Example.com",
+  petName: "Luma",
   species: "dog",
   breed: " golden retriever ",
   gender: "female",

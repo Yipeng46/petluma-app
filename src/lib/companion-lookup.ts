@@ -2,11 +2,13 @@ import { normalizeCountryCode, parseCountryCodeFromCompanionId } from "@/lib/com
 import {
   normalizeDateOfBirth,
   normalizeEmail,
+  normalizePetName,
   normalizeSpecies,
 } from "@/lib/pet-identity";
 
 export type CompanionLookupInput = {
   ownerEmail: string;
+  petName: string;
   species: string;
   breed: string;
   gender: string;
@@ -16,6 +18,7 @@ export type CompanionLookupInput = {
 
 export type NormalizedCompanionLookup = {
   ownerEmail: string;
+  petName: string;
   species: string;
   breed: string;
   gender: string;
@@ -25,6 +28,7 @@ export type NormalizedCompanionLookup = {
 
 export type CompanionIdentityRecord = {
   ownerEmail: string;
+  petName: string;
   species: string;
   breed: string;
   gender: string;
@@ -50,6 +54,7 @@ export function normalizeCompanionLookupInput(
 ): NormalizedCompanionLookup {
   return {
     ownerEmail: normalizeEmail(input.ownerEmail),
+    petName: normalizePetName(input.petName),
     species: normalizeSpecies(input.species),
     breed: normalizeBreed(input.breed),
     gender: normalizeGender(input.gender),
@@ -73,6 +78,7 @@ export function matchesCompanionIdentity(
 ) {
   return (
     normalizeEmail(record.ownerEmail) === normalized.ownerEmail &&
+    normalizePetName(record.petName) === normalized.petName &&
     normalizeSpecies(record.species) === normalized.species &&
     normalizeBreed(record.breed) === normalized.breed &&
     normalizeGender(record.gender) === normalized.gender &&

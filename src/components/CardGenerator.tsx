@@ -11,7 +11,7 @@ import {
   updatePassportField,
   type PassportData,
 } from "@/lib/passport-data";
-import { isValidEmail } from "@/lib/pet-identity";
+import { displayOwnerEmail, isValidEmail } from "@/lib/pet-identity";
 import {
   isAllowedPassportPhotoType,
   PASSPORT_PHOTO_MAX_BYTES,
@@ -96,8 +96,10 @@ export function CardGenerator() {
   }
 
   async function handlePreviewFinalCard() {
-    if (!passportData.ownerEmail.trim() || !isValidEmail(passportData.ownerEmail)) {
-      alert("Please enter a valid owner email before beginning registration.");
+    const guardianEmail = passportData.ownerEmail.trim();
+
+    if (guardianEmail && !isValidEmail(guardianEmail)) {
+      alert("Please enter a valid guardian email, or leave the field blank.");
       return;
     }
 
@@ -110,7 +112,7 @@ export function CardGenerator() {
 
     const { record, isDuplicate, message, cloudSynced, cloudSyncError } =
       await createRegistryRecordWithFallback({
-      ownerEmail: passportData.ownerEmail,
+      ownerEmail: guardianEmail,
       petName: passportData.name,
       species: passportData.species,
       breed: passportData.breed,
@@ -129,7 +131,7 @@ export function CardGenerator() {
 
     const card: StoredCompanionCard = isDuplicate
       ? {
-          ownerEmail: record.ownerEmail,
+          ownerEmail: displayOwnerEmail(record.ownerEmail),
           photo: record.photoUrl ?? passportData.photo,
           name: record.petName,
           breed: record.breed,

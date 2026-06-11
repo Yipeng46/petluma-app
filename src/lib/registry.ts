@@ -14,7 +14,11 @@ import {
   serializeFavoriteThings,
 } from "@/lib/story-archive";
 import { isValidCountryCode } from "@/lib/countries";
-import { normalizeEmail } from "@/lib/pet-identity";
+import {
+  displayOwnerEmail,
+  normalizeEmail,
+  resolveOwnerEmailForStorage,
+} from "@/lib/pet-identity";
 
 export { generateNextCompanionId as generateCompanionId } from "@/lib/companion-id";
 export {
@@ -73,7 +77,8 @@ export type CreateRegistryInput = {
 
 function toCompanionLookupInput(input: CreateRegistryInput): CompanionLookupInput {
   return {
-    ownerEmail: input.ownerEmail,
+    ownerEmail: resolveOwnerEmailForStorage(input.ownerEmail),
+    petName: input.petName,
     species: input.species,
     breed: input.breed,
     gender: input.gender,
@@ -215,7 +220,7 @@ export function createRegistryRecord(
   const registry = getRegistry();
   const existing = findExistingPassport(registry, input);
   const normalizedCountryCode = normalizeCountryCode(input.countryCode);
-  const normalizedEmail = normalizeEmail(input.ownerEmail);
+  const storedOwnerEmail = resolveOwnerEmailForStorage(input.ownerEmail);
 
   const now = new Date().toISOString();
 
@@ -240,7 +245,7 @@ export function createRegistryRecord(
     dateOfBirth: input.dateOfBirth.trim(),
     placeOfOrigin: input.placeOfOrigin.trim(),
     countryCode: normalizedCountryCode,
-    ownerEmail: normalizedEmail,
+    ownerEmail: storedOwnerEmail,
     photoUrl: sanitizeCloudPhotoUrl(input.photoUrl),
     createdAt: now,
     updatedAt: now,
@@ -360,7 +365,8 @@ function toCloudRegistryPayload(
     special_memory: normalizeStoryField(input.specialMemory) || null,
     favorite_things: serializeFavoriteThings(input.favoriteThings ?? "") || null,
     is_public: input.isPublic === true,
-    guardian_email: input.guardianEmail?.trim() || null,
+    guardian_email:
+      displayOwnerEmail(input.ownerEmail) || input.guardianEmail?.trim() || null,
     guardian_name: input.guardianName?.trim() || null,
     ...(updatedAt ? { updated_at: updatedAt } : {}),
   };

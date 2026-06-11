@@ -67,14 +67,6 @@ export function PetCardForm({
         </label>
 
         <TextInput
-          label="Owner email"
-          value={passportData.ownerEmail}
-          placeholder="you@example.com"
-          type="email"
-          onChange={(value) => onFieldChange("ownerEmail", value)}
-        />
-
-        <TextInput
           label="Pet Name"
           value={passportData.name}
           placeholder="e.g. Luma"
@@ -168,6 +160,15 @@ export function PetCardForm({
           onChange={(value) => onFieldChange("favoriteThings", value)}
         />
 
+        <TextInput
+          label="Guardian Email (Optional)"
+          value={passportData.ownerEmail}
+          placeholder="you@example.com"
+          type="email"
+          hint="Used only to recover this companion archive in the future. It will never be displayed publicly."
+          onChange={(value) => onFieldChange("ownerEmail", value)}
+        />
+
         <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/50 px-4 py-4 transition hover:border-[#C8A97E]/70">
           <input
             type="checkbox"
@@ -223,6 +224,7 @@ function TextInput({
   placeholder,
   type = "text",
   maxLength,
+  hint,
   onChange,
 }: {
   label: string;
@@ -230,6 +232,7 @@ function TextInput({
   placeholder: string;
   type?: string;
   maxLength?: number;
+  hint?: string;
   onChange: (value: string) => void;
 }) {
   return (
@@ -245,6 +248,11 @@ function TextInput({
         placeholder={placeholder}
         className="w-full rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/70 px-4 py-3 text-[#111827] outline-none transition placeholder:text-[#9A948C] hover:border-[#C8A97E]/70 focus:border-[#C8A97E] focus:ring-4 focus:ring-[#C8A97E]/15"
       />
+      {hint ? (
+        <span className="mt-2 block text-xs leading-relaxed text-[#7a6656]">
+          {hint}
+        </span>
+      ) : null}
     </label>
   );
 }

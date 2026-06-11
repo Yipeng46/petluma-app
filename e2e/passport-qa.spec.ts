@@ -35,7 +35,9 @@ async function fillPassportForm(page: Page, payload: Record<string, unknown>) {
   const read = (key: string) =>
     typeof payload[key] === "string" ? (payload[key] as string) : "";
 
-  await page.getByLabel("Owner email").fill(read("ownerEmail") || "qa@petluma.test");
+  await page
+    .getByLabel("Guardian Email (Optional)")
+    .fill(read("ownerEmail") || "qa@petluma.test");
   await page.getByLabel("Pet Name").fill(read("name") || "Luma");
   await page.getByLabel("Species").selectOption(read("species") || "Dog");
   await page.getByLabel("Breed").fill(read("breed"));
