@@ -5,11 +5,12 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
-import {
-  fetchCommunityRegistryHallRecordByCompanionId,
-  fetchRandomCommunityRegistryHallRecords,
-} from "@/lib/community-registry-server";
+import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
 import { getKingdomRecordFromCompanionId } from "@/lib/companion-id";
+import {
+  buildRandomCompanionDiscoveryUrl,
+  getRelatedCompanions,
+} from "@/lib/random-companions";
 import {
   displayBreed,
   displayCountry,
@@ -113,7 +114,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
     notFound();
   }
 
-  const exploreRecords = await fetchRandomCommunityRegistryHallRecords(record.companionId, 3);
+  const relatedCompanions = await getRelatedCompanions(record.companionId, 3);
   const country = record.country ?? getCountryFromCompanionId(record.companionId);
   const storyText = record.story?.trim() ?? "";
   const specialMemoryText = record.specialMemory?.trim() ?? "";
@@ -297,16 +298,27 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           </div>
         </div>
 
-        {exploreRecords.length > 0 ? (
+        {relatedCompanions.length > 0 ? (
           <section className="companion-archive__explore" aria-labelledby="explore-registry-title">
             <div className="companion-archive__container">
               <h2 id="explore-registry-title" className="companion-archive__explore-title">
                 Continue Exploring The Registry
               </h2>
+              <p className="companion-archive__explore-lead">
+                Discover another companion preserved within the Kingdom.
+              </p>
               <div className="companion-archive__explore-grid registry-hall">
-                {exploreRecords.map((exploreRecord) => (
-                  <ArchiveCard key={exploreRecord.companionId} record={exploreRecord} />
+                {relatedCompanions.map((relatedRecord) => (
+                  <ArchiveCard key={relatedRecord.companionId} record={relatedRecord} />
                 ))}
+              </div>
+              <div className="companion-archive__explore-actions">
+                <a
+                  href={buildRandomCompanionDiscoveryUrl(record.companionId)}
+                  className="companion-archive__discovery-btn"
+                >
+                  Random Discovery
+                </a>
               </div>
             </div>
           </section>

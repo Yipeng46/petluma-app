@@ -109,6 +109,23 @@
   color: #faf6f0;
 }
 
+.registry-hall .random-archive-btn {
+  border: 1px solid rgba(139, 115, 85, 0.2);
+  background: rgba(252, 248, 242, 0.55);
+  color: #8a8278;
+  font-size: var(--pl-text-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+}
+
+.registry-hall .random-archive-btn:hover {
+  border-color: rgba(46, 40, 32, 0.22);
+  background: rgba(252, 248, 242, 0.9);
+  color: #5f574d;
+}
+
 .registry-hall .hall-search {
   border: 1px solid rgba(139, 115, 85, 0.18);
   background: #fcf8f2;

@@ -104,12 +104,19 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
                       />
                     </label>
 
-                    <div
-                      className="flex flex-wrap gap-2"
-                      role="group"
-                      aria-label="Filter by species"
-                    >
-                      {filters.map((filter) => (
+                    <div className="flex flex-wrap items-center gap-2">
+                      {communityRecords.length > 0 ? (
+                        <a href="/api/random-companion" className="random-archive-btn pl-btn">
+                          Random Archive
+                        </a>
+                      ) : null}
+
+                      <div
+                        className="flex flex-wrap gap-2"
+                        role="group"
+                        aria-label="Filter by species"
+                      >
+                        {filters.map((filter) => (
                         <button
                           key={filter.value}
                           type="button"
@@ -122,7 +129,8 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
                         >
                           {filter.label}
                         </button>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
 
