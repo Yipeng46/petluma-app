@@ -74,12 +74,6 @@
   will-change: transform;
 }
 
-.registry-hall .archive-official-stamp {
-  border: 1.5px solid rgba(138, 115, 73, 0.48);
-  color: rgba(138, 115, 73, 0.78);
-  background: #fcf8f2;
-}
-
 .registry-hall .archive-card-photo-frame {
   border-bottom: 1px solid rgba(46, 40, 32, 0.06);
 }

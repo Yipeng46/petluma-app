@@ -14,18 +14,6 @@ export function ArchiveCard({ record }: ArchiveCardProps) {
   return (
     <article className="archive-document relative z-10 w-[min(100%,15.5rem)]">
       <div className="archive-card relative flex flex-col">
-        <div
-          className="archive-official-stamp pointer-events-none absolute right-4 top-4 z-20 flex h-11 w-11 flex-col items-center justify-center rounded-full"
-          aria-hidden
-        >
-          <span className="pl-caption text-[5px] leading-tight tracking-[0.1em]">
-            PetLuma
-          </span>
-          <span className="font-[family-name:var(--font-cormorant)] text-[9px] leading-none">
-            Kingdom
-          </span>
-        </div>
-
         <div className="archive-card-photo-frame px-4 pb-1 pt-4">
           <div className="archive-card-photo relative mx-auto overflow-hidden bg-[#ebe3d6]">
             {record.photoUrl ? (
