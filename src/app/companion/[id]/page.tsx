@@ -6,6 +6,12 @@ import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
 import {
+  displayBreed,
+  displayCountry,
+  displayGender,
+  displaySpecies,
+} from "@/lib/display-normalization";
+import {
   getCountryFromCompanionId,
   type RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
@@ -90,10 +96,10 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
   const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);
 
   const archiveDetails = [
-    { label: "Species", value: displayArchiveValue(record.species) },
-    { label: "Breed", value: displayArchiveValue(record.breed) },
-    { label: "Gender", value: displayArchiveValue(record.gender) },
-    { label: "Country", value: displayArchiveValue(country) },
+    { label: "Species", value: displayArchiveValue(displaySpecies(record.species)) },
+    { label: "Breed", value: displayArchiveValue(displayBreed(record.breed)) },
+    { label: "Gender", value: displayArchiveValue(displayGender(record.gender ?? "")) },
+    { label: "Country", value: displayArchiveValue(displayCountry(country ?? "")) },
     { label: "Date of Birth", value: displayArchiveValue(record.dateOfBirth) },
     {
       label: "Registered Status",

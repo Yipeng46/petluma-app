@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { displayCountry } from "@/lib/display-normalization";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
 import { formatRegistryEmailDate } from "@/lib/welcome-email";
 import { getSiteUrl } from "@/lib/site-url";
@@ -144,7 +145,7 @@ function resolveWelcomeEmailContent(body: SendWelcomeEmailRequest): WelcomeEmail
 
   const passportNo = readText(body.passportNo, 40) || "—";
   const rawDate = readText(body.date, 40);
-  const country = readText(body.country, 120) || "—";
+  const country = displayCountry(readText(body.country, 120)) || "—";
   const archiveUrl = buildCleanArchiveUrl(companionId);
 
   return {

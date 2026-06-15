@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { displayBreed, displaySpecies } from "@/lib/display-normalization";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 
 const PHOTO_WIDTH = 160;
@@ -51,9 +52,9 @@ export function ArchiveCard({ record }: ArchiveCardProps) {
           <p className="pl-caption">{record.companionId}</p>
           <h2 className="archive-card__name pl-card-title mt-2">{record.name}</h2>
           <p className="pl-small mt-2">
-            {record.species}
+            {displaySpecies(record.species)}
             <span className="mx-2 text-[#b89a6a]">·</span>
-            {record.breed}
+            {displayBreed(record.breed)}
           </p>
           <div className="mt-4 border-t border-[#2e2820]/8 pt-4">
             <p className="pl-caption text-[#8a8278]">Kingdom Since</p>

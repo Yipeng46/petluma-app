@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { displayCountry } from "@/lib/display-normalization";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
 import { buildCompanionUrl } from "@/lib/site-url";
 import { formatRegistryEmailDate, sendWelcomeEmail } from "@/lib/welcome-email";
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
       dateRegistered: dateRegistered
         ? formatRegistryEmailDate(dateRegistered)
         : formatRegistryEmailDate(new Date().toISOString()),
-      country: country || "—",
+      country: displayCountry(country) || "—",
       archiveUrl: buildCompanionUrl(companionId),
     });
 

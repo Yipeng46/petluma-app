@@ -1,3 +1,9 @@
+import {
+  displayBreed,
+  displayCountry,
+  displayGender,
+  displaySpecies,
+} from "@/lib/display-normalization";
 import type { PassportData } from "@/lib/passport-data";
 
 export type PassportMrz = {
@@ -94,11 +100,11 @@ function classificationFromSpecies(species: string) {
 
 export function getPassportDisplay(data: PassportData): PassportDisplay {
   const name = displayValue(data.name);
-  const breed = displayValue(data.breed);
-  const gender = displayValue(data.gender);
+  const breed = displayValue(displayBreed(data.breed));
+  const gender = displayValue(displayGender(data.gender));
   const birthdate = displayValue(data.birthdate);
-  const species = displayValue(data.species);
-  const placeOfOrigin = displayValue(data.placeOfOrigin);
+  const species = displayValue(displaySpecies(data.species));
+  const placeOfOrigin = displayValue(displayCountry(data.placeOfOrigin));
   const companionId = displayValue(data.companionId);
   const passportNo = displayValue(data.passportNo);
   const hasRegistryIds =
@@ -118,6 +124,9 @@ export function getPassportDisplay(data: PassportData): PassportDisplay {
     classification: classificationFromSpecies(species),
     issuedBy: "PetLuma Registry Office",
     registered: hasRegistryIds ? "Active" : "—",
-    mrz: generateMRZ(data),
+    mrz: generateMRZ({
+      ...data,
+      breed: breed === "—" ? data.breed : breed,
+    }),
   };
 }

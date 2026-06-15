@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { displayCountry } from "@/lib/display-normalization";
 import { isRecoverableOwnerEmail, isValidEmail, normalizeEmail } from "@/lib/pet-identity";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -51,7 +52,7 @@ export function buildWelcomeEmailText(payload: WelcomeEmailPayload) {
     payload.dateRegistered,
     "",
     "Country",
-    payload.country,
+    displayCountry(payload.country),
     "",
     EMAIL_DIVIDER,
     "",

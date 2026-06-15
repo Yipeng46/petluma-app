@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { displayBreed, displaySpecies } from "@/lib/display-normalization";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 import { RegistryButton } from "./ui";
 
@@ -31,11 +32,11 @@ function RecentlyRegisteredCard({ record }: RecentlyRegisteredCardProps) {
           <p className="registry-preview-card__id">{record.companionId}</p>
           <h3 className="registry-preview-card__name">{record.name}</h3>
           <p className="registry-preview-card__meta">
-            {record.species}
+            {displaySpecies(record.species)}
             <span className="registry-preview-card__meta-sep" aria-hidden="true">
               ·
             </span>
-            {record.breed}
+            {displayBreed(record.breed)}
           </p>
           <p className="registry-preview-card__since">
             <span className="registry-preview-card__since-label">Kingdom Since</span>

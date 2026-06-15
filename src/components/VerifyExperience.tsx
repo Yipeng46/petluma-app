@@ -4,6 +4,11 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  displayBreed,
+  displayGender,
+  displaySpecies,
+} from "@/lib/display-normalization";
+import {
   findPassportByNumberWithFallback,
   type RegistryRecord,
 } from "@/lib/registry";
@@ -201,9 +206,9 @@ function VerifiedView({ record }: { record: RegistryRecord }) {
           <VerifyField label="Passport No." value={record.passportNo} />
           <VerifyField label="Companion ID" value={record.companionId} />
           <VerifyField label="Pet Name" value={record.petName} />
-          <VerifyField label="Species" value={record.species} />
-          <VerifyField label="Breed" value={record.breed || "—"} />
-          <VerifyField label="Gender" value={record.gender} />
+          <VerifyField label="Species" value={displaySpecies(record.species)} />
+          <VerifyField label="Breed" value={displayBreed(record.breed) || "—"} />
+          <VerifyField label="Gender" value={displayGender(record.gender)} />
           <VerifyField label="Date of Birth" value={record.dateOfBirth || "—"} />
         </div>
 
