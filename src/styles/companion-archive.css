@@ -54,8 +54,8 @@
 .companion-archive__hero-stage {
   display: flex;
   flex-direction: column;
-  gap: 2.75rem;
-  margin-top: 3rem;
+  gap: 3rem;
+  margin-top: 3.25rem;
 }
 
 .companion-archive__hero-portrait {
@@ -102,15 +102,16 @@
 
 .companion-archive__name {
   font-family: var(--pl-font-heading);
-  font-size: clamp(2.75rem, 8vw, 4.75rem);
+  font-size: clamp(3rem, 9vw, 5rem);
   font-weight: 500;
-  line-height: 1.04;
+  line-height: 1.02;
   letter-spacing: -0.03em;
   color: #2e2820;
 }
 
 .companion-archive__hero-id {
-  margin-top: 1.25rem;
+  margin-top: 1.35rem;
+  margin-bottom: 2.75rem;
   font-family: var(--pl-font-body);
   font-size: var(--pl-text-small);
   font-weight: 500;
@@ -119,54 +120,34 @@
   color: #6f675d;
 }
 
-.companion-archive__hero-meta {
+.companion-archive__hero-catalog {
   display: grid;
-  gap: 1.35rem;
-  margin-top: 1.75rem;
+  gap: 1.75rem;
+  margin: 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(46, 40, 32, 0.08);
 }
 
-.companion-archive__hero-meta-label {
-  font-family: var(--pl-font-body);
-  font-size: var(--pl-text-caption);
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #8a8278;
+.companion-archive__hero-catalog-item {
+  margin: 0;
 }
 
-.companion-archive__hero-meta-value {
-  margin-top: 0.45rem;
-  font-family: var(--pl-font-heading);
-  font-size: 1.125rem;
-  font-weight: 500;
-  line-height: 1.35;
-  color: #2e2820;
-}
-
-.companion-archive__hero-meta-value--record {
-  font-family: var(--pl-font-body);
-  font-size: var(--pl-text-small);
-  letter-spacing: 0.12em;
-}
-
-.companion-archive__hero-registered {
-  margin-top: 1.5rem;
+.companion-archive__hero-catalog-label {
   font-family: var(--pl-font-body);
   font-size: var(--pl-text-caption);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #8a7349;
+  color: #8a8278;
 }
 
-.companion-archive__hero-registered-date {
-  display: block;
-  margin-top: 0.55rem;
+.companion-archive__hero-catalog-value {
+  margin: 0.5rem 0 0;
   font-family: var(--pl-font-heading);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: none;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
   color: #4a433b;
 }
 
@@ -521,28 +502,29 @@
   .companion-archive__hero-stage {
     flex-direction: row;
     align-items: flex-end;
-    gap: 4rem;
+    gap: 4.5rem;
   }
 
   .companion-archive__hero-portrait {
-    flex: 0 0 min(42%, 22rem);
+    flex: 0 0 min(44%, 24rem);
     margin-inline: 0;
   }
 
   .companion-archive__hero-identity {
     flex: 1;
     min-width: 0;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
     text-align: left;
   }
 
-  .companion-archive__hero-registered {
-    margin-top: 2rem;
+  .companion-archive__hero-id {
+    margin-bottom: 3.25rem;
   }
 
-  .companion-archive__hero-meta {
-    grid-template-columns: repeat(2, minmax(0, max-content));
-    gap: 2rem 3rem;
+  .companion-archive__hero-catalog {
+    grid-template-columns: repeat(2, minmax(0, 9.5rem));
+    gap: 2.5rem 4rem;
+    padding-top: 2.25rem;
   }
 
   .companion-archive__narrative-inner {
@@ -557,12 +539,16 @@
   }
 
   .companion-archive__hero-stage {
-    gap: 5.5rem;
+    gap: 6rem;
   }
 
   .companion-archive__hero-portrait {
-    flex-basis: min(38%, 26rem);
-    max-width: 26rem;
+    flex-basis: min(40%, 28rem);
+    max-width: 28rem;
+  }
+
+  .companion-archive__hero-id {
+    margin-bottom: 3.75rem;
   }
 
   .companion-archive__record {

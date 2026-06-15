@@ -6,7 +6,6 @@ import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
 import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
-import { getKingdomRecordFromCompanionId } from "@/lib/companion-id";
 import {
   buildRandomCompanionDiscoveryUrl,
   getRelatedCompanions,
@@ -121,7 +120,6 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
   const favoriteThings = record.favoriteThings ?? [];
   const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);
   const dateRegistered = displayArchiveValue(record.kingdomSince);
-  const kingdomRecord = getKingdomRecordFromCompanionId(record.companionId);
 
   const archiveRecord: ArchiveRecordField[] = [
     { label: "Species", value: displayArchiveValue(displaySpecies(record.species)) },
@@ -170,23 +168,16 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
                 </h1>
                 <p className="companion-archive__hero-id">{record.companionId}</p>
 
-                <div className="companion-archive__hero-meta">
-                  <div className="companion-archive__hero-meta-item">
-                    <p className="companion-archive__hero-meta-label">Archive Status</p>
-                    <p className="companion-archive__hero-meta-value">{ARCHIVE_STATUS_LABEL}</p>
+                <dl className="companion-archive__hero-catalog">
+                  <div className="companion-archive__hero-catalog-item">
+                    <dt className="companion-archive__hero-catalog-label">Archive Status</dt>
+                    <dd className="companion-archive__hero-catalog-value">{ARCHIVE_STATUS_LABEL}</dd>
                   </div>
-                  <div className="companion-archive__hero-meta-item">
-                    <p className="companion-archive__hero-meta-label">Kingdom Record</p>
-                    <p className="companion-archive__hero-meta-value companion-archive__hero-meta-value--record">
-                      {kingdomRecord}
-                    </p>
+                  <div className="companion-archive__hero-catalog-item">
+                    <dt className="companion-archive__hero-catalog-label">Registered</dt>
+                    <dd className="companion-archive__hero-catalog-value">{dateRegistered}</dd>
                   </div>
-                </div>
-
-                <p className="companion-archive__hero-registered">
-                  Registered in the Kingdom
-                  <span className="companion-archive__hero-registered-date">{dateRegistered}</span>
-                </p>
+                </dl>
               </div>
             </div>
           </div>
