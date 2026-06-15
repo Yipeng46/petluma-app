@@ -4,7 +4,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
+import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
+import {
+  fetchCommunityRegistryHallRecordByCompanionId,
+  fetchRandomCommunityRegistryHallRecords,
+} from "@/lib/community-registry-server";
+import { getKingdomRecordFromCompanionId } from "@/lib/companion-id";
 import {
   displayBreed,
   displayCountry,
@@ -17,6 +22,9 @@ import {
 } from "@/lib/registry-hall-mock";
 import { buildCompanionUrl } from "@/lib/site-url";
 import "@/styles/companion-archive.css";
+import "@/styles/registry-hall.css";
+
+export const dynamic = "force-dynamic";
 
 type CompanionArchivePageProps = {
   params: Promise<{ id: string }>;
@@ -26,6 +34,8 @@ type ArchiveRecordField = {
   label: string;
   value: string;
 };
+
+const ARCHIVE_STATUS_LABEL = "Preserved";
 
 async function resolveRegistryHallRecord(
   companionId: string,
@@ -103,12 +113,14 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
     notFound();
   }
 
+  const exploreRecords = await fetchRandomCommunityRegistryHallRecords(record.companionId, 3);
   const country = record.country ?? getCountryFromCompanionId(record.companionId);
   const storyText = record.story?.trim() ?? "";
   const specialMemoryText = record.specialMemory?.trim() ?? "";
   const favoriteThings = record.favoriteThings ?? [];
   const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);
   const dateRegistered = displayArchiveValue(record.kingdomSince);
+  const kingdomRecord = getKingdomRecordFromCompanionId(record.companionId);
 
   const archiveRecord: ArchiveRecordField[] = [
     { label: "Species", value: displayArchiveValue(displaySpecies(record.species)) },
@@ -156,6 +168,20 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
                   {record.name}
                 </h1>
                 <p className="companion-archive__hero-id">{record.companionId}</p>
+
+                <div className="companion-archive__hero-meta">
+                  <div className="companion-archive__hero-meta-item">
+                    <p className="companion-archive__hero-meta-label">Archive Status</p>
+                    <p className="companion-archive__hero-meta-value">{ARCHIVE_STATUS_LABEL}</p>
+                  </div>
+                  <div className="companion-archive__hero-meta-item">
+                    <p className="companion-archive__hero-meta-label">Kingdom Record</p>
+                    <p className="companion-archive__hero-meta-value companion-archive__hero-meta-value--record">
+                      {kingdomRecord}
+                    </p>
+                  </div>
+                </div>
+
                 <p className="companion-archive__hero-registered">
                   Registered in the Kingdom
                   <span className="companion-archive__hero-registered-date">{dateRegistered}</span>
@@ -243,13 +269,17 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
         <footer className="companion-archive__footer">
           <div className="companion-archive__container companion-archive__footer-inner">
-            <p className="companion-archive__footer-statement">
-              Preserved in the PetLuma Kingdom Registry.
-            </p>
+            <p className="companion-archive__footer-heading">Entered into the Kingdom Registry</p>
+            <p className="companion-archive__footer-date">{dateRegistered}</p>
+
+            <div className="companion-archive__footer-id-block">
+              <p className="companion-archive__footer-id-label">Companion ID</p>
+              <p className="companion-archive__footer-id-value">{record.companionId}</p>
+            </div>
+
             <p className="companion-archive__footer-motto">
               Every companion deserves to be remembered.
             </p>
-            <p className="companion-archive__footer-id">{record.companionId}</p>
           </div>
         </footer>
 
@@ -266,6 +296,21 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
             </Link>
           </div>
         </div>
+
+        {exploreRecords.length > 0 ? (
+          <section className="companion-archive__explore" aria-labelledby="explore-registry-title">
+            <div className="companion-archive__container">
+              <h2 id="explore-registry-title" className="companion-archive__explore-title">
+                Continue Exploring The Registry
+              </h2>
+              <div className="companion-archive__explore-grid registry-hall">
+                {exploreRecords.map((exploreRecord) => (
+                  <ArchiveCard key={exploreRecord.companionId} record={exploreRecord} />
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
       </main>
 
       <SiteFooter />

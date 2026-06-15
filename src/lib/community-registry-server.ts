@@ -126,3 +126,56 @@ export async function fetchCommunityRegistryHallRecordByCompanionId(
     return undefined;
   }
 }
+
+function shuffleRecords<T>(records: T[]): T[] {
+  const copy = [...records];
+
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+
+  return copy;
+}
+
+export async function fetchRandomCommunityRegistryHallRecords(
+  excludeCompanionId: string,
+  limit = 3,
+): Promise<RegistryHallRecord[]> {
+  const normalized = decodeURIComponent(excludeCompanionId).trim();
+
+  if (!normalized || limit < 1) {
+    return [];
+  }
+
+  const supabase = createCommunityRegistryClient();
+
+  if (!supabase) {
+    return [];
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from(PETLUMA_PASSPORTS_TABLE)
+      .select(communityPassportSelect)
+      .eq("status", "active")
+      .eq("is_public", true)
+      .neq("companion_id", normalized)
+      .order("created_at", { ascending: false })
+      .limit(36);
+
+    if (error) {
+      console.warn("[PetLuma] Explore registry fetch failed:", error.message);
+      return [];
+    }
+
+    const records = (data ?? []).map((row) =>
+      cloudPassportRowToRegistryHallRecord(row as CloudPassportRow),
+    );
+
+    return shuffleRecords(records).slice(0, limit);
+  } catch (error) {
+    console.warn("[PetLuma] Explore registry fetch failed:", error);
+    return [];
+  }
+}

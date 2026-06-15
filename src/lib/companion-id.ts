@@ -53,6 +53,28 @@ export function parseCountryCodeFromCompanionId(companionId: string) {
   return parseCompanionId(companionId)?.countryCode ?? "";
 }
 
+export function getKingdomRecordFromCompanionId(companionId: string) {
+  const parsed = parseCompanionId(companionId);
+
+  if (parsed) {
+    return String(parsed.sequence).padStart(6, "0");
+  }
+
+  const lastSegment = companionId.trim().split("-").pop() ?? "";
+
+  if (/^\d{1,6}$/.test(lastSegment)) {
+    return lastSegment.padStart(6, "0");
+  }
+
+  const digits = companionId.replace(/\D/g, "");
+
+  if (digits.length >= 6) {
+    return digits.slice(-6);
+  }
+
+  return lastSegment || "—";
+}
+
 export function getNextCompanionSequence(
   companionIds: string[],
   year: number,
