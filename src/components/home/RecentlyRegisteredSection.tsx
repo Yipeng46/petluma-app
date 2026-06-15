@@ -4,9 +4,6 @@ import { displayBreed, displaySpecies } from "@/lib/display-normalization";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 import { RegistryButton } from "./ui";
 
-const PORTRAIT_WIDTH = 280;
-const PORTRAIT_HEIGHT = 350;
-
 type RecentlyRegisteredCardProps = {
   record: RegistryHallRecord;
 };
@@ -21,8 +18,7 @@ function RecentlyRegisteredCard({ record }: RecentlyRegisteredCardProps) {
           <Image
             src={record.photoUrl}
             alt={`Portrait of ${record.name}`}
-            width={PORTRAIT_WIDTH}
-            height={PORTRAIT_HEIGHT}
+            fill
             sizes="(max-width: 1023px) 78vw, 16vw"
             className="registry-preview-card__image"
           />

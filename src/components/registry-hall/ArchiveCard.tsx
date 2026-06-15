@@ -3,9 +3,6 @@ import Link from "next/link";
 import { displayBreed, displaySpecies } from "@/lib/display-normalization";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 
-const PHOTO_WIDTH = 160;
-const PHOTO_HEIGHT = 200;
-
 type ArchiveCardProps = {
   record: RegistryHallRecord;
 };
@@ -20,15 +17,14 @@ export function ArchiveCard({ record }: ArchiveCardProps) {
               <Image
                 src={record.photoUrl}
                 alt={`${record.name}, registered companion`}
-                width={PHOTO_WIDTH}
-                height={PHOTO_HEIGHT}
-                className="h-[200px] w-[160px] object-cover"
+                fill
                 sizes="160px"
+                className="archive-card-photo__image"
                 loading="lazy"
               />
             ) : (
               <div
-                className="h-[200px] w-[160px]"
+                className="archive-card-photo__empty"
                 role="img"
                 aria-label={`Portrait placeholder for ${record.name}`}
               />
