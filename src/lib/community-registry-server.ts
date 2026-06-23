@@ -85,11 +85,48 @@ export async function fetchCommunityRegistryHallRecords(): Promise<RegistryHallR
     }
 
     return (data ?? []).map((row) =>
-      cloudPassportRowToRegistryHallRecord(row as CloudPassportRow),
+      cloudPassportRowToRegistryHallRecord(row as CloudPassportRow, {
+        useListPhotoUrls: true,
+      }),
     );
   } catch (error) {
     console.warn("[PetLuma] Community registry fetch failed:", error);
     return [];
+  }
+}
+
+export async function fetchCompanionPhotoUrlByCompanionId(
+  companionId: string,
+): Promise<string | null> {
+  const normalized = decodeURIComponent(companionId).trim();
+
+  if (!normalized) {
+    return null;
+  }
+
+  const supabase = createCommunityRegistryClient();
+
+  if (!supabase) {
+    return null;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from(PETLUMA_PASSPORTS_TABLE)
+      .select("photo_url")
+      .eq("companion_id", normalized)
+      .eq("status", "active")
+      .eq("is_public", true)
+      .maybeSingle<{ photo_url: string | null }>();
+
+    if (error || !data?.photo_url) {
+      return null;
+    }
+
+    return data.photo_url;
+  } catch (error) {
+    console.warn("[PetLuma] Companion photo lookup failed:", error);
+    return null;
   }
 }
 

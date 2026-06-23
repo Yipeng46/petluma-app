@@ -5,9 +5,12 @@ import type {
   RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
 import { parseFavoriteThings } from "@/lib/story-archive";
+import {
+  REGISTRY_HALL_PLACEHOLDER_PHOTO,
+  resolvePublicListPhotoUrl,
+} from "@/lib/companion-photo-url";
 
-export const REGISTRY_HALL_PLACEHOLDER_PHOTO =
-  "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=640&h=800&fit=crop&q=80";
+export { REGISTRY_HALL_PLACEHOLDER_PHOTO };
 
 export function speciesToRegistryHallCategory(species: string): RegistryHallCategory {
   const normalized = species.trim().toLowerCase();
@@ -46,20 +49,11 @@ function resolvePhotoUrl(photoUrl?: string | null) {
   return trimmed ? trimmed : REGISTRY_HALL_PLACEHOLDER_PHOTO;
 }
 
-export function sanitizePublicListPhotoUrl(photoUrl?: string | null) {
-  const trimmed = photoUrl?.trim();
-
-  if (!trimmed || trimmed.startsWith("data:")) {
-    return {
-      photoUrl: REGISTRY_HALL_PLACEHOLDER_PHOTO,
-      hasPhoto: false,
-    };
-  }
-
-  return {
-    photoUrl: trimmed,
-    hasPhoto: true,
-  };
+export function sanitizePublicListPhotoUrl(
+  companionId: string,
+  photoUrl?: string | null,
+) {
+  return resolvePublicListPhotoUrl(companionId, photoUrl);
 }
 
 function formatDateOfBirth(value: string | null | undefined) {
@@ -107,8 +101,15 @@ function resolveCountryLabel(
 
 export function cloudPassportRowToRegistryHallRecord(
   row: CloudPassportRow,
+  options?: { useListPhotoUrls?: boolean },
 ): RegistryHallRecord {
-  const photo = row.photo_url?.trim();
+  const rawPhoto = row.photo_url?.trim();
+  const photo = options?.useListPhotoUrls
+    ? resolvePublicListPhotoUrl(row.companion_id, rawPhoto)
+    : {
+        photoUrl: rawPhoto ? rawPhoto : resolvePhotoUrl(null),
+        hasPhoto: Boolean(rawPhoto),
+      };
   const favoriteThings = parseFavoriteThings(row.favorite_things);
 
   return {
@@ -119,8 +120,8 @@ export function cloudPassportRowToRegistryHallRecord(
     breed: row.breed?.trim() || "—",
     kingdomSince: formatKingdomSinceFromIso(row.created_at),
     registeredAt: row.created_at,
-    photoUrl: photo ? photo : resolvePhotoUrl(null),
-    hasPhoto: Boolean(photo),
+    photoUrl: photo.photoUrl,
+    hasPhoto: photo.hasPhoto,
     category: speciesToRegistryHallCategory(row.species ?? ""),
     guardian: "Public Archive",
     country: resolveCountryLabel(row.country_code, row.place_of_origin),
@@ -152,7 +153,7 @@ export type RecentlyRegisteredPassportRow = Pick<
 export function cloudPassportRowToRecentlyRegisteredRecord(
   row: RecentlyRegisteredPassportRow,
 ): RegistryHallRecord {
-  const photo = sanitizePublicListPhotoUrl(row.photo_url);
+  const photo = sanitizePublicListPhotoUrl(row.companion_id, row.photo_url);
 
   return {
     companionId: row.companion_id,
