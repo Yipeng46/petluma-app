@@ -1,4 +1,4 @@
-import { RegistryButton } from "./ui";
+import { TrackedRegistryButton } from "./TrackedRegistryButton";
 
 export function HeroSection() {
   return (
@@ -13,7 +13,7 @@ export function HeroSection() {
             <span className="block">remembered.</span>
           </h1>
           <div className="hero-section__cta">
-            <RegistryButton href="/passport">Register Companion</RegistryButton>
+            <TrackedRegistryButton href="/passport">Register Companion</TrackedRegistryButton>
           </div>
         </div>
       </div>

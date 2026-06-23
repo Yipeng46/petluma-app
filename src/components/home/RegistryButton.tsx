@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { trackPassportEntryClick } from "@/lib/clarity";
+import type { ComponentProps, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
@@ -14,11 +11,12 @@ const variantClasses: Record<ButtonVariant, string> = {
   ghost: "text-kingdom-ink-muted hover:text-kingdom-ink",
 };
 
-type RegistryButtonProps = {
+export type RegistryButtonProps = {
   href: string;
   children: ReactNode;
   variant?: ButtonVariant;
   className?: string;
+  onClick?: ComponentProps<typeof Link>["onClick"];
 };
 
 export function RegistryButton({
@@ -26,15 +24,12 @@ export function RegistryButton({
   children,
   variant = "primary",
   className = "",
+  onClick,
 }: RegistryButtonProps) {
   return (
     <Link
       href={href}
-      onClick={() => {
-        if (href === "/passport") {
-          trackPassportEntryClick();
-        }
-      }}
+      onClick={onClick}
       className={`registry-btn registry-btn--${variant} pl-btn inline-flex items-center justify-center px-6 py-3 transition-colors duration-500 ${variantClasses[variant]} ${className}`}
     >
       {children}
@@ -42,7 +37,7 @@ export function RegistryButton({
   );
 }
 
-type SectionEyebrowProps = {
+export type SectionEyebrowProps = {
   children: ReactNode;
 };
 
@@ -50,18 +45,14 @@ export function SectionEyebrow({ children }: SectionEyebrowProps) {
   return <p className="pl-caption mb-4">{children}</p>;
 }
 
-type SectionTitleProps = {
+export type SectionTitleProps = {
   children: ReactNode;
   as?: "h1" | "h2" | "h3";
   className?: string;
 };
 
 export function SectionTitle({ children, as: Tag = "h2", className = "" }: SectionTitleProps) {
-  return (
-    <Tag className={`pl-section-title ${className}`}>
-      {children}
-    </Tag>
-  );
+  return <Tag className={`pl-section-title ${className}`}>{children}</Tag>;
 }
 
 export function RegistryDivider({ className = "" }: { className?: string }) {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CardGenerator } from "@/components/CardGenerator";
+import { PassportCardGenerator } from "@/components/PassportCardGenerator";
 import { createSiteMetadata } from "@/lib/site-metadata";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -27,7 +27,7 @@ export default function PassportOfficePage() {
             Back to home
           </Link>
 
-          <CardGenerator />
+          <PassportCardGenerator />
         </section>
       </main>
       <SiteFooter />

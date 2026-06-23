@@ -1,4 +1,5 @@
-import { RegistryButton, SectionTitle } from "./ui";
+import { SectionTitle } from "./RegistryButton";
+import { TrackedRegistryButton } from "./TrackedRegistryButton";
 
 export function FinalCtaSection() {
   return (
@@ -6,7 +7,7 @@ export function FinalCtaSection() {
       <div className="mx-auto max-w-3xl px-6 text-center md:px-10">
         <SectionTitle as="h2">Join the PetLuma Kingdom.</SectionTitle>
         <div className="pl-stack-desc-button flex justify-center">
-          <RegistryButton href="/passport">Register Companion</RegistryButton>
+          <TrackedRegistryButton href="/passport">Register Companion</TrackedRegistryButton>
         </div>
       </div>
     </section>

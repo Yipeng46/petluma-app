@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -29,8 +30,12 @@ import { buildCompanionUrl } from "@/lib/site-url";
 import { CLARITY_EVENTS, trackClarityEvent } from "@/lib/clarity";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
-import { PetPhotoCropModal } from "./PetPhotoCropModal";
 import { TermsConfirmationField } from "./TermsConfirmationField";
+
+const PetPhotoCropModal = dynamic(
+  () => import("./PetPhotoCropModal").then((module) => module.PetPhotoCropModal),
+  { ssr: false },
+);
 
 export function CardGenerator() {
   const router = useRouter();

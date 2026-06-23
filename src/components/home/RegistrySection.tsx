@@ -1,4 +1,4 @@
-import { RegistryDivider, SectionEyebrow, SectionTitle } from "./ui";
+import { RegistryDivider, SectionEyebrow, SectionTitle } from "./RegistryButton";
 
 const registryPoints = [
   {

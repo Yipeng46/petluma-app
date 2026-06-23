@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { RegistryButton } from "./ui";
+import { RegistryButton } from "./RegistryButton";
+import { TrackedRegistryButton } from "./TrackedRegistryButton";
 
 const KINGDOM_ENTRIES = [
   {
@@ -46,9 +47,15 @@ export function ExploreKingdomSection() {
                 <p className="kingdom-wayfinding__description">{entry.description}</p>
               </div>
               <div className="kingdom-wayfinding__action">
-                <RegistryButton href={entry.href} variant="secondary">
-                  Enter
-                </RegistryButton>
+                {entry.href === "/passport" ? (
+                  <TrackedRegistryButton href={entry.href} variant="secondary">
+                    Enter
+                  </TrackedRegistryButton>
+                ) : (
+                  <RegistryButton href={entry.href} variant="secondary">
+                    Enter
+                  </RegistryButton>
+                )}
               </div>
             </li>
           ))}

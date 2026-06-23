@@ -46,6 +46,22 @@ function resolvePhotoUrl(photoUrl?: string | null) {
   return trimmed ? trimmed : REGISTRY_HALL_PLACEHOLDER_PHOTO;
 }
 
+export function sanitizePublicListPhotoUrl(photoUrl?: string | null) {
+  const trimmed = photoUrl?.trim();
+
+  if (!trimmed || trimmed.startsWith("data:")) {
+    return {
+      photoUrl: REGISTRY_HALL_PLACEHOLDER_PHOTO,
+      hasPhoto: false,
+    };
+  }
+
+  return {
+    photoUrl: trimmed,
+    hasPhoto: true,
+  };
+}
+
 function formatDateOfBirth(value: string | null | undefined) {
   const trimmed = value?.trim();
 
@@ -115,5 +131,42 @@ export function cloudPassportRowToRegistryHallRecord(
     gender: row.gender?.trim() || undefined,
     dateOfBirth: formatDateOfBirth(row.date_of_birth),
     registeredStatus: resolveRegisteredStatus(row.status),
+  };
+}
+
+export type RecentlyRegisteredPassportRow = Pick<
+  CloudPassportRow,
+  | "passport_no"
+  | "companion_id"
+  | "pet_name"
+  | "species"
+  | "breed"
+  | "country_code"
+  | "place_of_origin"
+  | "photo_url"
+  | "is_public"
+  | "status"
+  | "created_at"
+>;
+
+export function cloudPassportRowToRecentlyRegisteredRecord(
+  row: RecentlyRegisteredPassportRow,
+): RegistryHallRecord {
+  const photo = sanitizePublicListPhotoUrl(row.photo_url);
+
+  return {
+    companionId: row.companion_id,
+    passportNo: row.passport_no,
+    name: row.pet_name,
+    species: row.species?.trim() || "Companion",
+    breed: row.breed?.trim() || "—",
+    kingdomSince: formatKingdomSinceFromIso(row.created_at),
+    registeredAt: row.created_at,
+    photoUrl: photo.photoUrl,
+    hasPhoto: photo.hasPhoto,
+    category: speciesToRegistryHallCategory(row.species ?? ""),
+    guardian: "Public Archive",
+    country: resolveCountryLabel(row.country_code, row.place_of_origin),
+    isPublic: row.is_public === true,
   };
 }

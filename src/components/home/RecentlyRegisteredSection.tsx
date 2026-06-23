@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { displayBreed, displaySpecies } from "@/lib/display-normalization";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
-import { RegistryButton } from "./ui";
+import { TrackedRegistryButton } from "./TrackedRegistryButton";
 
 type RecentlyRegisteredCardProps = {
   record: RegistryHallRecord;
@@ -20,6 +20,7 @@ function RecentlyRegisteredCard({ record }: RecentlyRegisteredCardProps) {
             alt={`Portrait of ${record.name}`}
             fill
             sizes="(max-width: 1023px) 78vw, 16vw"
+            loading="lazy"
             className="registry-preview-card__image"
           />
         </div>
@@ -64,7 +65,7 @@ export function RecentlyRegisteredSection({ records }: RecentlyRegisteredSection
               The Registry is waiting for its first public companions.
             </p>
             <div className="recently-section__empty-action">
-              <RegistryButton href="/passport">Register A Companion</RegistryButton>
+              <TrackedRegistryButton href="/passport">Register A Companion</TrackedRegistryButton>
             </div>
           </div>
         ) : (

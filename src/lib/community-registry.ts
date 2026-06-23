@@ -2,4 +2,5 @@ export { cloudPassportRowToRegistryHallRecord as cloudRecordToHallRecord } from 
 export {
   fetchCommunityRegistryHallRecords as fetchCommunityRegistryRecords,
   fetchCommunityRegistryHallRecordByCompanionId,
+  fetchRecentlyRegisteredRecords,
 } from "@/lib/community-registry-server";

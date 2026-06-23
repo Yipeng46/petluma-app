@@ -1,4 +1,4 @@
-import { RegistryDivider, SectionTitle } from "./ui";
+import { RegistryDivider, SectionTitle } from "./RegistryButton";
 
 const registryPillars = [
   {

@@ -1,4 +1,4 @@
-import { SectionEyebrow, SectionTitle } from "./ui";
+import { SectionEyebrow, SectionTitle } from "./RegistryButton";
 
 export function WhySection() {
   return (

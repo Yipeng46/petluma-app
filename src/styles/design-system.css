@@ -10,7 +10,7 @@
   --pl-font-button: var(--pl-font-body);
 
   /* Typography scale */
-  --pl-text-hero: 72px;
+  --pl-text-hero: clamp(2.5rem, 10vw, 4.5rem);
   --pl-text-section: 48px;
   --pl-text-card: 32px;
   --pl-text-body: 18px;
@@ -19,7 +19,7 @@
 
   /* Spacing scale */
   --pl-space-section: 120px;
-  --pl-space-hero-bottom: 140px;
+  --pl-space-hero-bottom: clamp(4rem, 12vw, 8rem);
   --pl-space-title-desc: 24px;
   --pl-space-desc-button: 32px;
   --pl-space-card-padding: 32px;
