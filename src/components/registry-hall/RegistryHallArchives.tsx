@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
+import { CLARITY_EVENTS, trackClarityEvent } from "@/lib/clarity";
 import {
   filterRegistryHallRecords,
   type RegistryHallFilter,
@@ -45,6 +46,10 @@ export function RegistryHallArchives({ communityRecords }: RegistryHallArchivesP
   const [archivesEntered, setArchivesEntered] = useState(false);
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<RegistryHallFilter>("all");
+
+  useEffect(() => {
+    trackClarityEvent(CLARITY_EVENTS.REGISTRY_HALL_OPENED);
+  }, []);
 
   const visibleRecords = useMemo(
     () => filterRegistryHallRecords(communityRecords, query, activeFilter),

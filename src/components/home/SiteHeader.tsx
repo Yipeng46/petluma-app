@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { trackPassportEntryClick } from "@/lib/clarity";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -44,14 +45,27 @@ export function SiteHeader() {
 
           <div className="site-header__wayfinding site-header__wayfinding--desktop hidden justify-self-center md:flex">
             {navLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="site-header__link">
+              <Link
+                key={link.label}
+                href={link.href}
+                className="site-header__link"
+                onClick={() => {
+                  if (link.href === "/passport") {
+                    trackPassportEntryClick();
+                  }
+                }}
+              >
                 {link.label}
               </Link>
             ))}
           </div>
 
           <div className="flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
-            <Link href="/passport" className="site-header__cta hidden md:inline-flex">
+            <Link
+              href="/passport"
+              className="site-header__cta hidden md:inline-flex"
+              onClick={trackPassportEntryClick}
+            >
               Begin Registration
             </Link>
             <button
@@ -77,7 +91,12 @@ export function SiteHeader() {
                   <Link
                     href={link.href}
                     className="site-header__link site-header__link--mobile"
-                    onClick={closeMenu}
+                    onClick={() => {
+                      closeMenu();
+                      if (link.href === "/passport") {
+                        trackPassportEntryClick();
+                      }
+                    }}
                   >
                     {link.label}
                   </Link>
@@ -87,7 +106,10 @@ export function SiteHeader() {
                 <Link
                   href="/passport"
                   className="site-header__cta inline-flex w-full justify-center"
-                  onClick={closeMenu}
+                  onClick={() => {
+                    closeMenu();
+                    trackPassportEntryClick();
+                  }}
                 >
                   Begin Registration
                 </Link>

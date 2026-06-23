@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ClarityEventOnMount } from "@/components/ClarityEventOnMount";
 import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
 import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
 import {
@@ -21,6 +22,7 @@ import {
   type RegistryHallRecord,
 } from "@/lib/registry-hall-mock";
 import { buildCompanionUrl } from "@/lib/site-url";
+import { CLARITY_EVENTS } from "@/lib/clarity";
 import "@/styles/companion-archive.css";
 import "@/styles/registry-hall.css";
 
@@ -132,6 +134,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
 
   return (
     <div className="companion-archive min-h-screen font-sans antialiased">
+      <ClarityEventOnMount event={CLARITY_EVENTS.ARCHIVE_OPENED} />
       <div className="companion-archive__texture" aria-hidden="true" />
       <SiteHeader />
 

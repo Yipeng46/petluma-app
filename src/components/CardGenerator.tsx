@@ -26,6 +26,7 @@ import { getCountryByCode } from "@/lib/countries";
 import { getRecordCountryCode } from "@/lib/companion-lookup";
 import { createRegistryRecordWithFallback } from "@/lib/registry";
 import { buildCompanionUrl } from "@/lib/site-url";
+import { CLARITY_EVENTS, trackClarityEvent } from "@/lib/clarity";
 import { PetCardForm } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 import { PetPhotoCropModal } from "./PetPhotoCropModal";
@@ -123,6 +124,8 @@ export function CardGenerator() {
       return;
     }
 
+    trackClarityEvent(CLARITY_EVENTS.CREATE_IDENTITY_CLICKED);
+
     const { record, isDuplicate, message, cloudSynced, cloudSyncError } =
       await createRegistryRecordWithFallback({
       ownerEmail: guardianEmail,
@@ -165,6 +168,10 @@ export function CardGenerator() {
           companionId: record.companionId,
           passportNo: record.passportNo,
         };
+
+    if (!isDuplicate) {
+      trackClarityEvent(CLARITY_EVENTS.PASSPORT_CREATED_SUCCESSFULLY);
+    }
 
     if (isDuplicate) {
       sessionStorage.setItem(

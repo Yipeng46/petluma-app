@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { trackPassportEntryClick } from "@/lib/clarity";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
@@ -27,6 +30,11 @@ export function RegistryButton({
   return (
     <Link
       href={href}
+      onClick={() => {
+        if (href === "/passport") {
+          trackPassportEntryClick();
+        }
+      }}
       className={`registry-btn registry-btn--${variant} pl-btn inline-flex items-center justify-center px-6 py-3 transition-colors duration-500 ${variantClasses[variant]} ${className}`}
     >
       {children}
