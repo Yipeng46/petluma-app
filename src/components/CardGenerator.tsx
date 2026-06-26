@@ -131,6 +131,25 @@ export function CardGenerator() {
 
     trackClarityEvent(CLARITY_EVENTS.CREATE_IDENTITY_CLICKED);
 
+    let guardianId: string | null = null;
+
+    if (guardianEmail && isRecoverableOwnerEmail(guardianEmail)) {
+      try {
+        const response = await fetch("/api/guardian/ensure", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: guardianEmail }),
+        });
+
+        if (response.ok) {
+          const payload = (await response.json()) as { guardianId?: string };
+          guardianId = payload.guardianId ?? null;
+        }
+      } catch {
+        // Guardian linking is best-effort; registration continues unchanged.
+      }
+    }
+
     const { record, isDuplicate, message, cloudSynced, cloudSyncError } =
       await createRegistryRecordWithFallback({
       ownerEmail: guardianEmail,
@@ -148,6 +167,7 @@ export function CardGenerator() {
       isPublic: passportData.isPublic,
       guardianEmail: null,
       guardianName: null,
+      guardianId,
     });
 
     const card: StoredCompanionCard = isDuplicate

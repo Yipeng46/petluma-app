@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GuardianNavLinkClient } from "@/components/guardian/GuardianNavLinkClient";
 import { SiteHeaderMobileMenu } from "@/components/home/SiteHeaderMobileMenu";
 import { TrackedPassportLink } from "@/components/home/TrackedPassportLink";
 
@@ -42,6 +43,7 @@ export function SiteHeader() {
           </div>
 
           <div className="relative flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
+            <GuardianNavLinkClient />
             <TrackedPassportLink href="/passport" className="site-header__cta hidden md:inline-flex">
               Begin Registration
             </TrackedPassportLink>

@@ -1,0 +1,162 @@
+.guardian-auth-page {
+  padding: 2rem 1.5rem 5rem;
+}
+
+.guardian-auth-page__inner {
+  margin: 0 auto;
+  max-width: 28rem;
+}
+
+.guardian-auth-page__back {
+  font-size: 0.75rem;
+  color: #6b6358;
+  transition: color 0.3s ease;
+}
+
+.guardian-auth-page__back:hover {
+  color: #2e2820;
+}
+
+.guardian-auth-page__eyebrow {
+  margin-top: 2rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.guardian-auth-page__title {
+  margin-top: 0.75rem;
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: #2e2820;
+}
+
+.guardian-auth-page__lede {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #6b6358;
+}
+
+.guardian-auth-page__loading {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: #8a8278;
+}
+
+.guardian-auth {
+  margin-top: 2.5rem;
+  border: 1px solid rgba(46, 40, 32, 0.08);
+  background: rgba(255, 255, 255, 0.42);
+  padding: 1.75rem;
+}
+
+.guardian-auth__tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.guardian-auth__tab {
+  border: 1px solid rgba(46, 40, 32, 0.1);
+  background: transparent;
+  padding: 0.75rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b6358;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.guardian-auth__tab--active {
+  border-color: rgba(46, 40, 32, 0.22);
+  background: #2e2820;
+  color: #faf6f0;
+}
+
+.guardian-auth__form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.guardian-auth__field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.guardian-auth__label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.guardian-auth__input {
+  border: 1px solid rgba(46, 40, 32, 0.12);
+  background: rgba(250, 246, 240, 0.8);
+  padding: 0.85rem 1rem;
+  font-size: 0.9375rem;
+  color: #2e2820;
+}
+
+.guardian-auth__input:focus {
+  outline: none;
+  border-color: rgba(46, 40, 32, 0.28);
+}
+
+.guardian-auth__message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.guardian-auth__message--error {
+  color: #7a4a3a;
+}
+
+.guardian-auth__message--status {
+  color: #5c5348;
+}
+
+.guardian-auth__submit {
+  margin-top: 0.25rem;
+  border: 1px solid #2e2820;
+  background: #2e2820;
+  padding: 0.9rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #faf6f0;
+  transition: opacity 0.3s ease;
+}
+
+.guardian-auth__submit:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.guardian-auth__submit:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.guardian-auth__note {
+  margin: 1.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: #8a8278;
+}
+
+.guardian-auth__inline-link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: #2e2820;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}

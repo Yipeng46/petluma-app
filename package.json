@@ -12,6 +12,7 @@
     "verify:cloud-registry": "tsx scripts/verify-cloud-registry-schema.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.105.4",
     "next": "latest",
     "react": "latest",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GuardianNavLinkClient } from "@/components/guardian/GuardianNavLinkClient";
 
 export function SiteHeader() {
   return (
@@ -15,6 +16,7 @@ export function SiteHeader() {
       </Link>
 
       <nav className="flex items-center gap-3 sm:gap-4 md:gap-5">
+        <GuardianNavLinkClient linkClassName="font-[family-name:var(--font-body)] text-xs font-medium tracking-wide text-[#6E6A64] transition hover:text-[#081526]" />
         <Link
           href="/privacy"
           className="hidden font-[family-name:var(--font-body)] text-xs font-medium tracking-wide text-[#6E6A64] transition hover:text-[#081526] md:inline"

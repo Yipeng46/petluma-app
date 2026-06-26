@@ -73,6 +73,7 @@ export type CreateRegistryInput = {
   isPublic?: boolean;
   guardianEmail?: string | null;
   guardianName?: string | null;
+  guardianId?: string | null;
 };
 
 function toCompanionLookupInput(input: CreateRegistryInput): CompanionLookupInput {
@@ -309,6 +310,7 @@ export type CloudPassportRow = {
   is_public?: boolean | null;
   guardian_email?: string | null;
   guardian_name?: string | null;
+  guardian_id?: string | null;
 };
 
 function sanitizeCloudPhotoUrl(photoUrl?: string | null) {
@@ -338,6 +340,7 @@ export type CloudRegistryInsertPayload = {
   is_public: boolean;
   guardian_email?: string | null;
   guardian_name?: string | null;
+  guardian_id?: string | null;
   updated_at?: string;
 };
 
@@ -368,6 +371,7 @@ function toCloudRegistryPayload(
     guardian_email:
       displayOwnerEmail(input.ownerEmail) || input.guardianEmail?.trim() || null,
     guardian_name: input.guardianName?.trim() || null,
+    ...(input.guardianId ? { guardian_id: input.guardianId } : {}),
     ...(updatedAt ? { updated_at: updatedAt } : {}),
   };
 }

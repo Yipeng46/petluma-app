@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { GuardianNavLinkClient } from "@/components/guardian/GuardianNavLinkClient";
 import { TrackedPassportLink } from "@/components/home/TrackedPassportLink";
 
 const navLinks = [
@@ -66,6 +67,10 @@ export function SiteHeaderMobileMenu() {
               </li>
             ))}
             <li className="site-header__mobile-cta">
+              <GuardianNavLinkClient
+                className="site-header__link site-header__link--mobile mb-4 inline-block"
+                onNavigate={closeMenu}
+              />
               <TrackedPassportLink
                 href="/passport"
                 className="site-header__cta inline-flex w-full justify-center"
