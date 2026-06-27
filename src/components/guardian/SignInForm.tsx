@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createAuthBrowserClient } from "@/lib/supabase/auth-browser";
 import { isValidEmail } from "@/lib/pet-identity";
+import { buildGuardianEmailConfirmRedirectUrl } from "@/lib/site-url";
 
 type AuthMode = "sign-in" | "sign-up";
 
@@ -15,14 +16,23 @@ export function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const nextPath = searchParams.get("next") || "/my-kingdom";
+  const requestedMode = searchParams.get("mode");
 
-  const [mode, setMode] = useState<AuthMode>("sign-in");
+  const [mode, setMode] = useState<AuthMode>(
+    requestedMode === "sign-up" ? "sign-up" : "sign-in",
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (requestedMode === "sign-up") {
+      setMode("sign-up");
+    }
+  }, [requestedMode]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -76,12 +86,15 @@ export function SignInForm() {
       const { data, error } = await supabase.auth.signUp({
         email: trimmedEmail,
         password,
+        options: {
+          emailRedirectTo: buildGuardianEmailConfirmRedirectUrl(),
+        },
       });
 
       if (error) {
         if (/already registered|already exists/i.test(error.message)) {
           setErrorMessage(
-            "This Guardian email already exists. Sign in instead, or use password reset if you registered a companion first.",
+            "This Guardian email already exists. Sign in instead, or use password reset if needed.",
           );
         } else {
           setErrorMessage(error.message);
@@ -192,7 +205,7 @@ export function SignInForm() {
 
       {mode === "sign-in" ? (
         <p className="guardian-auth__note">
-          Registered a companion with your email? Switch to{" "}
+          New to the Kingdom? Switch to{" "}
           <button
             type="button"
             className="guardian-auth__inline-link"
@@ -204,11 +217,12 @@ export function SignInForm() {
           >
             Create Access
           </button>{" "}
-          to set your password, or use password reset if access already exists.
+          to register as a Guardian.
         </p>
       ) : (
         <p className="guardian-auth__note">
-          Future sign-in methods reserved for Magic Link, Google, and Apple.
+          After confirming your email, return here to sign in. Future sign-in methods reserved
+          for Magic Link, Google, and Apple.
         </p>
       )}
     </div>

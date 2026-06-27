@@ -160,15 +160,6 @@ export function PetCardForm({
           onChange={(value) => onFieldChange("favoriteThings", value)}
         />
 
-        <TextInput
-          label="Guardian Email (Optional)"
-          value={passportData.ownerEmail}
-          placeholder="you@example.com"
-          type="email"
-          hint="Used only to recover this companion archive in the future. It will never be displayed publicly."
-          onChange={(value) => onFieldChange("ownerEmail", value)}
-        />
-
         <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-[#E6DED2] bg-[#F8F3E8]/50 px-4 py-4 transition hover:border-[#C8A97E]/70">
           <input
             type="checkbox"

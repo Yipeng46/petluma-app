@@ -9,23 +9,33 @@ const FIXTURES_DIR = path.join(__dirname, "fixtures");
 const LANDSCAPE_PHOTO = path.join(FIXTURES_DIR, "landscape.jpg");
 const PORTRAIT_PHOTO = path.join(FIXTURES_DIR, "portrait.jpg");
 
+async function injectE2EGuardian(page: Page) {
+  await page.addInitScript(() => {
+    window.__PETLUMA_E2E_GUARDIAN__ = {
+      id: "00000000-0000-0000-0000-000000000001",
+      email: "qa@petluma.test",
+    };
+  });
+}
+
 async function uploadPhoto(page: Page, fixturePath: string) {
   await page.getByTestId("pet-photo-input").setInputFiles(fixturePath);
   await page.getByTestId("photo-crop-modal").waitFor({ state: "visible" });
 }
 
 async function fillMinimalPassportForm(page: Page) {
-  await page.getByLabel("Owner email").fill("qa@petluma.test");
   await page.getByLabel("Pet Name").fill("Luma");
   await page.getByLabel("Species").selectOption("Dog");
   await page.getByLabel("Breed").fill("Golden Retriever");
   await page.getByLabel("Gender").selectOption("Female");
   await page.locator('input[type="date"]').fill("2020-06-15");
   await page.getByLabel("Country").selectOption("AU");
+  await page.getByRole("checkbox").first().check();
 }
 
 test.describe("Pet photo crop", () => {
   test.beforeEach(async ({ page }) => {
+    await injectE2EGuardian(page);
     await page.goto("/create", { waitUntil: "networkidle" });
   });
 
@@ -80,7 +90,7 @@ test.describe("Pet photo crop", () => {
     await uploadPhoto(page, LANDSCAPE_PHOTO);
     await page.getByTestId("photo-crop-confirm").click();
     await fillMinimalPassportForm(page);
-    await page.getByRole("button", { name: /Register Companion/i }).click();
+    await page.getByRole("button", { name: /Issue Official Passport/i }).click();
     await page.waitForURL("**/result", { timeout: 20000 });
 
     const svg = page.locator(PASSPORT_SVG_SELECTOR);
@@ -112,7 +122,7 @@ test.describe("Pet photo crop", () => {
     await uploadPhoto(page, PORTRAIT_PHOTO);
     await page.getByTestId("photo-crop-confirm").click();
     await fillMinimalPassportForm(page);
-    await page.getByRole("button", { name: /Register Companion/i }).click();
+    await page.getByRole("button", { name: /Issue Official Passport/i }).click();
     await page.waitForURL("**/result", { timeout: 20000 });
     await page.locator(PASSPORT_SVG_SELECTOR).waitFor({ state: "visible" });
     await page.waitForTimeout(800);

@@ -1,4 +1,4 @@
-import { TrackedRegistryButton } from "./TrackedRegistryButton";
+import { HomepagePrimaryCta } from "./HomepagePrimaryCta";
 
 export function HeroSection() {
   return (
@@ -13,7 +13,7 @@ export function HeroSection() {
             <span className="block">remembered.</span>
           </h1>
           <div className="hero-section__cta">
-            <TrackedRegistryButton href="/passport">Register Companion</TrackedRegistryButton>
+            <HomepagePrimaryCta />
           </div>
         </div>
       </div>

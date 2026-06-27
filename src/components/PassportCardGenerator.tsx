@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 const CardGenerator = dynamic(
   () => import("@/components/CardGenerator").then((module) => module.CardGenerator),
@@ -15,5 +16,15 @@ const CardGenerator = dynamic(
 );
 
 export function PassportCardGenerator() {
-  return <CardGenerator />;
+  return (
+    <Suspense
+      fallback={
+        <div className="rounded-[24px] border border-[#E6DED2] bg-[#FFFDF8]/86 px-6 py-12 text-center text-sm text-[#6E6A64]">
+          Preparing Passport Office…
+        </div>
+      }
+    >
+      <CardGenerator />
+    </Suspense>
+  );
 }

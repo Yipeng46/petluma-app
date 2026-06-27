@@ -1,4 +1,3 @@
-import { randomBytes } from "node:crypto";
 import { resolvePublicListPhotoUrl } from "@/lib/companion-photo-url";
 import { normalizeEmail } from "@/lib/pet-identity";
 import { createSupabaseAdminClient } from "@/lib/supabase/auth-admin";
@@ -27,93 +26,6 @@ export type GuardianKingdomData = {
 
 function isDuplicateKeyError(message: string) {
   return /duplicate key|already registered|already exists/i.test(message);
-}
-
-async function resolveAuthUserIdByEmail(email: string) {
-  const admin = createSupabaseAdminClient();
-
-  if (!admin) {
-    return null;
-  }
-
-  const { data, error } = await admin.rpc("get_auth_user_id_by_email", {
-    p_email: email,
-  });
-
-  if (error) {
-    console.warn("[PetLuma] Auth user lookup failed:", error.message);
-    return null;
-  }
-
-  return typeof data === "string" ? data : null;
-}
-
-export async function ensureGuardianProfileForEmail(email: string) {
-  const normalizedEmail = normalizeEmail(email);
-  const admin = createSupabaseAdminClient();
-
-  if (!admin || !normalizedEmail) {
-    return null;
-  }
-
-  const { data: existingProfile, error: lookupError } = await admin
-    .from("guardian_profiles")
-    .select("id")
-    .eq("email", normalizedEmail)
-    .maybeSingle<{ id: string }>();
-
-  if (lookupError) {
-    throw new Error(lookupError.message);
-  }
-
-  if (existingProfile) {
-    return {
-      guardianId: existingProfile.id,
-      isNew: false,
-    };
-  }
-
-  let userId = await resolveAuthUserIdByEmail(normalizedEmail);
-
-  if (!userId) {
-    const { data: createdUser, error: createUserError } =
-      await admin.auth.admin.createUser({
-        email: normalizedEmail,
-        password: randomBytes(32).toString("base64url"),
-        email_confirm: true,
-        user_metadata: {
-          source: "companion_registration",
-        },
-      });
-
-    if (createUserError) {
-      if (isDuplicateKeyError(createUserError.message)) {
-        userId = await resolveAuthUserIdByEmail(normalizedEmail);
-      } else {
-        throw new Error(createUserError.message);
-      }
-    } else {
-      userId = createdUser.user.id;
-    }
-  }
-
-  if (!userId) {
-    throw new Error("Unable to resolve Guardian account.");
-  }
-
-  const { error: insertError } = await admin.from("guardian_profiles").insert({
-    id: userId,
-    email: normalizedEmail,
-  });
-
-  if (insertError && !isDuplicateKeyError(insertError.message)) {
-    throw new Error(insertError.message);
-  }
-
-  return {
-    guardianId: userId,
-    isNew: true,
-  };
 }
 
 export async function syncGuardianProfileForAuthenticatedUser(

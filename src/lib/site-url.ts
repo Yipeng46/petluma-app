@@ -30,3 +30,7 @@ export function buildRecoverUrl() {
 export function buildVerifyUrl(passportNo: string) {
   return buildSiteUrl(`/verify/${encodeURIComponent(passportNo)}`);
 }
+
+export function buildGuardianEmailConfirmRedirectUrl() {
+  return buildSiteUrl("/sign-in");
+}
