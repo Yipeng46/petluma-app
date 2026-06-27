@@ -16,7 +16,7 @@ const SIGNED_OUT_CTA: CtaState = {
 
 const SIGNED_IN_CTA: CtaState = {
   href: "/passport",
-  label: "Register a Companion",
+  label: "Register Your Companion",
 };
 
 export function HomepagePrimaryCta() {
