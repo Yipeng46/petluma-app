@@ -7,7 +7,7 @@ import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
 import { PETLUMA_PASSPORTS_TABLE, type CloudPassportRow } from "@/lib/registry";
 
 const communityPassportSelect =
-  "id, passport_no, companion_id, owner_email, pet_name, species, breed, gender, date_of_birth, place_of_origin, country_code, photo_url, story, special_memory, favorite_things, is_public, guardian_email, guardian_name, status, created_at, updated_at";
+  "id, passport_no, companion_id, owner_email, pet_name, species, breed, gender, date_of_birth, place_of_origin, country_code, photo_url, story, special_memory, favorite_things, is_public, guardian_email, guardian_name, guardian_id, status, created_at, updated_at";
 
 const recentlyRegisteredSelect =
   "passport_no, companion_id, pet_name, species, breed, country_code, place_of_origin, photo_url, is_public, status, created_at";
@@ -76,7 +76,7 @@ export async function fetchCommunityRegistryHallRecords(): Promise<RegistryHallR
       .from(PETLUMA_PASSPORTS_TABLE)
       .select(communityPassportSelect)
       .eq("status", "active")
-      .eq("is_public", true)
+      .or("is_public.eq.true,guardian_id.not.is.null")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -116,7 +116,7 @@ export async function fetchCompanionPhotoUrlByCompanionId(
       .select("photo_url")
       .eq("companion_id", normalized)
       .eq("status", "active")
-      .eq("is_public", true)
+      .or("is_public.eq.true,guardian_id.not.is.null")
       .maybeSingle<{ photo_url: string | null }>();
 
     if (error || !data?.photo_url) {
