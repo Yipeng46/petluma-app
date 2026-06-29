@@ -1,9 +1,11 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SignInForm } from "@/components/guardian/SignInForm";
 import { createSiteMetadata } from "@/lib/site-metadata";
+import { createAuthServerClient } from "@/lib/supabase/auth-server";
 import "@/styles/guardian-auth.css";
 
 export const metadata = createSiteMetadata({
@@ -12,7 +14,33 @@ export const metadata = createSiteMetadata({
   path: "/sign-in",
 });
 
-export default function SignInPage() {
+type SignInPageProps = {
+  searchParams: Promise<{ next?: string }>;
+};
+
+function resolveNextPath(next: string | undefined) {
+  if (next && next.startsWith("/") && !next.startsWith("//")) {
+    return next;
+  }
+
+  return "/my-kingdom";
+}
+
+export default async function SignInPage({ searchParams }: SignInPageProps) {
+  const params = await searchParams;
+  const nextPath = resolveNextPath(params.next);
+  const supabase = await createAuthServerClient();
+
+  if (supabase) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      redirect(nextPath);
+    }
+  }
+
   return (
     <div className="registry-home min-h-screen bg-kingdom-cream font-sans text-kingdom-ink antialiased">
       <SiteHeader />

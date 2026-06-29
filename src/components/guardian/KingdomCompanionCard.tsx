@@ -8,7 +8,6 @@ type KingdomCompanionCardProps = {
 
 export function KingdomCompanionCard({ companion }: KingdomCompanionCardProps) {
   const archiveHref = `/companion/${encodeURIComponent(companion.companionId)}`;
-  const passportHref = `/verify/${encodeURIComponent(companion.passportNo)}`;
 
   return (
     <article className="my-kingdom-card">
@@ -26,15 +25,25 @@ export function KingdomCompanionCard({ companion }: KingdomCompanionCardProps) {
         <p className="my-kingdom-card__id">{companion.companionId}</p>
         <h2 className="my-kingdom-card__name">{companion.petName}</h2>
 
+        <dl className="my-kingdom-card__meta">
+          <div className="my-kingdom-card__meta-row">
+            <dt className="my-kingdom-card__meta-label">Species</dt>
+            <dd className="my-kingdom-card__meta-value">{companion.species}</dd>
+          </div>
+          <div className="my-kingdom-card__meta-row">
+            <dt className="my-kingdom-card__meta-label">Breed</dt>
+            <dd className="my-kingdom-card__meta-value">{companion.breed}</dd>
+          </div>
+          <div className="my-kingdom-card__meta-row">
+            <dt className="my-kingdom-card__meta-label">Kingdom Since</dt>
+            <dd className="my-kingdom-card__meta-value">{companion.kingdomSince}</dd>
+          </div>
+        </dl>
+
         <div className="my-kingdom-card__actions">
           <Link href={archiveHref} className="my-kingdom-card__action">
             View Archive
           </Link>
-          {companion.passportNo ? (
-            <Link href={passportHref} className="my-kingdom-card__action my-kingdom-card__action--secondary">
-              View Passport
-            </Link>
-          ) : null}
         </div>
       </div>
     </article>

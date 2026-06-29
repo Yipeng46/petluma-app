@@ -36,6 +36,39 @@
   color: #6b6358;
 }
 
+.my-kingdom__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.my-kingdom__action-btn {
+  border: 1px solid rgba(46, 40, 32, 0.18);
+  padding: 0.75rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2e2820;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.my-kingdom__action-btn:hover {
+  border-color: rgba(46, 40, 32, 0.32);
+  background: rgba(250, 246, 240, 0.8);
+}
+
+.my-kingdom__action-btn--primary {
+  border-color: #2e2820;
+  background: #2e2820;
+  color: #faf6f0;
+}
+
+.my-kingdom__action-btn--primary:hover {
+  opacity: 0.88;
+  background: #2e2820;
+}
+
 .my-kingdom__grid {
   display: grid;
   gap: 2rem;
@@ -58,12 +91,38 @@
   padding: 4rem 0 2rem;
 }
 
-.my-kingdom__empty-text {
+.my-kingdom__empty-title {
   max-width: 28rem;
   font-family: var(--font-family-display);
-  font-size: 1.5rem;
-  line-height: 1.5;
+  font-size: 1.75rem;
+  line-height: 1.35;
+  color: #2e2820;
+}
+
+.my-kingdom__empty-text {
+  max-width: 28rem;
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
   color: #6b6358;
+}
+
+.my-kingdom__empty-cta {
+  display: inline-block;
+  margin-top: 1.75rem;
+  border: 1px solid #2e2820;
+  background: #2e2820;
+  padding: 0.85rem 1.15rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #faf6f0;
+  transition: opacity 0.3s ease;
+}
+
+.my-kingdom__empty-cta:hover {
+  opacity: 0.88;
 }
 
 .my-kingdom-card {
@@ -106,6 +165,32 @@
   color: #2e2820;
 }
 
+.my-kingdom-card__meta {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.my-kingdom-card__meta-row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.my-kingdom-card__meta-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.my-kingdom-card__meta-value {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #2e2820;
+}
+
 .my-kingdom-card__actions {
   display: flex;
   flex-wrap: wrap;
@@ -136,26 +221,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   margin-top: 4rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(46, 40, 32, 0.08);
-}
-
-.my-kingdom__register {
-  border: 1px solid #2e2820;
-  background: #2e2820;
-  padding: 0.85rem 1.15rem;
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #faf6f0;
-  transition: opacity 0.3s ease;
-}
-
-.my-kingdom__register:hover {
-  opacity: 0.88;
 }
 
 .my-kingdom__sign-out {
