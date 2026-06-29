@@ -49,10 +49,6 @@
   margin-top: var(--pl-space-desc-button);
 }
 
-.registry-home .hero-section__content {
-  text-align: center;
-}
-
 .registry-home .hero-section__cta-block {
   display: flex;
   flex-direction: column;
@@ -60,19 +56,11 @@
   gap: 1rem;
 }
 
-.registry-home .hero-section .hero-section__cta-block {
-  align-items: center;
-}
-
 .registry-home .hero-section__cta-note {
   max-width: 28rem;
   font-size: 0.9375rem;
   line-height: 1.7;
   color: #6f6256;
-}
-
-.registry-home .hero-section .hero-section__cta-note {
-  text-align: center;
 }
 
 .registry-home .registry-btn--primary {
