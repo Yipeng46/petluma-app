@@ -430,6 +430,14 @@
   padding-bottom: var(--pl-space-section);
 }
 
+.registry-home .home-section--cta .hero-section__cta-block {
+  align-items: center;
+}
+
+.registry-home .home-section--cta .hero-section__cta-note {
+  text-align: center;
+}
+
 .registry-home .home-section__title {
   font-family: var(--pl-font-heading);
   font-size: var(--pl-text-section);
