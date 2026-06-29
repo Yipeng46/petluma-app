@@ -23,14 +23,18 @@ export default async function MyKingdomPage() {
   }
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (!user) {
+  if (!session?.user) {
     redirect("/sign-in?next=/my-kingdom");
   }
 
-  const kingdom = await fetchGuardianKingdomData(user.id, user.email ?? "");
+  const kingdom = await fetchGuardianKingdomData(
+    session.user.id,
+    session.user.email ?? "",
+    supabase,
+  );
 
   return (
     <div className="registry-home min-h-screen bg-kingdom-cream font-sans text-kingdom-ink antialiased">

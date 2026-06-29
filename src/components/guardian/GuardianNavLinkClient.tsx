@@ -26,13 +26,6 @@ export function GuardianNavLinkClient({
       return;
     }
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        setHref("/my-kingdom");
-        setLabel("My Kingdom");
-      }
-    });
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -49,7 +42,7 @@ export function GuardianNavLinkClient({
   }, []);
 
   return (
-    <Link href={href} className={resolvedClassName} onClick={onNavigate}>
+    <Link href={href} prefetch className={resolvedClassName} onClick={onNavigate}>
       {label}
     </Link>
   );

@@ -34,6 +34,9 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 
+// Refreshes the auth session once per navigation. Route pages use getSession()
+// locally to avoid a second Auth API round trip after middleware runs.
+
 export const config = {
   matcher: ["/my-kingdom/:path*", "/sign-in"],
 };

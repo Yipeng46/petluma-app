@@ -33,10 +33,10 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
 
   if (supabase) {
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
+      data: { session },
+    } = await supabase.auth.getSession();
 
-    if (user) {
+    if (session?.user) {
       redirect(nextPath);
     }
   }

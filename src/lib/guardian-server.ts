@@ -27,11 +27,28 @@ export type GuardianKingdomData = {
   companions: KingdomCompanion[];
 };
 
+type AuthServerClient = NonNullable<Awaited<ReturnType<typeof createAuthServerClient>>>;
+
 type GuardianProfileRow = {
   id: string;
   email: string;
   display_name: string | null;
   created_at: string;
+};
+
+const KINGDOM_COMPANION_SELECT =
+  "companion_id, pet_name, passport_no, photo_url, species, breed, created_at, guardian_id, status";
+
+type KingdomCompanionRow = {
+  companion_id: string;
+  pet_name: string;
+  passport_no: string;
+  photo_url: string | null;
+  species: string | null;
+  breed: string | null;
+  created_at: string;
+  guardian_id: string | null;
+  status: string | null;
 };
 
 function isDuplicateKeyError(message: string) {
@@ -48,15 +65,6 @@ export function formatKingdomSince(isoDate: string) {
   return parsed.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
-function profileRowToGuardianProfile(row: GuardianProfileRow): GuardianProfile {
-  return {
-    id: row.id,
-    email: row.email,
-    displayName: row.display_name,
-    createdAt: row.created_at,
-  };
-}
-
 function buildFallbackProfile(userId: string, email: string): GuardianProfile {
   const normalizedEmail = normalizeEmail(email) || email;
 
@@ -66,6 +74,42 @@ function buildFallbackProfile(userId: string, email: string): GuardianProfile {
     displayName: null,
     createdAt: new Date().toISOString(),
   };
+}
+
+function mapCompanionRows(rows: KingdomCompanionRow[]): KingdomCompanion[] {
+  return rows.map((row) => {
+    const photo = resolvePublicListPhotoUrl(row.companion_id, row.photo_url);
+
+    return {
+      companionId: row.companion_id,
+      petName: row.pet_name,
+      passportNo: row.passport_no,
+      species: row.species?.trim() || "Companion",
+      breed: row.breed?.trim() || "—",
+      kingdomSince: formatKingdomSince(row.created_at),
+      photoUrl: photo.photoUrl,
+      hasPhoto: photo.hasPhoto,
+    };
+  });
+}
+
+async function fetchKingdomCompanions(
+  supabase: AuthServerClient,
+  userId: string,
+): Promise<KingdomCompanionRow[]> {
+  const { data, error } = await supabase
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .select(KINGDOM_COMPANION_SELECT)
+    .eq("guardian_id", userId)
+    .eq("status", "active")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.warn("[PetLuma] Kingdom companions fetch failed:", error.message);
+    return [];
+  }
+
+  return (data ?? []) as KingdomCompanionRow[];
 }
 
 export async function syncGuardianProfileForAuthenticatedUser(
@@ -115,38 +159,31 @@ export async function syncGuardianProfileForAuthenticatedUser(
   return insertedProfile;
 }
 
-async function resolveGuardianProfile(
+async function ensureGuardianProfileForLegacyClaim(
   userId: string,
   email: string,
-): Promise<GuardianProfile> {
-  const supabase = await createAuthServerClient();
+  supabase: AuthServerClient,
+) {
+  const { data: profileRow } = await supabase
+    .from("guardian_profiles")
+    .select("id")
+    .eq("id", userId)
+    .maybeSingle<{ id: string }>();
 
-  if (supabase) {
-    const { data: profileRow } = await supabase
-      .from("guardian_profiles")
-      .select("id, email, display_name, created_at")
-      .eq("id", userId)
-      .maybeSingle<GuardianProfileRow>();
-
-    if (profileRow) {
-      return profileRowToGuardianProfile(profileRow);
-    }
+  if (profileRow) {
+    return;
   }
 
-  if (email.trim()) {
-    try {
-      const syncedProfile = await syncGuardianProfileForAuthenticatedUser(userId, email);
-
-      if (syncedProfile) {
-        return profileRowToGuardianProfile(syncedProfile);
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Profile sync failed.";
-      console.warn("[PetLuma] Guardian profile sync failed:", message);
-    }
+  if (!email.trim()) {
+    return;
   }
 
-  return buildFallbackProfile(userId, email);
+  try {
+    await syncGuardianProfileForAuthenticatedUser(userId, email);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Profile sync failed.";
+    console.warn("[PetLuma] Guardian profile sync failed:", message);
+  }
 }
 
 type LegacyPassportRow = {
@@ -220,45 +257,20 @@ export async function linkLegacyCompanionsForGuardian(
 export async function fetchGuardianKingdomData(
   userId: string,
   email: string,
+  supabase: AuthServerClient,
 ): Promise<GuardianKingdomData> {
-  const profile = await resolveGuardianProfile(userId, email);
+  let companionRows = await fetchKingdomCompanions(supabase, userId);
 
-  await linkLegacyCompanionsForGuardian(userId, email);
-
-  const supabase = await createAuthServerClient();
-
-  if (!supabase) {
-    return { profile, companions: [] };
+  if (companionRows.length === 0) {
+    await ensureGuardianProfileForLegacyClaim(userId, email, supabase);
+    await linkLegacyCompanionsForGuardian(userId, email);
+    companionRows = await fetchKingdomCompanions(supabase, userId);
   }
 
-  const { data: companionRows, error: companionsError } = await supabase
-    .from(PETLUMA_PASSPORTS_TABLE)
-    .select("companion_id, pet_name, passport_no, photo_url, species, breed, created_at")
-    .eq("guardian_id", userId)
-    .eq("status", "active")
-    .order("created_at", { ascending: false });
-
-  if (companionsError) {
-    console.warn("[PetLuma] Kingdom companions fetch failed:", companionsError.message);
-    return { profile, companions: [] };
-  }
-
-  const companions: KingdomCompanion[] = (companionRows ?? []).map((row) => {
-    const photo = resolvePublicListPhotoUrl(row.companion_id, row.photo_url);
-
-    return {
-      companionId: row.companion_id,
-      petName: row.pet_name,
-      passportNo: row.passport_no,
-      species: row.species?.trim() || "Companion",
-      breed: row.breed?.trim() || "—",
-      kingdomSince: formatKingdomSince(row.created_at),
-      photoUrl: photo.photoUrl,
-      hasPhoto: photo.hasPhoto,
-    };
-  });
-
-  return { profile, companions };
+  return {
+    profile: buildFallbackProfile(userId, email),
+    companions: mapCompanionRows(companionRows),
+  };
 }
 
 export function formatGuardianDisplayName(profile: GuardianProfile) {
