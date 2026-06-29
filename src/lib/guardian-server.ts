@@ -149,11 +149,82 @@ async function resolveGuardianProfile(
   return buildFallbackProfile(userId, email);
 }
 
+type LegacyPassportRow = {
+  companion_id: string;
+  owner_email: string | null;
+  guardian_email: string | null;
+};
+
+function emailMatchesGuardian(
+  row: LegacyPassportRow,
+  normalizedEmail: string,
+) {
+  const ownerMatch = row.owner_email
+    ? normalizeEmail(row.owner_email) === normalizedEmail
+    : false;
+  const guardianMatch = row.guardian_email
+    ? normalizeEmail(row.guardian_email) === normalizedEmail
+    : false;
+
+  return ownerMatch || guardianMatch;
+}
+
+export async function linkLegacyCompanionsForGuardian(
+  userId: string,
+  email: string,
+): Promise<number> {
+  const normalizedEmail = normalizeEmail(email);
+  const admin = createSupabaseAdminClient();
+
+  if (!admin || !normalizedEmail) {
+    return 0;
+  }
+
+  const { data: candidateRows, error: fetchError } = await admin
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .select("companion_id, owner_email, guardian_email")
+    .is("guardian_id", null)
+    .eq("status", "active")
+    .or(
+      `owner_email.ilike.${normalizedEmail},guardian_email.ilike.${normalizedEmail}`,
+    );
+
+  if (fetchError) {
+    console.warn("[PetLuma] Legacy companion lookup failed:", fetchError.message);
+    return 0;
+  }
+
+  const companionIds = (candidateRows ?? [])
+    .filter((row) => emailMatchesGuardian(row, normalizedEmail))
+    .map((row) => row.companion_id);
+
+  if (companionIds.length === 0) {
+    return 0;
+  }
+
+  const { error: updateError } = await admin
+    .from(PETLUMA_PASSPORTS_TABLE)
+    .update({ guardian_id: userId })
+    .in("companion_id", companionIds)
+    .is("guardian_id", null)
+    .eq("status", "active");
+
+  if (updateError) {
+    console.warn("[PetLuma] Legacy companion claim failed:", updateError.message);
+    return 0;
+  }
+
+  return companionIds.length;
+}
+
 export async function fetchGuardianKingdomData(
   userId: string,
   email: string,
 ): Promise<GuardianKingdomData> {
   const profile = await resolveGuardianProfile(userId, email);
+
+  await linkLegacyCompanionsForGuardian(userId, email);
+
   const supabase = await createAuthServerClient();
 
   if (!supabase) {
