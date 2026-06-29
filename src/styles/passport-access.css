@@ -1,0 +1,77 @@
+.passport-access-page {
+  padding: 2rem 1.5rem 5rem;
+}
+
+.passport-access-page__inner {
+  margin: 0 auto;
+  max-width: 32rem;
+  padding-top: 3rem;
+}
+
+.passport-access-page__back {
+  font-size: 0.75rem;
+  color: #6b6358;
+  transition: color 0.3s ease;
+}
+
+.passport-access-page__back:hover {
+  color: #2e2820;
+}
+
+.passport-access-page__eyebrow {
+  margin-top: 2rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8278;
+}
+
+.passport-access-page__title {
+  margin-top: 0.75rem;
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: #2e2820;
+}
+
+.passport-access-page__lede {
+  margin-top: 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: #6b6358;
+}
+
+.passport-access-page__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.passport-access-page__action {
+  border: 1px solid rgba(46, 40, 32, 0.18);
+  padding: 0.85rem 1.15rem;
+  text-align: center;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2e2820;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.passport-access-page__action:hover {
+  border-color: rgba(46, 40, 32, 0.32);
+  background: rgba(250, 246, 240, 0.8);
+}
+
+.passport-access-page__action--primary {
+  border-color: #2e2820;
+  background: #2e2820;
+  color: #faf6f0;
+}
+
+.passport-access-page__action--primary:hover {
+  opacity: 0.88;
+  background: #2e2820;
+}

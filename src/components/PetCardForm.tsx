@@ -40,11 +40,11 @@ export function PetCardForm({
           Kingdom Registry
         </p>
         <h1 className="relative">
-          Register your companion within the Kingdom.
+          Create your companion.
         </h1>
         <p className="passport-form-lead relative max-w-xl text-[#6E6A64]">
-          Add a portrait and a few details. The Registry will prepare their official
-          companion identity record.
+          Add a portrait and a few details. When you issue the passport, the Registry
+          will prepare their official companion identity record.
         </p>
       </div>
 

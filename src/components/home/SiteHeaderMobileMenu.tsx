@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { GuardianNavLinkClient } from "@/components/guardian/GuardianNavLinkClient";
-import { TrackedPassportLink } from "@/components/home/TrackedPassportLink";
+import { GuardianMenuClient } from "@/components/guardian/GuardianMenuClient";
+import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Passport Office", href: "/passport" },
+  { label: "Passport Office", href: "/passport", passport: true },
   { label: "Registry Hall", href: "/hall" },
   { label: "Founding Chamber", href: "/founding" },
 ] as const;
@@ -47,14 +47,13 @@ export function SiteHeaderMobileMenu() {
           <ul className="site-header__wayfinding site-header__wayfinding--mobile">
             {navLinks.map((link) => (
               <li key={link.label}>
-                {link.href === "/passport" ? (
-                  <TrackedPassportLink
-                    href={link.href}
+                {"passport" in link && link.passport ? (
+                  <PassportOfficeLink
                     className="site-header__link site-header__link--mobile"
                     onNavigate={closeMenu}
                   >
                     {link.label}
-                  </TrackedPassportLink>
+                  </PassportOfficeLink>
                 ) : (
                   <Link
                     href={link.href}
@@ -67,17 +66,10 @@ export function SiteHeaderMobileMenu() {
               </li>
             ))}
             <li className="site-header__mobile-cta">
-              <GuardianNavLinkClient
-                className="site-header__link site-header__link--mobile mb-4 inline-block"
+              <GuardianMenuClient
+                className="site-header__link site-header__link--mobile inline-block"
                 onNavigate={closeMenu}
               />
-              <TrackedPassportLink
-                href="/passport"
-                className="site-header__cta inline-flex w-full justify-center"
-                onNavigate={closeMenu}
-              >
-                Begin Registration
-              </TrackedPassportLink>
             </li>
           </ul>
         </nav>

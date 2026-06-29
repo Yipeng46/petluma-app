@@ -6,7 +6,6 @@ import { PassportPreviewDisclaimer } from "@/components/PassportPreviewDisclaime
 import { PassportSVG } from "@/components/PassportSVG";
 import { useStoredCompanionCard } from "@/hooks/useStoredCompanionCard";
 import { exportPassportSvgToPng } from "@/lib/passport-svg-export";
-import { buildVerifyUrl } from "@/lib/site-url";
 
 export function ResultExperience() {
   const passportData = useStoredCompanionCard();
@@ -14,7 +13,6 @@ export function ResultExperience() {
   const [cloudSyncNotice, setCloudSyncNotice] = useState<string | null>(null);
   const [cloudSyncError, setCloudSyncError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
   const svgRef = useRef<SVGSVGElement>(null);
   const passportNo = passportData.passportNo.trim();
   const verifyHref = passportNo
@@ -43,22 +41,6 @@ export function ResultExperience() {
       sessionStorage.removeItem("petluma-cloud-sync-error");
     }
   }, []);
-
-  async function handleCopyVerifyLink() {
-    if (!passportNo || typeof window === "undefined") {
-      return;
-    }
-
-    const verifyUrl = buildVerifyUrl(passportNo);
-
-    try {
-      await navigator.clipboard.writeText(verifyUrl);
-      setCopyState("copied");
-      window.setTimeout(() => setCopyState("idle"), 2000);
-    } catch (error) {
-      console.error("Copy verify link failed:", error);
-    }
-  }
 
   async function handleDownloadPassport() {
     if (!svgRef.current || isDownloading) {
@@ -117,11 +99,17 @@ export function ResultExperience() {
         </div>
 
         <div className="flex w-full max-w-2xl flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+          <Link
+            href="/my-kingdom"
+            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-center text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f]"
+          >
+            Continue to My Kingdom
+          </Link>
           <button
             type="button"
             onClick={handleDownloadPassport}
             disabled={isDownloading}
-            className="rounded-full bg-[#2f2119] px-7 py-3.5 text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(47,33,25,0.18)] transition hover:-translate-y-0.5 hover:bg-[#3a291f] disabled:cursor-wait disabled:opacity-70"
+            className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1] disabled:cursor-wait disabled:opacity-70"
           >
             {isDownloading ? "Preparing..." : "Download Passport"}
           </button>
@@ -130,24 +118,9 @@ export function ResultExperience() {
               href={verifyHref}
               className="rounded-full border border-[#08182b]/15 bg-[#08182b] px-7 py-3.5 text-center text-sm font-semibold text-[#fff8eb] shadow-[0_18px_50px_rgba(8,24,43,0.16)] transition hover:-translate-y-0.5 hover:bg-[#0a2038]"
             >
-              Verify Passport
+              View Passport
             </Link>
           ) : null}
-          {passportNo ? (
-            <button
-              type="button"
-              onClick={handleCopyVerifyLink}
-              className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
-            >
-              {copyState === "copied" ? "Link Copied" : "Copy Verify Link"}
-            </button>
-          ) : null}
-          <Link
-            href="/create"
-            className="rounded-full border border-[#c7a15f]/45 bg-[#fffaf1]/70 px-7 py-3.5 text-center text-sm font-semibold text-[#2f2119] shadow-[0_14px_40px_rgba(47,33,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#fffaf1]"
-          >
-            Register Another Companion
-          </Link>
         </div>
       </section>
     </main>

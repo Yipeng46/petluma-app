@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/home/SiteHeader";
-import { TrackedRegistryButton } from "@/components/home/TrackedRegistryButton";
+import { PassportOfficeTrackedButton } from "@/components/home/PassportOfficeTrackedButton";
 import { SiteFooter } from "@/components/SiteFooter";
 import { createSiteMetadata } from "@/lib/site-metadata";
 import "@/styles/founding-chamber.css";
@@ -172,7 +172,7 @@ export default function FoundingChamberPage() {
               </p>
             </div>
             <div className="founding-chamber__cta">
-              <TrackedRegistryButton href="/passport">Register A Companion</TrackedRegistryButton>
+              <PassportOfficeTrackedButton>Create Companion</PassportOfficeTrackedButton>
             </div>
           </div>
         </section>

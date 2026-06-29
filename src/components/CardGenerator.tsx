@@ -23,11 +23,10 @@ import { getCountryByCode } from "@/lib/countries";
 import { getRecordCountryCode } from "@/lib/companion-lookup";
 import { getAuthenticatedGuardian } from "@/lib/guardian-session";
 import {
-  buildPassportResumeSignInUrl,
   clearPassportDraft,
   loadPassportDraft,
-  savePassportDraft,
 } from "@/lib/passport-draft";
+import { PASSPORT_ACCESS_PATH } from "@/lib/passport-routes";
 import { createRegistryRecordWithFallback } from "@/lib/registry";
 import { buildCompanionUrl } from "@/lib/site-url";
 import { CLARITY_EVENTS, trackClarityEvent } from "@/lib/clarity";
@@ -253,11 +252,7 @@ export function CardGenerator() {
       const guardian = await getAuthenticatedGuardian();
 
       if (!guardian) {
-        savePassportDraft({
-          passportData,
-          termsAccepted,
-        });
-        router.push(buildPassportResumeSignInUrl());
+        router.push(PASSPORT_ACCESS_PATH);
         return;
       }
 

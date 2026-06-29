@@ -7,16 +7,19 @@ import { TrackedRegistryButton } from "./TrackedRegistryButton";
 type CtaState = {
   href: string;
   label: string;
+  showSubtitle: boolean;
 };
 
 const SIGNED_OUT_CTA: CtaState = {
   href: "/sign-in?mode=sign-up",
-  label: "Create Guardian Account",
+  label: "Begin Your Kingdom",
+  showSubtitle: true,
 };
 
 const SIGNED_IN_CTA: CtaState = {
-  href: "/passport",
-  label: "Register Your Companion",
+  href: "/my-kingdom",
+  label: "Enter My Kingdom",
+  showSubtitle: false,
 };
 
 export function HomepagePrimaryCta() {
@@ -46,5 +49,14 @@ export function HomepagePrimaryCta() {
     return () => subscription.unsubscribe();
   }, []);
 
-  return <TrackedRegistryButton href={cta.href}>{cta.label}</TrackedRegistryButton>;
+  return (
+    <div className="hero-section__cta-block">
+      <TrackedRegistryButton href={cta.href}>{cta.label}</TrackedRegistryButton>
+      {cta.showSubtitle ? (
+        <p className="hero-section__cta-note">
+          Create your Guardian account and begin your companion&apos;s official journey.
+        </p>
+      ) : null}
+    </div>
+  );
 }

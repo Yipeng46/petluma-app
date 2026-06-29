@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { KingdomCompanionCard } from "@/components/guardian/KingdomCompanionCard";
-import { SignOutButton } from "@/components/guardian/SignOutButton";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { fetchGuardianKingdomData } from "@/lib/guardian-server";
@@ -51,7 +50,7 @@ export default async function MyKingdomPage() {
 
             <div className="my-kingdom__actions">
               <Link href="/passport" className="my-kingdom__action-btn my-kingdom__action-btn--primary">
-                Register Another Companion
+                Register another Companion
               </Link>
               <Link href="/hall" className="my-kingdom__action-btn">
                 View Registry Hall
@@ -63,10 +62,10 @@ export default async function MyKingdomPage() {
             <section className="my-kingdom__empty">
               <p className="my-kingdom__empty-title">Your Kingdom is waiting.</p>
               <p className="my-kingdom__empty-text">
-                Register your first companion to begin your archive.
+                Create your first companion to begin your archive.
               </p>
               <Link href="/passport" className="my-kingdom__empty-cta">
-                Register Your First Companion
+                Create Companion
               </Link>
             </section>
           ) : (
@@ -77,9 +76,6 @@ export default async function MyKingdomPage() {
             </section>
           )}
 
-          <footer className="my-kingdom__footer">
-            <SignOutButton />
-          </footer>
         </div>
       </main>
 

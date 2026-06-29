@@ -287,7 +287,7 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
               href="/passport"
               className="companion-archive__action companion-archive__action--secondary"
             >
-              Register Another Companion
+              Register another Companion
             </Link>
           </div>
         </div>

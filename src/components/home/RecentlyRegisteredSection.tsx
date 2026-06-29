@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { displayBreed, displaySpecies } from "@/lib/display-normalization";
 import type { RegistryHallRecord } from "@/lib/registry-hall-mock";
-import { TrackedRegistryButton } from "./TrackedRegistryButton";
+import { PassportOfficeTrackedButton } from "./PassportOfficeTrackedButton";
 
 type RecentlyRegisteredCardProps = {
   record: RegistryHallRecord;
@@ -65,7 +65,7 @@ export function RecentlyRegisteredSection({ records }: RecentlyRegisteredSection
               The Registry is waiting for its first public companions.
             </p>
             <div className="recently-section__empty-action">
-              <TrackedRegistryButton href="/passport">Register A Companion</TrackedRegistryButton>
+              <PassportOfficeTrackedButton>Create Companion</PassportOfficeTrackedButton>
             </div>
           </div>
         ) : (
