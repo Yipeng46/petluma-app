@@ -6,7 +6,7 @@ export function HeroSection() {
       <div className="hero-section__backdrop" aria-hidden="true" />
 
       <div className="hero-section__inner">
-        <div id="passport" className="hero-section__content text-left">
+        <div id="passport" className="hero-section__content">
           <h1 className="pl-hero-title">
             Every companion
             <span className="block">deserves to be</span>
