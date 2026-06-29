@@ -54,7 +54,7 @@ export function HomepagePrimaryCta() {
       <TrackedRegistryButton href={cta.href}>{cta.label}</TrackedRegistryButton>
       {cta.showSubtitle ? (
         <p className="hero-section__cta-note">
-          Create your Guardian account and begin your companion&apos;s official journey.
+          Enter as Guardian. The Kingdom Registry keeps the record.
         </p>
       ) : null}
     </div>
