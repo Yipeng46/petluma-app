@@ -1,6 +1,7 @@
 import { resolvePublicListPhotoUrl } from "@/lib/companion-photo-url";
 import { normalizeEmail } from "@/lib/pet-identity";
 import { createSupabaseAdminClient } from "@/lib/supabase/auth-admin";
+import { getSupabaseAuthUrl } from "@/lib/supabase/auth-env";
 import { createAuthServerClient } from "@/lib/supabase/auth-server";
 import { PETLUMA_PASSPORTS_TABLE } from "@/lib/registry";
 
@@ -210,10 +211,19 @@ export async function linkLegacyCompanionsForGuardian(
   userId: string,
   email: string,
 ): Promise<number> {
+  console.log("[PetLuma] legacy claim start");
+  console.log("[PetLuma] legacy claim user.id", userId);
+  console.log("[PetLuma] legacy claim user.email", email);
+
   const normalizedEmail = normalizeEmail(email);
   const admin = createSupabaseAdminClient();
 
   if (!admin || !normalizedEmail) {
+    console.log("[PetLuma] legacy claim update skipped", {
+      reason: !admin ? "admin client unavailable" : "normalized email empty",
+      hasServiceRoleKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
+      hasSupabaseAuthUrl: Boolean(getSupabaseAuthUrl()),
+    });
     return 0;
   }
 
@@ -227,7 +237,7 @@ export async function linkLegacyCompanionsForGuardian(
     );
 
   if (fetchError) {
-    console.warn("[PetLuma] Legacy companion lookup failed:", fetchError.message);
+    console.error("[PetLuma] legacy claim lookup error", fetchError);
     return 0;
   }
 
@@ -236,18 +246,33 @@ export async function linkLegacyCompanionsForGuardian(
     .map((row) => row.companion_id);
 
   if (companionIds.length === 0) {
+    console.log("[PetLuma] legacy claim update skipped", {
+      reason: "no matching legacy passports after email filter",
+      candidateCount: candidateRows?.length ?? 0,
+    });
     return 0;
   }
 
-  const { error: updateError } = await admin
+  for (const companionId of companionIds) {
+    console.log("[PetLuma] legacy claim passport.companion_id", companionId);
+  }
+
+  const { data: updateData, error: updateError, count: updateCount } = await admin
     .from(PETLUMA_PASSPORTS_TABLE)
     .update({ guardian_id: userId })
     .in("companion_id", companionIds)
     .is("guardian_id", null)
-    .eq("status", "active");
+    .eq("status", "active")
+    .select("companion_id, guardian_id");
+
+  console.log("[PetLuma] legacy claim update result", {
+    updateData,
+    updateCount,
+    companionIds,
+  });
 
   if (updateError) {
-    console.warn("[PetLuma] Legacy companion claim failed:", updateError.message);
+    console.error("[PetLuma] legacy claim update error", updateError);
     return 0;
   }
 
@@ -262,6 +287,10 @@ export async function fetchGuardianKingdomData(
   let companionRows = await fetchKingdomCompanions(supabase, userId);
 
   if (companionRows.length === 0) {
+    console.log("[PetLuma] legacy claim path triggered", {
+      userId,
+      email,
+    });
     await ensureGuardianProfileForLegacyClaim(userId, email, supabase);
     await linkLegacyCompanionsForGuardian(userId, email);
     companionRows = await fetchKingdomCompanions(supabase, userId);
