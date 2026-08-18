@@ -130,13 +130,13 @@ export function CompanionStoryPanel({
             <h2 id="companion-story-title" className="companion-archive__section-title">
               Their Story
             </h2>
-            {canEdit && !isEditing ? (
+            {canEdit && !isEditing && hasStory ? (
               <button
                 type="button"
                 onClick={handleStartEditing}
                 className="companion-archive__story-action"
               >
-                {hasStory ? "Edit story" : "Add their story"}
+                Edit story
               </button>
             ) : null}
           </div>
@@ -197,7 +197,7 @@ export function CompanionStoryPanel({
                 <StoryParagraphs text={story} />
               ) : (
                 <>
-                  <p className="companion-archive__story-status">Not added yet</p>
+                  <p className="companion-archive__story-status">No story added yet.</p>
                   <p className="companion-archive__narrative-placeholder">
                     Tell the story of how your lives came together, what makes them
                     special, or a memory you never want to forget.
