@@ -216,6 +216,12 @@
   cursor: pointer;
 }
 
+.site-header__create-identity {
+  padding-inline: 1rem;
+  padding-block: 0.55rem;
+  white-space: nowrap;
+}
+
 .nav-feedback {
   position: fixed;
   top: 0;

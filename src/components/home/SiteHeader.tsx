@@ -1,21 +1,16 @@
 import Link from "next/link";
 import { GuardianMenuClient } from "@/components/guardian/GuardianMenuClient";
+import { HeaderCreateIdentityLink } from "@/components/home/HeaderCreateIdentityLink";
 import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
 import { SiteHeaderMobileMenu } from "@/components/home/SiteHeaderMobileMenu";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Passport Office", href: "/passport", passport: true },
-  { label: "Registry Hall", href: "/hall" },
-  { label: "Founding Chamber", href: "/founding" },
-] as const;
+import { HOME_NAV_LINKS } from "@/lib/home-nav-links";
 
 export function SiteHeader() {
   return (
     <>
       <header className="site-header relative w-full border-b border-kingdom-ink/[0.06]">
         <nav
-          className="site-header__bar mx-auto grid h-[var(--site-header-height)] w-full max-w-[1400px] grid-cols-[1fr_auto] items-center px-6 md:grid-cols-[1fr_auto_1fr] md:px-10"
+          className="site-header__bar mx-auto grid h-[var(--site-header-height)] w-full max-w-[1400px] grid-cols-[1fr_auto] items-center gap-3 px-6 md:grid-cols-[1fr_auto_1fr] md:px-10"
           aria-label="Site"
         >
           <Link
@@ -29,7 +24,7 @@ export function SiteHeader() {
           </Link>
 
           <div className="site-header__wayfinding site-header__wayfinding--desktop hidden justify-self-center md:flex">
-            {navLinks.map((link) =>
+            {HOME_NAV_LINKS.map((link) =>
               "passport" in link && link.passport ? (
                 <PassportOfficeLink key={link.label} className="site-header__link">
                   {link.label}
@@ -43,6 +38,9 @@ export function SiteHeader() {
           </div>
 
           <div className="relative flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
+            <div className="hidden md:block">
+              <HeaderCreateIdentityLink />
+            </div>
             <div className="hidden md:block">
               <GuardianMenuClient />
             </div>

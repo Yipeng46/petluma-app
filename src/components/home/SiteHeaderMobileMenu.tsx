@@ -3,14 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { GuardianMenuClient } from "@/components/guardian/GuardianMenuClient";
+import { HeaderCreateIdentityLink } from "@/components/home/HeaderCreateIdentityLink";
 import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Passport Office", href: "/passport", passport: true },
-  { label: "Registry Hall", href: "/hall" },
-  { label: "Founding Chamber", href: "/founding" },
-] as const;
+import { HOME_NAV_LINKS } from "@/lib/home-nav-links";
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -45,7 +40,7 @@ export function SiteHeaderMobileMenu() {
           aria-label="Mobile"
         >
           <ul className="site-header__wayfinding site-header__wayfinding--mobile">
-            {navLinks.map((link) => (
+            {HOME_NAV_LINKS.map((link) => (
               <li key={link.label}>
                 {"passport" in link && link.passport ? (
                   <PassportOfficeLink
@@ -65,6 +60,9 @@ export function SiteHeaderMobileMenu() {
                 )}
               </li>
             ))}
+            <li className="site-header__mobile-cta">
+              <HeaderCreateIdentityLink className="w-full justify-center" />
+            </li>
             <li className="site-header__mobile-cta">
               <GuardianMenuClient
                 className="site-header__link site-header__link--mobile inline-block"
