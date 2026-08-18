@@ -15,12 +15,13 @@
 .registry-home .hero-section.hero-section--split {
   display: flex;
   align-items: center;
-  padding: 2rem 0 2.25rem;
+  padding: 1.75rem 0 2.25rem;
   min-height: 0;
 }
 
 .registry-home .hero-section.hero-section--split .hero-section__inner--split {
   flex: 1;
+  transform: translateY(-0.75rem);
 }
 
 .registry-home .hero-section__backdrop {
@@ -90,15 +91,41 @@
   gap: 0.75rem;
 }
 
+.registry-home .hero-section--split .hero-section__cta-row .registry-btn--primary {
+  width: 100%;
+}
+
 .registry-home .hero-section--split .registry-btn {
   min-height: 3rem;
-  padding: 0 1.35rem;
+  max-height: 3.25rem;
+  padding-inline: 1.75rem;
   font-size: 0.6875rem;
+  width: auto;
 }
 
 .registry-home .hero-section--split .registry-btn--primary {
+  min-width: 13.125rem;
+  max-width: 15rem;
   border-color: #243832;
   background: #243832;
+}
+
+.registry-home .hero-section--split .registry-btn--secondary {
+  min-width: auto;
+  max-width: none;
+  padding-inline: 0;
+  border: none;
+  background: transparent;
+  color: #243832;
+  box-shadow: none;
+}
+
+.registry-home .hero-section--split .registry-btn--secondary:hover {
+  border: none;
+  background: transparent;
+  color: #1a2a25;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .registry-home .hero-section--split .registry-btn--primary:hover {
@@ -106,11 +133,13 @@
   background: #1a2a25;
 }
 
-.registry-home .hero-section__visual {
+.registry-home .hero-section__visual,
+.registry-home .hero-product {
   width: 100%;
   min-width: 0;
   display: flex;
   justify-content: center;
+  background: transparent;
 }
 
 @media (min-width: 768px) {
@@ -119,17 +148,27 @@
   }
 
   .registry-home .hero-section.hero-section--split {
-    padding: 2.25rem 0 2.5rem;
+    padding: 2rem 0 2.5rem;
   }
 
   .registry-home .hero-section__inner {
     padding: 0 2.5rem;
   }
 
-  .registry-home .hero-section__cta-row {
+  .registry-home .hero-section--split .hero-section__cta-row {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    gap: 1.75rem;
+  }
+
+  .registry-home .hero-section--split .hero-section__cta-row .registry-btn--primary {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .registry-home .hero-section--split .hero-section__cta-row .registry-btn--secondary {
+    flex: 0 0 auto;
   }
 }
 
@@ -139,7 +178,11 @@
   }
 
   .registry-home .hero-section.hero-section--split {
-    padding: 3rem 0 2.75rem;
+    padding: 2.75rem 0 2.75rem;
+  }
+
+  .registry-home .hero-section.hero-section--split .hero-section__inner--split {
+    transform: translateY(-1.125rem);
   }
 
   .registry-home .hero-section__inner--split {
@@ -147,13 +190,9 @@
     gap: 2.75rem;
   }
 
-  .registry-home .hero-section__visual {
+  .registry-home .hero-section__visual,
+  .registry-home .hero-product {
     justify-content: flex-end;
-  }
-
-  .registry-home .home-product-image--hero {
-    width: min(72%, 460px);
-    margin-left: auto;
   }
 }
 
@@ -831,17 +870,37 @@
   margin: 0;
 }
 
-.registry-home .home-product-image--hero {
-  width: min(76vw, 460px);
+.registry-home .home-product-image--hero,
+.registry-home .hero-product .home-product-image--hero {
+  width: min(76vw, 420px);
   margin: 0;
-  filter: drop-shadow(0 24px 32px rgba(40, 32, 20, 0.14));
+  background: transparent;
 }
 
+.registry-home .hero-passport-image,
 .registry-home .home-product-image__asset--hero {
   display: block;
   width: 100%;
+  max-width: 420px;
   height: auto;
   object-fit: contain;
+  background: transparent;
+  filter: drop-shadow(0 24px 34px rgba(44, 35, 25, 0.14));
+}
+
+@media (max-width: 1023px) {
+  .registry-home .home-product-image--hero,
+  .registry-home .hero-product .home-product-image--hero {
+    width: min(76vw, 420px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .registry-home .home-product-image--hero,
+  .registry-home .hero-product .home-product-image--hero {
+    width: min(68%, 420px);
+    margin-left: auto;
+  }
 }
 
 .registry-home .home-product-image__frame {

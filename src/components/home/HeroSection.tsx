@@ -30,7 +30,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="hero-section__visual">
+        <div className="hero-section__visual hero-product">
           <HomeProductImage
             src={HOME_HERO_PASSPORT_IMAGE}
             alt="PetLuma Companion Passport"

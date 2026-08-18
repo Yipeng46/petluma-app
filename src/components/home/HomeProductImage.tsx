@@ -21,15 +21,16 @@ export function HomeProductImage({
 }: HomeProductImageProps) {
   if (variant === "hero") {
     return (
-      <figure className={variantClassName.hero}>
+      <figure className={`${variantClassName.hero} hero-product`}>
         <Image
           src={src}
           alt={alt}
-          width={920}
-          height={1150}
+          width={819}
+          height={1024}
           priority={priority}
-          sizes="(max-width: 1023px) 76vw, 460px"
-          className="home-product-image__asset home-product-image__asset--hero"
+          sizes="(max-width: 1023px) 76vw, 420px"
+          unoptimized
+          className="hero-passport-image home-product-image__asset home-product-image__asset--hero"
         />
       </figure>
     );
