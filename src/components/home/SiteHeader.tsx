@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GuardianMenuClient } from "@/components/guardian/GuardianMenuClient";
 import { HeaderCreateIdentityLink } from "@/components/home/HeaderCreateIdentityLink";
-import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
+import { PassportRegistrationNav } from "@/components/home/PassportRegistrationNav";
 import { SiteHeaderMobileMenu } from "@/components/home/SiteHeaderMobileMenu";
 import { HOME_NAV_LINKS } from "@/lib/home-nav-links";
 
@@ -24,17 +24,12 @@ export function SiteHeader() {
           </Link>
 
           <div className="site-header__wayfinding site-header__wayfinding--desktop hidden justify-self-center md:flex">
-            {HOME_NAV_LINKS.map((link) =>
-              "passport" in link && link.passport ? (
-                <PassportOfficeLink key={link.label} className="site-header__link">
-                  {link.label}
-                </PassportOfficeLink>
-              ) : (
-                <Link key={link.label} href={link.href} className="site-header__link">
-                  {link.label}
-                </Link>
-              ),
-            )}
+            <PassportRegistrationNav />
+            {HOME_NAV_LINKS.map((link) => (
+              <Link key={link.label} href={link.href} className="site-header__link">
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           <div className="relative flex shrink-0 items-center justify-self-end gap-3 md:gap-4">

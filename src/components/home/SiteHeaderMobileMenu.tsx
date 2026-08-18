@@ -5,7 +5,7 @@ import { useState } from "react";
 import { GuardianMenuClient } from "@/components/guardian/GuardianMenuClient";
 import { HeaderCreateIdentityLink } from "@/components/home/HeaderCreateIdentityLink";
 import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
-import { HOME_NAV_LINKS } from "@/lib/home-nav-links";
+import { HOME_NAV_LINKS, PASSPORT_REGISTRATION_NAV } from "@/lib/home-nav-links";
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -40,26 +40,46 @@ export function SiteHeaderMobileMenu() {
           aria-label="Mobile"
         >
           <ul className="site-header__wayfinding site-header__wayfinding--mobile">
+            <li className="site-header__nav-group">
+              <p className="site-header__nav-group-label">
+                {PASSPORT_REGISTRATION_NAV.label}
+              </p>
+              <ul className="site-header__nav-group-list">
+                {PASSPORT_REGISTRATION_NAV.items.map((item) => (
+                  <li key={item.label}>
+                    {item.passport ? (
+                      <PassportOfficeLink
+                        className="site-header__link site-header__link--mobile site-header__link--nested"
+                        onNavigate={closeMenu}
+                      >
+                        {item.label}
+                      </PassportOfficeLink>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="site-header__link site-header__link--mobile site-header__link--nested"
+                        onClick={closeMenu}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </li>
+
             {HOME_NAV_LINKS.map((link) => (
               <li key={link.label}>
-                {"passport" in link && link.passport ? (
-                  <PassportOfficeLink
-                    className="site-header__link site-header__link--mobile"
-                    onNavigate={closeMenu}
-                  >
-                    {link.label}
-                  </PassportOfficeLink>
-                ) : (
-                  <Link
-                    href={link.href}
-                    className="site-header__link site-header__link--mobile"
-                    onClick={closeMenu}
-                  >
-                    {link.label}
-                  </Link>
-                )}
+                <Link
+                  href={link.href}
+                  className="site-header__link site-header__link--mobile"
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
+
             <li className="site-header__mobile-cta">
               <HeaderCreateIdentityLink className="w-full justify-center" />
             </li>
