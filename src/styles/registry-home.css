@@ -11,6 +11,18 @@
   background-color: #f3f0ea;
 }
 
+/* Split hero: header spacer already offsets fixed nav — do not double-count header height */
+.registry-home .hero-section.hero-section--split {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0 3rem;
+  min-height: min(760px, calc(100svh - var(--site-header-height)));
+}
+
+.registry-home .hero-section.hero-section--split .hero-section__inner--split {
+  flex: 1;
+}
+
 .registry-home .hero-section__backdrop {
   position: absolute;
   inset: 0;
@@ -30,10 +42,27 @@
 }
 
 .registry-home .hero-section__inner--split {
-  max-width: 72rem;
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
   display: grid;
-  gap: 3rem;
+  gap: 2rem;
   align-items: center;
+}
+
+.registry-home .hero-section--split .pl-hero-title {
+  max-width: 12.5em;
+  font-size: clamp(2.5rem, 5vw, 5.75rem);
+  line-height: 1;
+}
+
+.registry-home .hero-section--split .hero-section__lead {
+  max-width: 34rem;
+  margin-top: 2rem;
+}
+
+.registry-home .hero-section--split .hero-section__cta {
+  margin-top: 1.875rem;
 }
 
 .registry-home .hero-section__lead {
@@ -58,6 +87,10 @@
     padding: calc(var(--site-header-height) + 6.5rem) 0 var(--pl-space-hero-bottom);
   }
 
+  .registry-home .hero-section.hero-section--split {
+    padding: 2.5rem 0 3.5rem;
+  }
+
   .registry-home .hero-section__inner {
     padding: 0 2.5rem;
   }
@@ -74,9 +107,14 @@
     padding: calc(var(--site-header-height) + 8rem) 0 var(--pl-space-hero-bottom);
   }
 
+  .registry-home .hero-section.hero-section--split {
+    padding: 4rem 0 4.5rem;
+    min-height: min(760px, calc(100svh - var(--site-header-height)));
+  }
+
   .registry-home .hero-section__inner--split {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 4.5rem;
+    grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+    gap: 3.5rem;
   }
 }
 
@@ -762,7 +800,14 @@
 }
 
 .registry-home .home-product-image--hero .home-product-image__frame {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 5 / 4;
+  max-height: min(calc(100svh - var(--site-header-height) - 7rem), 640px);
+  background: transparent;
+}
+
+.registry-home .home-product-image__asset--hero {
+  object-fit: contain;
+  object-position: center;
 }
 
 .registry-home .home-product-image--product .home-product-image__frame {

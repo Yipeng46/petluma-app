@@ -20,7 +20,7 @@ export function SiteHeader() {
             <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
               PetLuma
             </span>
-            <span className="pl-caption mt-1.5 text-[#6F6256]">Kingdom Registry</span>
+            <span className="pl-caption mt-1 text-[#6F6256]">Kingdom Registry</span>
           </Link>
 
           <div className="site-header__wayfinding site-header__wayfinding--desktop hidden justify-self-center md:flex">

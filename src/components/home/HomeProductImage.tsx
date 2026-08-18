@@ -32,7 +32,9 @@ export function HomeProductImage({
               ? "(max-width: 1023px) 92vw, 44vw"
               : "(max-width: 1023px) 92vw, 46vw"
           }
-          className="home-product-image__asset"
+          className={`home-product-image__asset${
+            variant === "hero" ? " home-product-image__asset--hero" : ""
+          }`}
         />
       </div>
     </figure>
