@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ClarityEventOnMount } from "@/components/ClarityEventOnMount";
+import { CompanionStoryPanel } from "@/components/companion/CompanionStoryPanel";
 import { ArchiveCard } from "@/components/registry-hall/ArchiveCard";
 import { fetchCommunityRegistryHallRecordByCompanionId } from "@/lib/community-registry-server";
 import {
@@ -23,6 +25,8 @@ import {
 } from "@/lib/registry-hall-mock";
 import { buildCompanionUrl } from "@/lib/site-url";
 import { CLARITY_EVENTS } from "@/lib/clarity";
+import { guardianOwnsCompanion } from "@/lib/companion-story-server";
+import { createAuthServerClient } from "@/lib/supabase/auth-server";
 import "@/styles/companion-archive.css";
 import "@/styles/registry-hall.css";
 
@@ -122,6 +126,18 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
   const favoriteThings = record.favoriteThings ?? [];
   const showPortrait = record.hasPhoto ?? Boolean(record.photoUrl);
   const dateRegistered = displayArchiveValue(record.kingdomSince);
+  const supabase = await createAuthServerClient();
+  let canEditStory = false;
+
+  if (supabase) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      canEditStory = await guardianOwnsCompanion(record.companionId, user.id);
+    }
+  }
 
   const archiveRecord: ArchiveRecordField[] = [
     { label: "Species", value: displayArchiveValue(displaySpecies(record.species)) },
@@ -205,24 +221,25 @@ export default async function CompanionArchivePage({ params }: CompanionArchiveP
           </div>
         </section>
 
-        <section className="companion-archive__narrative" aria-labelledby="archive-story-title">
-          <div className="companion-archive__container">
-            <div className="companion-archive__narrative-inner">
-              <h2 id="archive-story-title" className="companion-archive__section-title">
-                Archive Story
-              </h2>
-              <div className="companion-archive__narrative-body">
-                {storyText ? (
-                  <StoryParagraphs text={storyText} />
-                ) : (
-                  <p className="companion-archive__narrative-placeholder">
-                    No written narrative has been added to this archive.
-                  </p>
-                )}
+        <Suspense
+          fallback={
+            <section className="companion-archive__narrative">
+              <div className="companion-archive__container">
+                <div className="companion-archive__narrative-inner">
+                  <h2 className="companion-archive__section-title">Their Story</h2>
+                  <p className="companion-archive__narrative-placeholder">Loading story…</p>
+                </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          }
+        >
+          <CompanionStoryPanel
+            companionId={record.companionId}
+            companionName={record.name}
+            initialStory={storyText}
+            canEdit={canEditStory}
+          />
+        </Suspense>
 
         {specialMemoryText ? (
           <section className="companion-archive__narrative" aria-labelledby="special-memory-title">

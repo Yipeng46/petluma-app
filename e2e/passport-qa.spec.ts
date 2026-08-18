@@ -38,6 +38,8 @@ async function fillPassportForm(page: Page, payload: Record<string, unknown>) {
   await page.getByLabel("Pet Name").fill(read("name") || "Luma");
   await page.getByLabel("Species").selectOption(read("species") || "Dog");
   await page.getByLabel("Breed").fill(read("breed"));
+  await page.getByRole("button", { name: "Continue" }).click();
+
   await page.getByLabel("Gender").selectOption(read("gender") || "Female");
 
   const birthdate = read("birthdate");
@@ -46,6 +48,7 @@ async function fillPassportForm(page: Page, payload: Record<string, unknown>) {
   }
 
   await page.getByLabel("Country").selectOption(read("countryCode") || "AU");
+  await page.getByRole("button", { name: "Continue" }).click();
 }
 
 async function runCase(page: Page, testCase: QaTestCase) {

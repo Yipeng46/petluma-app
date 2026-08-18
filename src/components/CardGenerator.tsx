@@ -17,6 +17,8 @@ import { notifyWelcomeEmail } from "@/lib/welcome-email-client";
 import {
   isAllowedPassportPhotoType,
   PASSPORT_PHOTO_MAX_BYTES,
+  validatePassportStepOne,
+  validatePassportStepTwo,
   validatePassportUserInput,
 } from "@/lib/passport-form";
 import { getCountryByCode } from "@/lib/countries";
@@ -30,7 +32,7 @@ import { PASSPORT_ACCESS_PATH } from "@/lib/passport-routes";
 import { createRegistryRecordWithFallback } from "@/lib/registry";
 import { buildCompanionUrl } from "@/lib/site-url";
 import { CLARITY_EVENTS, trackClarityEvent } from "@/lib/clarity";
-import { PetCardForm } from "./PetCardForm";
+import { PetCardForm, type PassportFormStep } from "./PetCardForm";
 import { PetCardPreview } from "./PetCardPreview";
 import { TermsConfirmationField } from "./TermsConfirmationField";
 
@@ -50,6 +52,7 @@ export function CardGenerator() {
   const [photoInputKey, setPhotoInputKey] = useState(0);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [step, setStep] = useState<PassportFormStep>(1);
 
   function updateField<K extends keyof PassportData>(
     field: K,
@@ -146,10 +149,10 @@ export function CardGenerator() {
         countryCode: data.countryCode,
         placeOfOrigin: data.placeOfOrigin,
         photoUrl: data.photo,
-        story: data.story,
-        specialMemory: data.specialMemory,
-        favoriteThings: data.favoriteThings,
-        isPublic: data.isPublic,
+        story: "",
+        specialMemory: "",
+        favoriteThings: "",
+        isPublic: false,
         guardianEmail: null,
         guardianName: null,
         guardianId: guardian.id,
@@ -227,6 +230,42 @@ export function CardGenerator() {
     clearPassportDraft();
     localStorage.setItem(companionCardStorageKey, JSON.stringify(card));
     router.push("/result");
+  }
+
+  function handleContinueStep() {
+    if (step === 1) {
+      const validationError = validatePassportStepOne(passportData);
+
+      if (validationError) {
+        alert(validationError);
+        return;
+      }
+
+      setStep(2);
+      return;
+    }
+
+    if (step === 2) {
+      const validationError = validatePassportStepTwo(passportData);
+
+      if (validationError) {
+        alert(validationError);
+        return;
+      }
+
+      setStep(3);
+    }
+  }
+
+  function handleBackStep() {
+    if (step === 2) {
+      setStep(1);
+      return;
+    }
+
+    if (step === 3) {
+      setStep(2);
+    }
   }
 
   async function handleIssueOfficialPassport() {
@@ -314,6 +353,7 @@ export function CardGenerator() {
       <div className="grid max-w-full min-w-0 gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
         <div className="min-w-0 max-w-full">
           <PetCardForm
+            step={step}
             passportData={passportData}
             photoInputKey={photoInputKey}
             onFieldChange={updateField}
@@ -321,19 +361,44 @@ export function CardGenerator() {
             onCountryChange={handleCountryChange}
           />
 
-          <TermsConfirmationField
-            checked={termsAccepted}
-            onChange={setTermsAccepted}
-          />
+          {step === 3 ? (
+            <TermsConfirmationField
+              checked={termsAccepted}
+              onChange={setTermsAccepted}
+            />
+          ) : null}
 
-          <button
-            type="button"
-            onClick={handleIssueOfficialPassport}
-            disabled={isSubmitting}
-            className="passport-form-submit mt-5 w-full rounded-full border border-[#C8A97E]/35 bg-[#111827] px-7 py-4 text-[#FFFDF8] shadow-[0_16px_42px_rgba(17,24,39,0.18)] transition hover:-translate-y-0.5 hover:bg-[#1E293B] disabled:cursor-wait disabled:opacity-70"
-          >
-            {isSubmitting ? "Issuing…" : "Issue Official Passport"}
-          </button>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            {step > 1 ? (
+              <button
+                type="button"
+                onClick={handleBackStep}
+                disabled={isSubmitting}
+                className="passport-form-submit w-full rounded-full border border-[#C8A97E]/45 bg-[#FFFDF8] px-7 py-4 text-[#111827] transition hover:-translate-y-0.5 hover:bg-[#F8F3E8] disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+              >
+                Back
+              </button>
+            ) : null}
+
+            {step < 3 ? (
+              <button
+                type="button"
+                onClick={handleContinueStep}
+                className="passport-form-submit w-full rounded-full border border-[#C8A97E]/35 bg-[#111827] px-7 py-4 text-[#FFFDF8] shadow-[0_16px_42px_rgba(17,24,39,0.18)] transition hover:-translate-y-0.5 hover:bg-[#1E293B] sm:flex-1"
+              >
+                Continue
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleIssueOfficialPassport}
+                disabled={isSubmitting}
+                className="passport-form-submit w-full rounded-full border border-[#C8A97E]/35 bg-[#111827] px-7 py-4 text-[#FFFDF8] shadow-[0_16px_42px_rgba(17,24,39,0.18)] transition hover:-translate-y-0.5 hover:bg-[#1E293B] disabled:cursor-wait disabled:opacity-70 sm:flex-1"
+              >
+                {isSubmitting ? "Issuing…" : "Issue Official Passport"}
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="min-w-0 max-w-full overflow-x-hidden lg:sticky lg:top-8">

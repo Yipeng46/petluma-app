@@ -56,17 +56,13 @@ export function isValidPassportBirthdate(value: string) {
   );
 }
 
-export function validatePassportUserInput(input: {
+export function validatePassportStepOne(input: {
   name: string;
   species: string;
   breed: string;
-  gender: string;
-  birthdate: string;
-  countryCode: string;
 }) {
   const name = input.name.trim();
   const breed = input.breed.trim();
-  const birthdate = input.birthdate.trim();
 
   if (!name) {
     return "Pet name is required.";
@@ -89,7 +85,21 @@ export function validatePassportUserInput(input: {
     return `Breed must be ${PASSPORT_FIELD_LIMITS.breed} characters or fewer.`;
   }
 
-  if (!PASSPORT_GENDER_OPTIONS.includes(input.gender as (typeof PASSPORT_GENDER_OPTIONS)[number])) {
+  return null;
+}
+
+export function validatePassportStepTwo(input: {
+  gender: string;
+  birthdate: string;
+  countryCode: string;
+}) {
+  const birthdate = input.birthdate.trim();
+
+  if (
+    !PASSPORT_GENDER_OPTIONS.includes(
+      input.gender as (typeof PASSPORT_GENDER_OPTIONS)[number],
+    )
+  ) {
     return "Please choose a valid gender.";
   }
 
@@ -99,6 +109,34 @@ export function validatePassportUserInput(input: {
 
   if (!isValidCountryCode(input.countryCode)) {
     return "Please select a country.";
+  }
+
+  return null;
+}
+
+export function validatePassportUserInput(input: {
+  name: string;
+  species: string;
+  breed: string;
+  gender: string;
+  birthdate: string;
+  countryCode: string;
+  photo?: string | null;
+}) {
+  const stepOneError = validatePassportStepOne(input);
+
+  if (stepOneError) {
+    return stepOneError;
+  }
+
+  const stepTwoError = validatePassportStepTwo(input);
+
+  if (stepTwoError) {
+    return stepTwoError;
+  }
+
+  if (!input.photo?.trim()) {
+    return "Please upload a companion portrait.";
   }
 
   return null;
