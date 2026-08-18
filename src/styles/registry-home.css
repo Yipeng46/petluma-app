@@ -11,12 +11,26 @@
   background-color: #f3f0ea;
 }
 
-/* Split hero: header spacer already offsets fixed nav — do not double-count header height */
+/* Text-led hero: header spacer already offsets fixed nav */
+.registry-home .hero-section.hero-section--text {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 0 2rem;
+  min-height: 0;
+}
+
 .registry-home .hero-section.hero-section--split {
   display: flex;
   align-items: center;
   padding: 1.75rem 0 2.25rem;
   min-height: 0;
+}
+
+.registry-home .hero-section.hero-section--text .hero-section__inner--text {
+  width: 100%;
+  max-width: 52.5rem;
+  margin-inline: auto;
+  padding: 0 1.5rem;
 }
 
 .registry-home .hero-section.hero-section--split .hero-section__inner--split {
@@ -51,11 +65,12 @@
   align-items: center;
 }
 
-.registry-home .hero-section--split .hero-section__content {
+.registry-home .hero-section--text .hero-section__content {
   position: relative;
-  max-width: 38.75rem;
+  max-width: 100%;
 }
 
+.registry-home .hero-section--text .hero-section__content::before,
 .registry-home .hero-section--split .hero-section__content::before {
   content: "✦";
   display: block;
@@ -66,12 +81,14 @@
   color: rgba(138, 115, 73, 0.72);
 }
 
+.registry-home .hero-section--text .pl-hero-title,
 .registry-home .hero-section--split .pl-hero-title {
   max-width: 36.25rem;
   font-size: clamp(2.5rem, 4vw, 4rem);
   line-height: 1.05;
 }
 
+.registry-home .hero-section--text .hero-section__lead,
 .registry-home .hero-section--split .hero-section__lead {
   max-width: 32.5rem;
   margin-top: 1.75rem;
@@ -80,10 +97,12 @@
   color: #6f6256;
 }
 
+.registry-home .hero-section--text .hero-section__cta,
 .registry-home .hero-section--split .hero-section__cta {
   margin-top: 1.75rem;
 }
 
+.registry-home .hero-section--text .hero-section__cta-row,
 .registry-home .hero-section--split .hero-section__cta-row {
   display: flex;
   flex-direction: column;
@@ -91,10 +110,12 @@
   gap: 0.75rem;
 }
 
+.registry-home .hero-section--text .hero-section__cta-row .registry-btn--primary,
 .registry-home .hero-section--split .hero-section__cta-row .registry-btn--primary {
   width: 100%;
 }
 
+.registry-home .hero-section--text .registry-btn,
 .registry-home .hero-section--split .registry-btn {
   min-height: 3rem;
   max-height: 3.25rem;
@@ -103,6 +124,7 @@
   width: auto;
 }
 
+.registry-home .hero-section--text .registry-btn--primary,
 .registry-home .hero-section--split .registry-btn--primary {
   min-width: 13.125rem;
   max-width: 15rem;
@@ -110,6 +132,7 @@
   background: #243832;
 }
 
+.registry-home .hero-section--text .registry-btn--secondary,
 .registry-home .hero-section--split .registry-btn--secondary {
   min-width: auto;
   max-width: none;
@@ -120,6 +143,7 @@
   box-shadow: none;
 }
 
+.registry-home .hero-section--text .registry-btn--secondary:hover,
 .registry-home .hero-section--split .registry-btn--secondary:hover {
   border: none;
   background: transparent;
@@ -128,6 +152,7 @@
   text-underline-offset: 0.2em;
 }
 
+.registry-home .hero-section--text .registry-btn--primary:hover,
 .registry-home .hero-section--split .registry-btn--primary:hover {
   border-color: #1a2a25;
   background: #1a2a25;
@@ -147,6 +172,10 @@
     padding: calc(var(--site-header-height) + 6.5rem) 0 var(--pl-space-hero-bottom);
   }
 
+  .registry-home .hero-section.hero-section--text {
+    padding: 2rem 0 2.25rem;
+  }
+
   .registry-home .hero-section.hero-section--split {
     padding: 2rem 0 2.5rem;
   }
@@ -155,6 +184,11 @@
     padding: 0 2.5rem;
   }
 
+  .registry-home .hero-section.hero-section--text .hero-section__inner--text {
+    padding: 0 2.5rem;
+  }
+
+  .registry-home .hero-section--text .hero-section__cta-row,
   .registry-home .hero-section--split .hero-section__cta-row {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -162,11 +196,13 @@
     gap: 1.75rem;
   }
 
+  .registry-home .hero-section--text .hero-section__cta-row .registry-btn--primary,
   .registry-home .hero-section--split .hero-section__cta-row .registry-btn--primary {
     width: auto;
     flex: 0 0 auto;
   }
 
+  .registry-home .hero-section--text .hero-section__cta-row .registry-btn--secondary,
   .registry-home .hero-section--split .hero-section__cta-row .registry-btn--secondary {
     flex: 0 0 auto;
   }
@@ -175,6 +211,10 @@
 @media (min-width: 1024px) {
   .registry-home .hero-section {
     padding: calc(var(--site-header-height) + 8rem) 0 var(--pl-space-hero-bottom);
+  }
+
+  .registry-home .hero-section.hero-section--text {
+    padding: 2.25rem 0 2rem;
   }
 
   .registry-home .hero-section.hero-section--split {

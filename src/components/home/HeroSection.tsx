@@ -1,14 +1,12 @@
 import Link from "next/link";
-import { HOME_HERO_PASSPORT_IMAGE } from "@/lib/home-showcase-data";
-import { HomeProductImage } from "./HomeProductImage";
 import { PassportOfficeTrackedButton } from "./PassportOfficeTrackedButton";
 
 export function HeroSection() {
   return (
-    <section id="home" className="hero-section hero-section--split">
+    <section id="home" className="hero-section hero-section--text">
       <div className="hero-section__backdrop" aria-hidden="true" />
 
-      <div className="hero-section__inner hero-section__inner--split">
+      <div className="hero-section__inner hero-section__inner--text">
         <div className="hero-section__content">
           <h1 className="pl-hero-title">
             Every companion deserves an identity.
@@ -28,15 +26,6 @@ export function HeroSection() {
               </Link>
             </div>
           </div>
-        </div>
-
-        <div className="hero-section__visual hero-product">
-          <HomeProductImage
-            src={HOME_HERO_PASSPORT_IMAGE}
-            alt="PetLuma Companion Passport"
-            priority
-            variant="hero"
-          />
         </div>
       </div>
     </section>
