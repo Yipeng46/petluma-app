@@ -19,6 +19,22 @@ export function HomeProductImage({
   priority = false,
   variant = "product",
 }: HomeProductImageProps) {
+  if (variant === "hero") {
+    return (
+      <figure className={variantClassName.hero}>
+        <Image
+          src={src}
+          alt={alt}
+          width={920}
+          height={1150}
+          priority={priority}
+          sizes="(max-width: 1023px) 76vw, 460px"
+          className="home-product-image__asset home-product-image__asset--hero"
+        />
+      </figure>
+    );
+  }
+
   return (
     <figure className={variantClassName[variant]}>
       <div className="home-product-image__frame">
@@ -27,14 +43,8 @@ export function HomeProductImage({
           alt={alt}
           fill
           priority={priority}
-          sizes={
-            variant === "hero"
-              ? "(max-width: 1023px) 92vw, 44vw"
-              : "(max-width: 1023px) 92vw, 46vw"
-          }
-          className={`home-product-image__asset${
-            variant === "hero" ? " home-product-image__asset--hero" : ""
-          }`}
+          sizes="(max-width: 1023px) 92vw, 46vw"
+          className="home-product-image__asset"
         />
       </div>
     </figure>
