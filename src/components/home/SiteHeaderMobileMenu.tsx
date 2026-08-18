@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { GuardianMenuClient } from "@/components/guardian/GuardianMenuClient";
 import { HeaderCreateIdentityLink } from "@/components/home/HeaderCreateIdentityLink";
-import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
-import { HOME_NAV_LINKS, PASSPORT_REGISTRATION_NAV } from "@/lib/home-nav-links";
+import { HOME_NAV_LINKS, PASSPORT_OFFICE_NAV } from "@/lib/home-nav-links";
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -41,28 +40,17 @@ export function SiteHeaderMobileMenu() {
         >
           <ul className="site-header__wayfinding site-header__wayfinding--mobile">
             <li className="site-header__nav-group">
-              <p className="site-header__nav-group-label">
-                {PASSPORT_REGISTRATION_NAV.label}
-              </p>
+              <p className="site-header__nav-group-label">{PASSPORT_OFFICE_NAV.label}</p>
               <ul className="site-header__nav-group-list">
-                {PASSPORT_REGISTRATION_NAV.items.map((item) => (
+                {PASSPORT_OFFICE_NAV.items.map((item) => (
                   <li key={item.label}>
-                    {item.passport ? (
-                      <PassportOfficeLink
-                        className="site-header__link site-header__link--mobile site-header__link--nested"
-                        onNavigate={closeMenu}
-                      >
-                        {item.label}
-                      </PassportOfficeLink>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className="site-header__link site-header__link--mobile site-header__link--nested"
-                        onClick={closeMenu}
-                      >
-                        {item.label}
-                      </Link>
-                    )}
+                    <Link
+                      href={item.href}
+                      className="site-header__link site-header__link--mobile site-header__link--nested"
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

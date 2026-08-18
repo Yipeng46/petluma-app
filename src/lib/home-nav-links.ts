@@ -1,16 +1,14 @@
-export type PassportRegistrationNavItem = {
+export type PassportOfficeNavItem = {
   label: string;
   href: string;
-  passport?: true;
 };
 
-export const PASSPORT_REGISTRATION_NAV = {
-  label: "Passport Registration",
+export const PASSPORT_OFFICE_NAV = {
+  label: "Passport Office",
   items: [
     { label: "The Registry", href: "/hall" },
-    { label: "Companion Identity", href: "/passport", passport: true },
     { label: "Physical Passport", href: "/#passport-product" },
-  ] satisfies PassportRegistrationNavItem[],
+  ] satisfies PassportOfficeNavItem[],
 } as const;
 
 export const HOME_NAV_LINKS = [

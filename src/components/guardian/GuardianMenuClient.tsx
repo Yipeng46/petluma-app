@@ -101,7 +101,10 @@ export function GuardianMenuClient({
         aria-haspopup="menu"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        Guardian <span aria-hidden="true">▾</span>
+        Guardian{" "}
+        <span className="site-header__nav-caret" aria-hidden="true">
+          ▾
+        </span>
       </button>
 
       {menuOpen ? (

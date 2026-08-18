@@ -15,12 +15,14 @@ export function SiteHeader() {
         >
           <Link
             href="/"
-            className="site-header__brand group flex shrink-0 flex-col justify-center justify-self-start"
+            className="site-header__brand group flex shrink-0 flex-col items-start justify-center justify-self-start gap-1"
           >
-            <span className="font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
+            <span className="site-header__brand-title font-[family-name:var(--font-cormorant)] text-[22px] font-medium leading-none text-[#2B241D]">
               PetLuma
             </span>
-            <span className="pl-caption mt-1 text-[#6F6256]">Kingdom Registry</span>
+            <span className="site-header__brand-caption pl-caption text-[#6F6256]">
+              Kingdom Registry
+            </span>
           </Link>
 
           <div className="site-header__wayfinding site-header__wayfinding--desktop hidden justify-self-center md:flex">
@@ -32,7 +34,7 @@ export function SiteHeader() {
             ))}
           </div>
 
-          <div className="relative flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
+          <div className="site-header__actions relative flex shrink-0 items-center justify-self-end gap-3 md:gap-4">
             <div className="hidden md:block">
               <HeaderCreateIdentityLink />
             </div>

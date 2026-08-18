@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { PassportOfficeLink } from "@/components/home/PassportOfficeLink";
-import { PASSPORT_REGISTRATION_NAV } from "@/lib/home-nav-links";
+import { PASSPORT_OFFICE_NAV } from "@/lib/home-nav-links";
 
 type PassportRegistrationNavProps = {
   onNavigate?: () => void;
@@ -41,21 +40,15 @@ export function PassportRegistrationNav({ onNavigate }: PassportRegistrationNavP
         aria-haspopup="menu"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        {PASSPORT_REGISTRATION_NAV.label} <span aria-hidden="true">▾</span>
+        {PASSPORT_OFFICE_NAV.label}{" "}
+        <span className="site-header__nav-caret" aria-hidden="true">
+          ▾
+        </span>
       </button>
 
       {menuOpen ? (
         <div className="registry-nav-menu__panel" role="menu">
-          {PASSPORT_REGISTRATION_NAV.items.map((item) =>
-            item.passport ? (
-              <PassportOfficeLink
-                key={item.label}
-                className="registry-nav-menu__item"
-                onNavigate={closeMenu}
-              >
-                {item.label}
-              </PassportOfficeLink>
-            ) : (
+          {PASSPORT_OFFICE_NAV.items.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -65,8 +58,7 @@ export function PassportRegistrationNav({ onNavigate }: PassportRegistrationNavP
               >
                 {item.label}
               </Link>
-            ),
-          )}
+            ))}
         </div>
       ) : null}
     </div>
